@@ -28,8 +28,8 @@ module Workspace
     # end
     
     #added to shut console logs up
-    Rails.application.configure do
-    config.web_console.whiny_requests = false
-  end
+  #   Rails.application.configure do
+  #   config.web_console.whiny_requests = false
+  # end
   end
 end

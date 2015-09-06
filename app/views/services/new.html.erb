@@ -4,39 +4,43 @@
 <body>
   
 <%= render 'layouts/navbar' %>
+
 <% provide(:title, 'New Service') %>
 
-<%= render 'layouts/servicepanel' %>
-
-<h1>New Service</h1>
-
-
-
-
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@service) do |f| %>
-     
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control' %>
-
-      <%= f.label :ip %>
-      <%= f.text_field :ip, class: 'form-control' %>
-
-      <%= f.label :dns_name %>
-      <%= f.text_field :dns_name, class: 'form-control' %>
-
-      <%= f.label :port %>
-      <%= f.number_field :port, class: 'form-control' %>
-
-      <%= f.label :url %>
-      <%= f.text_field :url, class: 'form-control' %>
+<div class="container">
+  
+  <div class="row">
+    <div class="col-md-2">
+      <%= render 'layouts/servicepanel' %>
+    </div>
       
-      <%= f.submit "Create Service", class: "btn btn-primary" %>
-    <% end %>
+        <div class="col-md-6 col-md-offset-1">
+          <h1>New Service</h1>
+          <div class="well">
+            <%= form_for(@service) do |f| %>
+             
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control' %>
+        
+              <%= f.label :ip %>
+              <%= f.text_field :ip, class: 'form-control' %>
+        
+              <%= f.label :dns_name %>
+              <%= f.text_field :dns_name, class: 'form-control' %>
+        
+              <%= f.label :port %>
+              <%= f.number_field :port, class: 'form-control' %>
+        
+              <%= f.label :url %>
+              <%= f.text_field :url, class: 'form-control' %>
+              
+              <%= f.submit "Create Service", class: "btn btn-primary" %>
+            <% end %>
+            </div>
+
+        </div>
   </div>
 </div>
-
 
 <%= link_to 'Back', services_path, class: "btn" %>
 <%= render 'layouts/footer' %>

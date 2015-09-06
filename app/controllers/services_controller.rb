@@ -7,6 +7,9 @@ class ServicesController < ApplicationController
     @services = Service.all
   end
 
+  def servicepanel
+    @services = Service.all
+  end
   # GET /services/1
   # GET /services/1.json
   def show
@@ -14,6 +17,7 @@ class ServicesController < ApplicationController
 
   # GET /services/new
   def new
+     @services = Service.all
     @service = Service.new
   end
 
