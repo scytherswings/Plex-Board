@@ -22,5 +22,14 @@ module Workspace
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    #added to allow console from my thing
+    # Rails.application.configure do
+    #   config.web_console.whitelisted_ips = '0.0.0.0/0'
+    # end
+    
+    #added to shut console logs up
+    Rails.application.configure do
+    config.web_console.whiny_requests = false
+  end
   end
 end
