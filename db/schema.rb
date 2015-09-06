@@ -11,11 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150906004639) do
+ActiveRecord::Schema.define(version: 20150906033041) do
 
   create_table "services", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
+    t.string   "ip"
+    t.string   "dns_name"
+    t.integer  "port"
+    t.string   "url"
   end
 
 end
