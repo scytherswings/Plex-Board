@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <!-- Latest compiled and minified CSS -->
-
   <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -14,7 +8,18 @@
 </head>
 <body>
 <%= render 'layouts/header' %>
-<%= yield %>
+
+<div id="main-container" class="container-fluid">
+    <div class="row">
+      <div id="sidebar" class="col-xs-3">
+        <h3>Test</h3>
+      </div>
+      <div id="main-content" class="col-xs-9">
+        <%= yield %>
+      </div>
+    </div>
+</div>
+
 
 <%= render 'layouts/footer' %>
 
