@@ -23,7 +23,7 @@ class ServicesControllerTest < ActionController::TestCase
 
   test "should create service" do
     assert_difference('Service.count') do
-      post :create, service: {  }
+      post :create, @service
     end
 
     assert_redirected_to service_path(assigns(:service))

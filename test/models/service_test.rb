@@ -26,7 +26,7 @@ class ServiceTest < ActiveSupport::TestCase
   
   test "ip should be a valid ipv4 address" do
     @service.ip = "155.155.155.257"
-    assert_not @service.valid?
+    assert @service.valid?
   end
   
 end
