@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class ServicesControllerTest < ActionController::TestCase
+  def setup
+    @base_title = "Plex-Board"
+  end
+  
   setup do
     @service = services(:one)
   end
@@ -28,11 +32,13 @@ class ServicesControllerTest < ActionController::TestCase
   test "should show service" do
     get :show, id: @service
     assert_response :success
+    assert_select "title", "Show Service | #{@base_title}"
   end
 
   test "should get edit" do
     get :edit, id: @service
     assert_response :success
+     assert_select "title", "Edit Service | #{@base_title}"
   end
 
   test "should update service" do
