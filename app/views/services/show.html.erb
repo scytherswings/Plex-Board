@@ -1,10 +1,30 @@
 <% provide(:title, 'Show Service') %>
 <p id="notice"><%= notice %></p>
 
+<div align="center">
+    <table>
+        <tr>
+            <th>Service Name</th>
+            <th>IP Address</th>
+            <th>DNS Name</th>
+            <th>Port</th>
+            <th>URL</th>
+        </tr>
+        <tr>
+            <td><%= @service.name %> </td> 
+            <td><%= @service.ip %></td> 
+            <td><%= @service.dns_name %></td>
+            <td><%= @service.port %> <%= @service.url %> </td>
+            <td>
+                <%= link_to 'Edit', edit_service_path(@service) %> |
+                    <%= link_to 'Destroy', @service, method: :delete, data: { confirm: 'Are you sure?' } %> |
+                    <%= link_to 'Back', services_path %>
+            </td>
+        </tr>
+    </table>
 
-<%= @service.name %> <%= @service.ip %> <%= @service.dns_name %> <%= @service.port %> <%= @service.url %>
 
 
-<%= link_to 'Edit', edit_service_path(@service) %> |
-<%= link_to 'Destroy', @service, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', services_path %>
+
+
+</div>

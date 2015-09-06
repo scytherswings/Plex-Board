@@ -34,7 +34,7 @@ class ServicesControllerTest < ActionController::TestCase
     assert_response :success
     assert_select "title", "Show Service | #{@base_title}"
   end
-
+ 
   test "should get edit" do
     get :edit, id: @service
     assert_response :success
