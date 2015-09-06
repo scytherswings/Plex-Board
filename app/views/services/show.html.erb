@@ -1,30 +1,27 @@
 <% provide(:title, 'Show Service') %>
 <p id="notice"><%= notice %></p>
 
-<div align="center">
-    <table>
-        <tr>
-            <th>Service Name</th>
-            <th>IP Address</th>
-            <th>DNS Name</th>
-            <th>Port</th>
-            <th>URL</th>
-        </tr>
-        <tr>
-            <td><%= @service.name %> </td> 
-            <td><%= @service.ip %></td> 
-            <td><%= @service.dns_name %></td>
-            <td><%= @service.port %> <%= @service.url %> </td>
-            <td>
-                <%= link_to 'Edit', edit_service_path(@service) %> |
-                    <%= link_to 'Destroy', @service, method: :delete, data: { confirm: 'Are you sure?' } %> |
-                    <%= link_to 'Back', services_path %>
-            </td>
-        </tr>
-    </table>
-
-
-
-
-
+<div class"row">
+    <div data-toggle="table">
+        <table>
+            <thead>
+                <th>Service Name</th>
+                <th>IP Address</th>
+                <th>DNS Name</th>
+                <th>Port</th>
+                <th>URL</th>
+                <th colspan="6"></th>
+            </thead>
+        
+            <tr>
+                <td><%= @service.name %></td>
+                <td><%= @service.ip %> </td>
+                <td><%= @service.dns_name %></td>
+                <td><%= @service.port %> </td>
+                <td><%= @service.url %> </td>
+                <td><%= link_to 'Edit', edit_service_path(@service) %> | <%= link_to 'Destroy', @service, method: :delete, data: { confirm: 'Are you sure?' } %> <%= link_to 'Back', services_path %></td>
+                
+            </tr>
+        </table>
+    </div>
 </div>
