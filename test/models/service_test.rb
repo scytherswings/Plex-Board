@@ -10,12 +10,12 @@ class ServiceTest < ActiveSupport::TestCase
   end
   
   test "name should be present" do
-    @setvice.name = "     "
+    @service.name = "     "
     assert_not @service.valid?
   end
   
   test "ip should be present" do
-    @setvice.ip = "     "
+    @service.ip = "     "
     assert_not @service.valid?
   end
   

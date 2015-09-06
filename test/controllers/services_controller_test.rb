@@ -6,7 +6,7 @@ class ServicesControllerTest < ActionController::TestCase
   end
   
   setup do
-    @service = services(:one)
+    @service = Service.new(name: "Test Service", ip: "172.0.0.1", dns_name: "testservice", port: 8080, url: "http://testservice.example.com/index.html:8080")
   end
 
   test "should get index" do
