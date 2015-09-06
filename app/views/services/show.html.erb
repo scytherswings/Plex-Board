@@ -2,7 +2,9 @@
 <p id="notice"><%= notice %></p>
 
 
-<%= @service.name %>, <%= @service.url %>
+<%= @service.name %> <%= @service.ip %> <%= @service.dns_name %> <%= @service.port %> <%= @service.url %>
+
 
 <%= link_to 'Edit', edit_service_path(@service) %> |
+<%= link_to 'Destroy', @service, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', services_path %>

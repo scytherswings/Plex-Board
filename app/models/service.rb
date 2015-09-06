@@ -5,4 +5,9 @@ class Service < ActiveRecord::Base
     validates :dns_name, presence: true, uniqueness: true
     validates :url, presence: true, uniqueness: true
     
+    after_initialize :init
+    
+    def init
+        self.port ||=80
+    end
 end
