@@ -24,11 +24,15 @@ guard :minitest, spring: true, all_on_start: false do
   end
   watch('app/controllers/sessions_controller.rb') do
     ['test/controllers/sessions_controller_test.rb',
-     'test/integration/users_login_test.rb']
+    'test/integration/users_login_test.rb']
   end
   watch('app/controllers/account_activations_controller.rb') do
     'test/integration/users_signup_test.rb'
   end
+  watch('app/controllers/services_controller.rb') do
+   'test/integration/services_controller.rb'
+  end
+  
   watch(%r{app/views/users/*}) do
     resource_tests('users') +
     ['test/integration/microposts_interface_test.rb']
