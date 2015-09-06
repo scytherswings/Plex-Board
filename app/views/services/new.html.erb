@@ -1,4 +1,13 @@
+
+<%= render 'layouts/header' %>
+
+<body>
+  
+<%= render 'layouts/navbar' %>
 <% provide(:title, 'New Service') %>
+
+<%= render 'layouts/servicepanel' %>
+
 <h1>New Service</h1>
 
 
@@ -30,3 +39,4 @@
 
 
 <%= link_to 'Back', services_path, class: "btn" %>
+<%= render 'layouts/footer' %>
