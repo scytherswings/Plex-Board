@@ -1,16 +1,10 @@
+<p class="lead">Services</p>
+<div class="list-group">
+    <% @services.each do |service| %>
+       <li class="list-group-item"><%= service.name %></li>
+    <% end %>
+    <!--<a href="#" class="list-group-item active">Category 1</a>-->
+    <!--<a href="#" class="list-group-item">Category 2</a>-->
+    <!--<a href="#" class="list-group-item">Category 3</a>-->
+</div>  
 
-<div class="span2">
-  <p class="lead">Services</p>
-    <div class="list-group">
-        <% @services.each do |service| %>
-            <div class="row">
-                <div class="well">
-                    <p><%= service.name %></p>
-                </div>
-            </div>
-        <% end %>
-        <!--<a href="#" class="list-group-item active">Category 1</a>-->
-        <!--<a href="#" class="list-group-item">Category 2</a>-->
-        <!--<a href="#" class="list-group-item">Category 3</a>-->
-    </div>  
-</div>
