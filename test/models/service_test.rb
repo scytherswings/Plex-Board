@@ -23,4 +23,10 @@ class ServiceTest < ActiveSupport::TestCase
     @service.ip = "155.155.155.256"
     assert_not @service.valid?
   end
+  
+  test "name should be unique" do
+    duplicate_service = @service.dup
+      assert @service.save, "Saving service to test duplicate failed"
+    assert_not duplicate_service.valid?, "Duplicate service should not be valid"
+  end
 end
