@@ -10,6 +10,5 @@ class Service < ActiveRecord::Base
     
     def init
         self.port ||=80
-        self.status ||=false
     end
 end

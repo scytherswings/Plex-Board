@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20150907162028) do
     t.string   "dns_name"
     t.integer  "port"
     t.string   "url"
-    t.boolean  "status"
   end
 
 end
