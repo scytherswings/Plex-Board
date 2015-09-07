@@ -2,31 +2,31 @@
 <%= render 'layouts/navbar' %>
 <% provide(:title, 'New Service') %>
 
-<div class="col-md-2">
-  <%= render 'layouts/servicepanel' %>
-</div>
-<div class="col-md-10">
+
+<%= render 'layouts/servicepanel' %>
+
+<div class="col-md-8">
   <h2>New Service</h2>
   <div class="well">
   	<%= form_for(@service) do |f| %>
-  	  <div class="form-group">
+  	<div class="row">
+  	  <div class="col-lg-3 form-group">
     	  <%= f.label :name %>
-    	  <%= f.text_field :name, :placeholder => "Your new serivce name", class: 'form-control'  %>
+    	  <%= f.text_field :name, :placeholder => "New serivce name", class: 'form-control'  %>
     	</div>
-  	  <div class="row">
-    	  <div class="col-lg-4 form-group">
-    	  <%= f.label :ip %>
-    	  <%= f.text_field :ip, :placeholder => "127.0.0.1", class: 'form-control' %>
-    	  </div>
-    	  <div class="col-lg-4 form-group">
-    	  <%= f.label :dns_name %>
-    	  <%= f.text_field :dns_name, :placeholder => "plex", class: 'form-control'  %>
-    	  </div>
-    	  <div class="col-lg-4 form-group">
-    	  <%= f.label :port %>
-    	  <%= f.number_field :port, :placeholder => "80", class: 'form-control'  %>
-    	  </div>
+  	  <div class="col-lg-3 form-group">
+  	  <%= f.label :ip %>
+  	  <%= f.text_field :ip, :placeholder => "127.0.0.1", class: 'form-control' %>
   	  </div>
+  	  <div class="col-lg-3 form-group">
+  	  <%= f.label :dns_name %>
+  	  <%= f.text_field :dns_name, :placeholder => "plex", class: 'form-control'  %>
+  	  </div>
+  	  <div class="col-lg-3 form-group">
+  	  <%= f.label :port %>
+  	  <%= f.number_field :port, :placeholder => "80", class: 'form-control'  %>
+  	  </div>
+  	 </div>
   	  <div class="form-group">
     	  <%= f.label :url %>
     	  <%= f.text_field :url, :placeholder => "http://plex.example.com:32400/web", class: 'form-control' %>
@@ -43,6 +43,8 @@
       </div>
   	</div>
 </div>
+
+<%= render 'layouts/rightbar' %>
  
 
 

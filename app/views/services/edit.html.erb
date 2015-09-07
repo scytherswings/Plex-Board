@@ -1,10 +1,44 @@
 <%= render 'layouts/header' %>
-
+<%= render 'layouts/navbar' %>
 <% provide(:title, "Edit #{@service.name}") %>
-<h1>Editing Service</h1>
-<%= link_to "Add Service!", new_service_path, class: "btn btn-lg btn-success" %>
-         
-<%= render 'form' %>
 
-<%= link_to 'Show', @service %> |
-<%= link_to 'Back', services_path %>
+
+<%= render 'layouts/servicepanel' %>
+
+
+<div class="col-md-8">
+  <h2>Editing Service: <%= @service.name %></h2>
+  <div class="well">
+    <%= form_for(@service, :url => {:action => 'update', :id => @service.id}) do |f| %>
+    <div class="form-group">
+    	  <%= f.label :name %>
+    	  <%= f.text_field :name, :placeholder => @service.name, class: 'form-control'  %>
+    	</div>
+  	  <div class="row">
+    	  <div class="col-lg-4 form-group">
+    	  <%= f.label :ip %>
+    	  <%= f.text_field :ip, :placeholder => @service.ip, class: 'form-control' %>
+    	  </div>
+    	  <div class="col-lg-4 form-group">
+    	  <%= f.label :dns_name %>
+    	  <%= f.text_field :dns_name, :placeholder => @service.dns_name, class: 'form-control'  %>
+    	  </div>
+    	  <div class="col-lg-4 form-group">
+    	  <%= f.label :port %>
+    	  <%= f.number_field :port, :placeholder => @service.port, class: 'form-control'  %>
+    	  </div>
+  	  </div>
+  	  <div class="form-group">
+    	  <%= f.label :url %>
+    	  <%= f.text_field :url, :placeholder =>  @service.url, class: 'form-control' %>
+  	  </div>
+  	  <%= f.submit "Update Service",  class: "btn btn-primary"  %>
+    <% end %>
+      
+  </div>
+</div>
+
+<%= render 'layouts/rightbar' %>
+
+
+<%= render 'layouts/footer' %>
