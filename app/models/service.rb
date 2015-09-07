@@ -5,7 +5,7 @@ class Service < ActiveRecord::Base
     validates :url, uniqueness: true, presence: true
     validates_uniqueness_of :ip, scope: :port, if: "dns_name.nil?"
     validates_uniqueness_of :dns_name, scope: :port, if: "ip.nil?"
-    
+    validates_numericality_of :port
     after_initialize :init
     
     

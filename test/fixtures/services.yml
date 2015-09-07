@@ -5,15 +5,27 @@
 # below each fixture, per the syntax in the comments below
 #
 one: { name: "Test Service One", ip: "127.0.0.1", dns_name: "localhost", url: "http://localhost"}
-# column: value
-#
-two: { name: "Test Service Two", ip: "127.0.1.1", dns_name: "ubuntu", url: "http://127.0.0.1"}
-#  column: value
 
-dns_name_and_port_dup_1: { name: "Test Service dns_dup1", ip: "127.0.2.1", dns_name: "ubuntu", port: 8080, url: "http://127.0.2.1"}
+two: { name: "Test Service Two", ip: "127.0.0.2", dns_name: "ubuntu", url: "http://127.0.0.1"}
 
-dns_name_and_port_dup_2: { name: "Test Service dns_dup2", ip: "127.0.3.1", dns_name: "ubuntu", port: 8080, url: "http://127.0.3.1"}
 
-ip_and_port_dup_1: { name: "Test Service ip_dup1", ip: "127.0.4.1", dns_name: "ubuntu_one", port: 8081, url: "http://127.0.4.1"}
+# Everything is unique except the dns_name and port pairing, dns_name_and_port_dup_2 should be invalid
+dns_name_and_port_dup_1: { name: "Test Service dns_dup_1", ip: "127.0.2.1", dns_name: "ubuntu", port: 8080, url: "http://127.0.2.1:8080"}
 
-ip_and_port_dup_2: { name: "Test Service ip_dup2", ip: "127.0.4.1", dns_name: "ubuntu_two", port: 8081, url: "http://127.0.4.11"}
+dns_name_and_port_dup_2: { name: "Test Service dns_dup_2", ip: "127.0.2.2", dns_name: "ubuntu", port: 8080, url: "http://127.0.2.2:8080"}
+
+# This would be a server at the same address and dns name, but with a different port, should be valid
+dns_name_and_port_diff_1: { name: "Test Service dns_diff_1", ip: "127.0.2.1", dns_name: "ubuntu", port: 80, url: "http://127.0.2.1"}
+# Everything is unique except the IP and Port pairing, ip_and_port_dup_2 should be invalid
+ip_and_port_dup_1: { name: "Test Service ip_dup_1", ip: "127.0.3.1", dns_name: "ubuntu_one", port: 8081, url: "http://127.0.3.1:8081"}
+
+ip_and_port_dup_2: { name: "Test Service ip_dup_2", ip: "127.0.3.1", dns_name: "ubuntu_two", port: 8081, url: "http://127.0.3.2:8081"}
+
+# Same as ip_and_port_dup_2 but the port and URL are different, should be valid
+ip_and_port_diff_1: { name: "Test Service ip_diff_1", ip: "127.0.3.1", dns_name: "ubuntu_two", port: 80, url: "http://127.0.3.1:80"}
+
+
+# Everything is unique except the URL
+url_dup_1: { name: "Test Service url_dup_1", ip: "127.0.4.1", dns_name: "centos_one", port: 8081, url: "http://127.0.4.1:8081"}
+
+url_dup_2: { name: "Test Service url_dup_2", ip: "127.0.4.2", dns_name: "centos_two", port: 8081, url: "http://127.0.4.1:8081"}
