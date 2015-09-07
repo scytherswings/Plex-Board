@@ -1,27 +1,47 @@
-<% provide(:title, 'Show Service') %>
-<p id="notice"><%= notice %></p>
 
-<div class"row">
-    <div data-toggle="table">
-        <table>
-            <thead>
-                <th>Service Name</th>
-                <th>IP Address</th>
-                <th>DNS Name</th>
-                <th>Port</th>
-                <th>URL</th>
-                <th colspan="6"></th>
-            </thead>
-        
-            <tr>
-                <td><%= @service.name %></td>
-                <td><%= @service.ip %> </td>
-                <td><%= @service.dns_name %></td>
-                <td><%= @service.port %> </td>
-                <td><%= @service.url %> </td>
-                <td><%= link_to 'Edit', edit_service_path(@service) %> | <%= link_to 'Destroy', @service, method: :delete, data: { confirm: 'Are you sure?' } %> <%= link_to 'Back', services_path %></td>
-                
-            </tr>
-        </table>
+<%= render 'layouts/header' %>
+<% provide(:title, @service.name) %>
+<body>
+
+<%= render 'layouts/navbar' %>
+
+    <!-- Page Content -->
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-sm-2">
+      <%= render 'layouts/servicepanel' %>
     </div>
+    <div class="col-md-10">    
+        <p id="notice"><%= notice %></p>
+        
+        <div class"row">
+            <div data-toggle="table">
+                <table class="table">
+                    <thead>
+                        <th>Service Name</th>
+                        <th>IP Address</th>
+                        <th>DNS Name</th>
+                        <th>Port</th>
+                        <th>URL</th>
+                        <th colspan="6"></th>
+                    </thead>
+                    <tr>
+                        <td><%= @service.name %></td>
+                        <td><%= @service.ip %> </td>
+                        <td><%= @service.dns_name %></td>
+                        <td><%= @service.port %> </td>
+                        <td><%= @service.url %> </td>
+                        <td><%= link_to 'Edit', edit_service_path(@service) %> | <%= link_to 'Destroy', @service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        
+                    </tr>
+                </table>
+                <button class="btn btn-primary-inverse"><%= link_to 'Back', services_path %></button>
+            </div>
+        </div>
+    </div>
+  </div>
 </div>
+
+<%= render 'layouts/footer' %>

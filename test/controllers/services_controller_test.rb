@@ -2,23 +2,25 @@ require 'test_helper'
 
 class ServicesControllerTest < ActionController::TestCase
   def setup
-    @base_title = "Plex-Board"
+    
   end
   
   setup do
-    @service = Service.new(name: "Test Service", ip: "172.0.0.1", dns_name: "testservice", port: 8080, url: "http://testservice.example.com/index.html:8080")
+    @service = Service.new(name: "Test Service 2", ip: "172.85.52.5", dns_name: "test2service", port: 8080, url: "http://testservice.example.test.com/index.html:8080")
+    @base_title = "Plex-Board"
   end
 
   test "should get index" do
     get :index
     assert_response :success
     assert_not_nil assigns(:services)
-    assert_select "title", "Plex-Board"
+    assert_select "title", "#{@base_title}"
   end
 
   test "should get new" do
     get :new
     assert_response :success
+    assert_select "title", "New Service | #{@base_title}"
   end
 
   test "should create service" do
@@ -32,13 +34,13 @@ class ServicesControllerTest < ActionController::TestCase
   test "should show service" do
     get :show, id: @service
     assert_response :success
-    assert_select "title", "Show Service | #{@base_title}"
+    assert_select "title", "#{@service.name} | #{@base_title}"
   end
  
   test "should get edit" do
     get :edit, id: @service
     assert_response :success
-     assert_select "title", "Edit Service | #{@base_title}"
+     assert_select "title", "Edit #{@service.name} | #{@base_title}"
   end
 
   test "should update service" do
@@ -48,7 +50,7 @@ class ServicesControllerTest < ActionController::TestCase
 
   test "should destroy service" do
     assert_difference('Service.count', -1) do
-      delete :destroy, id: @service
+      delete :destroy, @service.id
     end
 
     assert_redirected_to services_path

@@ -13,21 +13,24 @@ class ServicesController < ApplicationController
   # GET /services/1
   # GET /services/1.json
   def show
+    @services = Service.all
   end
 
   # GET /services/new
   def new
      @services = Service.all
-    @service = Service.new
+     @service = Service.new
   end
 
   # GET /services/1/edit
   def edit
+    @services = Service.all
   end
 
   # POST /services
   # POST /services.json
   def create
+    @services = Service.all
     @service = Service.new(service_params)
 
     respond_to do |format|
