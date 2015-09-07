@@ -4,10 +4,12 @@ class Service < ActiveRecord::Base
     validates :ip, presence: true, length: { maximum: 15 }, format: { with: VALID_IPV4_ADDRESS }, uniqueness: true
     validates :dns_name, presence: true, uniqueness: true
     validates :url, presence: true, uniqueness: true
-    
+    validates :status, presence: true
     after_initialize :init
     
     def init
         self.port ||=80
+        self.status ||=false
     end
+    
 end

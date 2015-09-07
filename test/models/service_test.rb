@@ -28,5 +28,4 @@ class ServiceTest < ActiveSupport::TestCase
     @service.ip = "155.155.155.257"
     assert @service.valid?
   end
-  
 end
