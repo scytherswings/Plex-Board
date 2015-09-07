@@ -8,11 +8,8 @@ class Service < ActiveRecord::Base
     validates_numericality_of :port
     after_initialize :init
     
-    
     def init
         self.port ||=80
         self.status ||=false
     end
-    
-    
 end
