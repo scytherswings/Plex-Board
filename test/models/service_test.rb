@@ -11,11 +11,9 @@ class ServiceTest < ActiveSupport::TestCase
     # Everything is unique except the dns_name and port pairing, dns_name_and_port_dup_2 should be invalid
     # dns_name_and_port_dup_1: { name: "Test Service dns_dup_1", ip: "127.0.2.1", dns_name: "ubuntu", port: 8080, url: "http://127.0.2.1:8080"}
 
-
     # This would be a server at the same address and dns name, but with a different port, should be valid
     # dns_name_and_port_diff_1: { name: "Test Service dns_diff_1", ip: "127.0.2.1", dns_name: "ubuntu", port: 80, url: "http://127.0.2.1"}
 
-    @dns_name_and_port_dup_2 = services(:dns_name_and_port_dup_2)
     @dns_name_and_port_dup_1 = services(:dns_name_and_port_dup_1)
     @dns_name_and_port_dup_2 = services(:dns_name_and_port_dup_2)
     @dns_name_and_port_diff_1 = services(:dns_name_and_port_diff_1)
@@ -25,6 +23,8 @@ class ServiceTest < ActiveSupport::TestCase
     @ip_and_port_dup_1 = services(:ip_and_port_dup_1)
     @ip_and_port_dup_2 = services(:ip_and_port_dup_2)
     @ip_and_port_diff_1 = services(:ip_and_port_diff_1)
+    @url_dup_1 = services(:url_dup_1)
+    @url_dup_2 = services(:url_dup_2)
     
   end
   
@@ -32,13 +32,20 @@ class ServiceTest < ActiveSupport::TestCase
     assert @service_one.valid?, "service_one not valid"
     assert @service_two.valid?, "service_two not valid"
     
-    assert @dns_name_and_port_dup_1.valid?, "dns_name_and_port_dup_1 not valid"
+    # These tests will fail until DB validation is added
+    # assert_not @dns_name_and_port_dup_1.valid?, "dns_name_and_port_dup_1 not valid"
     # assert_not @dns_name_and_port_dup_2.valid?, "dns_name_and_port_dup_2 valid"
-    assert @dns_name_and_port_diff_1.valid?, "dns_name_and_port_diff_1 not valid"
     
-    assert @ip_and_port_dup_1.valid?, "ip_and_port_dup_1 not valid"
+    assert @dns_name_and_port_diff_1.valid?, "dns_name_and_port_diff_1 is not valid"
+    
+    # These tests will fail until DB validation is added
+    # assert_not @ip_and_port_dup_1.valid?, "ip_and_port_dup_1 is not invalid"
     # assert_not @ip_and_port_dup_2.valid?, "ip_and_port_dup_2 valid"
+    
     assert @ip_and_port_diff_1.valid?, "ip_and_port_diff_1 not valid"
+    
+    assert_not @url_dup_1.valid?, "url_dup_1 is not invalid"
+    assert_not @url_dup_2.valid?, "url_dup_2 is not invalid"
     
   end
   
