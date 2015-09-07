@@ -3,7 +3,7 @@
     <% if !@services.empty? %>
     <div class="list-group">
         <% @services.each do |service| %>
-           <li class="list-group-item"><%= link_to service.name, services_path %></li>
+           <li class="list-group-item"><%= link_to service.name, service_path(service.id) %></li>
         <% end %>
     </div>
     <% else %>
