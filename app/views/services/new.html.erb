@@ -32,15 +32,10 @@
     	  <%= f.text_field :url, :placeholder => "http://plex.example.com:32400/web", class: 'form-control' %>
   	  </div>
   	  <%= f.submit "Create Service",  class: "btn btn-primary"  %>
+
     	<% end %>
-    	<div class="container">
-        <% flash.each do |type, message| %>
-          <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <%= message %>
-          </div>
-        <% end %>
-      </div>
+    	
+      
   	</div>
 </div>
 
@@ -50,5 +45,3 @@
 
 
 <%= render 'layouts/footer' %>
-
- 

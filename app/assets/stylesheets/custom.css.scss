@@ -21,12 +21,20 @@ footer {
     margin: 0 0 18px 0;
   }
 }
+// .control-group {
+//   color: red;
+// }
 
+// .error {
+//   color: red;
+// }
 
+// .field_with_errors {
+//     @extend .control-group;
+//     @extend .error;
 
-.field_with_errors {
-  @extend .has-error;
-}
+// }
+
 
 .services_link {
   color: #000;

@@ -14,6 +14,7 @@ class ServicesController < ApplicationController
   # GET /services/1.json
   def show
     @services = Service.all
+    # @service = Service.find(params[:id])
   end
 
   # GET /services/new
