@@ -2,7 +2,7 @@
 <%= render 'layouts/header' %>
 
 <body>
-  
+
 <%= render 'layouts/navbar' %>
 
 <% provide(:title, 'New Service') %>
@@ -13,34 +13,48 @@
     <div class="col-md-2">
       <%= render 'layouts/servicepanel' %>
     </div>
-      
-        <div class="col-md-6 col-md-offset-1">
-          <h1>New Service</h1>
-          <div class="well">
-            <%= form_for(@service) do |f| %>
-             
-              <%= f.label :name %>
-              <%= f.text_field :name, class: 'form-control' %>
-        
-              <%= f.label :ip %>
-              <%= f.text_field :ip, class: 'form-control' %>
-        
-              <%= f.label :dns_name %>
-              <%= f.text_field :dns_name, class: 'form-control' %>
-        
-              <%= f.label :port %>
-              <%= f.number_field :port, class: 'form-control' %>
-        
-              <%= f.label :url %>
-              <%= f.text_field :url, class: 'form-control' %>
-              
-              <%= f.submit "Create Service", class: "btn btn-primary" %>
-            <% end %>
-            </div>
+      <div class="col-md-10">
+        <h2>New Service</h2>
+        <div class="well">
+        	<%= form_for(@service) do |f| %>
+        	  <div class="form-group">
+          	  <%= f.label :name %>
+          	  <%= f.text_field :name, :placeholder => "Your new serivce name", class: 'form-control'  %>
+          	</div>
+        	  <div class="row">
+          	  <div class="col-lg-4 form-group">
+          	  <%= f.label :ip %>
+          	  <%= f.text_field :ip, :placeholder => "127.0.0.1", class: 'form-control' %>
+          	  </div>
+          	  <div class="col-lg-4 form-group">
+          	  <%= f.label :dns_name %>
+          	  <%= f.text_field :dns_name, :placeholder => "plex", class: 'form-control'  %>
+          	  </div>
+          	  <div class="col-lg-4 form-group">
+          	  <%= f.label :port %>
+          	  <%= f.number_field :port, :placeholder => "80", class: 'form-control'  %>
+          	  </div>
+        	  </div>
+        	  <div class="form-group">
+          	  <%= f.label :url %>
+          	  <%= f.text_field :url, :placeholder => "http://plex.example.com:32400/web", class: 'form-control' %>
+        	  </div>
+        	  <%= f.submit "Create Service",  class: "btn btn-primary"  %>
+          	<% end %>
+        	</div>
+      	</div>
 
-        </div>
+</div>
+    
   </div>
 </div>
 
-<%= link_to 'Back', services_path, class: "btn" %>
+
 <%= render 'layouts/footer' %>
+
+  <div class="container">
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+      <%= debug(params) if Rails.env.development? %>
+    </div>
