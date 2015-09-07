@@ -1,5 +1,5 @@
 <% if !@services.empty? %>
-    <h2><%= link_to "Services", new_service_path %></h2>
+    <h2><%= link_to "Services", new_service_path, class: "services_link" %></h2>
     
     <div class="list-group">
         <% @services.each do |service| %>

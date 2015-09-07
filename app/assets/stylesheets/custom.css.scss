@@ -22,3 +22,22 @@ footer {
   }
 }
 
+
+
+.field_with_errors {
+  @extend .has-error;
+}
+
+.services_link {
+  color: #000;
+}
+
+.services_link:focus {
+  color: #777;
+  text-decoration: none;
+}
+
+.services_link:hover {
+  color: #777;
+  text-decoration: none;
+}
