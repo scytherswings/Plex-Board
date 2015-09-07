@@ -4,8 +4,16 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one: { name: "Test Service One", ip: "127.0.0.1", dns_name: "localhost", url: "http://localhost"}
 # column: value
 #
-two: {}
+two: { name: "Test Service Two", ip: "127.0.1.1", dns_name: "ubuntu", url: "http://127.0.0.1"}
 #  column: value
+
+dns_name_and_port_dup_1: { name: "Test Service dns_dup1", ip: "127.0.2.1", dns_name: "ubuntu", port: 8080, url: "http://127.0.2.1"}
+
+dns_name_and_port_dup_2: { name: "Test Service dns_dup2", ip: "127.0.3.1", dns_name: "ubuntu", port: 8080, url: "http://127.0.3.1"}
+
+ip_and_port_dup_1: { name: "Test Service ip_dup1", ip: "127.0.4.1", dns_name: "ubuntu_one", port: 8081, url: "http://127.0.4.1"}
+
+ip_and_port_dup_2: { name: "Test Service ip_dup2", ip: "127.0.4.1", dns_name: "ubuntu_two", port: 8081, url: "http://127.0.4.11"}
