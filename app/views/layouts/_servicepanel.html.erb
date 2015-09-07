@@ -1,15 +1,19 @@
-<p class="lead">Services</p>
-<div class="list-group">
+<h2>Services</h2>
+
     <% if !@services.empty? %>
+    <div class="list-group">
         <% @services.each do |service| %>
            <li class="list-group-item"><%= link_to service.name, services_path %></li>
         <% end %>
+    </div>
     <% else %>
-        <li class="list-group-item"><%= link_to "Add Service", new_service_path %></li>
+        <div class="well">
+            <button type="button" class="btn btn-primary" href="<%= new_service_path %>">Add Service</button>
+        </div>
     <% end %>
         
     <!--<a href="#" class="list-group-item active">Category 1</a>-->
     <!--<a href="#" class="list-group-item">Category 2</a>-->
     <!--<a href="#" class="list-group-item">Category 3</a>-->
-</div>  
+  
 
