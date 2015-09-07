@@ -1,6 +1,9 @@
+<%= render 'layouts/header' %>
+
 <% provide(:title, "Edit #{@service.name}") %>
 <h1>Editing Service</h1>
-
+<%= link_to "Add Service!", new_service_path, class: "btn btn-lg btn-success" %>
+         
 <%= render 'form' %>
 
 <%= link_to 'Show', @service %> |

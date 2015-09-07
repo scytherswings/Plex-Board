@@ -10,42 +10,60 @@
 
   <div class="row">
 
+    
+    <% if @services.empty? %>
+    
+    <div class="col-md-12 text-center">
+
+      <div class="jumbotron">
+        <h1>Welcome to Plex-Board!</h1>
+        <h2>It looks like you haven't added a service yet...</h2>
+        <h2>You should add one here: </h2>
+        <br>
+        <%= link_to "Add Service!", new_service_path, bclass: "btn btn-lg btn-success" %>
+           
+        
+       
+      </div>
+    </div>
+    <% else %>
     <div class="col-sm-2">
       <%= render 'layouts/servicepanel' %>
-    </div>
-    
-    
-    
-    
-    
-    <div class="col-md-10">
-      <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
 
-        <div class="carousel-inner">
-          <div class="item active">
-            <img src="assets/rGV0RoO.jpg" alt="image">
-          </div>
-          <div class="item">
-            <img src="assets/28JAXj0.png" alt="image">
-          </div>
-          <div class="item">
-            <img src="assets/CHqVnuj.png" alt="image">
-          </div>
-          <div class="item">
-            <img src="assets/De8ahTR.jpg" alt="image">
-          </div>
-          <div class="item">
-            <img src="assets/iRV2pEH.png" alt="image">
-          </div>
-          <div class="item">
-            <img src="assets/uXDNzul.png" alt="image">
-          </div>
-          <div class="item">
-            <img src="assets/zk31prO.jpg" alt="image">
+    </div>
+     <div class="col-md-8 text-center">
+        <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
+  
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="assets/rGV0RoO.jpg" alt="image">
+            </div>
+            <div class="item">
+              <img src="assets/28JAXj0.png" alt="image">
+            </div>
+            <div class="item">
+              <img src="assets/CHqVnuj.png" alt="image">
+            </div>
+            <div class="item">
+              <img src="assets/De8ahTR.jpg" alt="image">
+            </div>
+            <div class="item">
+              <img src="assets/iRV2pEH.png" alt="image">
+            </div>
+            <div class="item">
+              <img src="assets/uXDNzul.png" alt="image">
+            </div>
+            <div class="item">
+              <img src="assets/zk31prO.jpg" alt="image">
+            </div>
           </div>
         </div>
       </div>
+          <div class="col-sm-2">
     </div>
+    <% end %>
+    
+
   </div>
 </div>
 
