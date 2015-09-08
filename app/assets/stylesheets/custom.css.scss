@@ -1,6 +1,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+html, body {
+  height: 100%;
+}
 
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
@@ -10,16 +13,31 @@ body {
     width: 100%;
 }
 
-footer {
-    margin: 50px 0;
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
 }
 
+#notice {
+  color: green;
+}
+
+
+
 #error_explanation {
-  color: #f00;
+  color: #a94442;
+  background-color: #f0f0f0;
   ul {
     list-style: none;
     margin: 0 0 18px 0;
   }
+
+}
+
+.field_with_errors {
+  @extend .has-error;
 }
 
 .services_link {
@@ -36,9 +54,6 @@ footer {
   text-decoration: none;
 }
 
-html, body {
-  height: 100%;
-}
 
 #wrap {
   min-height: 100%;
@@ -56,3 +71,7 @@ html, body {
   clear:both;
   padding-top:20px;
 } 
+
+
+
+

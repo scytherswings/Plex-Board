@@ -3,9 +3,9 @@
     <div class="alert alert-danger">
       The form contains <%= pluralize(@service.errors.count, "error") %>.
     </div>
-    <ul>
+    <ul class="list-group">
     <% @service.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+      <li class="list-group-item"><span class="glyphicon glyphicon-remove"></span> <%= msg %></li>
     <% end %>
     </ul>
   </div>
