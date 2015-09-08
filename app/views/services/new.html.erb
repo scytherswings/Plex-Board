@@ -9,6 +9,7 @@
   <h2>New Service</h2>
   <div class="well">
   	<%= form_for(@service) do |f| %>
+  	<%= render 'shared/error_messages' %>
   	<div class="row">
   	  <div class="col-lg-3 form-group">
     	  <%= f.label :name %>
