@@ -1,5 +1,5 @@
 class InfoController < ApplicationController
-  def config
+  def configuration
   end
 
   def about

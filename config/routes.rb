@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   resources :services
   root 'services#index'
   get 'about' => 'info#about'
-  get 'config' => 'info#config'
+  get 'configuration' => 'info#configuration'
   get 'status' => 'info#status'
-
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

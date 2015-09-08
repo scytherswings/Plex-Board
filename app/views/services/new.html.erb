@@ -8,8 +8,9 @@
 <div class="col-md-8">
   <h2>New Service</h2>
   <div class="well">
+    <%= render 'shared/error_messages' %>
   	<%= form_for(@service) do |f| %>
-  	<%= render 'shared/error_messages' %>
+  	
   	<div class="row">
   	  <div class="col-lg-3 form-group">
     	  <%= f.label :name %>
