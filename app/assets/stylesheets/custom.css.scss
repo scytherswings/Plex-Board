@@ -21,20 +21,6 @@ footer {
     margin: 0 0 18px 0;
   }
 }
-// .control-group {
-//   color: red;
-// }
-
-// .error {
-//   color: red;
-// }
-
-// .field_with_errors {
-//     @extend .control-group;
-//     @extend .error;
-
-// }
-
 
 .services_link {
   color: #000;
@@ -49,3 +35,24 @@ footer {
   color: #777;
   text-decoration: none;
 }
+
+html, body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#main {
+  overflow:auto;
+  padding-bottom:75px; /* this needs to be bigger than footer height*/
+}
+
+.footer {
+  position: relative;
+  margin-top: -70px; /* negative value of footer height */
+  height: 70px;
+  clear:both;
+  padding-top:20px;
+} 
