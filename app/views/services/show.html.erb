@@ -21,7 +21,7 @@
                     <td><%= @service.dns_name %></td>
                     <td><%= @service.port %> </td>
                     <td><%= @service.url %> </td>
-                    <td><%= link_to 'Edit', edit_service_path(@service) %> | <%= link_to 'Destroy', @service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <td><%= link_to 'Edit', edit_service_path(@service) %> | <%= link_to 'Delete', @service, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %></td>
                     
                 </tr>
             </table>
