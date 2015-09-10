@@ -19,11 +19,11 @@
                <div class="modal-content">
                  <div class="modal-header">
                    <a class="close" data-dismiss="modal">×</a>
-                   <h1>#{message}</h1>
+                   <h2>#{message}</h2>
                  </div>
                  <div class="modal-footer">
-                   <a data-dismiss="modal" class="btn">#{link.data('cancel')}</a>
-                   <a data-dismiss="modal" class="btn btn-primary confirm">#{link.data('ok')}</a>
+                   <a data-dismiss="modal" class="btn">Cancel</a>
+                   <a data-dismiss="modal" class="btn btn-primary confirm">OK</a>
                  </div>
                </div>
              </div>

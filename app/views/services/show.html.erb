@@ -38,7 +38,8 @@
   <div class="pull-right">
   <%= link_to "Add New Service", new_service_path, class: "btn btn-success" %>
   <%= link_to 'Edit', edit_service_path(@service), class: "btn btn-md btn-primary" %>
-  <%= link_to 'Delete', @service, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-md btn-danger" %>   
+  <% str = "Are you sure you want to delete: #{@service.name}?" %>
+  <%= link_to 'Delete', @service, method: :delete, data: { confirm: str }, class: "btn btn-md btn-danger" %>   
 
   </div>
   
