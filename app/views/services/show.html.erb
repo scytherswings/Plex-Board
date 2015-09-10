@@ -3,43 +3,43 @@
 <%= render 'layouts/servicepanel' %>
 
 <div class="col-sm-8">    
-    <h2>Service: <%= @service.name %></h2>
-    <div class"row">
-        <div class="panel panel-default">
-            <table class="table table-bordered">
-                    <th>Service Name</th>
-                    <% if @service.ip.nil? || @service.ip.empty? %>
-                    <th>DNS Name</th>
-                    <% elsif @service.dns_name.nil? || @service.dns_name.empty? %>
-                    <th>IP Address</th>
-                    <% else %>
-                    <th>IP Address</th>
-                    <th>DNS Name</th>
-                    <% end %>
-                    <th>Port</th>
-                    <th>URL</th>
-                <tr>
-                    <td><%= @service.name %></td>
-                    <% if @service.ip.nil? || @service.ip.empty? %>
-                    <td><%= @service.dns_name %></td>
-                    <% elsif  @service.dns_name.nil? || @service.dns_name.empty? %>
-                    <td><%= @service.ip %> </td>
-                    <% else %>
-                    <td><%= @service.dns_name %></td>
-                    <td><%= @service.ip %> </td>
-                    <% end %>
-                    <td><%= @service.port %> </td>
-                    <td><%= @service.url %> </td>
-                    
-                </tr>
-            </table>
-
-        </div>
-        <div class="pull-right">
-        <%= link_to 'Edit', edit_service_path(@service), class: "btn btn-md btn-primary" %>
-        <%= link_to 'Delete', @service, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-md btn-danger" %>   
-        </div>
+  <h2>Service: <%= @service.name %></h2>
+  <div class"row">
+    <div class="panel panel-default">
+      <table class="table table-bordered">
+        <th>Service Name</th>
+        <% if @service.ip.nil? || @service.ip.empty? %>
+        <th>DNS Name</th>
+        <% elsif @service.dns_name.nil? || @service.dns_name.empty? %>
+        <th>IP Address</th>
+        <% else %>
+        <th>IP Address</th>
+        <th>DNS Name</th>
+        <% end %>
+        <th>Port</th>
+        <th>URL</th>
+        
+        <tr>
+        <td><%= @service.name %></td>
+        <% if @service.ip.nil? || @service.ip.empty? %>
+        <td><%= @service.dns_name %></td>
+        <% elsif  @service.dns_name.nil? || @service.dns_name.empty? %>
+        <td><%= @service.ip %> </td>
+        <% else %>
+        <td><%= @service.dns_name %></td>
+        <td><%= @service.ip %> </td>
+        <% end %>
+        <td><%= @service.port %> </td>
+        <td><%= @service.url %> </td>
+        </tr>
+      </table>
+    
     </div>
+  <div class="pull-right">
+  <%= link_to 'Edit', edit_service_path(@service), class: "btn btn-md btn-primary" %>
+  <%= link_to 'Delete', @service, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-md btn-danger" %>   
+  </div>
+  </div>
 </div>
 
 <%= render 'layouts/rightbar' %>
