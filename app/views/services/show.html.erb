@@ -6,26 +6,40 @@
     
     <div class"row">
         <div data-toggle="table">
+            <ul class="list-group">
+                
+            </ul>
             <table class="table">
                 <thead>
                     <th>Service Name</th>
-                    <th>IP Address</th>
+                    <% if @service.ip.nil? || @service.ip.empty? %>
                     <th>DNS Name</th>
+                    <% elsif @service.dns_name.nil? || @service.dns_name.empty? %>
+                    <th>IP Address</th>
+                    <% else %>
+                    <th>IP Address</th>
+                    <th>DNS Name</th
+                    <% end %>
                     <th>Port</th>
                     <th>URL</th>
                     <th colspan="6"></th>
                 </thead>
                 <tr>
                     <td><%= @service.name %></td>
-                    <td><%= @service.ip %> </td>
+                    <% if @service.ip.nil? || @service.ip.empty? %>
                     <td><%= @service.dns_name %></td>
+                    <% elsif  @service.dns_name.nil? || @service.dns_name.empty? %>
+                    <td><%= @service.ip %> </td>
+                    <% else %>
+                    <td><%= @service.dns_name %></td>
+                    <td><%= @service.ip %> </td>
+                    <% end %>
                     <td><%= @service.port %> </td>
                     <td><%= @service.url %> </td>
                     <td><%= link_to 'Edit', edit_service_path(@service) %> | <%= link_to 'Delete', @service, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %></td>
                     
                 </tr>
             </table>
-            
         </div>
     </div>
 </div>
