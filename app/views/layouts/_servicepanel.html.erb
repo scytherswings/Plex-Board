@@ -1,7 +1,6 @@
 <div class="col-sm-2">
-    <% if !@services.empty? %>
+    <% if !@services.nil? || !@services.empty? %>
         <h2><%= link_to "Services", new_service_path, class: "services_link" %></h2>
-        
         <div class="list-group">
             <% @services.each do |service| %>
                <li class="list-group-item"><%= link_to service.name, service_path(service.id) %></li>

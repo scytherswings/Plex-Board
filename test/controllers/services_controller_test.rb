@@ -46,6 +46,6 @@ class ServicesControllerTest < ActionController::TestCase
       assert delete :destroy, id: @service
     end
 
-    assert_redirected_to services_path
+    assert_redirected_to root_url
   end
 end
