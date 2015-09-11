@@ -23,4 +23,7 @@ ActiveRecord::Schema.define(version: 20150907162028) do
     t.string   "url"
   end
 
+  add_index "services", ["name"], name: "index_services_on_name", unique: true
+  add_index "services", ["url"], name: "index_services_on_url", unique: true
+
 end
