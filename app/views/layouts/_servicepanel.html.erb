@@ -1,10 +1,30 @@
-<div class="col-sm-2">
-    <% if !@services.nil? || !@services.empty? %>
-        <h2><%= link_to "Services", new_service_path, class: "services_link" %></h2>
-        <div class="list-group">
-            <% @services.each do |service| %>
-               <li class="list-group-item"><%= link_to service.name, service_path(service.id) %></li>
+<div class="col-sm-3">
+  <% if !@services.nil? || !@services.empty? %>
+
+  <table class="table table-center">
+
+      <tr>
+        <th style="border-top: none !important; padding:2px; text-align:left">
+          <h2><%= link_to "Services", new_service_path, class: "services_link" %></h2>
+        </th>
+      </tr>
+
+      <% @services.each do |service| %>
+        <tr>
+          <td style="border-top:none !important; padding:2px; text-align:left">
+            <%= link_to service.name, service, class: "services_link" %>
+          </td>
+          <td style="border-top:none !important; padding:2px; text-align:left">
+            <%= link_to service.url, class: "services_link" do %>
+              <button class="btn btn-xs btn-warning">
+                <span class="glyphicon glyphicon-remove" style="color:white;"></span> Offline
+              </button>
             <% end %>
-        </div>
-    <% end %>
+          </td>
+          <td></td>
+        </tr>
+      <% end %>   
+
+  </table>
+  <% end %>
 </div>
