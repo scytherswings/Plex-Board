@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907162028) do
+ActiveRecord::Schema.define(version: 20150912194229) do
 
   create_table "services", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150907162028) do
     t.string   "dns_name"
     t.integer  "port"
     t.string   "url"
+    t.string   "type"
   end
 
   add_index "services", ["name"], name: "index_services_on_name", unique: true

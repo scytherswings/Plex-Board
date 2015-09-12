@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   resources :services
+  resources :plex, controller: :services
+  get 'all_services' => 'services#all_services'
   root 'services#index'
   get 'about' => 'info#about'
   get 'configuration' => 'info#configuration'

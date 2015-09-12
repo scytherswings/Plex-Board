@@ -16,6 +16,10 @@ class ServicesController < ApplicationController
     @services = Service.all
     # @service = Service.find(params[:id])
   end
+  
+  def all_services
+    @services = Service.all
+  end
 
   # GET /services/new
   def new
