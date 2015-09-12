@@ -3,7 +3,7 @@
 <%= render 'layouts/servicepanel' %>
 
 
-<div class="col-sm-6">
+<div class="col-sm-8">
   <h2>Editing Service: <%= @service.name %></h2>
   <div class="well">
     <%= form_for(@service, :url => {:action => 'update', :id => @service.id}) do |f| %>

@@ -7,8 +7,12 @@
   
 <%= render 'layouts/navbar' %>
 <title><%= full_title(yield(:title)) %></title>
+<div class="container">
+  <div class="row">
+    <%= yield %>
 
-<%= yield %>
+  </div>
+</div>
 
 <%= render 'layouts/footer' %>
 
