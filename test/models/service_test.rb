@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ServiceTest < ActiveSupport::TestCase
   def setup
-    @service_good = Service.new(name: "Test Service", ip:"127.0.0.1", dns_name: "test", port: 8080, url: "http://127.0.0.1")
+    # @service_good = Service.new(name: "Test Service", ip:"127.0.0.1", dns_name: "test", port: 8080, url: "http://127.0.0.1")
   end
   
   setup do
@@ -24,7 +24,7 @@ class ServiceTest < ActiveSupport::TestCase
     @ip_and_port_dup_2 = services(:ip_and_port_dup_2)
     @ip_and_port_diff_1 = services(:ip_and_port_diff_1)
     @url_dup_1 = services(:url_dup_1)
-    @url_dup_2 = services(:url_dup_2)
+    # @url_dup_2 = services(:url_dup_2)
     
   end
   
@@ -45,15 +45,17 @@ class ServiceTest < ActiveSupport::TestCase
     assert @ip_and_port_diff_1.valid?, "ip_and_port_diff_1 not valid"
     
     assert_not @url_dup_1.valid?, "url_dup_1 is not invalid"
-    assert_not @url_dup_2.valid?, "url_dup_2 is not invalid"
+    # assert_not @url_dup_2.valid?, "url_dup_2 is not invalid"
     
   end
   
   test "name should be present" do
-    @service_one.name = "     "
-    assert_not @service_one.valid?
-    @service_two.name = nil
-    assert_not @service_one.valid?
+    bad_name_one = @service_one
+    bad_name_one.name = "     "
+    assert_not bad_name_one.valid?
+    bad_name_two = @service_two
+    bad_name_two.name = nil
+    assert_not bad_name_two.valid?
   end
   
   test "ip should be in IP address format" do
@@ -66,14 +68,27 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not @service_one.valid?
   end
   
-  test "name should be unique" do
+  test "service should be unique" do
     duplicate_service = @service_one.dup
       assert @service_one.save, "Saving service to test duplicate failed"
     assert_not duplicate_service.valid?, "Duplicate service should not be valid"
   end
   
+  test "name should be unique" do
+     dup_name_service = @service_two
+     dup_name_service.name = @service_one.name
+      assert @service_one.save, "Saving service to test duplicate name failed"
+    assert_not duplicate_name.valid?, "Duplicate service name should not be valid"
+  end
+  
   test "dns_name and port combination should be unique" do
     
+  end
+  
+  test "url should be unique" do
+    duplicate_service = @service_on
+      assert @service_one.save, "Saving service to test duplicate url failed"
+    assert_not duplicate_service.valid?, "Duplicate service url should not be valid"
   end
   
 end

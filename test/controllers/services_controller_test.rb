@@ -37,7 +37,7 @@ class ServicesControllerTest < ActionController::TestCase
   end
 
   test "should update service" do
-    patch :update, id: @service, service: { name: "test2", ip: "172.1.1.1", dns_name: "test", url: "test" }
+    patch :update, id: @service, service: { name: "test2", ip: "172.123.1.1", dns_name: "test", url: "test" }
     assert_redirected_to service_path(assigns(:service))
   end
 

@@ -28,4 +28,4 @@ ip_and_port_diff_1: { name: "Test Service ip_diff_1", ip: "127.0.3.1", dns_name:
 # Everything is unique except the URL
 url_dup_1: { name: "Test Service url_dup_1", ip: "127.0.4.1", dns_name: "centos_one", port: 8081, url: "http://127.0.4.1:8081"}
 
-url_dup_2: { name: "Test Service url_dup_2", ip: "127.0.4.2", dns_name: "centos_two", port: 8081, url: "http://127.0.4.1:8081"}
+# url_dup_2: { name: "Test Service url_dup_2", ip: "127.0.4.2", dns_name: "centos_two", port: 8081, url: "http://127.0.4.1:8081"}
