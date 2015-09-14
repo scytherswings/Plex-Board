@@ -11,7 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150912212039) do
+ActiveRecord::Schema.define(version: 20150914031931) do
+
+  create_table "couchpotatos", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.string   "api"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "deluges", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "generics", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "plexes", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sabnzbds", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.string   "api"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "services", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -24,9 +59,18 @@ ActiveRecord::Schema.define(version: 20150912212039) do
     t.string   "type"
     t.string   "username"
     t.string   "password"
+    t.string   "api"
   end
 
   add_index "services", ["name"], name: "index_services_on_name", unique: true
   add_index "services", ["url"], name: "index_services_on_url", unique: true
+
+  create_table "sickrages", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.string   "api"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

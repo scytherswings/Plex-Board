@@ -1,0 +1,2 @@
+class Deluge < Service
+end

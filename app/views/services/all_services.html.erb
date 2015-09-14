@@ -12,6 +12,7 @@
         <th>DNS Name</th>
         <th>Port</th>
         <th>URL</th>
+        <th>Service Type</th>
         <th></th>
         <% @services.each do |f| %>
           <tr>
@@ -20,6 +21,7 @@
           <td><%= f.dns_name %></td>
           <td><%= f.port %> </td>
           <td><%= f.url %> </td>
+          <td><%= f.type %></td>
           <td class="text-center"><%= link_to 'Edit', edit_service_path(f), class: "btn btn-md btn-primary" %></td>
           </tr>
         <% end %>

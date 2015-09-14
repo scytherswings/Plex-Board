@@ -1,0 +1,2 @@
+class Sickrage < Service
+end

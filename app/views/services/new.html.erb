@@ -17,34 +17,22 @@
     </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="generic">
-      <%= form_for(@service) do |f| %>
-    	
-    	<div class="row">
-    	  <br>
-    	  <div class="col-lg-3 form-group">
-    	    
-      	  <%= f.label :name %>
-      	  <%= f.text_field :name, :placeholder => "New serivce name", class: 'form-control'  %>
-      	</div>
-    	  <div class="col-lg-3 form-group">
-      	  <%= f.label :ip, "IP Address" %>
-      	  <%= f.text_field :ip, :placeholder => "127.0.0.1", class: 'form-control' %>
-    	  </div>
-    	  <div class="col-lg-3 form-group">
-      	  <%= f.label :dns_name, "DNS Name" %>
-      	  <%= f.text_field :dns_name, :placeholder => "plex", class: 'form-control'  %>
-    	  </div>
-    	  <div class="col-lg-3 form-group">
-      	  <%= f.label :port %>
-      	  <%= f.number_field :port, :placeholder => "80", class: 'form-control'  %>
-    	  </div>
-      </div>
-  	  <div class="form-group">
-    	  <%= f.label :url, "URL" %>
-    	  <%= f.text_field :url, :placeholder => "http://plex.example.com:32400/web", class: 'form-control' %>
-  	  </div>
-  	  <%= f.submit "Create Service",  class: "btn btn-primary"  %>
-    	<% end %>
+      <%= render partial: "genericform" %>
+    </div>
+    <div class="tab-pane" id="plex">
+      <%= render partial: "plexform" %>
+    </div>
+    <div class="tab-pane" id="couchpotato">
+      <%= render partial: "couchpotatoform" %>
+    </div>
+    <div class="tab-pane" id="sickrage">
+      <%= render partial: "sickrageform" %>
+    </div>
+    <div class="tab-pane" id="sabnzbd">
+      <%= render partial: "sabnzbdform" %>
+    </div>
+    <div class="tab-pane" id="deluge">
+      <%= render partial: "delugeform" %>
     </div>
   </div>
 	</div>

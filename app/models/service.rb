@@ -1,7 +1,6 @@
 class Service < ActiveRecord::Base
     require 'resolv'
     # attr_accessor :name, :ip, :dns_name, :port, :url
-    
     validates :name, presence: true, uniqueness: true
     validates :url, uniqueness: true, presence: true
     validates_uniqueness_of :ip, scope: :port, if: :ip_addr_exists || :ip_and_dns_dont_exist

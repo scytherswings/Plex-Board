@@ -81,9 +81,9 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not duplicate_name.valid?, "Duplicate service name should not be valid"
   end
   
-  test "dns_name and port combination should be unique" do
+  # test "dns_name and port combination should be unique" do
     
-  end
+  # end
   
   test "url should be unique" do
     duplicate_service = @service_on
