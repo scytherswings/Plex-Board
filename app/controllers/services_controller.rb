@@ -47,6 +47,22 @@ class ServicesController < ApplicationController
       end
     end
   end
+  
+  def create_plex
+    @services = Service.all
+    @plex = Plex.new(plex_params)
+
+    respond_to do |format|
+      if @plex.save
+        format.html { redirect_to @plex, notice: 'Plex service was successfully created.' }
+        format.json { render :show, status: :created, location: @plex }
+      else
+        format.html { render :new }
+        format.json { render json: @plex.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
@@ -81,7 +97,8 @@ class ServicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
       params.require(:service).permit(:name, :ip, :dns_name, :port, :url)
-
-      
+    end
+    def plex_params
+            params.require(:plex).permit(:name, :ip, :dns_name, :port, :url, :username, :password)
     end
 end
