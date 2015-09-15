@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     post 'create_plex'
   end
 end
+  resources :plex, :controller => "services"
+
   get 'all_services' => 'services#all_services'
   root 'services#index'
   get 'about' => 'info#about'
