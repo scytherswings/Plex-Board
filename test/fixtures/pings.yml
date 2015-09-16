@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lastuptime: 2015-09-16 02:28:17
+  online_status: false
+  failed_pings: 1
+
+two:
+  lastuptime: 2015-09-16 02:28:17
+  online_status: false
+  failed_pings: 1

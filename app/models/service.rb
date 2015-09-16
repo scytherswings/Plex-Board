@@ -1,5 +1,6 @@
 class Service < ActiveRecord::Base
     require 'resolv'
+    has_one :ping
     # attr_accessor :name, :ip, :dns_name, :port, :url
     validates :name, presence: true, uniqueness: true
     validates :url, uniqueness: true, presence: true
