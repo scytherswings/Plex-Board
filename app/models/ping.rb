@@ -1,5 +1,5 @@
 class Ping < ActiveRecord::Base
-  belongs_to :service
+  belongs_to :service, dependent: :destroy, autosave: true
   
   require 'timeout'
   require 'socket'
