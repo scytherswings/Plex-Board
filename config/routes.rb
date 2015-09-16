@@ -13,6 +13,11 @@ Rails.application.routes.draw do
   resources :services do
   collection do
     post 'create_plex'
+    post 'create_couchpotato'
+    post 'create_sickrage'
+    post 'create_deluge'
+    post 'create_sabnzbd'
+    
   end
 end
   resources :plex, :controller => "services"
