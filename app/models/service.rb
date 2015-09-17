@@ -1,6 +1,6 @@
 class Service < ActiveRecord::Base
     require 'resolv'
-    has_one :ping, autosave: true
+    has_one :ping
     # attr_accessor :name, :ip, :dns_name, :port, :url
     validates :name, presence: true, uniqueness: true
     validates :url, uniqueness: true, presence: true
@@ -12,9 +12,9 @@ class Service < ActiveRecord::Base
     
     def init
         self.port ||=80
-        if new_record?
-            Ping.create
-        end
+        # if new_record?
+        #     Ping.create
+        # end
     end
     
     def ip_addr_exists
@@ -40,5 +40,22 @@ class Service < ActiveRecord::Base
             false
         end
     end
+    
+  require 'timeout'
+  require 'socket'
+
+  def ping(host)
+    begin
+      Timeout.timeout(5) do 
+        s = TCPSocket.new(host, 'echo')
+        s.close
+        return true
+      end
+    rescue Errno::ECONNREFUSED 
+      return true
+    rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH
+      return false
+    end
+  end
     
 end
