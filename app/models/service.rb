@@ -1,12 +1,19 @@
 class Service < ActiveRecord::Base
+    include ActiveModel::Validations
     require 'resolv'
-    has_one :ping
+    require 'timeout'
+    require 'socket'
     # attr_accessor :name, :ip, :dns_name, :port, :url
     validates :name, presence: true, uniqueness: true
     validates :url, uniqueness: true, presence: true
-    validates_uniqueness_of :ip, scope: :port, if: (:ip_addr_exists || :ip_and_dns_dont_exist)
-    validates_uniqueness_of :dns_name, scope: :port, if: (:dns_name_exists || :ip_and_dns_dont_exist)
-    validates :ip, format: { with: Resolv::IPv4::Regex }, if: :ip_addr_exists 
+    validates_presence_of :ip
+    validates_presence_of :dns_name
+    validates_uniqueness_of :ip, scope: :port, presenence: true,
+        if: (:ip_addr_exists || :ip_and_dns_dont_exist)
+    validates_uniqueness_of :dns_name, scope: :port, presence: true,
+        if: (:dns_name_exists || :ip_and_dns_dont_exist)
+    validates :ip, format: { with: Resolv::IPv4::Regex }, 
+        if: (:ip_addr_exists || :ip_and_dns_dont_exist)
     validates_numericality_of :port
     after_initialize :init
     
@@ -40,9 +47,6 @@ class Service < ActiveRecord::Base
             false
         end
     end
-    
-  require 'timeout'
-  require 'socket'
 
   def ping(host)
     begin

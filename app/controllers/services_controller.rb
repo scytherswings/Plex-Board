@@ -23,7 +23,11 @@ class ServicesController < ApplicationController
   def new
      @services = Service.all
      @service = Service.new
-     @plex = Plex.new
+    # @plex = Plex.new
+  end
+  
+  def new_plex
+    @plex = Plex.new
   end
 
   # GET /services/1/edit
