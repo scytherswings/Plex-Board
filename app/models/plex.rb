@@ -9,4 +9,6 @@ class Plex < Service
   end
   validates :username, presence: true
   validates :password, presence: true
+
+  
 end

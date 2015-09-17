@@ -21,7 +21,11 @@
           <td><%= f.dns_name %></td>
           <td><%= f.port %> </td>
           <td><%= f.url %> </td>
+          <% if f.type.nil? || f.type.empty? %>
+            <td>Generic</td>
+          <% else %>
           <td><%= f.type %></td>
+          <% end %>
           <td class="text-center"><%= link_to 'Edit', edit_service_path(f), class: "btn btn-md btn-primary" %></td>
           </tr>
         <% end %>
