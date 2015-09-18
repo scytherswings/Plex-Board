@@ -7,7 +7,9 @@ Pronounced "Plex Dashboard" like that ghetto name [La-a][] (La Dash A)... sorry.
 
 [La-a]: http://www.urbandictionary.com/define.php?term=la-a
 
-As a suggestion from another GitHub user, I have created some Gitter chat rooms for my projects, here is the link for this one: [Gitter Plex-Board](https://gitter.im/scytherswings/Plex-Board)
+As a suggestion from another GitHub user, I have created some Gitter chat rooms for my projects, here is the link for this one: 
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 
 Here's a REALLY rough mockup of what I'm going for... I think...
 ![mockup](http://imgur.com/xgJQTZp.png)
