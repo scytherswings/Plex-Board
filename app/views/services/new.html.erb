@@ -2,44 +2,95 @@
 
 <%= render 'layouts/servicepanel' %>
 
-<div class="col-md-8">
+<div class="well">
   <h2>New Service</h2>
 
-    <div class="well">
      <%= render 'shared/error_messages' %>
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#generic" role="tab" data-toggle="tab">Generic Service</a></li>
-      <li><a href="#plex" role="tab" data-toggle="tab">Plex</a></li>
-      <li><a href="#couchpotato" role="tab" data-toggle="tab">Couchpotato</a></li>
-      <li><a href="#sickrage" role="tab" data-toggle="tab">Sickrage</a></li>
-      <li><a href="#sabnzbd" role="tab" data-toggle="tab">Sabnzbd+</a></li>
-      <li><a href="#deluge" role="tab" data-toggle="tab">Deluge</a></li>
-    </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="generic">
-      <%= render partial: "genericform" %>
-    </div>
-    <div class="tab-pane" id="plex">
-      <%= render partial: "plexform" %>
-    </div>
-    <div class="tab-pane" id="couchpotato">
-      <%= render partial: "couchpotatoform" %>
-    </div>
-    <div class="tab-pane" id="sickrage">
-      <%= render partial: "sickrageform" %>
-    </div>
-    <div class="tab-pane" id="sabnzbd">
-      <%= render partial: "sabnzbdform" %>
-    </div>
-    <div class="tab-pane" id="deluge">
-      <%= render partial: "delugeform" %>
-    </div>
-  </div>
-	</div>
-  	
+     <div>
+       <%= form_for(@service) do |f| %>
+       <div class="row">
+         <div class="col-lg-2 form-group">
+          <br>
+           <%= f.label "Service Type" %>
+           <%= f.select(:service_type,
+           options_for_select([['Generic Service', 'Generic_Service'],
+           ['Plex', 'Plex'], ['Couchpotato', 'Couchpotato'],
+           ['Sickrage', 'Sickrage'], ['Deluge', 'Deluge'],
+           ['Sabnzbd', 'Sabnzbd']]), {}, {class:"form-control"}) %>
+
+         </div>
+       </div>
+
+        <div class="row">
+
+          <div class="col-lg-3 form-group">
+        	  <%= f.label :name %>
+        	  <%= f.text_field :name, :placeholder => "New serivce name", class: 'form-control'  %>
+        	</div>
+          <div class="col-lg-3 form-group">
+        	  <%= f.label :ip, "IP Address" %>
+        	  <%= f.text_field :ip, :placeholder => "127.0.0.1", class: 'form-control' %>
+          </div>
+          <div class="col-lg-3 form-group">
+        	  <%= f.label :dns_name, "DNS Name" %>
+        	  <%= f.text_field :dns_name, :placeholder => "plex", class: 'form-control'  %>
+          </div>
+          <div class="col-lg-3 form-group">
+        	  <%= f.label :port %>
+        	  <%= f.number_field :port, :placeholder => "80", class: 'form-control'  %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :url, "URL" %>
+          <%= f.text_field :url, :placeholder => "http://plex.example.com:32400/web", class: 'form-control' %>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 form-group">
+            <%= f.label :username, "Username" %>
+        	  <%= f.text_field :username, class: 'form-control' %>
+          </div>
+          <div class="col-lg-6 form-group">
+            <%= f.label :password, "Password" %>
+        	  <%= f.text_field :password, class: 'form-control' %>
+          </div>
+        </div>
+
+        <%= f.submit "Create Service",  class: "btn btn-primary"  %>
+        <% end %>
+     </div>
+
 </div>
 
-<%= render 'layouts/rightbar' %>
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
