@@ -1,4 +1,6 @@
 # Plex-Board
+
+[![Join the chat at https://gitter.im/scytherswings/Plex-Board](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 A dynamic dashboard for checking the status of multiple services related to Plex Media Server (Plex, Couchpotato, Sickrage, Deluge, Sabnzbd+, etc.). 
 
 This is essentially a revamp of a cool project ([Network-Status-Page](https://github.com/scytherswings/Network-Status-Page)) I forked a little while ago.
