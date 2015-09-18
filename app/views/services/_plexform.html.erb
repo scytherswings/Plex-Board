@@ -1,4 +1,4 @@
-<%= form_for(@plex, url: {controller: :services, action: :create_plex}) do |f| %>
+<%= form_for(@service) do |f| %>
 
 <div class="row">
   <br>
@@ -34,5 +34,5 @@
   </div>
 </div>
 
-<%= f.submit "Create Plex Service",  class: "btn btn-primary"  %>
+<%= f.submit "Create Service",  class: "btn btn-primary"  %>
 <% end %>

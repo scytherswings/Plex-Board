@@ -1,2 +1,0 @@
-class Generic < Service
-end

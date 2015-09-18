@@ -78,7 +78,7 @@ class ServiceTest < ActiveSupport::TestCase
      dup_name_service = @service_two
      dup_name_service.name = @service_one.name
       assert @service_one.save, "Saving service to test duplicate name failed"
-    assert_not duplicate_name.valid?, "Duplicate service name should not be valid"
+    assert_not dup_name_service.valid?, "Duplicate service name should not be valid"
   end
   
   # test "dns_name and port combination should be unique" do
@@ -86,7 +86,7 @@ class ServiceTest < ActiveSupport::TestCase
   # end
   
   test "url should be unique" do
-    duplicate_service = @service_on
+    duplicate_service = @service_one
       assert @service_one.save, "Saving service to test duplicate url failed"
     assert_not duplicate_service.valid?, "Duplicate service url should not be valid"
   end

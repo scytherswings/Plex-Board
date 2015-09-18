@@ -1,2 +1,0 @@
-class Sabnzbd < Service
-end

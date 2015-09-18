@@ -3,11 +3,15 @@ class Service < ActiveRecord::Base
     require 'resolv'
     require 'timeout'
     require 'socket'
+
+    auto_strip_attributes :ip, :dns_name, :url, :squish => true
+    
+    
     # attr_accessor :name, :ip, :dns_name, :port, :url
     validates :name, presence: true, uniqueness: true
     validates :url, uniqueness: true, presence: true
-    validates_presence_of :ip
-    validates_presence_of :dns_name
+    validates_presence_of :ip, if: (:ip_addr_exists || :ip_and_dns_dont_exist)
+    validates_presence_of :dns_name, if: (:ip_addr_exists || :ip_and_dns_dont_exist)
     validates_uniqueness_of :ip, scope: :port, presenence: true,
         if: (:ip_addr_exists || :ip_and_dns_dont_exist)
     validates_uniqueness_of :dns_name, scope: :port, presence: true,

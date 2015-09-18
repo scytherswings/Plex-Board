@@ -10,17 +10,7 @@ Rails.application.routes.draw do
    #This fiddley stuff might not be needed if I can figure out how to make the 
    #services controller be OK with extra stuff, I think it should work fine once 
    #I figure that out
-  resources :services do
-  collection do
-    post 'create_plex'
-    post 'create_couchpotato'
-    post 'create_sickrage'
-    post 'create_deluge'
-    post 'create_sabnzbd'
-    
-  end
-end
-  resources :plex, :controller => "services"
+  resources :services
 
   get 'all_services' => 'services#all_services'
   root 'services#index'

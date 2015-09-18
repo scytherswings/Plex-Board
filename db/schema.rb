@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917020054) do
+ActiveRecord::Schema.define(version: 20150918010134) do
 
   create_table "couchpotatos", force: :cascade do |t|
     t.string   "username"
@@ -56,12 +56,12 @@ ActiveRecord::Schema.define(version: 20150917020054) do
     t.string   "dns_name"
     t.integer  "port"
     t.string   "url"
-    t.string   "type"
     t.string   "username"
     t.string   "password"
     t.string   "api"
     t.boolean  "online_status"
     t.datetime "last_seen"
+    t.string   "service_type"
   end
 
   add_index "services", ["name"], name: "index_services_on_name", unique: true

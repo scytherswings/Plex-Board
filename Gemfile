@@ -30,6 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sprockets-rails', '~> 2.3.2'
 gem 'bootbox-rails', '~>0.4'
+gem 'auto_strip_attributes', '~> 2.0.6'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

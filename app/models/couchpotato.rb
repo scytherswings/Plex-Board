@@ -1,2 +1,0 @@
-class Couchpotato < Service
-end

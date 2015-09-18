@@ -1,2 +1,0 @@
-class Sickrage < Service
-end

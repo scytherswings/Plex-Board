@@ -1,2 +1,0 @@
-class Deluge < Service
-end
