@@ -4,8 +4,10 @@ class Service < ActiveRecord::Base
     require 'timeout'
     require 'socket'
 
-    auto_strip_attributes :ip, :dns_name, :url, :squish => true
+    SERVICE_TYPES = %w(Generic Service Plex Couchpotato Sickrage Deluge Sabnzbd+)
     
+    auto_strip_attributes :ip, :dns_name, :url, :squish => true
+    auto_strip_attributes :service_type
     validates_presence_of :service_type
     # attr_accessor :name, :ip, :dns_name, :port, :url
     validates :name, presence: true, uniqueness: true

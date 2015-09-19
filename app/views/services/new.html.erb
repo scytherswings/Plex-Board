@@ -2,22 +2,20 @@
 
 <%= render 'layouts/servicepanel' %>
 
+
+
 <div class="col-lg-8">
   <div class="well">
   <h2>New Service</h2>
 
      <%= render 'shared/error_messages' %>
-     
-       <%= form_for(@service) do |f| %>
+
+     <%= simple_form_for @service do |f| %>
        <div class="row">
          <div class="col-lg-3 form-group">
           <br>
-           <%= f.label "Service Type" %>
-           <%= f.select(:service_type,
-           options_for_select([['Generic Service', 'Generic_Service'],
-           ['Plex', 'Plex'], ['Couchpotato', 'Couchpotato'],
-           ['Sickrage', 'Sickrage'], ['Deluge', 'Deluge'],
-           ['Sabnzbd', 'Sabnzbd']]), {}, {class:"form-control"}) %>
+           <%= f.input :service_type, :collection =>  0..Service::SERVICE_TYPES.length,
+           :label_method => lambda { |i| Service::SERVICE_TYPES[i] } %>
 
          </div>
        </div>
@@ -25,52 +23,44 @@
         <div class="row">
 
           <div class="col-lg-3 form-group">
-        	  <%= f.label :name %>
-        	  <%= f.text_field :name, :placeholder => "New serivce name", class: 'form-control'  %>
+        	  <%= f.input :name %>
         	</div>
           <div class="col-lg-3 form-group">
-        	  <%= f.label :ip, "IP Address" %>
-        	  <%= f.text_field :ip, :placeholder => "127.0.0.1", class: 'form-control' %>
+        	  <%= f.input :ip %>
           </div>
           <div class="col-lg-3 form-group">
-        	  <%= f.label :dns_name, "DNS Name" %>
-        	  <%= f.text_field :dns_name, :placeholder => "plex", class: 'form-control'  %>
+        	  <%= f.input :dns_name %>
           </div>
           <div class="col-lg-3 form-group">
-        	  <%= f.label :port %>
-        	  <%= f.number_field :port, :placeholder => "80", class: 'form-control'  %>
+
+        	  <%= f.input :port  %>
           </div>
         </div>
         <div class="form-group">
-          <%= f.label :url, "URL" %>
-          <%= f.text_field :url, :placeholder => "http://plex.example.com:32400/web", class: 'form-control' %>
+
+          <%= f.input :url %>
         </div>
         <div class="row">
           <div class="col-lg-6 form-group">
-            <%= f.label :username, "Username" %>
-        	  <%= f.text_field :username, class: 'form-control' %>
+
+        	  <%= f.input :username %>
           </div>
           <div class="col-lg-6 form-group">
-            <%= f.label :password, "Password" %>
-        	  <%= f.password_field :password, class: 'form-control' %>
+
+        	  <%= f.input:password %>
           </div>
         </div>
         <div class="form-group">
-          <%= f.label :api, "API Key" %>
-          <%= f.text_field :api, :placeholder => "453867f2a275456ba6d3b4b5a8f6c3ac", class: 'form-control' %>
+
+          <%= f.input :api %>
         </div>
 
-        <%= f.submit "Create Service",  class: "btn btn-primary"  %>
+        <%= f.button :submit %>
         <% end %>
-     
 
+
+  </div>
 </div>
-
-</div>
-
-
-
-
 
 
 
