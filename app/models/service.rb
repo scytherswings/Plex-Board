@@ -6,7 +6,7 @@ class Service < ActiveRecord::Base
 
     auto_strip_attributes :ip, :dns_name, :url, :squish => true
     
-    
+    validates_presence_of :service_type
     # attr_accessor :name, :ip, :dns_name, :port, :url
     validates :name, presence: true, uniqueness: true
     validates :url, uniqueness: true, presence: true

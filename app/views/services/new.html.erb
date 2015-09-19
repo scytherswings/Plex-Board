@@ -2,14 +2,15 @@
 
 <%= render 'layouts/servicepanel' %>
 
-<div class="well">
+<div class="col-lg-8">
+  <div class="well">
   <h2>New Service</h2>
 
      <%= render 'shared/error_messages' %>
-     <div>
+     
        <%= form_for(@service) do |f| %>
        <div class="row">
-         <div class="col-lg-2 form-group">
+         <div class="col-lg-3 form-group">
           <br>
            <%= f.label "Service Type" %>
            <%= f.select(:service_type,
@@ -51,13 +52,19 @@
           </div>
           <div class="col-lg-6 form-group">
             <%= f.label :password, "Password" %>
-        	  <%= f.text_field :password, class: 'form-control' %>
+        	  <%= f.password_field :password, class: 'form-control' %>
           </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :api, "API Key" %>
+          <%= f.text_field :api, :placeholder => "453867f2a275456ba6d3b4b5a8f6c3ac", class: 'form-control' %>
         </div>
 
         <%= f.submit "Create Service",  class: "btn btn-primary"  %>
         <% end %>
-     </div>
+     
+
+</div>
 
 </div>
 

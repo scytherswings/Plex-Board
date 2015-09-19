@@ -2,7 +2,7 @@
 
 <%= render 'layouts/servicepanel' %>
 
-<div class="col-sm-8">    
+<div class="col-sm-8">
   <h2>All Services</h2>
   <div class"row">
     <div class="panel panel-default">
@@ -21,23 +21,23 @@
           <td><%= f.dns_name %></td>
           <td><%= f.port %> </td>
           <td><%= f.url %> </td>
-          <% if f.type.nil? || f.type.empty? %>
+          <% if f.service_type.nil? || f.service_type.empty? %>
             <td>Generic</td>
           <% else %>
-          <td><%= f.type %></td>
+          <td><%= f.service_type %></td>
           <% end %>
           <td class="text-center"><%= link_to 'Edit', edit_service_path(f), class: "btn btn-md btn-primary" %></td>
           </tr>
         <% end %>
       </table>
-    
+
     </div>
   <div class="pull-right">
   <%= link_to "Add New Service", new_service_path, class: "btn btn-success" %>
   </div>
-  
+
   </div>
-  
+
 </div>
 
 <%= render 'layouts/rightbar' %>
