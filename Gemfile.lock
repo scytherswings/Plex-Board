@@ -168,6 +168,9 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     shellany (0.0.1)
+    simple_form (3.1.1)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     slop (3.6.0)
     spring (1.4.0)
     sprockets (3.3.4)
@@ -215,6 +218,7 @@ DEPENDENCIES
   rails (= 4.2.4)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  simple_form (~> 3.1.1)
   spring
   sprockets-rails (~> 2.3.2)
   sqlite3
