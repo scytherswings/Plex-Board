@@ -1,4 +1,8 @@
 class ServicesController < ApplicationController
+    include ActionController::Live
+
+  
+  
   before_action :set_service, only: [:show, :edit, :update, :destroy]
 
   # GET /services
@@ -6,7 +10,16 @@ class ServicesController < ApplicationController
   def index
     @services = Service.all
   end
-
+  
+  def service_Status
+    response.headers['Content-Type'] = 'text/event-stream'
+    10.times {
+      response.stream.write "hello world\n"
+      sleep 1
+    }
+  ensure
+    response.stream.close
+  end
 
   # GET /services/1
   # GET /services/1.json
