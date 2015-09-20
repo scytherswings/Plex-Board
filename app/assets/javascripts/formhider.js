@@ -7,12 +7,13 @@ $(function hideStuff(){
     if (value == "Generic Service"){
       $("#login_div").hide();
       $("#api_div").hide();
-   }
-    else 
+    }
+    else {
      $("#login_div").show();
-     $("#api)_div").show();
+     $("#api_div").show();
      $("#default_info_div").show();
      $("#url_div").show();
+    }
   });
 });
 // });
