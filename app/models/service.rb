@@ -60,10 +60,10 @@ class Service < ActiveRecord::Base
         end
     end
 
-  def ping(host)
+  def ping()
     begin
       Timeout.timeout(5) do
-        s = TCPSocket.new(host, 'echo')
+        s = TCPSocket.new(self.ip, 'echo')
         s.close
         return true
       end

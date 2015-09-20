@@ -7,7 +7,7 @@ class ServiceTest < ActiveSupport::TestCase
   
   setup do
     @service_one = services(:one)
-    # @service_two = services(:two)
+    @service_two = services(:two)
     # Everything is unique except the dns_name and port pairing, dns_name_and_port_dup_2 should be invalid
     # dns_name_and_port_dup_1: { name: "Test Service dns_dup_1", ip: "127.0.2.1", dns_name: "ubuntu", port: 8080, url: "http://127.0.2.1:8080"}
 
@@ -37,14 +37,19 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not @service_one.valid?
   end
   
-  test "ip should be in IP address format" do
+  test "ip should not be an all-whitespace string" do
     @service_one.ip = "     "
-    assert_not @service_one.valid?, "Blank IP should not be allowed"
+    assert_not @service_one.valid?, "Whitespace string should not be allowed for ip"
+  end
+  
+  test "dns_name should not be an all-whitespace string" do
+    @service_one.dns_name = "     "
+    assert_not @service_one.valid?, "Whitespace string should not be allowed for dns_name"
   end
   
   test "ip should be a valid ipv4 address" do
-    @service_one.ip = "155.155.155.256"
-    assert_not @service_one.valid?
+    @service_one.ip = "155.155.155.257"
+    assert_not @service_one.valid?, "Invalid IP Addresses should not be allowed"
   end
   
   test "service should be unique" do
@@ -54,15 +59,31 @@ class ServiceTest < ActiveSupport::TestCase
   end
   
   test "name should be unique" do
-    
+    @service_one.save
+    @service_two.name = @service_one.name
+    assert_not @service_two.valid?, "Duplicate names should not be allowed"
   end
   
-  # test "dns_name and port combination should be unique" do
-    
-  # end
-  
   test "url should be unique" do
-
+    @service_one.save
+    @service_two.url = @service_one.url
+    assert_not @service_two.valid?, "Duplicate URLs should not be allowed"
+  end
+  
+  test "dns_name and port combination should be unique" do
+    @service_one.port = '8383'
+    @service_one.save
+    @service_two.dns_name = @service_one.dns_name
+    @service_two.port = @service_one.port
+    assert_not @service_two.valid?, "Duplicate dns_names and ports should not be allowed"
+  end
+  
+  test "ip and port combination should be unique" do
+    @service_one.port = '8383'
+    @service_one.save
+    @service_two.ip = @service_one.ip
+    @service_two.port = @service_one.port
+    assert_not @service_two.valid?, "Duplicate ip addresses and ports should not be allowed"
   end
   
 end
