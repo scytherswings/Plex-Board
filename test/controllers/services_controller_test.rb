@@ -12,6 +12,11 @@ class ServicesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:services)
   end
+  test "should get all_services" do
+    get :all_services
+    assert_response :success
+    assert_not_nil assigns(:services)
+  end
 
   test "should get new" do
     get :new
@@ -48,4 +53,6 @@ class ServicesControllerTest < ActionController::TestCase
 
     assert_redirected_to root_url
   end
+  
+
 end
