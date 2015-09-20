@@ -11,6 +11,12 @@ $(function hideStuff(){
             $("#login_div").hide();
             $("#api_div").hide();
           }
+          else if (value == "Plex" || value == "Deluge"){
+            $("#login_div").show();
+            $("#api_div").hide();
+            $("#default_info_div").show();
+            $("#url_div").show();
+          }
           else {
             $("#login_div").show();
             $("#api_div").show();
@@ -30,6 +36,12 @@ $(function hideStuff(){
     if (value == "Generic Service"){
       $("#login_div").hide();
       $("#api_div").hide();
+    }
+    else if (value == "Plex" || value == "Deluge"){
+      $("#login_div").show();
+      $("#api_div").hide();
+      $("#default_info_div").show();
+      $("#url_div").show();
     }
     else {
      $("#login_div").show();
