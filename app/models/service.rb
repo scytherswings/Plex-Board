@@ -12,7 +12,7 @@ class Service < ActiveRecord::Base
     # attr_accessor :name, :ip, :dns_name, :port, :url
     validates :name, presence: true, uniqueness: true
     validates :url, uniqueness: true, presence: true
-    validates_presence_of :ip
+    validates_presence_of :ip, if: (:ip_addr_exists || :ip_and_dns_dont_exist)
     validates_presence_of :dns_name, if: (:dns_name_exists || :ip_and_dns_dont_exist)
     validates_uniqueness_of :ip, scope: :port, presenence: true,
         if: (:ip_addr_exists || :ip_and_dns_dont_exist)
@@ -33,7 +33,9 @@ class Service < ActiveRecord::Base
 
     def ip_addr_exists
 
-        if ip.nil? || ip.blank? || ip.empty?
+        if ip.blank?
+            true
+        elsif ip.nil? || ip.empty?
             false
         else
             true
@@ -41,7 +43,9 @@ class Service < ActiveRecord::Base
     end
 
     def dns_name_exists
-        if dns_name.nil? || dns_name.blank? || dns_name.empty?
+        if dns_name.blank?
+            true
+        elsif dns_name.nil? || dns_name.empty?
             false
         else
             true
@@ -49,7 +53,7 @@ class Service < ActiveRecord::Base
     end
 
     def ip_and_dns_dont_exist
-        if (ip.nil? || ip.blank? || ip.empty? ) && (dns_name.nil? || dns_name.blank? || dns_name.empty? )
+        if (ip.nil? || ip.empty?) && (dns_name.nil? || dns_name.empty?)
             true
         else
             false
