@@ -14,8 +14,8 @@
        <div class="row">
          <div class="col-lg-3 form-group">
           <br>
-           <%= f.input :service_type, :collection =>  0..Service::SERVICE_TYPES.length,
-           :label_method => lambda { |i| Service::SERVICE_TYPES[i] } %>
+           <%= f.input :service_type, :collection => Service::SERVICE_TYPES, 
+           :include_blank => false, :selected => "Generic Service" %>
 
          </div>
        </div>
@@ -32,29 +32,23 @@
         	  <%= f.input :dns_name %>
           </div>
           <div class="col-lg-3 form-group">
-
         	  <%= f.input :port  %>
           </div>
         </div>
         <div class="form-group">
-
           <%= f.input :url %>
         </div>
         <div class="row">
           <div class="col-lg-6 form-group">
-
         	  <%= f.input :username %>
           </div>
           <div class="col-lg-6 form-group">
-
         	  <%= f.input:password %>
           </div>
         </div>
         <div class="form-group">
-
           <%= f.input :api %>
         </div>
-
         <%= f.button :submit %>
         <% end %>
 

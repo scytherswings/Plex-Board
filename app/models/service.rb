@@ -4,7 +4,7 @@ class Service < ActiveRecord::Base
     require 'timeout'
     require 'socket'
 
-    SERVICE_TYPES = %w(Generic Service Plex Couchpotato Sickrage Deluge Sabnzbd+)
+    SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
     
     auto_strip_attributes :ip, :dns_name, :url, :squish => true
     auto_strip_attributes :service_type
