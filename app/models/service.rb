@@ -10,19 +10,23 @@ class Service < ActiveRecord::Base
     validates :name, presence: true, uniqueness: true, allow_blank: false
     validates :url, presence: true, uniqueness: true, allow_blank: false
     validates_numericality_of :port
-    
+
 
     validates :ip, length: { minimum: 7, maximum: 45 },
         format: { with: Resolv::IPv4::Regex },
         uniqueness: { scope: :port }, allow_blank: true
- 
+
     validates :dns_name, length: { minimum: 2, maximum: 127 },
         uniqueness: { scope: :port }, allow_blank: true
 
     validates :ip, presence: true, if: (:ip_and_dns_name_dont_exist)
-    
+
     validates :dns_name, presence: true, if: (:ip_and_dns_name_dont_exist)
 
+    validates :api, length: { minimum: 32, maximum: 255 }, allow_blank: true
+
+    validates :username, length: { maximum: 255 }, allow_blank: true
+    validates :password, length: { maximum: 255 }, allow_blank: true
     after_initialize :init
 
     def init

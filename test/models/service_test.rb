@@ -107,4 +107,25 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not @service_one.valid?, "IP and dns_name should not both be blank"
   end
 
+  test "api key must be >= 32 char" do
+    @service_one.api = "x" * 32
+    assert @service_one.valid?, "API key should be >= 32 char"
+  end
+
+  test "api key must not be > 255 char" do
+    @service_one.api = "x" * 256
+    assert_not @service_one.valid?, "API key should be <= 255 char"
+  end
+
+
+  test "username must not be > 255 char" do
+    @service_one.username = "x" * 256
+    assert_not @service_one.valid?, "username should be <= 255 char"
+  end
+  
+  test "password must not be > 255" do
+    @service_one.password = "x" * 256
+    assert_not @service_one.valid?, "password should be <= 255 char"
+  end
+
 end
