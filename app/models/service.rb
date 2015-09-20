@@ -1,59 +1,37 @@
 class Service < ActiveRecord::Base
-    include ActiveModel::Validations
     require 'resolv'
     require 'timeout'
     require 'socket'
 
     SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
 
-    auto_strip_attributes :url, :ip, :squish => true
-    auto_strip_attributes :service_type
+    strip_attributes :only => [:ip, :url, :dns_name, :api, :username], :collapse_spaces => true
     validates_presence_of :service_type
-    # attr_accessor :name, :ip, :dns_name, :port, :url
-    validates :name, presence: true, uniqueness: true
-    validates :url, presence: true, uniqueness: true
+    validates :name, presence: true, uniqueness: true, allow_blank: false
+    validates :url, presence: true, uniqueness: true, allow_blank: false
     validates_numericality_of :port
-    # validates_presence_of :ip, allow_blank: true,  if: (:ip_addr_exists || :ip_and_dns_dont_exist)
-    # validates_presence_of :dns_name, allow_blank: true, if: (:dns_name_exists || :ip_and_dns_dont_exist)
-    # validates_uniqueness_of :ip, scope: :port, presenence: true,
-    #     if: (:ip_addr_exists || :ip_and_dns_dont_exist)
-    # validates_uniqueness_of :dns_name, scope: :port, presence: true,
-    #     if: (:dns_name_exists || :ip_and_dns_dont_exist)
-    # validates :ip, format: { with: Resolv::IPv4::Regex },
-    #     if: (:ip_addr_exists || :ip_and_dns_dont_exist)
-            
-    validates :ip, length: { minimum: 7 }, 
-        format: { with: Resolv::IPv4::Regex },
-        uniqueness: { scope: :port }
-    validates :dns_name, allow_blank: true, length: { minimum: 2 },
-        uniqueness: { scope: :port }
-   
     
+
+    validates :ip, length: { minimum: 7, maximum: 45 },
+        format: { with: Resolv::IPv4::Regex },
+        uniqueness: { scope: :port }, allow_blank: true
+ 
+    validates :dns_name, length: { minimum: 2, maximum: 127 },
+        uniqueness: { scope: :port }, allow_blank: true
+
+    validates :ip, presence: true, if: (:ip_and_dns_name_dont_exist)
+    
+    validates :dns_name, presence: true, if: (:ip_and_dns_name_dont_exist)
+
     after_initialize :init
 
     def init
         self.port ||=80
     end
 
-
-    def ip_addr_exists
-        if ip.nil? || ip.empty?
-            false
-        else
-            true
-        end
-    end
-
-    def dns_name_exists
-        if dns_name.nil? || dns_name.empty?
-            false
-        else
-            true
-        end
-    end
-
-    def ip_and_dns_dont_exist
-        if (ip.nil? || ip.empty?) && (dns_name.nil? || dns_name.empty?)
+    def ip_and_dns_name_dont_exist
+        if ((ip.blank? || ip.to_s.empty?) && (dns_name.blank? || dns_name.to_s.empty?))
+            self.errors.add(:base, 'IP Address or DNS Name must exist')
             true
         else
             false

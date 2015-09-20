@@ -17,7 +17,7 @@ class ServicesControllerTest < ActionController::TestCase
     get :new
     assert_response :success
   end
-  
+
   test "should create service" do
     assert_difference('Service.count') do
       post :create, service: { name: "test_create", ip: "172.111.3.1", dns_name: "test_create", url: "test_create", service_type: "Generic Service" }
@@ -25,7 +25,7 @@ class ServicesControllerTest < ActionController::TestCase
 
     assert_redirected_to service_path(assigns(:service))
   end
-  
+
   test "should show service" do
     get :show, id: @service
     assert_response :success

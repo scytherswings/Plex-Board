@@ -14,7 +14,7 @@
   	  <div class="row">
     	  <div class="col-lg-4 form-group">
     	  <%= f.label :ip, "IP Address" %>
-    	  <% if @service.ip_addr_exists %>
+    	  <% if @service.ip.blank? %>
     	    <%= f.text_field :ip, :placeholder => @service.ip, class: 'form-control' %>
   	    <% else %>
   	      <%= f.text_field :ip, :placeholder => "127.0.0.1", class: 'form-control' %>
@@ -22,7 +22,7 @@
     	  </div>
     	  <div class="col-lg-4 form-group">
     	  <%= f.label :dns_name, "DNS Name" %>
-    	  <% if @service.dns_name_exists %>
+    	  <% if @service.dns_name.blank? %>
     	    <%= f.text_field :dns_name, :placeholder => @service.dns_name, class: 'form-control'  %>
   	    <% else %>
       	  <%= f.text_field :dns_name, :placeholder => "localhost", class: 'form-control'  %>
