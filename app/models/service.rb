@@ -6,14 +6,14 @@ class Service < ActiveRecord::Base
 
     SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
     
-    auto_strip_attributes :ip, :dns_name, :url, :squish => true
+    auto_strip_attributes :dns_name, :url, :squish => true
     auto_strip_attributes :service_type
     validates_presence_of :service_type
     # attr_accessor :name, :ip, :dns_name, :port, :url
     validates :name, presence: true, uniqueness: true
     validates :url, uniqueness: true, presence: true
     validates_presence_of :ip, if: (:ip_addr_exists || :ip_and_dns_dont_exist)
-    validates_presence_of :dns_name, if: (:ip_addr_exists || :ip_and_dns_dont_exist)
+    validates_presence_of :dns_name, if: (:dns_name_exists || :ip_and_dns_dont_exist)
     validates_uniqueness_of :ip, scope: :port, presenence: true,
         if: (:ip_addr_exists || :ip_and_dns_dont_exist)
     validates_uniqueness_of :dns_name, scope: :port, presence: true,
@@ -29,6 +29,7 @@ class Service < ActiveRecord::Base
         #     Ping.create
         # end
     end
+    
     
     def ip_addr_exists
         if ip.nil? || ip.blank? || ip.empty?

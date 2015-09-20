@@ -15,41 +15,41 @@
          <div class="col-lg-3 form-group"  id="wrapper">
           <br>
            <%= f.input :service_type, :collection => Service::SERVICE_TYPES, 
-           :include_blank => false %>
+           :include_blank => false, :required => false %>
          </div>
        </div>
 
         <div class="row" id="default_info_div">
 
           <div class="col-lg-4 form-group">
-        	  <%= f.input :name, :placeholder => "New serivce name" %>
+        	  <%= f.input :name, :placeholder => "New serivce name", :required => false %>
         	</div>
           <div class="col-lg-3 form-group">
-        	  <%= f.input :ip, label: "IP Address", :placeholder => "127.0.0.1" %>
+        	  <%= f.input :ip, label: "IP Address", :placeholder => "127.0.0.1", :required => false %>
           </div>
           <div class="col-lg-3 form-group">
-        	  <%= f.input :dns_name, label: "DNS Name", :placeholder => "plex" %>
+        	  <%= f.input :dns_name, label: "DNS Name", :placeholder => "plex", :required => false %>
           </div>
           <div class="col-lg-2 form-group">
-        	  <%= f.input :port, :placeholder => "80" %>
+        	  <%= f.input :port, :placeholder => "80", :required => false %>
           </div>
         </div>
         <div class="row" id="url_div">
           <div class="col-lg-12 form-group">
-            <%= f.input :url, label: "URL", :placeholder => "http://plex.example.com:32400/web" %>
+            <%= f.input :url, label: "URL", :placeholder => "http://plex.example.com:32400/web", :required => false %>
           </div>
         </div>
         <div class="row" id="login_div">
           <div class="col-lg-6 form-group">
-        	  <%= f.input :username, :placeholder => "username" %>
+        	  <%= f.input :username, :placeholder => "username", :required => false %>
           </div>
           <div class="col-lg-6 form-group">
-        	  <%= f.input:password, :placeholder => "password" %>
+        	  <%= f.input:password, :placeholder => "password", :required => false %>
           </div>
         </div>
         <div class="row" id="api_div">
           <div class="col-lg-12 form-group">
-            <%= f.input :api, :placeholder => "453867f2a275456ba6d3b4b5a8f6c3ac" %>
+            <%= f.input :api, :placeholder => "453867f2a275456ba6d3b4b5a8f6c3ac", :required => false %>
           </div>
         </div>
         <%= f.button :submit %>
