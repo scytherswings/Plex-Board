@@ -1,11 +1,23 @@
 <%= simple_form_for @service do |f| %>
- <div class="row" id="service_type_dropdown">
-   <div class="col-lg-3 form-group"  id="wrapper">
-    <br>
-     <%= f.input :service_type, :collection => Service::SERVICE_TYPES,
-     :include_blank => false, :required => false %>
+
+  <% if request.original_url.include? "new" %>
+   <div class="row" id="service_type_dropdown">
+     <div class="col-lg-3 form-group"  id="wrapper">
+      <br>
+       <%= f.input :service_type, label: "Service Type:", :collection => Service::SERVICE_TYPES,
+       :include_blank => false, :required => false %>
+     </div>
    </div>
- </div>
+ <% else %>
+   <div class="row">
+     <div class="col-lg-3 form-group">
+      <label class="string optional control-label" for="service_type">Service Type</label>
+      <input class="string optional form-control" type="text" value="<%= @service.service_type %>"
+        name="service_type" id="service_type" disabled="disabled">
+        <!--Yes, I know that you can still update the service_type field if you remove the disabled attribute.-->
+     </div>
+   </div>
+ <% end %>
 
   <div class="row" id="default_info_div">
 
@@ -41,5 +53,9 @@
     </div>
   </div>
   <%= f.button :submit, class: "btn-success" %>
+  <% if request.original_url.include? "edit" %>
+    <% str = "Are you sure you want to delete: #{@service.name}?" %>
+    <%= link_to 'Delete Service', @service, method: :delete, data: { confirm: str }, class: "btn btn-md btn-danger pull-right" %>
   <% end %>
+<% end %>
 

@@ -1,8 +1,8 @@
 class ServicesController < ApplicationController
     include ActionController::Live
 
-  
-  
+
+
   before_action :set_service, only: [:show, :edit, :update, :destroy]
 
   # GET /services
@@ -10,13 +10,22 @@ class ServicesController < ApplicationController
   def index
     @services = Service.all
   end
-  
-  def service_Status
+
+  def online_status
     response.headers['Content-Type'] = 'text/event-stream'
-    10.times {
-      response.stream.write "hello world\n"
-      sleep 1
-    }
+    @services = Service.all
+    @services.each do |service|
+      if service.ping
+        response.stream.write "data: #{service.name} is online"
+      else
+        response.stream.write "data: #{service.name} is offline"
+      end
+      sleep 5
+    end
+
+    
+    rescue IOError
+      logger.info "Stream closed"
   ensure
     response.stream.close
   end
@@ -27,7 +36,7 @@ class ServicesController < ApplicationController
     @services = Service.all
     # @service = Service.find(params[:id])
   end
-  
+
   def all_services
     @services = Service.all
   end
@@ -38,7 +47,7 @@ class ServicesController < ApplicationController
      @service = Service.new
     # @plex = Plex.new
   end
-  
+
   def new_plex
     @plex = Plex.new
   end

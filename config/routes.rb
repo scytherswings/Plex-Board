@@ -5,19 +5,20 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-   
-   
-   #This fiddley stuff might not be needed if I can figure out how to make the 
-   #services controller be OK with extra stuff, I think it should work fine once 
-   #I figure that out
-  resources :services
 
+
+   #This fiddley stuff might not be needed if I can figure out how to make the
+   #services controller be OK with extra stuff, I think it should work fine once
+   #I figure that out
+  resources :services do
+    collection { get :online_status}
+  end
   get 'all_services' => 'services#all_services'
   root 'services#index'
   get 'about' => 'info#about'
   get 'configuration' => 'info#configuration'
   get 'status' => 'info#status'
-  
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

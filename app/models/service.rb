@@ -4,7 +4,6 @@ class Service < ActiveRecord::Base
     require 'socket'
 
     SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
-
     strip_attributes :only => [:ip, :url, :dns_name, :api, :username], :collapse_spaces => true
     validates_presence_of :service_type
     validates :name, presence: true, uniqueness: true, allow_blank: false
@@ -31,6 +30,7 @@ class Service < ActiveRecord::Base
 
     def init
         self.port ||=80
+        self.online_status ||=false
     end
 
     def ip_and_dns_name_dont_exist
@@ -45,13 +45,19 @@ class Service < ActiveRecord::Base
   def ping()
     begin
       Timeout.timeout(5) do
-        s = TCPSocket.new(self.ip, 'echo')
+        s = TCPSocket.new("localhost", 'echo')
         s.close
+        self.online_status = true
         return true
       end
     rescue Errno::ECONNREFUSED
+      self.online_status = true
       return true
     rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH
+      self.online_status = false
+      return false
+    rescue Exception
+      self.online_status = false
       return false
     end
   end
