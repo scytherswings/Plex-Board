@@ -5,7 +5,7 @@
          <h2><%= link_to "Services", all_services_path, class: "services_link" %></h2>
     <% @services.each do |service| %>
       <div class="row">
-         <div class="col-xs-4"  id="servicepanel">
+         <div class="col-lg-4"  id="servicepanel">
            <% if service.online_status %>
             <%= link_to service.url, class: "services_link" do %>
               <button class="btn btn-xs btn-success" style="width:62px">
@@ -19,7 +19,7 @@
               <div style="padding:1px"></div>
             <% end %>
           <% end %>
-          <div class="col-xs-8" style="padding-left:20px">
+          <div class="col-lg-8" style="padding-left:20px">
               <%= link_to service.name, service, class: "services_link" %>
           </div>
         </div>
