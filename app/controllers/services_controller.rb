@@ -9,22 +9,26 @@ class ServicesController < ApplicationController
   # GET /services.json
   def index
     @services = Service.all
+
   end
 
   def online_status
     response.headers['Content-Type'] = 'text/event-stream'
     @services = Service.all
-    @services.each do |service|
-      if service.ping
-        response.stream.write "data: #{service.name} is online"
-      else
-        response.stream.write "data: #{service.name} is offline"
+    10.times do
+      response.stream.write "test\n\n"
+        @services.each do |service|
+          if service.ping
+            response.stream.write "data: #{service.name} is online\n\n"
+          else
+            response.stream.write "data: #{service.name} is offline\n\n"
+          end
+          sleep 5
       end
-      sleep 5
     end
-
-    
     rescue IOError
+      logger.info "Stream closed"
+    rescue ClientDisconnected
       logger.info "Stream closed"
   ensure
     response.stream.close

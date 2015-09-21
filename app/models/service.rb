@@ -30,7 +30,7 @@ class Service < ActiveRecord::Base
 
     def init
         self.port ||=80
-        self.online_status ||=false
+        # self.online_status ||=false
     end
 
     def ip_and_dns_name_dont_exist
@@ -45,7 +45,7 @@ class Service < ActiveRecord::Base
   def ping()
     begin
       Timeout.timeout(5) do
-        s = TCPSocket.new("localhost", 'echo')
+        s = TCPSocket.new(self.dns_name, self.port)
         s.close
         self.online_status = true
         return true

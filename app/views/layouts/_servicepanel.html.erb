@@ -7,17 +7,22 @@
       <div class="row">
          <div class="col-lg-4"  id="servicepanel">
            <% if service.online_status %>
-            <%= link_to service.url, class: "services_link" do %>
+           <div id="online">
+             <%= link_to service.url, class: "services_link", :target => "_blank" do %>
               <button class="btn btn-xs btn-success" style="width:62px">
               <span class="glyphicon glyphicon-ok" style="color:white;"></span> Online</button>
               <div style="padding:1px"></div>
             <% end %>
+           </div>
+
           <% else %>
-            <%= link_to service.url, class: "services_link" do %>
-              <button class="btn btn-xs btn-warning" style="width:62px">
-              <span class="glyphicon glyphicon-remove" style="color:white;"></span> Offline</button>
-              <div style="padding:1px"></div>
-            <% end %>
+            <div id="offline">
+              <%= link_to service.url, class: "services_link", :target => "_blank" do %>
+                <button class="btn btn-xs btn-warning" style="width:62px">
+                <span class="glyphicon glyphicon-remove" style="color:white;"></span> Offline</button>
+                <div style="padding:1px"></div>
+              <% end %>
+            </div>
           <% end %>
           </div>
           <div class="col-lg-8" style="padding-left:20px">
