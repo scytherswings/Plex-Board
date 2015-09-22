@@ -6,7 +6,7 @@ $(function hideStuff(){
       var serviceType = localStorage.getItem("serviceType");
       if(serviceType != null) {
         $("select[id=service_service_type]").val(serviceType);
-          var value = $('#service_service_type').children("option").filter(":selected").text()
+          var value = $('#service_service_type').children("option").filter(":selected").text();
           if (value == "Generic Service"){
             $("#login_div").hide();
             $("#api_div").hide();
@@ -32,7 +32,7 @@ $(function hideStuff(){
 
 
   $( '#wrapper' ).on( 'click', 'select', function(){
-    var value = $('#service_service_type').children("option").filter(":selected").text()
+    var value = $('#service_service_type').children("option").filter(":selected").text();
     if (value == "Generic Service"){
       $("#login_div").hide();
       $("#api_div").hide();
@@ -62,7 +62,7 @@ $(document).on('page:load', function(){
       var serviceType = localStorage.getItem("serviceType");
       if(serviceType != null) {
         $("select[id=service_service_type]").val(serviceType);
-          var value = $('#service_service_type').children("option").filter(":selected").text()
+          var value = $('#service_service_type').children("option").filter(":selected").text();
           if (value == "Generic Service"){
             $("#login_div").hide();
             $("#api_div").hide();
@@ -88,7 +88,7 @@ $(document).on('page:load', function(){
 
 
   $( '#wrapper' ).on( 'click', 'select', function(){
-    var value = $('#service_service_type').children("option").filter(":selected").text()
+    var value = $('#service_service_type').children("option").filter(":selected").text();
     if (value == "Generic Service"){
       $("#login_div").hide();
       $("#api_div").hide();

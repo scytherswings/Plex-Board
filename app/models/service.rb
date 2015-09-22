@@ -43,9 +43,14 @@ class Service < ActiveRecord::Base
     end
 
   def ping()
+    if !self.ip.blank?
+      ping_destination = self.ip
+    else
+      ping_destination = self.dns_name
+    end
     begin
       Timeout.timeout(5) do
-        s = TCPSocket.new(self.dns_name, self.port)
+        s = TCPSocket.new(ping_destination, self.port)
         s.close
         self.online_status = true
         return true

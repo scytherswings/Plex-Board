@@ -1,3 +1,3 @@
 source = new EventSource('/services/online_status')
-source.addEventListener 'onlinestatus', (e) ->
-    alert e.data
+source.addEventListener 'online_status', (e) ->
+  alert e.data

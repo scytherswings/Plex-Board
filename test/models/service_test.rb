@@ -27,7 +27,7 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not @service_one.valid?, "Service with whitespace string name should not be valid"
   end
 
-  # These tests always fail because strip_attributes doesn't get run when validating the changes
+  # These tests always fail validation isn't worth it right now
   # test "ip should not be whitespace only" do
   #   @service_one.ip = "     "
   #   assert_not @service_one.valid?, "Whitespace string should not be allowed for ip"

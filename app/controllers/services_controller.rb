@@ -16,7 +16,6 @@ class ServicesController < ApplicationController
     response.headers['Content-Type'] = 'text/event-stream'
     @services = Service.all
     10.times do
-      response.stream.write "test\n\n"
         @services.each do |service|
           if service.ping
             response.stream.write "data: #{service.name} is online\n\n"
