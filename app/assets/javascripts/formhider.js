@@ -1,5 +1,5 @@
 
-// $(document).ready(function(){
+$(document).on('page:change', function(){
 $(function hideStuff(){
   $('[id=service_service_type]').val( "Generic Service");
       $(function() {
@@ -24,7 +24,7 @@ $(function hideStuff(){
             $("#url_div").show();
           }
       }
-      
+
       $("select[id=service_service_type]").on("change", function() {
         localStorage.setItem("serviceType", $(this).val());
       });
@@ -51,7 +51,7 @@ $(function hideStuff(){
     }
   });
 });
-// });
+});
 
   // $("#service_service_type").change(function(){
 
@@ -80,7 +80,7 @@ $(document).on('page:load', function(){
             $("#url_div").show();
           }
       }
-      
+
       $("select[id=service_service_type]").on("change", function() {
         localStorage.setItem("serviceType", $(this).val());
       });
@@ -98,7 +98,7 @@ $(document).on('page:load', function(){
       $("#api_div").hide();
       $("#default_info_div").show();
       $("#url_div").show();
-    }    
+    }
     else {
      $("#login_div").show();
      $("#api_div").show();
