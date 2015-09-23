@@ -15,12 +15,15 @@ class ServicesController < ApplicationController
   def online_status
     response.headers['Content-Type'] = 'text/event-stream'
     @services = Service.all
-    Service.uncached do |service|
+    @services.each do |service|
       service.ping
-        status_of_service = {service_id:"#{service.id}",
+        status_of_service = {
+          service_id:"#{service.id}",
           name:"#{service.name}", 
           online_status: "#{service.online_status}",
-          last_seen: "#{service.last_seen}"}
+          last_seen: "#{service.last_seen}",
+          url: "#{service.url}"
+        }
         response.stream.write "data: #{status_of_service.to_json}\n\n"
       sleep 5
     end

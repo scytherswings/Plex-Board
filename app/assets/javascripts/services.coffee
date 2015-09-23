@@ -30,4 +30,4 @@
            </div>
            """
     $(html).modal()
-    $('#confirmationDialog .confirm').on 'click', -> $.rails.confirmed(link)
+    $('#confirmationDialog .confirm').on 'click', -> $.rails.confirmed(link)  
