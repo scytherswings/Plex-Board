@@ -6,16 +6,29 @@
 <body>
   
 <%= render 'layouts/navbar' %>
-<title><%= full_title(yield(:title)) %></title>
-<div class="container">
-  <div class="row">
-    <%= yield %>
 
+
+<div id="wrap">
+  <div id="main" class="container clear-top">
+    <div class="row">
+      
+      <%= flash_messages %>
+        
+      <title><%= full_title(yield(:title)) %></title>
+      <div class="container">
+        <div class="row">
+          <%= yield %>
+        </div>
+      </div>
+      
+      <%= render 'layouts/footer' %>
+
+
+    </div>
   </div>
 </div>
 
-<%= render 'layouts/footer' %>
-
+</body>
 </html>
 
 

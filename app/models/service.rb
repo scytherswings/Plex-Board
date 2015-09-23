@@ -2,6 +2,7 @@ class Service < ActiveRecord::Base
     require 'resolv'
     require 'timeout'
     require 'socket'
+    require 'time'
 
     SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
     strip_attributes :only => [:ip, :url, :dns_name, :api, :username], :collapse_spaces => true
@@ -52,17 +53,17 @@ class Service < ActiveRecord::Base
       Timeout.timeout(5) do
         s = TCPSocket.new(ping_destination, self.port)
         s.close
-        self.online_status = true
+        self.update(online_status: true, last_seen: Time.now)
         return true
       end
     rescue Errno::ECONNREFUSED
-      self.online_status = true
+      self.update(online_status: true, last_seen: Time.now)
       return true
     rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH
-      self.online_status = false
+      self.update(online_status: false)
       return false
     rescue Exception
-      self.online_status = false
+      self.update(online_status: false)
       return false
     end
   end

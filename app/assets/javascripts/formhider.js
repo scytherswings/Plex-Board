@@ -4,14 +4,14 @@ $(function hideStuff(){
   $('[id=service_service_type]').val( "Generic Service");
       $(function() {
       var serviceType = localStorage.getItem("serviceType");
-      if(serviceType != null) {
+      if(serviceType !== null) {
         $("select[id=service_service_type]").val(serviceType);
           var value = $('#service_service_type').children("option").filter(":selected").text();
-          if (value == "Generic Service"){
+          if (value === "Generic Service"){
             $("#login_div").hide();
             $("#api_div").hide();
           }
-          else if (value == "Plex" || value == "Deluge"){
+          else if (value === "Plex" || value === "Deluge"){
             $("#login_div").show();
             $("#api_div").hide();
             $("#default_info_div").show();
@@ -33,11 +33,11 @@ $(function hideStuff(){
 
   $( '#wrapper' ).on( 'click', 'select', function(){
     var value = $('#service_service_type').children("option").filter(":selected").text();
-    if (value == "Generic Service"){
+    if (value === "Generic Service"){
       $("#login_div").hide();
       $("#api_div").hide();
     }
-    else if (value == "Plex" || value == "Deluge"){
+    else if (value === "Plex" || value === "Deluge"){
       $("#login_div").show();
       $("#api_div").hide();
       $("#default_info_div").show();
@@ -60,14 +60,14 @@ $(document).on('page:load', function(){
   $('[id=service_service_type]').val( "Generic Service");
       $(function() {
       var serviceType = localStorage.getItem("serviceType");
-      if(serviceType != null) {
+      if(serviceType !== null) {
         $("select[id=service_service_type]").val(serviceType);
           var value = $('#service_service_type').children("option").filter(":selected").text();
-          if (value == "Generic Service"){
+          if (value === "Generic Service"){
             $("#login_div").hide();
             $("#api_div").hide();
           }
-          else if (value == "Plex" || value == "Deluge"){
+          else if (value === "Plex" || value === "Deluge"){
             $("#login_div").show();
             $("#api_div").hide();
             $("#default_info_div").show();
@@ -89,11 +89,11 @@ $(document).on('page:load', function(){
 
   $( '#wrapper' ).on( 'click', 'select', function(){
     var value = $('#service_service_type').children("option").filter(":selected").text();
-    if (value == "Generic Service"){
+    if (value === "Generic Service"){
       $("#login_div").hide();
       $("#api_div").hide();
     }
-    else if (value == "Plex" || value == "Deluge"){
+    else if (value == "Plex" || value === "Deluge"){
       $("#login_div").show();
       $("#api_div").hide();
       $("#default_info_div").show();
