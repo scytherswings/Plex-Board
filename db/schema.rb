@@ -11,22 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150920030846) do
+ActiveRecord::Schema.define(version: 20150927150328) do
 
   create_table "services", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "name"
     t.string   "ip"
     t.string   "dns_name"
     t.integer  "port"
     t.string   "url"
     t.string   "username"
-    t.string   "password"
     t.string   "api"
     t.boolean  "online_status"
     t.datetime "last_seen"
     t.string   "service_type"
+    t.string   "password_digest"
   end
 
   add_index "services", ["name"], name: "index_services_on_name", unique: true

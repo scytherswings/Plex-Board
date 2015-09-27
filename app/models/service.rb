@@ -3,6 +3,11 @@ class Service < ActiveRecord::Base
     require 'timeout'
     require 'socket'
     require 'time'
+    require 'open-uri'
+    require "net/http"
+    require "uri"
+    
+    has_secure_password
 
     SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
     strip_attributes :only => [:ip, :url, :dns_name, :api, :username], :collapse_spaces => true
@@ -26,7 +31,6 @@ class Service < ActiveRecord::Base
     validates :api, length: { minimum: 32, maximum: 255 }, allow_blank: true
 
     validates :username, length: { maximum: 255 }, allow_blank: true
-    validates :password, length: { maximum: 255 }, allow_blank: true
     after_initialize :init
 
     def init
@@ -66,6 +70,32 @@ class Service < ActiveRecord::Base
       self.update(online_status: false)
       return false
     end
+  end
+  
+  def plex_recently_added()
+    if service_type == "Plex"
+      if !self.ip.blank?
+        request_destination = self.ip
+      else
+        request_destination = self.dns_name
+      end
+      # XML Sucks. JSON all the way
+      # sections = Nokogiri::XML(open("https://#{request_destination}:#{self.port}/sections"))
+    else
+    end
+    
+    
+    
+  end
+  
+  def get_plex_token()
+      uri = URI.parse("https://my.plexapp.com/users/sign_in.json")
+      
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      request.basic_auth(self.username, self.password)
+      response = http.request(request)
+      logger.debug(response)
   end
 
 end

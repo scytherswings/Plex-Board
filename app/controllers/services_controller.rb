@@ -17,6 +17,7 @@ class ServicesController < ApplicationController
     @services = Service.all
     @services.each do |service|
       service.ping
+      service.plex_recently_added()
         status_of_service = {
           service_id:"#{service.id}",
           name:"#{service.name}", 

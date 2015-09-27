@@ -1,8 +1,9 @@
 <div class="col-sm-2">
   <div class="row">
     <div class="col-md-12">
+      <% if !@services.empty? || !@services.blank? %>
          <h2><%= link_to "Services", all_services_path, class: "services_link" %></h2>
-
+      <% end %>
 
 <div id="servicepanel">
    <%= render @services %>
