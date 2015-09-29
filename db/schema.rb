@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150927150328) do
+ActiveRecord::Schema.define(version: 20150929014912) do
 
   create_table "services", force: :cascade do |t|
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "name"
     t.string   "ip"
     t.string   "dns_name"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20150927150328) do
     t.boolean  "online_status"
     t.datetime "last_seen"
     t.string   "service_type"
-    t.string   "password_digest"
+    t.string   "password"
   end
 
   add_index "services", ["name"], name: "index_services_on_name", unique: true
