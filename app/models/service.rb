@@ -90,13 +90,15 @@ class Service < ActiveRecord::Base
   end
   
   def get_plex_token()
-      uri = URI.parse("https://my.plexapp.com/users/sign_in.json")
-      
-      http = Net::HTTP.new(uri.host, uri.port)
-      request = Net::HTTP::Get.new(uri.request_uri)
-      request.basic_auth(self.username, self.password)
-      response = http.request(request)
-      logger.debug(response)
+    url = "https://my.plexapp.com/users/sign_in.json"
+    headers = {
+        "X-Plex-Client-Identifier" => "Plex-Board"
+      }
+    response = RestClient::Request.execute method: :post, url: url, 
+      user: username, password: password, headers: headers
+    self.token = (JSON.parse response)['user']['authentication_token']
+    logger.debug(response)
+    logger.debug(self.token)
   end
 
 end
