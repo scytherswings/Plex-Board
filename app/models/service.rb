@@ -6,7 +6,7 @@ class Service < ActiveRecord::Base
     require 'open-uri'
     require "net/http"
     require "uri"
-    
+
     # has_secure_password
 
     SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
@@ -72,33 +72,47 @@ class Service < ActiveRecord::Base
       return false
     end
   end
-  
+
   def plex_recently_added()
     if service_type == "Plex"
-      if !self.ip.blank?
-        request_destination = self.ip
+      if @plex_server.nil?
+        get_plex_server(connect_method())
       else
-        request_destination = self.dns_name
+        logger.debug(@plex_server.library.sections)
       end
       # XML Sucks. JSON all the way
       # sections = Nokogiri::XML(open("https://#{request_destination}:#{self.port}/sections"))
     else
     end
-    
-    
-    
+
   end
-  
+
   def get_plex_token()
     url = "https://my.plexapp.com/users/sign_in.json"
     headers = {
         "X-Plex-Client-Identifier" => "Plex-Board"
       }
-    response = RestClient::Request.execute method: :post, url: url, 
-      user: username, password: password, headers: headers
+    response = RestClient::Request.execute method: :post, url: url,
+      user: self.username, password: self.password, headers: headers
     self.token = (JSON.parse response)['user']['authentication_token']
-    logger.debug(response)
-    logger.debug(self.token)
+    # logger.debug(response)
+    # logger.debug(self.token)
+  end
+
+  def get_plex_server()
+    Plex.configure do |config|
+      config.auth_token = get_plex_token()
+    end
+    @plex_server = Plex::Server.new(connect_method(), self.port)
+    logger.debug(@plex_server)
+  end
+
+  def connect_method()
+    if !self.ip.blank?
+      ping_destination = self.ip
+    else
+      ping_destination = self.dns_name
+    end
   end
 
 end

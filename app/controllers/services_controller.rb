@@ -20,7 +20,7 @@ class ServicesController < ApplicationController
       service.plex_recently_added()
         status_of_service = {
           service_id:"#{service.id}",
-          name:"#{service.name}", 
+          name:"#{service.name}",
           online_status: "#{service.online_status}",
           last_seen: "#{service.last_seen}",
           url: "#{service.url}"
@@ -35,6 +35,7 @@ class ServicesController < ApplicationController
   ensure
     response.stream.close
   end
+
 
   # GET /services/1
   # GET /services/1.json
