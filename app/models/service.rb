@@ -104,6 +104,7 @@ class Service < ActiveRecord::Base
       config.auth_token = get_plex_token()
     end
     @plex_server = Plex::Server.new(connect_method(), self.port)
+    # logger.debug(@plex_server)
     logger.debug(@plex_server)
   end
 
