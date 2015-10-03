@@ -40,7 +40,8 @@ class Service < ActiveRecord::Base
     end
 
     def ip_and_dns_name_dont_exist
-        if ((ip.blank? || ip.to_s.empty?) && (dns_name.blank? || dns_name.to_s.empty?))
+        if ((ip.blank? || ip.to_s.empty?) &&
+          (dns_name.blank? || dns_name.to_s.empty?))
             self.errors.add(:base, 'IP Address or DNS Name must exist')
             true
         else
@@ -49,11 +50,7 @@ class Service < ActiveRecord::Base
     end
 
   def ping()
-    if !self.ip.blank?
-      ping_destination = self.ip
-    else
-      ping_destination = self.dns_name
-    end
+    ping_destination = connect_method()
     begin
       Timeout.timeout(5) do
         s = TCPSocket.new(ping_destination, self.port)
@@ -72,7 +69,31 @@ class Service < ActiveRecord::Base
       return false
     end
   end
-  
+
+  def connect_method()
+    if !self.ip.blank?
+      self.ip
+    else
+      self.dns_name
+    end
+  end
+
+
+
+  def plex_api(method = :get, path = "", headers = {})
+    if self.token.nil?
+      get_plex_token()
+    end
+    defaults = { "Accept" => "application/json",
+      "X-Plex-Token" => self.token }
+    headers.merge!(defaults)
+
+    JSON.parse RestClient::Request.execute method: method,
+      url: "https://#{connect_method()}:#{self.port}#{path}",
+      headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE
+
+  end
+
   def get_plex_token()
     url = "https://my.plexapp.com/users/sign_in.json"
     headers = {
@@ -80,40 +101,29 @@ class Service < ActiveRecord::Base
       }
     response = RestClient::Request.execute method: :post, url: url,
       user: self.username, password: self.password, headers: headers
-    self.token = (JSON.parse response)['user']['authentication_token']
+    self.update(token: (JSON.parse response)['user']['authentication_token'])
     # logger.debug(response)
     # logger.debug(self.token)
   end
-  
-  def connect_method()
-    if !self.ip.blank?
-      ping_destination = self.ip
-    else
-      ping_destination = self.dns_name
-    end
+
+
+  def get_plex_sessions()
+    plex_api(:get, "/status/sessions")
   end
-  
-  def plex_now_playing()
-    if service_type == "Plex"
-      sessions = RestClient::Request.execute method :get, url: "http://#{connect_method()}:#{self.port}/status/sessions"
-      sessions['_children'].each do |session|
-        
-      end
-    else
-    end
+
+  def plex_now_playing_img(plex_session)
+    plex_api(:get, plex_session['art'], {"Content-Type" => "image/jpeg"})
   end
+
+
 
   def plex_recently_added()
-    if service_type == "Plex"
-
-    else
-    end
 
   end
 
 
 
 
- 
+
 
 end

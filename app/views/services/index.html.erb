@@ -24,12 +24,16 @@
 
       <div class="carousel-inner">
         <% @services.each do |service| %>
-          <% if (first=true)..false and first %>
-            <div class="item active">
-              <img src="http://placehold.it/600x600">
-            </div>
-          <% else %>
-            <%= render :partial => 'now_playing', :locals => {:service => service}  %>
+          <% if service.service_type == "Plex" %>
+            <% service.get_plex_sessions["_children"].each do |session| %>
+              <% if (first=true)..false and first %>
+                <div class="item active">
+                  <img src="#{service.plex_now_playing_img(session)}">
+                </div>
+              <% else %>
+                <%= render :partial => 'now_playing', :locals => {:service => service}  %>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
 
