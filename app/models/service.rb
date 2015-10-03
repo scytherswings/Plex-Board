@@ -82,16 +82,34 @@ class Service < ActiveRecord::Base
 
   def plex_api(method = :get, path = "", headers = {})
     if self.token.nil?
-      get_plex_token()
+      if get_plex_token()
+        defaults = { "Accept" => "application/json",
+          "X-Plex-Token" => self.token }
+          headers.merge!(defaults)
+        begin
+          JSON.parse RestClient::Request.execute method: method,
+            url: "https://#{connect_method()}:#{self.port}#{path}",
+            headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE
+        rescue => error
+          logger.debug(error)
+          return ""
+        end
+      else
+        return ""
+      end
+    else
+      defaults = { "Accept" => "application/json",
+        "X-Plex-Token" => self.token }
+        headers.merge!(defaults)
+      begin
+        JSON.parse RestClient::Request.execute method: method,
+          url: "https://#{connect_method()}:#{self.port}#{path}",
+          headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE
+      rescue => error
+        logger.debug(error)
+        return ""
+      end
     end
-    defaults = { "Accept" => "application/json",
-      "X-Plex-Token" => self.token }
-    headers.merge!(defaults)
-
-    JSON.parse RestClient::Request.execute method: method,
-      url: "https://#{connect_method()}:#{self.port}#{path}",
-      headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE
-
   end
 
   def get_plex_token()
@@ -99,20 +117,33 @@ class Service < ActiveRecord::Base
     headers = {
         "X-Plex-Client-Identifier" => "Plex-Board"
       }
-    response = RestClient::Request.execute method: :post, url: url,
-      user: self.username, password: self.password, headers: headers
-    self.update(token: (JSON.parse response)['user']['authentication_token'])
+    begin
+      response = RestClient::Request.execute method: :post, url: url,
+        user: self.username, password: self.password, headers: headers
+      self.update(token: (JSON.parse response)['user']['authentication_token'])
+      return true
+      rescue => error
+      logger.debug(error)
+      return false
+    end
+    
     # logger.debug(response)
     # logger.debug(self.token)
   end
 
 
   def get_plex_sessions()
-    plex_api(:get, "/status/sessions")
+    sessions = plex_api(:get, "/status/sessions")
+    logger.debug(sessions)
+    if !sessions.nil?
+      sessions["_children"]
+    else
+      return nil
+    end
   end
 
-  def plex_now_playing_img(plex_session)
-    plex_api(:get, plex_session['art'], {"Content-Type" => "image/jpeg"})
+  def get_plex_now_playing_img(plex_session)
+     "http://#{connect_method()}:#{self.port}#{plex_session['art']}"
   end
 
 

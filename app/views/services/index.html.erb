@@ -21,23 +21,22 @@
 
  <div class="col-lg-8 text-center">
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
-
-      <div class="carousel-inner">
-        <% @services.each do |service| %>
+      <% @services.each do |service| %>
+        <div class="carousel-inner">
           <% if service.service_type == "Plex" %>
-            <% service.get_plex_sessions["_children"].each do |session| %>
-              <% if (first=true)..false and first %>
+            <% service.get_plex_sessions.try(:each) do |session| %>
+            <h2><%= service.name %></h2>
+              <% if (first=true)..false && first %>
                 <div class="item active">
-                  <img src="#{service.plex_now_playing_img(session)}">
+                  <img src="<%= service.get_plex_now_playing_img(session) %>">
                 </div>
               <% else %>
-                <%= render :partial => 'now_playing', :locals => {:service => service}  %>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-
-      </div>
+                <%= render :partial => 'now_playing', :locals => {:session => session}  %>
+              <% end %> <!--if sessions-->
+            <% end %> <!--sessions loop-->
+          <% end %> <!--if service_type-->
+        </div>
+      <% end %> <!--services.each-->
     </div>
   </div>
   <%= render 'layouts/rightbar' %>
