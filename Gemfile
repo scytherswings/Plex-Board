@@ -18,7 +18,6 @@ gem 'simple_form', '~> 3.1.1'
 gem 'strip_attributes', '~> 1.7.1'
 gem 'puma', '~> 2.13.4'
 gem 'rest-client', '~> 1.8.0'
-gem 'plex-ruby', '~> 1.5.3'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -4,10 +4,10 @@ class Service < ActiveRecord::Base
     require 'socket'
     require 'time'
     require 'open-uri'
-    require "net/http"
-    require "uri"
+    require 'net/http'
+    require 'uri'
+    require 'json'
 
-    # has_secure_password
 
     SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
     strip_attributes :only => [:ip, :url, :dns_name, :api, :username], :collapse_spaces => true
@@ -72,21 +72,7 @@ class Service < ActiveRecord::Base
       return false
     end
   end
-
-  def plex_recently_added()
-    if service_type == "Plex"
-      if @plex_server.nil?
-        get_plex_server(connect_method())
-      else
-        logger.debug(@plex_server.library.sections)
-      end
-      # XML Sucks. JSON all the way
-      # sections = Nokogiri::XML(open("https://#{request_destination}:#{self.port}/sections"))
-    else
-    end
-
-  end
-
+  
   def get_plex_token()
     url = "https://my.plexapp.com/users/sign_in.json"
     headers = {
@@ -98,16 +84,7 @@ class Service < ActiveRecord::Base
     # logger.debug(response)
     # logger.debug(self.token)
   end
-
-  def get_plex_server()
-    Plex.configure do |config|
-      config.auth_token = get_plex_token()
-    end
-    @plex_server = Plex::Server.new(connect_method(), self.port)
-    # logger.debug(@plex_server)
-    logger.debug(@plex_server)
-  end
-
+  
   def connect_method()
     if !self.ip.blank?
       ping_destination = self.ip
@@ -115,5 +92,25 @@ class Service < ActiveRecord::Base
       ping_destination = self.dns_name
     end
   end
+  
+  def plex_now_playing()
+    if service_type == "Plex"
+      
+    else
+    end
+  end
+
+  def plex_recently_added()
+    if service_type == "Plex"
+
+    else
+    end
+
+  end
+
+
+
+
+ 
 
 end
