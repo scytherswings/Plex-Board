@@ -95,7 +95,10 @@ class Service < ActiveRecord::Base
   
   def plex_now_playing()
     if service_type == "Plex"
-      
+      sessions = RestClient::Request.execute method :get, url: "http://#{connect_method()}:#{self.port}/status/sessions"
+      sessions['_children'].each do |session|
+        
+      end
     else
     end
   end

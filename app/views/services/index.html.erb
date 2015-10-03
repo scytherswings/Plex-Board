@@ -23,12 +23,16 @@
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
 
       <div class="carousel-inner">
-        <div class="item active">
-          <img src="http://placehold.it/600x600">
-        </div>
-        <div class="item">
-          <img src="http://placehold.it/600x600">
-        </div>
+        <% @services.each do |service| %>
+          <% if (first=true)..false and first %>
+            <div class="item active">
+              <img src="http://placehold.it/600x600">
+            </div>
+          <% else %>
+            <%= render :partial => 'now_playing', :locals => {:service => service}  %>
+          <% end %>
+        <% end %>
+
       </div>
     </div>
   </div>
