@@ -143,7 +143,10 @@ class Service < ActiveRecord::Base
   end
 
   def get_plex_now_playing_img(plex_session)
-     "http://#{connect_method()}:#{self.port}#{plex_session['art']}"
+     remote_url = "https://#{connect_method()}:#{self.port}#{plex_session['art']}"
+     resource = RestClient::Resource.new(remote_url, verify_ssl: OpenSSL::SSL::VERIFY_NONE)
+     uploader = ImagesUploader.new
+     uploader.store!(resource.get(:"X-Plex-Token" => self.token))
   end
   
   def get_plex_now_playing_title(plex_session)
