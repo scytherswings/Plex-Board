@@ -14,20 +14,20 @@
 ActiveRecord::Schema.define(version: 20151004170600) do
 
   create_table "services", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
     t.string   "name"
-    t.string   "ip"
     t.string   "dns_name"
-    t.integer  "port"
+    t.string   "ip"
     t.string   "url"
     t.string   "username"
     t.string   "api"
-    t.boolean  "online_status"
-    t.datetime "last_seen"
     t.string   "service_type"
     t.string   "password"
     t.string   "token"
+    t.boolean  "online_status"
+    t.integer  "port"
+    t.datetime "last_seen"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "services", ["name"], name: "index_services_on_name", unique: true
@@ -38,13 +38,13 @@ ActiveRecord::Schema.define(version: 20151004170600) do
     t.string   "user_name"
     t.string   "image"
     t.string   "media_title"
+    t.string   "image_url"
+    t.string   "connection_string"
     t.integer  "total_duration"
     t.integer  "progress"
     t.text     "description"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.string   "image_url"
-    t.string   "connection_string"
   end
 
   add_index "sessions", ["service_id"], name: "index_sessions_on_service_id"
