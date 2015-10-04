@@ -16,5 +16,8 @@
 !/log/.keep
 /tmp
 
+
+#Ignore public/images
+/public/images/*
 #Ignore Spring files.
 /spring/*.pid
