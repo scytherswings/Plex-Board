@@ -7,7 +7,9 @@ class Service < ActiveRecord::Base
     require 'net/http'
     require 'uri'
     require 'json'
-
+    
+    has_many :sessions, dependent: :destroy
+    
 
     SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
     strip_attributes :only => [:ip, :url, :dns_name, :api, :username], :collapse_spaces => true
@@ -81,11 +83,12 @@ class Service < ActiveRecord::Base
 
 
   def plex_api(method = :get, path = "", headers = {})
+    defaults = { "Accept" => "application/json",
+      "X-Plex-Token" => self.token }
+      headers.merge!(defaults)
     if self.token.nil?
+  
       if get_plex_token()
-        defaults = { "Accept" => "application/json",
-          "X-Plex-Token" => self.token }
-          headers.merge!(defaults)
         begin
           JSON.parse RestClient::Request.execute method: method,
             url: "https://#{connect_method()}:#{self.port}#{path}",
@@ -98,9 +101,6 @@ class Service < ActiveRecord::Base
         return ""
       end
     else
-      defaults = { "Accept" => "application/json",
-        "X-Plex-Token" => self.token }
-        headers.merge!(defaults)
       begin
         JSON.parse RestClient::Request.execute method: method,
           url: "https://#{connect_method()}:#{self.port}#{path}",
@@ -122,7 +122,7 @@ class Service < ActiveRecord::Base
         user: self.username, password: self.password, headers: headers
       self.update(token: (JSON.parse response)['user']['authentication_token'])
       return true
-      rescue => error
+    rescue => error
       logger.debug(error)
       return false
     end
@@ -133,31 +133,35 @@ class Service < ActiveRecord::Base
 
 
   def get_plex_sessions()
+    self.sessions
     sessions = plex_api(:get, "/status/sessions")
     # logger.debug(sessions)
     if !sessions.nil?
-      sessions["_children"]
+      sessions["_children"].try(:each) do |session|
+        expression = session["_children"].find { |e| e["_elementType"] == "User" }["title"]
+        session_name = expression == "" ? "Local" : expression #check that shit out
+        
+        Session.create(user_name: session_name, description: session["summary"], 
+          media_title: session["title"], total_duration: session["duration"], 
+          progress: session["viewOffset"], image_url: session["art"],
+          connection_string: "https://#{connect_method()}:#{self.port}")
+      end
     else
       return nil
     end
   end
 
-  def get_plex_now_playing_img(plex_session)
-     remote_url = "https://#{connect_method()}:#{self.port}#{plex_session['art']}"
-     resource = RestClient::Resource.new(remote_url, verify_ssl: OpenSSL::SSL::VERIFY_NONE)
-     uploader = ImagesUploader.new
-     uploader.store!(resource.get(:"X-Plex-Token" => self.token))
-  end
+
   
-  def get_plex_now_playing_title(plex_session)
-    plex_session['title']
-  end
+  # def get_plex_now_playing_title(plex_session)
+  #   plex_session['title']
+  # end
 
 
 
-  def plex_recently_added()
+  # def plex_recently_added()
 
-  end
+  # end
 
 
 

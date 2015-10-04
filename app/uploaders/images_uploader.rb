@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class ImagesUploader < CarrierWave::Uploader::Base
+  # require 'carrierwave/orm/activerecord'
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
