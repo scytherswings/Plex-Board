@@ -133,18 +133,31 @@ class Service < ActiveRecord::Base
 
 
   def get_plex_sessions()
-    self.sessions
-    sessions = plex_api(:get, "/status/sessions")
-    # logger.debug(sessions)
-    if !sessions.nil?
-      sessions["_children"].try(:each) do |session|
-        expression = session["_children"].find { |e| e["_elementType"] == "User" }["title"]
-        session_name = expression == "" ? "Local" : expression #check that shit out
+    plex_sessions = plex_api(:get, "/status/sessions")
+    if !plex_sessions.nil? #does plex have any sessions?
+      #are the sessions that plex gave us the same as the ones we already know about?
+      #nah just kidding. That logic sounded hard.. so for the moment let's just nuke everything
+      self.sessions.destroy_all
+      # plex_sessions
+    
+    
+      #.try so we don't fail if there are no sessions to loop through
+      plex_sessions["_children"].try(:each) do |new_session|
+        #expression will get the username out of the messy nested json
+        expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
         
-        Session.create(user_name: session_name, description: session["summary"], 
-          media_title: session["title"], total_duration: session["duration"], 
-          progress: session["viewOffset"], image_url: session["art"],
-          connection_string: "https://#{connect_method()}:#{self.port}")
+        #if the user's title (read username) is blank, set it to "Local"
+        #otherwise, set the name of the session to the user's username
+        new_session_name = expression == "" ? "Local" : expression #check that shit out
+        
+        #create a new sesion object with the shit we found in the json blob
+        temp_session = self.sessions.new(user_name: new_session_name, description: new_session["summary"], 
+          media_title: new_session["title"], total_duration: new_session["duration"], 
+          progress: new_session["viewOffset"], thumb_url: new_session["thumb"],
+          connection_string: "https://#{connect_method()}:#{self.port}",
+          session_key: new_session["sessionKey"])
+        temp_session.save!
+          
       end
     else
       return nil
@@ -159,9 +172,9 @@ class Service < ActiveRecord::Base
 
 
 
-  # def plex_recently_added()
+  def plex_recently_added()
 
-  # end
+  end
 
 
 

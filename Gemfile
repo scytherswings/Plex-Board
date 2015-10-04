@@ -19,6 +19,7 @@ gem 'strip_attributes', '~> 1.7.1'
 gem 'puma', '~> 2.13.4'
 gem 'rest-client', '~> 1.8.0'
 gem 'carrierwave', '~> 0.10.0'
+gem 'carrierwave-data-uri', '~> 0.0.1'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

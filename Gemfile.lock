@@ -53,6 +53,8 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    carrierwave-data-uri (0.0.2)
+      carrierwave
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -220,6 +222,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.5.1)
   byebug
   carrierwave (~> 0.10.0)
+  carrierwave-data-uri (~> 0.0.1)
   coffee-rails (~> 4.1.0)
   database_cleaner (~> 1.5.0)
   guard

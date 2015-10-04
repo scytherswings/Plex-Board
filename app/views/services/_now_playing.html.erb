@@ -1,5 +1,6 @@
 <div class="item <%= active %>">
   <h2>Now Playing</h2>
-  <img src="<%= service.get_plex_now_playing_img(session) %>">
-  <h3><%= service.get_plex_now_playing_title(session) %></h3>
+  <% session.get_plex_now_playing_img %>
+  <%= image_tag session.image.to_s %>
+  <h3><%= session.media_title %></h3>
 </div>
