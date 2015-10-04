@@ -15,5 +15,7 @@ class CreateServices < ActiveRecord::Migration
       t.datetime :last_seen
       t.timestamps null: false
     end
+    add_index :services, :name, unique: true
+    add_index :services, :url, unique: true
   end
 end

@@ -1,7 +1,8 @@
 class CreateSessions < ActiveRecord::Migration
   def change
     create_table :sessions do |t|
-      t.belongs_to :service, index:true
+      # t.belongs_to :service, index:true
+      t.references :service, index: true, foreign_key: true
       t.string :user_name
       t.string :image
       t.string :media_title
