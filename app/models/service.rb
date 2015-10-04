@@ -134,7 +134,7 @@ class Service < ActiveRecord::Base
 
   def get_plex_sessions()
     sessions = plex_api(:get, "/status/sessions")
-    logger.debug(sessions)
+    # logger.debug(sessions)
     if !sessions.nil?
       sessions["_children"]
     else
@@ -144,6 +144,10 @@ class Service < ActiveRecord::Base
 
   def get_plex_now_playing_img(plex_session)
      "http://#{connect_method()}:#{self.port}#{plex_session['art']}"
+  end
+  
+  def get_plex_now_playing_title(plex_session)
+    plex_session['title']
   end
 
 
