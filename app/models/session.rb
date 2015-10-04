@@ -4,7 +4,7 @@ class Session < ActiveRecord::Base
   delegate :token, :to => :service, :prefix => true
   mount_uploader :image, ImagesUploader
   
-  attr_reader :media
+  # attr_reader :media
   
   def get_plex_now_playing_img()
     resource = RestClient::Resource.new(connection_string + image_url, 
