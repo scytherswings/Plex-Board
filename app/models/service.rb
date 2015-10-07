@@ -136,9 +136,24 @@ class Service < ActiveRecord::Base
     plex_sessions = plex_api(:get, "/status/sessions")
     if !plex_sessions.nil? #does plex have any sessions?
       #are the sessions that plex gave us the same as the ones we already know about?
+      # temp_sessions = []
+      # plex_sessions["_children"].try(:each) do |new_session|
+      #   #append
+      #   temp_sessions << self.sessions.new(user_name: new_session_name, description: new_session["summary"], 
+      #     media_title: new_session["title"], total_duration: new_session["duration"], 
+      #     progress: new_session["viewOffset"], thumb_url: new_session["thumb"],
+      #     connection_string: "https://#{connect_method()}:#{self.port}",
+      #     session_key: new_session["sessionKey"])
+      # end
+      
+        #testing out code from stackoverflow! :D
+        # temp_sessions.size == self.sesions.size && temp_sessions.lazy.zip(self.sessions).all? { |x, y| x.session_key == y.session_key }
+        #if we already know about a session, then just update the progress info
+        #if we don't know about a session, then add it as a new session and get the picture.
+        #if we have a session that plex no longer has, delete our instance 
       #nah just kidding. That logic sounded hard.. so for the moment let's just nuke everything
       self.sessions.destroy_all
-      # plex_sessions
+
     
     
       #.try so we don't fail if there are no sessions to loop through
