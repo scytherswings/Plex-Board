@@ -87,29 +87,20 @@ class Service < ActiveRecord::Base
       "X-Plex-Token" => self.token }
       headers.merge!(defaults)
     if self.token.nil?
-  
-      if get_plex_token()
-        begin
-          JSON.parse RestClient::Request.execute method: method,
-            url: "https://#{connect_method()}:#{self.port}#{path}",
-            headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE
-        rescue => error
-          logger.debug(error)
-          return ""
-        end
-      else
-        return ""
-      end
-    else
-      begin
-        JSON.parse RestClient::Request.execute method: method,
-          url: "https://#{connect_method()}:#{self.port}#{path}",
-          headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE
-      rescue => error
-        logger.debug(error)
+      if !get_plex_token()
         return ""
       end
     end
+    
+    begin
+      JSON.parse RestClient::Request.execute method: method,
+        url: "https://#{connect_method()}:#{self.port}#{path}",
+        headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE
+    rescue => error
+      logger.debug(error)
+      return ""
+    end
+    
   end
 
   def get_plex_token()
