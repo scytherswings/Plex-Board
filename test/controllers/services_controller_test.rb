@@ -5,6 +5,14 @@ class ServicesControllerTest < ActionController::TestCase
 
   setup do
     @service = services(:one)
+    stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+    stub_request(:get, "https://plex1:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1.json").read, :headers => {})
+    stub_request(:get, "https://plex2:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex2.json").read, :headers => {})
+
   end
 
   test "should get index" do

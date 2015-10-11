@@ -24,12 +24,14 @@
       <% @services.each do |service| %>
         <% if service.service_type == "Plex" %>
         <% logger.debug("service loop") %>
-          <% if (first=true)..false and first %>
+          <% first = true %>
+          <% if first..false and first %>
             
               <% service.get_plex_sessions %>
               <% service.sessions.try(:each) do |session| %>
               <% logger.debug(service.name) %>
-                <% if (frst=true)..false and frst %> <!--I was using the same variable names twice... scoping problem-->
+                <% frst = true %>
+                <% if frst..false and frst %> <!--I was using the same variable names twice... scoping problem-->
                   <% logger.debug("First Carousel") %>
                 <div class="carousel-inner">  
                   <%= render :partial => 'now_playing', :locals => { :session => session, :active => "active"}  %>

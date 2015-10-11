@@ -1,6 +1,5 @@
 require 'test_helper'
-require 'helpers/fake_plextv'
-require 'webmock'
+
 class ServiceTest < ActiveSupport::TestCase
   def setup
   end
@@ -10,6 +9,8 @@ class ServiceTest < ActiveSupport::TestCase
     @service_one = services(:one)
     @service_two = services(:two)
     @plex_service_one = services(:plex_one)
+    stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+
   end
 
 
@@ -145,14 +146,13 @@ class ServiceTest < ActiveSupport::TestCase
 
 
   test "Plex.tv sign_in" do
-    stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
 
     # response = RestClient.post("user:pass@my.plexapp.com/users/sign_in.json", 
     #   "Accept" => "application/json", "X-Plex-Client-Identifier" => "Plex-Board")
+
     @plex_service_one.get_plex_token()
     assert_requested(:post, "https://user:pass@my.plexapp.com/users/sign_in.json")
     assert_equal "zV75NzEnTA1migSb21ze", @plex_service_one.token
-
   end
 
 
