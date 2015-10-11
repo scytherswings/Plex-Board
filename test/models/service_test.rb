@@ -1,12 +1,15 @@
 require 'test_helper'
+require 'helpers/fake_plextv'
+require 'webmock'
 class ServiceTest < ActiveSupport::TestCase
   def setup
   end
 
+
   setup do
     @service_one = services(:one)
     @service_two = services(:two)
-
+    @sign_in = stub_request(:any, "my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
   end
 
 
@@ -122,10 +125,25 @@ class ServiceTest < ActiveSupport::TestCase
     @service_one.username = "x" * 256
     assert_not @service_one.valid?, "username should be <= 255 char"
   end
-  
+
   test "password must not be > 255" do
     @service_one.password = "x" * 256
     assert_not @service_one.valid?, "password should be <= 255 char"
   end
+
+
+
+
+  #Tests for Plex integration
+
+  test "Plex.tv sign_in" do
+      uri = stub_request(:any, "my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+  
+      response = JSON.load(Net::HTTP.get(uri))
+  
+      expect(response.first['login']).to eq 'joshuaclayton'
+  end
+
+
 
 end

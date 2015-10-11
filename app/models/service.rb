@@ -112,7 +112,7 @@ class Service < ActiveRecord::Base
       response = RestClient::Request.execute method: :post, url: url,
         user: self.username, password: self.password, headers: headers
       self.update(token: (JSON.parse response)['user']['authentication_token'])
-      return true
+      return true #yes, I know that Ruby has implicit returns, but it helps readability
     rescue => error
       logger.debug(error)
       return false

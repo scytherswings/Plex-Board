@@ -33,6 +33,8 @@ group :test do
   gem 'mini_backtrace', '~> 0.1.3'
   gem 'guard'
   gem 'guard-minitest', '~> 2.4.4'
+  gem 'webmock', '~> 1.21.0'
+  gem 'sinatra', '~> 1.4.6'
 end
 
 group :development do
