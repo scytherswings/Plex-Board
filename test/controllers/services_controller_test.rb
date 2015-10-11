@@ -1,6 +1,4 @@
 require 'test_helper'
-
-
 class ServicesControllerTest < ActionController::TestCase
   stubbed_headers = {"Cache-Control" => "no-cache", "Connection" => "Keep-Alive", 
     "Content-Encoding" => "gzip", "Content-Type" => "application/json",
@@ -8,31 +6,29 @@ class ServicesControllerTest < ActionController::TestCase
 
   setup do
     @service = services(:one)
+    
     stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
     
     stub_request(:get, "https://plex1:32400/status/sessions").
-      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, 
-      deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', 
-      "plex1.json").read, :headers => stubbed_headers)
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1.json").
+      read, :headers => stubbed_headers)
       
     stub_request(:get, "https://plex1updated:32400/status/sessions").
-      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, 
-      deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', 
-      "plex1_updated_duration.json").read, :headers => stubbed_headers)
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1_updated_duration.json").
+      read, :headers => stubbed_headers)
       
     stub_request(:get, "https://plex2:32400/status/sessions").
-      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, 
-      deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
-      to_return(:status => 200, 
-      :body => "{\"_elementType\": \"MediaContainer\",\"_children\": []}", :headers => stubbed_headers)
-      
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => "{\"_elementType\": \"MediaContainer\",\"_children\": []}", :headers => stubbed_headers)
+        
     stub_request(:get, "https://plex3:32400/status/sessions").
-      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, 
-      deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', 
-      "plex3.json").read, :headers => stubbed_headers)
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex3.json").
+      read, :headers => stubbed_headers)
+        
+
   end
 
   test "should get index" do
@@ -80,6 +76,10 @@ class ServicesControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to root_url
+  end
+  
+  test "should show service as online" do
+    
   end
   
 

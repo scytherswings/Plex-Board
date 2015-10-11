@@ -8,6 +8,6 @@ one: { name: "Test Service One", ip: "127.0.0.1", dns_name: "localhost", port: "
 
 two: { name: "Test Service Two", ip: "127.0.0.2", dns_name: "ubuntu", port: "8080", url: "http://127.0.0.1", service_type: "Generic Service"}
 
-plex_one: { name: "Plex Test Service One", ip: "", dns_name: "plex1", port: "32400", url: "one", service_type: "Plex", username: "user", password: "pass"}
+plex_one: { name: "Plex Test Service One", ip: "", dns_name: "plex1", port: "32400", url: "plex_one", service_type: "Plex", username: "user", password: "pass"}
 
-plex_two: { name: "Plex Test Service Two", ip: "", dns_name: "plex2", port: "32400", url: "two", service_type: "Plex", username: "user", password: "pass"}
+plex_two: { name: "Plex Test Service Two", ip: "", dns_name: "plex2", port: "32400", url: "plex_two", service_type: "Plex", username: "user", password: "pass"}
