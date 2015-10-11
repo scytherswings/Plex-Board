@@ -45,11 +45,17 @@
       <%= f.input :api, label: "API Key", :placeholder => "453867f2a275456ba6d3b4b5a8f6c3ac", :required => false %>
     </div>
   </div>
-  <% if request.original_url.include? "edit" %>
-    <% str = "Are you sure you want to delete: #{@service.name}?" %>
-    <%= link_to 'Delete Service', @service, method: :delete, data: { confirm: str }, class: "btn btn-md btn-danger" %>
-  <% end %>
-  <%= f.button :submit, class: "btn-success pull-right" %>
+
+  <div class="row">
+    <div class="col-lg-12 form-group">
+      <% if request.original_url.include? "edit" %>
+        <% str = "Are you sure you want to delete: #{@service.name}?" %>
+        <%= link_to 'Delete Service', @service, method: :delete, data: { confirm: str }, class: "btn btn-md btn-danger" %>
+    <% end %>
+      <%= f.button :submit, class: "btn-success pull-right" %>
+    </div>
+  </div>
+
 
 <% end %>
 

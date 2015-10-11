@@ -12,7 +12,9 @@ class ServicesControllerTest < ActionController::TestCase
     stub_request(:get, "https://plex2:32400/status/sessions").
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
       to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex2.json").read, :headers => {})
-
+    stub_request(:get, "https://plex3:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex3.json").read, :headers => {})
   end
 
   test "should get index" do
