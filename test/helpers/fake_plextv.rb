@@ -1,8 +1,9 @@
 require 'sinatra/base'
 
 class FakePlexTV < Sinatra::Base
-  get '/users/sign_in.json' do
-    json_response 200, 'sign_in.json'
+  post '/users/sign_in.json' do
+    headers 'X-Plex-Client-Identifier'=>'Plex-Board'
+    json_response(200, 'sign_in.json')
   end
 
   private
@@ -10,6 +11,6 @@ class FakePlexTV < Sinatra::Base
   def json_response(response_code, file_name)
     content_type :json
     status response_code
-    File.open(File.dirname(__FILE__) + '/test/fixtures/sinatra/' + file_name, 'rb').read
+    File.open(Rails.root.join 'test/fixtures/sinatra/', file_name.to_s).read
   end
 end

@@ -9,7 +9,7 @@ class ServiceTest < ActiveSupport::TestCase
   setup do
     @service_one = services(:one)
     @service_two = services(:two)
-    @sign_in = stub_request(:any, "my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+    @plex_service_one = services(:plex_one)
   end
 
 
@@ -136,12 +136,23 @@ class ServiceTest < ActiveSupport::TestCase
 
   #Tests for Plex integration
 
+  test "Can get stubbed my.plexapp.com" do
+    stub_request(:get, "my.plexapp.com/users/sign_in.json")
+
+    Net::HTTP.get("my.plexapp.com","/users/sign_in.json")
+    assert_requested(:get, "my.plexapp.com/users/sign_in.json")
+  end
+
+
   test "Plex.tv sign_in" do
-      uri = stub_request(:any, "my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
-  
-      response = JSON.load(Net::HTTP.get(uri))
-  
-      expect(response.first['login']).to eq 'joshuaclayton'
+    stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+
+    # response = RestClient.post("user:pass@my.plexapp.com/users/sign_in.json", 
+    #   "Accept" => "application/json", "X-Plex-Client-Identifier" => "Plex-Board")
+    @plex_service_one.get_plex_token()
+    assert_requested(:post, "https://user:pass@my.plexapp.com/users/sign_in.json")
+    assert_equal "zV75NzEnTA1migSb21ze", @plex_service_one.token
+
   end
 
 

@@ -1,39 +1,37 @@
-[
-  {
-    "user": {
-      "email": "user@example.com",
-      "joined_at": "2013-02-10T02:34:58Z",
-      "username": "user",
-      "title": "user",
-      "authentication_token": "zV75NzEnTA1migSb21ze",
-      "subscription": {
-        "active": true,
-        "status": "Active",
-        "plan": "lifetime",
-        "features": [
-          "pass",
-          "sync",
-          "cloudsync",
-          "home"
-        ]
-      },
-      "roles": {
-        "roles": [
-          "plexpass"
-        ]
-      },
-      "entitlements": [
-        "all",
-        "roku",
-        "android",
-        "xbox_one",
-        "xbox_360",
-        "windows",
-        "windows_phone",
-        "ios"
-      ],
-      "confirmed_at": "2013-02-10T15:15:14Z",
-      "forum_id": 0
-    }
+{
+  "user": {
+    "email": "user@example.com",
+    "joined_at": "2013-02-10T02:34:58Z",
+    "username": "user",
+    "title": "user",
+    "authentication_token": "zV75NzEnTA1migSb21ze",
+    "subscription": {
+      "active": true,
+      "status": "Active",
+      "plan": "lifetime",
+      "features": [
+        "pass",
+        "sync",
+        "cloudsync",
+        "home"
+      ]
+    },
+    "roles": {
+      "roles": [
+        "plexpass"
+      ]
+    },
+    "entitlements": [
+      "all",
+      "roku",
+      "android",
+      "xbox_one",
+      "xbox_360",
+      "windows",
+      "windows_phone",
+      "ios"
+    ],
+    "confirmed_at": "2013-02-10T15:15:14Z",
+    "forum_id": 0
   }
-]
+}

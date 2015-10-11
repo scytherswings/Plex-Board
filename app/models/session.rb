@@ -27,28 +27,20 @@ class Session < ActiveRecord::Base
   end
   
   def get_plex_now_playing_img()
-  
-    # self.remote_image_url = "#{self.connection_string}#{self.thumb_url}"
-    # self.save!  
-  
-    if !File.directory?(@@images_dir)
-      FileUtils::mkdir_p @@images_dir
+    begin
+      if !File.directory?(@@images_dir)
+        FileUtils::mkdir_p @@images_dir
+      end
+      
       File.open("#{@@images_dir}/#{self.id}.jpeg", 'wb') do |f|
         f.write open("#{self.connection_string}#{self.thumb_url}", 
         "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
         ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
       end
       self.image = "#{self.id}.jpeg"
-    else
-      File.open("#{@@images_dir}/#{self.id}.jpeg", 'wb') do |f|
-        f.write open("#{self.connection_string}#{self.thumb_url}", 
-        "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
-        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
-      end
-      self.image = "#{self.id}.jpeg"
+    rescue error
+      logger.debug(error)
     end
-    
-
   end
 
 
