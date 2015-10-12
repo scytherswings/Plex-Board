@@ -4,12 +4,34 @@ class SessionTest < ActiveSupport::TestCase
   def setup
   end
 
-
+  HEADERS = {"Cache-Control" => "no-cache", "Connection" => "Keep-Alive", 
+    "Content-Encoding" => "gzip", "Content-Type" => "application/json",
+    "Keep-Alive" => "timeout=20", "X-Plex-Protocol" => "1.0"}
+    
   setup do
     @session_one = sessions(:one)
     @session_two = sessions(:two)
     # @plex_service_one = service(:plex_one)
     # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+    
+    stub_request(:get, "https://plex1:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1.json").
+      read, :headers => HEADERS)
+      
+    stub_request(:get, "https://plex1updated:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1_updated_duration.json").
+      read, :headers => HEADERS)
+      
+    stub_request(:get, "https://plexnosessions:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => "{\"_elementType\": \"MediaContainer\",\"_children\": []}", :headers => HEADERS)
+        
+    stub_request(:get, "https://plex3:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex3.json").
+      read, :headers => HEADERS)
 
   end
 

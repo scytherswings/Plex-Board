@@ -6,8 +6,8 @@
       "art": "/library/metadata/22074/art/1427351324",
       "duration": "8078080",
       "librarySectionID": "1",
-      "sessionKey": "1239",
-      "summary": "Last months of World War II in April 1945. As the Allies make their final push in the European Theater, a battle-hardened U.S. Army sergeant in the 2nd Armored Division named Wardaddy commands a Sherman tank called \"Fury\" and its five-man crew on a deadly mission behind enemy lines. Outnumbered and outgunned, Wardaddy and his men face overwhelming odds in their heroic attempts to strike at the heart of Nazi Germany.",
+      "sessionKey": "1",
+      "summary": "Last months of World War.",
       "thumb": "/library/metadata/22074/thumb/1427351324",
       "title": "Fury",
       "type": "movie",
@@ -64,7 +64,6 @@
         {
           "_elementType": "TranscodeSession",
           "key": "xcejyc6r53ye",
-          "throttled": true,
           "progress": 56.900001525878906,
           "speed": 0,
           "duration": 8078000,
