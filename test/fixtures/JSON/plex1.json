@@ -10,8 +10,6 @@
       "thumb": "/library/metadata/22074/thumb/1427351324",
       "title": "Fury",
       "type": "movie",
-      "updatedAt": "1427351324",
-      "viewCount": "5",
       "viewOffset": "4388924",
       "year": "2014",
       "_children": [
@@ -66,7 +64,7 @@
           "progress": 56.900001525878906,
           "speed": 0,
           "duration": 8078000,
-          "remaining": 41825,
+          "remaining": 41825
         }
       ]
     }

@@ -5,8 +5,8 @@ class SessionTest < ActiveSupport::TestCase
   end
 
   HEADERS = {"Cache-Control" => "no-cache", "Connection" => "Keep-Alive", 
-    "Content-Encoding" => "gzip", "Content-Type" => "application/json",
-    "Keep-Alive" => "timeout=20", "X-Plex-Protocol" => "1.0"}
+    "Content-Type" => "application/json","Keep-Alive" => "timeout=20", 
+    "X-Plex-Protocol" => "1.0"}
     
   setup do
     @session_one = sessions(:one)

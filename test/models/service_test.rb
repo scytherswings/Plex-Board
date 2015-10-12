@@ -4,8 +4,8 @@ class ServiceTest < ActiveSupport::TestCase
 
 
   HEADERS = {"Cache-Control" => "no-cache", "Connection" => "Keep-Alive",
-    "Content-Encoding" => "gzip", "Content-Type" => "application/json",
-    "Keep-Alive" => "timeout=20", "X-Plex-Protocol" => "1.0"}
+    "Content-Type" => "application/json", "Keep-Alive" => "timeout=20",
+    "X-Plex-Protocol" => "1.0"}
 
   AUTH_HEADERS = { "Content-Type" => "application/json; charset=utf-8", "Access-Control-Max-Age" => 86400 }
 
@@ -19,6 +19,7 @@ class ServiceTest < ActiveSupport::TestCase
     @plex_service_one = services(:plex_one)
     @plex_service_two = services(:plex_two)
     @plex_no_sessions = services(:plex_no_sessions)
+    @plex_service_three = services(:plex_three)
 
     # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
     # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
@@ -207,13 +208,6 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not_requested(:post, "https://user:pass@my.plexapp.com/users/sign_in.json")
   end
 
-  test "get_plex_sessions will get a token if token is nil" do
-    assert_nil @plex_service_one.token
-    @plex_service_one.get_plex_sessions()
-    assert_requested(:post, "https://user:pass@my.plexapp.com/users/sign_in.json")
-    assert_equal "zV75NzEnTA1migSb21ze", @plex_service_one.token
-  end
-
   test "Service with no sessions will not change when plex has no sessions" do
     @plex_no_sessions.token = "zV75NzEnTA1migSb21ze"
     @plex_no_sessions.get_plex_sessions()
@@ -222,28 +216,29 @@ class ServiceTest < ActiveSupport::TestCase
     assert_equal 0, @plex_no_sessions.sessions.count
   end
 
-  # test "Service with no sessions can get a new plex session" do
-  #   @plex_service_one.sessions.destroy_all
-  #   assert_equal 0, @plex_service_one.sessions.count
-  #   @plex_service_one.token = "zV75NzEnTA1migSb21ze"
-  #   # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
-  #   @plex_service_one.get_plex_sessions()
-  #   assert_requested(:get, "https://plex1:32400/status/sessions")
-  #   assert_equal 1, @plex_service_one.sessions.count, "New session was not picked up"
-  # end
+  test "Service with no sessions can get two new plex sessions" do
+    @plex_service_three.sessions.destroy_all
+    assert_equal 0, @plex_service_three.sessions.count
+    @plex_service_three.token = "zV75NzEnTA1migSb21ze"
+    # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
+    @plex_service_three.get_plex_sessions()
+    assert_requested(:get, "https://plex3:32400/status/sessions")
+    assert_equal 2, @plex_service_three.sessions.count, "New sessions were not picked up"
+  end
 
-  # test "Service with a session can update the existing plex session" do
-  #   temp = @plex_service_one.sessions.first
-  #   assert_equal 1, @plex_service_one.sessions.count
-  #   @plex_service_one.token = "zV75NzEnTA1migSb21ze"
-  #   @plex_service_one.dns_name = "plex1updated"
-  #   # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
-  #   @plex_service_one.get_plex_sessions()
-  #   assert_requested(:get, "https://plex1updated:32400/status/sessions")
-  #   assert_not_requested(:get, "https://plex1:32400/status/sessions")
-  #   assert_equal 1, @plex_service_one.sessions.count, "Session number changed"
-  #   assert_equal temp.id, @plex_service_one.sessions.first.id
-  #   assert_not_equal temp.progress, @plex_service_one.sessions.first.progress
-  # end
+  test "Service with a session can update the existing plex session" do
+    @plex_service_one.get_plex_sessions()
+    assert_requested(:get, "https://plex1:32400/status/sessions")
+    assert_equal 1, @plex_service_one.sessions.count
+    temp = @plex_service_one.sessions.first
+    @plex_service_one.token = "zV75NzEnTA1migSb21ze"
+    @plex_service_one.dns_name = "plex1updated"
+    # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
+    @plex_service_one.get_plex_sessions()
+    assert_requested(:get, "https://plex1updated:32400/status/sessions")
+    assert_equal 1, @plex_service_one.sessions.count, "Session number changed"
+    assert_equal temp.id, @plex_service_one.sessions.first.id, "Session ID should not change when we are updating"
+    assert_not_equal temp.progress, @plex_service_one.sessions.first.progress
+  end
 
 end

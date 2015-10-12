@@ -66,7 +66,7 @@
           "progress": 59.900001525878906,
           "speed": 0,
           "duration": 8078000,
-          "remaining": 41825,
+          "remaining": 41825
         }
       ]
     },
@@ -88,6 +88,7 @@
           "_children": [
             {
               "_elementType": "Part",
+              "_children": [
                 {
                   "_elementType": "Stream",
                   "width": "1280"
