@@ -1,6 +1,6 @@
 <div class="item <%= active %>">
   <h2>Now Playing</h2>
   <% session.get_plex_now_playing_img %>
-  <%= image_tag session.image.to_s %>
+  <%= image_tag session.image.to_s, width: 400, height: 592 %>
   <h3><%= session.media_title %></h3>
 </div>
