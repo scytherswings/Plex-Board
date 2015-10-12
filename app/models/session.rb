@@ -8,6 +8,12 @@ class Session < ActiveRecord::Base
   # mount_uploader :image, ImageUploader
   before_destroy :delete_thumbnail
   
+  validates_presence_of :session_key
+  validates_presence_of :user_name
+  validates_presence_of :service_id
+  validates_presence_of :connection_string
+  validates_presence_of :media_title
+  
   @@images_dir = "public/images"
   
   def init
@@ -15,7 +21,7 @@ class Session < ActiveRecord::Base
     self.image = "http://placehold.it/400x592"
   end
   
-  def delete_thumbnail
+  def delete_thumbnail()
     if self.image != "http://placehold.it/400x592"
       begin
         FileUtils.rm("#{@@images_dir}/#{image}")
@@ -37,8 +43,9 @@ class Session < ActiveRecord::Base
         "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
         ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
       end
-      self.image = "#{self.id}.jpeg"
-    rescue error
+      self.update(image: "#{self.id}.jpeg")
+      
+    rescue => error
       logger.debug(error)
     end
   end
