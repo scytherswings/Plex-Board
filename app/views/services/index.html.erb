@@ -21,16 +21,14 @@
 
  <div class="col-lg-8 text-center">
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
-      <% @services.each do |service| %>
+      <% @services.each_with_index do |service, i| %>
         <% if service.service_type == "Plex" %>
         <% logger.debug("service loop") %>
-          <% first = true %>
-          <% if first..false and first %>
+          <% if i == 0 %>
               <% service.get_plex_sessions %>
-              <% service.sessions.try(:each) do |session| %>
+              <% service.sessions.try(:each_with_index) do |session, j| %>
               <% logger.debug(service.name) %>
-                <% frst = true %>
-                <% if frst..false and frst %> <!--I was using the same variable names twice... scoping problem-->
+                <% if j == 0 %> 
                   <% logger.debug("First Carousel") %>
                 <div class="carousel-inner">  
                   <%= render :partial => 'now_playing', :locals => { :session => session, :active => "active"}  %>
