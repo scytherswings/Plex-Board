@@ -78,9 +78,10 @@ class ServicesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
   
-  test "should show service as online" do
+  # This might take some tinkering
+  # test "should show service as online" do
     
-  end
+  # end
   
 
 end

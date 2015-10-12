@@ -147,9 +147,6 @@ class ServiceTest < ActiveSupport::TestCase
 
   test "Plex.tv sign_in" do
 
-    # response = RestClient.post("user:pass@my.plexapp.com/users/sign_in.json", 
-    #   "Accept" => "application/json", "X-Plex-Client-Identifier" => "Plex-Board")
-
     @plex_service_one.get_plex_token()
     assert_requested(:post, "https://user:pass@my.plexapp.com/users/sign_in.json")
     assert_equal "zV75NzEnTA1migSb21ze", @plex_service_one.token
