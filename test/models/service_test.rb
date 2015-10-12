@@ -1,6 +1,14 @@
 require 'test_helper'
 
 class ServiceTest < ActiveSupport::TestCase
+
+
+  HEADERS = {"Cache-Control" => "no-cache", "Connection" => "Keep-Alive",
+    "Content-Encoding" => "gzip", "Content-Type" => "application/json",
+    "Keep-Alive" => "timeout=20", "X-Plex-Protocol" => "1.0"}
+
+  AUTH_HEADERS = { "Content-Type" => "application/json; charset=utf-8", "Access-Control-Max-Age" => 86400 }
+
   def setup
   end
 
@@ -9,7 +17,40 @@ class ServiceTest < ActiveSupport::TestCase
     @service_one = services(:one)
     @service_two = services(:two)
     @plex_service_one = services(:plex_one)
-    stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+    @plex_service_two = services(:plex_two)
+    @plex_no_sessions = services(:plex_no_sessions)
+
+    # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+    # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
+    #   with(:headers => {'Accept'=>'application/json', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
+    #   to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "sign_in.json").
+    #   read, :headers => {})
+
+
+    stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
+      with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
+      to_return(:status => 201, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "sign_in.json").
+      read, :headers => AUTH_HEADERS)
+
+    stub_request(:get, "https://plex1:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1.json").
+      read, :headers => HEADERS)
+
+    stub_request(:get, "https://plex1updated:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1_updated_viewOffset.json").
+      read, :headers => HEADERS)
+
+    stub_request(:get, "https://plexnosessions:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
+      to_return(:status => 200, :body => "{\"_elementType\": \"MediaContainer\",\"_children\": []}", :headers => HEADERS)
+
+    stub_request(:get, "https://plex3:32400/status/sessions").
+      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex3.json").
+      read, :headers => HEADERS)
+
 
   end
 
@@ -137,21 +178,72 @@ class ServiceTest < ActiveSupport::TestCase
 
   #Tests for Plex integration
 
-  test "Can get stubbed my.plexapp.com" do
-    stub_request(:get, "my.plexapp.com/users/sign_in.json")
 
-    Net::HTTP.get("my.plexapp.com","/users/sign_in.json")
-    assert_requested(:get, "my.plexapp.com/users/sign_in.json")
+  test "Plex_service_one should have a valid session" do
+    assert_equal 1, @plex_service_one.sessions.count, "Plex_service_one number of services did not match 1"
   end
 
+  test "Number of sessions should change" do
+    assert_difference('Session.count', -1) do
+      @plex_service_one.sessions.first.destroy
+    end
+  end
 
-  test "Plex.tv sign_in" do
+  test "Plex_service_two should have two valid sessions" do
+    assert_equal 2, @plex_service_two.sessions.count, "Plex_service_one number of services did not match 2"
+  end
 
+  test "get_plex_token will get token if token is nil" do
+    assert_nil @plex_service_one.token
     @plex_service_one.get_plex_token()
     assert_requested(:post, "https://user:pass@my.plexapp.com/users/sign_in.json")
     assert_equal "zV75NzEnTA1migSb21ze", @plex_service_one.token
   end
 
+  test "plex_api will not get token if token is not nil" do
+    @plex_service_one.token = "zV75NzEnTA1migSb21ze"
+    assert_equal "zV75NzEnTA1migSb21ze", @plex_service_one.token
+    @plex_service_one.plex_api(:get, "/status/sessions")
+    assert_not_requested(:post, "https://user:pass@my.plexapp.com/users/sign_in.json")
+  end
 
+  test "get_plex_sessions will get a token if token is nil" do
+    assert_nil @plex_service_one.token
+    @plex_service_one.get_plex_sessions()
+    assert_requested(:post, "https://user:pass@my.plexapp.com/users/sign_in.json")
+    assert_equal "zV75NzEnTA1migSb21ze", @plex_service_one.token
+  end
+
+  test "Service with no sessions will not change when plex has no sessions" do
+    @plex_no_sessions.token = "zV75NzEnTA1migSb21ze"
+    @plex_no_sessions.get_plex_sessions()
+    assert_requested(:get, "https://plexnosessions:32400/status/sessions")
+    assert_equal "zV75NzEnTA1migSb21ze", @plex_no_sessions.token
+    assert_equal 0, @plex_no_sessions.sessions.count
+  end
+
+  # test "Service with no sessions can get a new plex session" do
+  #   @plex_service_one.sessions.destroy_all
+  #   assert_equal 0, @plex_service_one.sessions.count
+  #   @plex_service_one.token = "zV75NzEnTA1migSb21ze"
+  #   # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
+  #   @plex_service_one.get_plex_sessions()
+  #   assert_requested(:get, "https://plex1:32400/status/sessions")
+  #   assert_equal 1, @plex_service_one.sessions.count, "New session was not picked up"
+  # end
+
+  # test "Service with a session can update the existing plex session" do
+  #   temp = @plex_service_one.sessions.first
+  #   assert_equal 1, @plex_service_one.sessions.count
+  #   @plex_service_one.token = "zV75NzEnTA1migSb21ze"
+  #   @plex_service_one.dns_name = "plex1updated"
+  #   # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
+  #   @plex_service_one.get_plex_sessions()
+  #   assert_requested(:get, "https://plex1updated:32400/status/sessions")
+  #   assert_not_requested(:get, "https://plex1:32400/status/sessions")
+  #   assert_equal 1, @plex_service_one.sessions.count, "Session number changed"
+  #   assert_equal temp.id, @plex_service_one.sessions.first.id
+  #   assert_not_equal temp.progress, @plex_service_one.sessions.first.progress
+  # end
 
 end

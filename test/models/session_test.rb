@@ -11,8 +11,14 @@ class SessionTest < ActiveSupport::TestCase
   setup do
     @session_one = sessions(:one)
     @session_two = sessions(:two)
+    @session_three = sessions(:three)
     # @plex_service_one = service(:plex_one)
     # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+    
+    stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
+      with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "sign_in.json").
+      read, :headers => {})
     
     stub_request(:get, "https://plex1:32400/status/sessions").
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
@@ -21,7 +27,7 @@ class SessionTest < ActiveSupport::TestCase
       
     stub_request(:get, "https://plex1updated:32400/status/sessions").
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>''}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1_updated_duration.json").
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1_updated_viewOffset.json").
       read, :headers => HEADERS)
       
     stub_request(:get, "https://plexnosessions:32400/status/sessions").
@@ -36,19 +42,20 @@ class SessionTest < ActiveSupport::TestCase
   end
 
 
-  test "session should be valid" do
+  test "sessions should be valid" do
     assert @session_one.valid?, "Session_one was invalid"
     assert @session_two.valid?, "Session_two was invalid"
+    assert @session_three.valid?, "Session_three was invalid"
   end
 
-  test "name should be present" do
+  test "user_name should be present" do
     @session_one.user_name = nil
     assert_not @session_one.valid?, "Session user_name should not be nil"
     @session_one.user_name = ""
     assert_not @session_one.valid?, "Session user_name should not be empty string"
   end
 
-  test "name should not be whitespace only" do
+  test "user_name should not be whitespace only" do
     @session_one.user_name = "     "
     assert_not @session_one.valid?, "Session with whitespace string user_name should not be valid"
   end

@@ -1,5 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one: {"service_id": 3, "user_name": "Generic_User", "image": nil, "media_title": "Movie1", "thumb_url": ".", "connection_string": "https://plex1:32400", "total_duration": 9922756, "progress": 5408000, "description": ".", "session_key": 1}
+one: {"service_id": 3, "user_name": "Generic_User", "image": "http://placehold.it/400x592", "media_title": "Movie1", "thumb_url": "http://placehold.it/400x592", "connection_string": "https://plex1:32400", "total_duration": 9922756, "progress": 5408000, "description": ".", "session_key": 1}
 
-two: {"service_id": 3, "user_name": "Generic_User", "image": nil, "media_title": "Movie2", "thumb_url": ".", "connection_string": "https://plex1:32400", "total_duration": 9922756, "progress": 5408000, "description": ".", "session_key": 2}
+two: {"service_id": 4, "user_name": "Generic_User", "image": "http://placehold.it/400x592", "media_title": "Movie1", "thumb_url": "http://placehold.it/400x592", "connection_string": "https://plex1:32400", "total_duration": 9922756, "progress": 5408000, "description": ".", "session_key": 1}
+
+three: {"service_id": 4, "user_name": "Generic_User", "image": "http://placehold.it/400x592", "media_title": "Movie2", "thumb_url": "http://placehold.it/400x592", "connection_string": "https://plex1:32400", "total_duration": 9922756, "progress": 5408000, "description": ".", "session_key": 2}
