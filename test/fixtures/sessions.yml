@@ -1,3 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-session_one: {"service_id": 3, "user_name": "Generic_User", "image": nil, "media_title": "Cool Movie", "thumb_url": "/library/121", "connection_string": "https://plex1:32400", "total_duration": 9922756, "progress": 5408934, "description": "With the", "session_key": 48}
+one: {"service_id": 3, "user_name": "Generic_User", "image": nil, "media_title": "Movie1", "thumb_url": ".", "connection_string": "https://plex1:32400", "total_duration": 9922756, "progress": 5408000, "description": ".", "session_key": 1}
+
+two: {"service_id": 3, "user_name": "Generic_User", "image": nil, "media_title": "Movie2", "thumb_url": ".", "connection_string": "https://plex1:32400", "total_duration": 9922756, "progress": 5408000, "description": ".", "session_key": 2}

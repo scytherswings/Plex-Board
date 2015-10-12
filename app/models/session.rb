@@ -11,6 +11,9 @@ class Session < ActiveRecord::Base
   validates_presence_of :session_key
   validates_presence_of :user_name
   validates_presence_of :service_id
+  
+  validates :session_key, uniqueness: { scope: :service_id }
+
   validates_presence_of :connection_string
   validates_presence_of :media_title
   
