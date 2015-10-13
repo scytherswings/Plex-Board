@@ -3,11 +3,11 @@
 # Plex-Board
 ## Version 0.1
 
-What is Plex-Board? Put simply, it is a dynamic dashboard for checking the status of multiple services related to Plex Media Server (Plex, Couchpotato, Sickrage, Deluge, Sabnzbd+, etc.). 
+What is Plex-Board? Put simply, it is a dynamic dashboard for checking the status of multiple services related to Plex Media Server (Plex, Couchpotato, Sickrage, Deluge, Sabnzbd+, etc.).
 
 This is essentially a revamp of a cool project ([Network-Status-Page](https://github.com/scytherswings/Network-Status-Page)) I forked a little while ago.
 
-Pronounced "Plex Dashboard" like that ghetto name [La-a][] (La Dash A)... sorry... 
+Pronounced "Plex Dashboard" like that ghetto name [La-a][] (La Dash A)... sorry...
 
 [La-a]: http://www.urbandictionary.com/define.php?term=la-a
 
