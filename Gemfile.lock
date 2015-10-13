@@ -220,7 +220,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass (~> 3.3.5.1)
-  byebug
+  byebug (~> 6.0.2)
   coffee-rails (~> 4.1.0)
   database_cleaner (~> 1.5.0)
   guard
