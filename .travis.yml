@@ -5,5 +5,7 @@ gemfile: gemfiles/Gemfile.ci
 before_install:
   - gem update --system
   - gem --version
+  - bundle install
+  - bundle update
 # uncomment this line if your project needs to run something other than `rake`:
 # script: bundle exec rspec spec
