@@ -200,11 +200,18 @@ class Service < ActiveRecord::Base
           #if the user's title (read username) is blank, set it to "Local"
           #otherwise, set the name of the session to the user's username
           new_session_name = expression == "" ? "Local" : expression #check that shit out
-  
+          
+          # TV shows need a parent thumb for their cover art
+          # logger.debug(new_session)
+          if new_session.has_key? "parentThumb"
+            temp_thumb = new_session["parentThumb"]
+          else
+            temp_thumb = new_session["thumb"]
+          end
           #create a new sesion object with the shit we found in the json blob
           temp_session = self.sessions.new(user_name: new_session_name, description: new_session["summary"],
             media_title: new_session["title"], total_duration: new_session["duration"],
-            progress: new_session["viewOffset"], thumb_url: new_session["thumb"],
+            progress: new_session["viewOffset"], thumb_url: temp_thumb,
             connection_string: "https://#{connect_method()}:#{self.port}",
             session_key: new_session["sessionKey"])
           temp_session.save!
