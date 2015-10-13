@@ -21,12 +21,6 @@ class ServiceTest < ActiveSupport::TestCase
     @plex_no_sessions = services(:plex_no_sessions)
     @plex_service_three = services(:plex_three)
 
-    # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
-    # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
-    #   with(:headers => {'Accept'=>'application/json', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
-    #   to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "sign_in.json").
-    #   read, :headers => {})
-
 
     stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
       with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Client-Identifier'=>'Plex-Board'}).

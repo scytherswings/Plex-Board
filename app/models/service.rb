@@ -189,24 +189,35 @@ class Service < ActiveRecord::Base
       #   if we don't know about a session, then add it as a new session and get the picture.
       #   if we have a session that plex no longer has, delete our instance
       # nah just kidding. That logic sounded hard.. so for the moment let's just nuke everything
-      self.sessions.destroy_all
+      # self.sessions.destroy_all
 
       #.try so we don't fail if there are no sessions to loop through
-      plex_sessions["_children"].each do |new_session|
-      #expression will get the username out of the messy nested json
-      expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
-
-      #if the user's title (read username) is blank, set it to "Local"
-      #otherwise, set the name of the session to the user's username
-      new_session_name = expression == "" ? "Local" : expression #check that shit out
-
-        #create a new sesion object with the shit we found in the json blob
-        temp_session = self.sessions.new(user_name: new_session_name, description: new_session["summary"],
-          media_title: new_session["title"], total_duration: new_session["duration"],
-          progress: new_session["viewOffset"], thumb_url: new_session["thumb"],
-          connection_string: "https://#{connect_method()}:#{self.port}",
-          session_key: new_session["sessionKey"])
-        temp_session.save!
+      begin
+        plex_sessions["_children"].each do |new_session|
+          #expression will get the username out of the messy nested json
+          expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
+    
+          #if the user's title (read username) is blank, set it to "Local"
+          #otherwise, set the name of the session to the user's username
+          new_session_name = expression == "" ? "Local" : expression #check that shit out
+  
+          #create a new sesion object with the shit we found in the json blob
+          temp_session = self.sessions.new(user_name: new_session_name, description: new_session["summary"],
+            media_title: new_session["title"], total_duration: new_session["duration"],
+            progress: new_session["viewOffset"], thumb_url: new_session["thumb"],
+            connection_string: "https://#{connect_method()}:#{self.port}",
+            session_key: new_session["sessionKey"])
+          temp_session.save!
+        end
+      rescue ActiveRecord::RecordInvalid => err
+        # logger.debug(err.class.instance_methods)
+        if err.message.include? "Session Key has already been taken"
+          logger.debug("Yep, you found it")
+        else
+          logger.debug("Fuck you")
+        end
+      rescue => error
+        logger.debug(error)
       end
     else
       return nil  #implicit returns are still cooler

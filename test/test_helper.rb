@@ -4,7 +4,7 @@ require 'rails/test_help'
 require "minitest/reporters"
 require "strip_attributes/matchers"
 require 'webmock/minitest'
-require 'helpers/fake_plextv'
+# require 'helpers/fake_plextv'
 Minitest::Reporters.use!
 WebMock.disable_net_connect!(:allow_localhost => true)
 

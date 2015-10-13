@@ -1,14 +1,19 @@
 require 'test_helper'
 class ServicesControllerTest < ActionController::TestCase
   
-  HEADERS = {"Cache-Control" => "no-cache", "Connection" => "Keep-Alive", 
-    "Content-Type" => "application/json", "Keep-Alive" => "timeout=20", 
+  HEADERS = {"Cache-Control" => "no-cache", "Connection" => "Keep-Alive",
+    "Content-Type" => "application/json", "Keep-Alive" => "timeout=20",
     "X-Plex-Protocol" => "1.0"}
+
+  AUTH_HEADERS = { "Content-Type" => "application/json; charset=utf-8", "Access-Control-Max-Age" => 86400 }
 
   setup do
     @service = services(:one)
     
-    stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+    stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
+      with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
+      to_return(:status => 201, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "sign_in.json").
+      read, :headers => AUTH_HEADERS)
 
     stub_request(:get, "https://plex1:32400/status/sessions").
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
@@ -28,7 +33,6 @@ class ServicesControllerTest < ActionController::TestCase
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
       to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex3.json").
       read, :headers => HEADERS)
-        
 
   end
 

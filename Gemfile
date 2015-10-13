@@ -11,17 +11,12 @@ gem 'autoprefixer-rails'
 gem 'jquery-turbolinks', '~> 2.1.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-# gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sprockets-rails', '~> 2.3.2'
 gem 'simple_form', '~> 3.1.1'
 gem 'strip_attributes', '~> 1.7.1'
 gem 'puma', '~> 2.13.4'
 gem 'rest-client', '~> 1.8.0'
-gem 'carrierwave', '~> 0.10.0'
-gem 'carrierwave-data-uri', '~> 0.0.1'
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -34,7 +29,7 @@ group :test do
   gem 'guard'
   gem 'guard-minitest', '~> 2.4.4'
   gem 'webmock', '~> 1.21.0'
-  gem 'sinatra', '~> 1.4.6'
+  # gem 'sinatra', '~> 1.4.6'
 end
 
 group :development do
