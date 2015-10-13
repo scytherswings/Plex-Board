@@ -1,12 +1,6 @@
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
-
-Master:
-
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
 
-Dev:
-
-[![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=dev)](https://travis-ci.org/scytherswings/Plex-Board)
 # Plex-Board
 ## Version 0.1
 
@@ -17,6 +11,10 @@ This is essentially a revamp of a cool project ([Network-Status-Page](https://gi
 Pronounced "Plex Dashboard" like that ghetto name [La-a][] (La Dash A)... sorry...
 
 [La-a]: http://www.urbandictionary.com/define.php?term=la-a
+
+
+Development branch status:
+[![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=dev)](https://travis-ci.org/scytherswings/Plex-Board)
 
 Here are a few screenshots of v0.1
 ![home](http://i.imgur.com/8kcDikC.png)

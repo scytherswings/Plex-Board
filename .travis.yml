@@ -7,5 +7,6 @@ before_install:
   - gem --version
   - bundle install
   - bundle update
+cache: bundler
 # uncomment this line if your project needs to run something other than `rake`:
 # script: bundle exec rspec spec
