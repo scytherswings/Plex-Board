@@ -209,13 +209,6 @@ class Service < ActiveRecord::Base
             session_key: new_session["sessionKey"])
           temp_session.save!
         end
-      rescue ActiveRecord::RecordInvalid => err
-        # logger.debug(err.class.instance_methods)
-        if err.message.include? "Session Key has already been taken"
-          logger.debug("Yep, you found it")
-        else
-          logger.debug("Fuck you")
-        end
       rescue => error
         logger.debug(error)
       end
