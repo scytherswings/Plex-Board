@@ -14,6 +14,7 @@ Pronounced "Plex Dashboard" like that ghetto name [La-a][] (La Dash A)... sorry.
 
 
 Development branch status:
+
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=dev)](https://travis-ci.org/scytherswings/Plex-Board)
 
 Here are a few screenshots of v0.1
