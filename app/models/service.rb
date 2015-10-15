@@ -130,28 +130,38 @@ class Service < ActiveRecord::Base
     # logger.debug(!sess.nil?)
     if !sess.nil? #does plex have any sessions?
 
+
       #chop off the stupid children tag thing
       #so the shit is in a single element array. this is terribly messy... yuck
       plex_sessions = sess["_children"]
+      
+      #if plex has nothing, then fucking nuke that shit
+      if plex_sessions.empty?
+        self.sessions.destroy_all
+        return nil
+      end
       # are the sessions that plex gave us the same as the ones we already know about?
       self.sessions.each do |known_session|
-        # logger.debug("Match against" + known_session.to_json)
-        plex_sessions.delete_if do |newish_session|
-          # logger.debug(newish_session["viewOffset"])
-          # logger.debug("newish_session" + newish_session.to_json)
-          # logger.debug(newish_session["sessionKey"]  == known_session.session_key.to_s)
-          # logger.debug(newish_session["sessionKey"].inspect)
-          # logger.debug(newish_session["sessionKey"].class)
-          if newish_session["sessionKey"]  == known_session.session_key
-            # logger.debug("New session" + newish_session)
 
+        logger.debug("Match against" + known_session.to_json)
+        logger.debug(plex_sessions.empty?)
+
+        plex_sessions.delete_if do |newish_session|
+           logger.debug("New Session" + newish_session.to_json)
+           logger.debug("Comparison: " + newish_session["sessionKey"]  == known_session.session_key)
+
+          if newish_session["sessionKey"]  == known_session.session_key
+            logger.debug("Match!")
             update_plex_session(known_session, newish_session)
             #return true so that delete_if will remove this session so we
             #don't bother checking it since it already matched a session
             return true
           end
+          
           return false
         end
+
+
       end
       # # append to array
       # #expression will get the username out of the messy nested json

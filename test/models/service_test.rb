@@ -19,7 +19,6 @@ class ServiceTest < ActiveSupport::TestCase
     @plex_service_one = services(:plex_one)
     @plex_service_two = services(:plex_two)
     @plex_no_sessions = services(:plex_no_sessions)
-    @plex_service_three = services(:plex_three)
 
 
     stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
@@ -41,9 +40,9 @@ class ServiceTest < ActiveSupport::TestCase
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
       to_return(:status => 200, :body => "{\"_elementType\": \"MediaContainer\",\"_children\": []}", :headers => HEADERS)
 
-    stub_request(:get, "https://plex3:32400/status/sessions").
+    stub_request(:get, "https://plex2:32400/status/sessions").
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex3.json").
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex2.json").
       read, :headers => HEADERS)
 
 
@@ -211,13 +210,13 @@ class ServiceTest < ActiveSupport::TestCase
   end
 
   test "Service with no sessions can get two new plex sessions" do
-    @plex_service_three.sessions.destroy_all
-    assert_equal 0, @plex_service_three.sessions.count
-    @plex_service_three.token = "zV75NzEnTA1migSb21ze"
+    @plex_service_two.sessions.destroy_all
+    assert_equal 0, @plex_service_two.sessions.count
+    @plex_service_two.token = "zV75NzEnTA1migSb21ze"
     # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
-    @plex_service_three.get_plex_sessions()
-    assert_requested(:get, "https://plex3:32400/status/sessions")
-    assert_equal 2, @plex_service_three.sessions.count, "New sessions were not picked up"
+    @plex_service_two.get_plex_sessions()
+    assert_requested(:get, "https://plex2:32400/status/sessions")
+    assert_equal 2, @plex_service_two.sessions.count, "New sessions were not picked up"
   end
 
   test "Service with a session can update the existing plex session" do
@@ -236,5 +235,23 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not_equal @plex_service_one.sessions.first.progress, temp.progress
   end
 
+
+  test "Session will be removed if Plex has no sessions" do
+    assert_equal 1, @plex_service_one.sessions.count
+    @plex_service_one.token = "zV75NzEnTA1migSb21ze"
+    @plex_service_one.dns_name = "plexnosessions"
+    assert_difference('@plex_service_one.sessions.count', -1) do
+      @plex_service_one.get_plex_sessions()
+    end
+    assert_requested(:get, "https://plexnosessions:32400/status/sessions")
+  end
+
+
+  # test "Expired sessions will be removed" do
+  #   assert_equal 2, @plex_service_two.sessions.count
+  #   @plex_service_two.token = "zV75NzEnTA1migSb21ze"
+  #   @plex_service_two.get_plex_sessions()
+  #   assert_requested(:get, "https://plex2:32400/status/sessions")
+  # end
 
 end
