@@ -88,7 +88,7 @@ class Service < ActiveRecord::Base
         return nil
       end
     end
-    
+
     defaults = { "Accept" => "application/json",
       "X-Plex-Token" => self.token }
       headers.merge!(defaults)
@@ -125,10 +125,34 @@ class Service < ActiveRecord::Base
 
 
   def get_plex_sessions()
-    plex_sessions = plex_api(:get, "/status/sessions")
-    # logger.debug(plex_sessions)
-    if !plex_sessions.nil? #does plex have any sessions?
-      # #are the sessions that plex gave us the same as the ones we already know about?
+    sess = plex_api(:get, "/status/sessions")
+    # logger.debug(sess)
+    # logger.debug(!sess.nil?)
+    if !sess.nil? #does plex have any sessions?
+
+      #chop off the stupid children tag thing
+      #so the shit is in a single element array. this is terribly messy... yuck
+      plex_sessions = sess["_children"]
+      # are the sessions that plex gave us the same as the ones we already know about?
+      self.sessions.each do |known_session|
+        # logger.debug("Match against" + known_session.to_json)
+        plex_sessions.delete_if do |newish_session|
+          # logger.debug(newish_session["viewOffset"])
+          # logger.debug("newish_session" + newish_session.to_json)
+          # logger.debug(newish_session["sessionKey"]  == known_session.session_key.to_s)
+          # logger.debug(newish_session["sessionKey"].inspect)
+          # logger.debug(newish_session["sessionKey"].class)
+          if newish_session["sessionKey"]  == known_session.session_key
+            # logger.debug("New session" + newish_session)
+
+            update_plex_session(known_session, newish_session)
+            #return true so that delete_if will remove this session so we
+            #don't bother checking it since it already matched a session
+            return true
+          end
+          return false
+        end
+      end
       # # append to array
       # #expression will get the username out of the messy nested json
       # expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
@@ -191,39 +215,47 @@ class Service < ActiveRecord::Base
       # nah just kidding. That logic sounded hard.. so for the moment let's just nuke everything
       # self.sessions.destroy_all
 
-      #.try so we don't fail if there are no sessions to loop through
-      begin
-        plex_sessions["_children"].each do |new_session|
-          #expression will get the username out of the messy nested json
-          expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
-    
-          #if the user's title (read username) is blank, set it to "Local"
-          #otherwise, set the name of the session to the user's username
-          new_session_name = expression == "" ? "Local" : expression #check that shit out
-          
-          # TV shows need a parent thumb for their cover art
-          # logger.debug(new_session)
-          if new_session.has_key? "parentThumb"
-            temp_thumb = new_session["parentThumb"]
-          else
-            temp_thumb = new_session["thumb"]
-          end
-          #create a new sesion object with the shit we found in the json blob
-          temp_session = self.sessions.new(user_name: new_session_name, description: new_session["summary"],
-            media_title: new_session["title"], total_duration: new_session["duration"],
-            progress: new_session["viewOffset"], thumb_url: temp_thumb,
-            connection_string: "https://#{connect_method()}:#{self.port}",
-            session_key: new_session["sessionKey"])
-          temp_session.save!
-        end
-      rescue => error
-        logger.debug(error)
-      end
+      #parsing through the JSON here, passing the hash of sessions to the function
+      add_plex_session(plex_sessions)
     else
       return nil  #implicit returns are still cooler
     end
   end
 
+  def add_plex_session(plex_sessions)
+    begin
+      #refer to the test/fixtures/JSON for help on parsing stuff returned from plex
+      plex_sessions.each do |new_session|
+      #expression will get the username out of the messy nested json
+      expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
+
+      #if the user's title (read username) is blank, set it to "Local"
+      #otherwise, set the name of the session to the user's username
+      new_session_name = expression == "" ? "Local" : expression #check that shit out
+
+      # TV shows need a parent thumb for their cover art
+      if new_session.has_key? "parentThumb"
+        temp_thumb = new_session["parentThumb"]
+      else
+        temp_thumb = new_session["thumb"]
+      end
+      #create a new sesion object with the shit we found in the json blob
+      temp_session = self.sessions.new(user_name: new_session_name, description: new_session["summary"],
+        media_title: new_session["title"], total_duration: new_session["duration"],
+        progress: new_session["viewOffset"], thumb_url: temp_thumb,
+        connection_string: "https://#{connect_method()}:#{self.port}",
+        session_key: new_session["sessionKey"])
+      temp_session.save!
+      end
+    rescue => error
+      logger.debug(error)
+      return nil
+    end
+  end
+
+  def update_plex_session(existing_session, updated_session)
+    existing_session.update(:progress => updated_session["viewOffset"])
+  end
 
 
 

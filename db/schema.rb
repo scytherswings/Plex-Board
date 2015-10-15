@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004205519) do
+ActiveRecord::Schema.define(version: 20151015035631) do
 
   create_table "services", force: :cascade do |t|
     t.string   "name"
@@ -40,12 +40,12 @@ ActiveRecord::Schema.define(version: 20151004205519) do
     t.string   "media_title"
     t.string   "thumb_url"
     t.string   "connection_string"
-    t.integer  "total_duration"
-    t.integer  "progress"
+    t.string   "total_duration"
+    t.string   "progress"
     t.text     "description"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.integer  "session_key"
+    t.string   "session_key"
   end
 
   add_index "sessions", ["service_id"], name: "index_sessions_on_service_id"

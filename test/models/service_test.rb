@@ -220,19 +220,21 @@ class ServiceTest < ActiveSupport::TestCase
     assert_equal 2, @plex_service_three.sessions.count, "New sessions were not picked up"
   end
 
-  # test "Service with a session can update the existing plex session" do
-  #   @plex_service_one.get_plex_sessions()
-  #   assert_requested(:get, "https://plex1:32400/status/sessions")
-  #   assert_equal 1, @plex_service_one.sessions.count
-  #   temp = @plex_service_one.sessions.first
-  #   @plex_service_one.token = "zV75NzEnTA1migSb21ze"
-  #   @plex_service_one.dns_name = "plex1updated"
-  #   # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
-  #   @plex_service_one.get_plex_sessions()
-  #   assert_requested(:get, "https://plex1updated:32400/status/sessions")
-  #   assert_equal 1, @plex_service_one.sessions.count, "Session number changed"
-  #   assert_equal temp.id, @plex_service_one.sessions.first.id, "Session ID should not change when we are updating"
-  #   assert_not_equal temp.progress, @plex_service_one.sessions.first.progress
-  # end
+  test "Service with a session can update the existing plex session" do
+    # @plex_service_one.get_plex_sessions()
+    # assert_requested(:get, "https://plex1:32400/status/sessions")
+    assert_equal 1, @plex_service_one.sessions.count
+    temp = @plex_service_one.sessions.first.clone
+    assert_equal temp.id, @plex_service_one.sessions.first.id, "Temp ID was not equal to origin ID"
+    @plex_service_one.token = "zV75NzEnTA1migSb21ze"
+    @plex_service_one.dns_name = "plex1updated"
+    # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
+    @plex_service_one.get_plex_sessions()
+    assert_requested(:get, "https://plex1updated:32400/status/sessions")
+    assert_equal 1, @plex_service_one.sessions.count, "Session number should not change"
+    assert_equal temp.id, @plex_service_one.sessions.first.id, "Session ID should not change when we are updating"
+    assert_not_equal @plex_service_one.sessions.first.progress, temp.progress
+  end
+
 
 end
