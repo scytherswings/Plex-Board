@@ -83,6 +83,10 @@ class Service < ActiveRecord::Base
 
 
   def plex_api(method = :get, path = "", headers = {})
+    if self.online_status == false
+      logger.debug("Service: " + self.name + " is offline, cant grab plex data")
+      return nil
+    end
     if self.token.nil?
       if !get_plex_token()
         return nil
@@ -96,7 +100,8 @@ class Service < ActiveRecord::Base
     begin
       JSON.parse RestClient::Request.execute method: method,
         url: "https://#{connect_method()}:#{self.port}#{path}",
-        headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE
+        headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
+        timeout: 5, open_timeout: 5
     rescue => error
       logger.debug(error)
       return nil
@@ -125,7 +130,9 @@ class Service < ActiveRecord::Base
 
 
   def get_plex_sessions()
+
     sess = plex_api(:get, "/status/sessions")
+
     # logger.debug(sess)
     # logger.debug(!sess.nil?)
     if !sess.nil? #does plex have any sessions?
@@ -134,7 +141,7 @@ class Service < ActiveRecord::Base
       #chop off the stupid children tag thing
       #so the shit is in a single element array. this is terribly messy... yuck
       plex_sessions = sess["_children"]
-      
+
       #if plex has nothing, then fucking nuke that shit
       if plex_sessions.empty?
         self.sessions.destroy_all
@@ -157,7 +164,7 @@ class Service < ActiveRecord::Base
             #don't bother checking it since it already matched a session
             return true
           end
-          
+
           return false
         end
 

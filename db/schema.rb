@@ -40,12 +40,12 @@ ActiveRecord::Schema.define(version: 20151015035631) do
     t.string   "media_title"
     t.string   "thumb_url"
     t.string   "connection_string"
-    t.string   "total_duration"
-    t.string   "progress"
+    t.integer  "total_duration"
+    t.integer  "progress"
     t.text     "description"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.string   "session_key"
+    t.integer  "session_key"
   end
 
   add_index "sessions", ["service_id"], name: "index_sessions_on_service_id"

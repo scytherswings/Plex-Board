@@ -8,7 +8,8 @@ class ServicesControllerTest < ActionController::TestCase
   AUTH_HEADERS = { "Content-Type" => "application/json; charset=utf-8", "Access-Control-Max-Age" => 86400 }
 
   setup do
-    @service = services(:one)
+    @service_one = services(:one)
+    @plex_service_one = services(:plex_one)
     
     stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
       with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
@@ -61,25 +62,35 @@ class ServicesControllerTest < ActionController::TestCase
   end
 
   test "should show service" do
-    get :show, id: @service
+    get :show, id: @service_one
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @service
+    get :edit, id: @service_one
     assert_response :success
   end
 
   test "should update service" do
-    patch :update, id: @service, service: { name: "test2", ip: "172.123.1.1", dns_name: "test", url: "test" }
+    patch :update, id: @service_one, service: { name: "test2", ip: "172.123.1.1", dns_name: "test", url: "test" }
     assert_redirected_to service_path(assigns(:service))
   end
 
   test "should destroy service" do
     assert_difference('Service.count', -1) do
-      assert delete :destroy, id: @service
+      assert delete :destroy, id: @service_one
     end
     assert_redirected_to root_url
+  end
+  
+  test "Bad plex service port wont break page load" do
+    get :index
+    assert_response :success
+    assert_requested(:get, "https://plex1:32400/status/sessions")
+    @plex_service_one.update(port: 32401)
+    get :index
+
+    assert_response :success
   end
   
   # This might take some tinkering
