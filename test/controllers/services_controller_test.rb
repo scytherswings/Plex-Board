@@ -83,15 +83,15 @@ class ServicesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
   
-  test "Bad plex service port wont break page load" do
-    get :index
-    assert_response :success
-    assert_requested(:get, "https://plex1:32400/status/sessions")
-    @plex_service_one.update(port: 32401)
-    get :index
+  # test "Bad plex service port wont break page load" do
+  #   get :index
+  #   assert_response :success
+  #   assert_requested(:get, "https://plex1:32400/status/sessions")
+  #   @plex_service_one.update(port: 32401)
+  #   get :index
 
-    assert_response :success
-  end
+  #   assert_response :success
+  # end
   
   # This might take some tinkering
   # test "should show service as online" do
