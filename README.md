@@ -17,6 +17,13 @@ Pronounced "Plex Dashboard" like that ghetto name [La-a][] (La Dash A)... sorry.
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=dev)](https://travis-ci.org/scytherswings/Plex-Board)
 
+Just for clarificaiton, yes this is _another_ Plex dashboard, but this project is _different_ and I'll tell you why...
+
+PlexWatchWeb and the newer(and very cool) PlexPy projects are oriented more towards statistics etc.
+Plex-Board is meant to help the users **and** administrators of a Plex server get a quick overview on the status of the various services related to and including Plex itself.
+Eventually I intend to support a unified search that will allow users to request media to be added which could then go to an approval page, or be allowed by default.
+
+
 Here are a few screenshots of v0.1
 ![home](http://i.imgur.com/8kcDikC.png)
 

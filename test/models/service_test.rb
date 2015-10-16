@@ -19,7 +19,8 @@ class ServiceTest < ActiveSupport::TestCase
     @plex_service_one = services(:plex_one)
     @plex_service_two = services(:plex_two)
     @plex_no_sessions = services(:plex_no_sessions)
-
+    @session_one = sessions(:one)
+    @session_two = sessions(:two)
 
     stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
       with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
@@ -238,20 +239,24 @@ class ServiceTest < ActiveSupport::TestCase
 
   test "Session will be removed if Plex has no sessions" do
     assert_equal 1, @plex_service_one.sessions.count
+    assert_not @session_one.nil?
     @plex_service_one.token = "zV75NzEnTA1migSb21ze"
     @plex_service_one.dns_name = "plexnosessions"
     assert_difference('@plex_service_one.sessions.count', -1) do
       @plex_service_one.get_plex_sessions()
     end
     assert_requested(:get, "https://plexnosessions:32400/status/sessions")
+    assert @session_one.nil?
   end
 
 
-  # test "Expired sessions will be removed" do
-  #   assert_equal 2, @plex_service_two.sessions.count
-  #   @plex_service_two.token = "zV75NzEnTA1migSb21ze"
-  #   @plex_service_two.get_plex_sessions()
-  #   assert_requested(:get, "https://plex2:32400/status/sessions")
-  # end
+  test "Expired sessions will be removed" do
+    assert_equal 2, @plex_service_two.sessions.count
+    assert_not @session_two.nil?
+    @plex_service_two.token = "zV75NzEnTA1migSb21ze"
+    @plex_service_two.get_plex_sessions()
+    assert_requested(:get, "https://plex2:32400/status/sessions")
+    assert @session_two.nil?, "Session 2 was not removed"
+  end
 
 end
