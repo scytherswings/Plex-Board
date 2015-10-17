@@ -61,5 +61,7 @@ curl -sSL https://get.rvm.io | bash -s stable --rails```
 
 7. `rvm use 2.2.1; cd /opt/Plex-Board; bundle install --without development test;`
 
-8. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.) Remeber, this is for _testing!_
+8. `./serverSetup.sh`
+
+9. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.) Remeber, this is for _testing!_
 Also, keep in mind
