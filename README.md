@@ -41,11 +41,10 @@ Other operating systems will probably work, but for now I'm only going to write 
 
 1. `sudo apt-get update; sudo apt-get install git bundler -y;`
 
-2. `gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3`
+2. ```gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3; 
+curl -sSL https://get.rvm.io | bash -s stable --rails```
 
-3. `curl -sSL https://get.rvm.io | bash -s stable --rails`
-
-4. `cd /opt/;` Now at this point, you might have to give your user write permissions to this directory. If that is the case run `sudo chmod 777 /opt -R` This is not a best practice, but it will get you by.
+4. `cd /opt` Now at this point, you might have to give your user write permissions to this directory. If that is the case run `sudo chmod 777 /opt -R` This is not a best practice, but it will get you by.
 
 5. `git clone https://github.com/scytherswings/Plex-Board.git`
 
