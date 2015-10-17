@@ -168,6 +168,9 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not @service_one.valid?, "password should be <= 255 char"
   end
 
+  # test "bad dns_name will not evaluate to online" do
+    
+  # end
 
 
 
@@ -262,5 +265,7 @@ class ServiceTest < ActiveSupport::TestCase
   # test "offline service will skip api calls" do
     
   # end
+  
+  
 
 end
