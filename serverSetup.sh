@@ -8,7 +8,7 @@ echo -e "test:\n  secret_key_base:" $BOGUS "\n" >> $SECRETS
 echo -e "production:\n  secret_key_base:" $SECRET >> $SECRETS
 echo -e "RAILS_ENV=production"
 `rm db/*.sqlite3`
-`rake db:create db:schema:load`
-`rake db:migrate`
-`rake assets:precompile`
-
+`rake db:create RAILS_ENV=production`
+`rake db:schema:load RAILS_ENV=production`
+`rake db:migrate RAILS_ENV=production`
+`rake assets:precompile RAILS_ENV=production`
