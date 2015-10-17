@@ -3,7 +3,7 @@ rvm:
   - 2.2.1
 cache: bundler
 script:
-  - bash travisSetup.sh
+  - /bin/bash travisSetup.sh
   - bundle exec rake
  # - bundle exec rake db:migrate VERSION=0
  # - bundle exec rake db:migrate
