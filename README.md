@@ -59,7 +59,7 @@ curl -sSL https://get.rvm.io | bash -s stable --rails```
 
 6. Now you might just want to reboot, otherwise you will have to fool around with your shell. `sudo reboot`
 
-7. `rvm use 2.2.1; cd /opt/Plex-Board; bundle install --without development test;`
+7. `rvm use 2.2.1; cd /opt/Plex-Board;`
 
 8. `./serverSetup.sh`
 
