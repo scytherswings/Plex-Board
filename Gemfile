@@ -7,7 +7,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'database_cleaner', '~> 1.5.0'
-gem 'autoprefixer-rails'
+gem 'autoprefixer-rails', '~> 6.0.3'
 gem 'jquery-turbolinks', '~> 2.1.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
@@ -17,6 +17,8 @@ gem 'simple_form', '~> 3.1.1'
 gem 'strip_attributes', '~> 1.7.1'
 gem 'puma', '~> 2.13.4'
 gem 'rest-client', '~> 1.8.0'
+gem 'json', '~> 1.8.3'
+gem 'sass', '~> 3.4.19'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

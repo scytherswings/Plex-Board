@@ -32,3 +32,25 @@ Here are a few screenshots of v0.1
 ![view](http://i.imgur.com/zDbDLD4.png)
 
 ![all](http://i.imgur.com/9JWlycL.png)
+
+
+## Install Instructions - for testing, not production
+
+These instructions have been tested on a fresh install of Ubuntu 14.04 as of 10/16/2015. 
+Other operating systems will probably work, but for now I'm only going to write instructions for Ubuntu.
+
+1. `sudo apt-get update; sudo apt-get install git bundler -y;`
+
+2. `gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3`
+
+3. `curl -sSL https://get.rvm.io | bash -s stable --rails`
+
+4. `cd /opt/;` Now at this point, you might have to give your user write permissions to this directory. If that is the case run `sudo chmod 777 /opt -R` This is not a best practice, but it will get you by.
+
+5. `git clone https://github.com/scytherswings/Plex-Board.git`
+
+6. Now you might just want to reboot, otherwise you will have to fool around with your shell. `sudo reboot`
+
+7. `rvm use 2.2.1; cd /opt/Plex-Board; bundle install --without development test;`
+
+8. `./runServer.sh`
