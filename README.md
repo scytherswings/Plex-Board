@@ -34,6 +34,14 @@ Here are a few screenshots of v0.1
 ![all](http://i.imgur.com/9JWlycL.png)
 
 
+## System Requirements
+
+You should have enough space to allow logs and an image cache, so I wouldn't recommend using on a system with less that 1GB free HDD space.
+
+Rails can probably run on 512MB of RAM fine and CPU usage will vary. You can probably get away with a single core, but dual core may run smoother.
+
+
+
 ## Install Instructions - for testing, not production
 
 These instructions have been tested on a fresh install of Ubuntu 14.04 as of 10/16/2015. 
@@ -52,4 +60,5 @@ curl -sSL https://get.rvm.io | bash -s stable --rails```
 
 7. `rvm use 2.2.1; cd /opt/Plex-Board; bundle install --without development test;`
 
-8. `./runServer.sh`
+8. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.) Remeber, this is for _testing!_
+Also, keep in mind

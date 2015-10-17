@@ -16,7 +16,7 @@
 !/log/.keep
 /tmp
 
-
+/config/secrets.yml
 #Ignore public/images
 /public/images/*
 #Ignore Spring files.
