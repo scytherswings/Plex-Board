@@ -47,7 +47,7 @@ Rails can probably run on 512MB of RAM fine and CPU usage will vary. You can pro
 These instructions have been tested on a fresh install of Ubuntu 14.04 as of 10/16/2015. 
 Other operating systems will probably work, but for now I'm only going to write instructions for Ubuntu.
 
-1. `sudo apt-get update; sudo apt-get install git bundler -y;`
+1. `sudo apt-get update; sudo apt-get install git bundler nodejs -y;`
 
 2. ```gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3; 
 curl -sSL https://get.rvm.io | bash -s stable --rails```
