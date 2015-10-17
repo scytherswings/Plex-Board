@@ -1,2 +1,2 @@
 #!/bin/bash
-rails server
+puma -e production -p 3000
