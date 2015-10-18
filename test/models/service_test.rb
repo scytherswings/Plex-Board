@@ -218,14 +218,11 @@ class ServiceTest < ActiveSupport::TestCase
   end
 
   test "Service with a session can update the existing plex session" do
-    # @plex_service_one.get_plex_sessions()
-    # assert_requested(:get, "https://plex1:32400/status/sessions")
     assert_equal 1, @plex_service_one.sessions.count
     temp = @plex_service_one.sessions.first.clone
     assert_equal temp.id, @plex_service_one.sessions.first.id, "Temp ID was not equal to origin ID"
     @plex_service_one.token = "zV75NzEnTA1migSb21ze"
     @plex_service_one.dns_name = "plex1updated"
-    # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
     @plex_service_one.get_plex_sessions()
     assert_requested(:get, "https://plex1updated:32400/status/sessions")
     assert_equal 1, @plex_service_one.sessions.count, "Session number should not change"
@@ -255,6 +252,17 @@ class ServiceTest < ActiveSupport::TestCase
     end
   end
   
+  test "Calling get_plex_sessions will only add session once" do
+    assert_equal 1, @plex_service_one.sessions.count
+    @plex_service_one.sessions.destroy_all
+    @plex_service_one.token = "zV75NzEnTA1migSb21ze"
+    assert_difference('@plex_service_one.sessions.count', +1) do
+      @plex_service_one.get_plex_sessions()
+      @plex_service_one.get_plex_sessions()
+      @plex_service_one.get_plex_sessions()
+    end
+    assert_requested(:get, "https://plex1:32400/status/sessions", times: 3)
+  end
   # test "offline service will skip api calls" do
     
   # end

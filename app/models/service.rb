@@ -149,10 +149,23 @@ class Service < ActiveRecord::Base
         return nil
       end
 
-      stale_ids = []
-
       #A set is like an array that requires its elements to be unique
       new_sessions = Set.new []
+
+      #If we don't know about shit, then yes, add the new shit
+      if self.sessions.empty?
+        plex_sessions.each do |new_session|
+          new_sessions << new_session
+        end
+        new_sessions.each do |add_session|
+          add_plex_session(add_session)
+        end
+        return true
+      end
+
+      stale_ids = []
+
+
 
       # are the sessions that plex gave us the same as the ones we already know about?
       self.sessions.each do |known_session|
@@ -163,16 +176,16 @@ class Service < ActiveRecord::Base
           logger.debug("New Session " + newish_session.to_json)
 
           #Test if the session from plex is the same session key that we already know about.
-          if newish_session["sessionKey"]  == known_session.session_key
+          if newish_session["sessionKey"].to_s  == known_session.session_key.to_s
             logger.debug("Match!")
             update_plex_session(known_session, newish_session)
             stale = false
             #not the most efficient, but this helps from getting screwed up stuff
             new_sessions.delete(newish_session)
             #move on to the next element in the array so we don't add this one to the new stuff
-
-            next
+            break
           end
+
           logger.debug("No match to existing sessions. Adding to new_sessions array")
           new_sessions.add(newish_session)
 
@@ -187,14 +200,7 @@ class Service < ActiveRecord::Base
       #Destroy the sessions that are stale
       stale_ids.each do |stale_id|
         logger.debug("Destroying session ID " + stale_id.to_s)
-        Session.find_by_id(stale_id).destroy
-      end
-
-      #If we don't know about shit, then yes, add the new shit
-      if self.sessions.empty?
-        plex_sessions.each do |new_session|
-          new_sessions << new_session
-        end
+        Session.destroy(stale_id)
       end
 
       new_sessions.each do |new_session|

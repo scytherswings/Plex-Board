@@ -1,6 +1,17 @@
 <div class="item <%= active %>">
-  <h2>Now Playing</h2>
-  <% session.get_plex_now_playing_img %>
-  <%= image_tag session.image.to_s, width: 400, height: 592 %>
-  <h3><%= session.media_title %></h3>
+  <div style="overflow: auto; height: 90%;">
+    <div class="thumbnail">
+      <h2>Now Playing</h2>
+      <%= image_tag session.get_plex_now_playing_img %>
+
+      <div class="progress now-playing-progress-bar">
+        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%= session.get_percent_done() %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= session.get_percent_done() %>%">
+          <% logger.debug(session.get_percent_done()) %>
+        </div>
+      </div>
+      <h3><%= session.media_title %></h3>
+    </div>
+  </div>
+
+
 </div>
