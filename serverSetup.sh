@@ -26,4 +26,7 @@ rake db:schema:load RAILS_ENV=production
 rake db:migrate RAILS_ENV=production
 rake assets:precompile RAILS_ENV=production
 echo
+echo "Creating images directory"
+mkdir public/images
+echo
 echo "Finished. Run ./runServer.sh to start the server! It runs on port 3000 by default."

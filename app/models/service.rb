@@ -167,7 +167,7 @@ class Service < ActiveRecord::Base
 
           return false
         end
-
+        
 
       end
       # # append to array
