@@ -144,112 +144,76 @@ class Service < ActiveRecord::Base
 
       #if plex has nothing, then fucking nuke that shit
       if plex_sessions.empty?
+        logger.debug("plex_sessions was empty... Deleting all sessions")
         self.sessions.destroy_all
         return nil
       end
+
+      stale_ids = []
+
+      #A set is like an array that requires its elements to be unique
+      new_sessions = Set.new []
+
       # are the sessions that plex gave us the same as the ones we already know about?
       self.sessions.each do |known_session|
+        logger.debug("Match against " + known_session.to_json)
+        #guilty until proven innocent. I mean, stale until proven not stale? heh.
+        stale = true
+        plex_sessions.each do |newish_session|
+          logger.debug("New Session " + newish_session.to_json)
 
-        logger.debug("Match against" + known_session.to_json)
-        logger.debug(plex_sessions.empty?)
-
-        plex_sessions.delete_if do |newish_session|
-           logger.debug("New Session" + newish_session.to_json)
-           logger.debug("Comparison: " + newish_session["sessionKey"]  == known_session.session_key)
-
+          #Test if the session from plex is the same session key that we already know about.
           if newish_session["sessionKey"]  == known_session.session_key
             logger.debug("Match!")
             update_plex_session(known_session, newish_session)
-            #return true so that delete_if will remove this session so we
-            #don't bother checking it since it already matched a session
-            return true
+            stale = false
+            #not the most efficient, but this helps from getting screwed up stuff
+            new_sessions.delete(newish_session)
+            #move on to the next element in the array so we don't add this one to the new stuff
+
+            next
           end
+          logger.debug("No match to existing sessions. Adding to new_sessions array")
+          new_sessions.add(newish_session)
 
-          return false
         end
-        
-
+        logger.debug("stale is " + stale.to_s)
+        if stale
+          logger.debug("Adding session " + known_session.id.to_s + " to stale list")
+          stale_ids << known_session.id
+        end
       end
-      # # append to array
-      # #expression will get the username out of the messy nested json
-      # expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
 
-      # #if the user's title (read username) is blank, set it to "Local"
-      # #otherwise, set the name of the session to the user's username
-      # new_session_name = expression == "" ? "Local" : expression #check that shit out
+      #Destroy the sessions that are stale
+      stale_ids.each do |stale_id|
+        logger.debug("Destroying session ID " + stale_id.to_s)
+        Session.find_by_id(stale_id).destroy
+      end
 
-      # temp_sessions = []
-      # plex_sessions["_children"].try(:each) do |new_session|
-      #   temp_sessions << Session.new(user_name: new_session_name, description: new_session["summary"],
-      #     media_title: new_session["title"], total_duration: new_session["duration"],
-      #     progress: new_session["viewOffset"], thumb_url: new_session["thumb"],
-      #     connection_string: "https://#{connect_method()}:#{self.port}",
-      #     session_key: new_session["sessionKey"])
-      # end
+      #If we don't know about shit, then yes, add the new shit
+      if self.sessions.empty?
+        plex_sessions.each do |new_session|
+          new_sessions << new_session
+        end
+      end
 
+      new_sessions.each do |new_session|
+        logger.debug("Adding new session")
+        add_plex_session(new_session)
+      end
 
-      # #self.sessions.each |ks|
-      #   #new.sessions.each |ns|
-      #     #if ns == ks
-      #       #update progress
-      #       #break out of loop
-      #     #end
-      #   #end
-      #   #remove anything from outside array that wasn't matched in inside loop
-      # #end
-
-
-      # #map! allows me to actually edit the known sessions as we iterate over them
-      # self.sessions.map!.delete_if do |known_session|
-      #   logger.debug("Working on #{known_session.name}")
-
-      #   temp_sessions.delete_if do |tmp_session|
-      #     logger.debug("Comparing to #{tmp_session.name}")
-
-      #     #if the new session and the known session match, then we update progress
-      #     if tmp_session.session_key == known_session.session_key
-      #       known_session.progress = tmp_session.progress
-      #       logger.debug("Match. Delete new session out of array")
-      #       true #return true so that this element gets deleted from temp_sessions
-      #       #We can delete this element from the temp array because we already
-      #       #matched and updated the value of our known session
-      #     else
-      #       logger.debug("No match. Continue")
-
-      #       #false #return false so that this element isn't deleted.
-      #       next
-      #     end
-      #     break
-      #   end
-      #   true
-      # end
-
-      #   testing out code from stackoverflow! :D
-      #   temp_sessions.size == self.sesions.size && temp_sessions.lazy.zip(self.sessions).all? { |x, y| x.session_key == y.session_key }
-      #   if we already know about a session, then just update the progress info
-      #   if we don't know about a session, then add it as a new session and get the picture.
-      #   if we have a session that plex no longer has, delete our instance
-      # nah just kidding. That logic sounded hard.. so for the moment let's just nuke everything
-      # self.sessions.destroy_all
-
-      #parsing through the JSON here, passing the hash of sessions to the function
-      add_plex_session(plex_sessions)
     else
       return nil  #implicit returns are still cooler
     end
   end
 
-  def add_plex_session(plex_sessions)
+  def add_plex_session(new_session)
     begin
-      #refer to the test/fixtures/JSON for help on parsing stuff returned from plex
-      plex_sessions.each do |new_session|
       #expression will get the username out of the messy nested json
       expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
-
       #if the user's title (read username) is blank, set it to "Local"
       #otherwise, set the name of the session to the user's username
       new_session_name = expression == "" ? "Local" : expression #check that shit out
-
       # TV shows need a parent thumb for their cover art
       if new_session.has_key? "parentThumb"
         temp_thumb = new_session["parentThumb"]
@@ -263,7 +227,7 @@ class Service < ActiveRecord::Base
         connection_string: "https://#{connect_method()}:#{self.port}",
         session_key: new_session["sessionKey"])
       temp_session.save!
-      end
+
     rescue => error
       logger.debug(error)
       return nil

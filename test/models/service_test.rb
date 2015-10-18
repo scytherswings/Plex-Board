@@ -181,12 +181,6 @@ class ServiceTest < ActiveSupport::TestCase
     assert_equal 1, @plex_service_one.sessions.count, "Plex_service_one number of services did not match 1"
   end
 
-  test "Number of sessions should change" do
-    assert_difference('Session.count', -1) do
-      @plex_service_one.sessions.first.destroy
-    end
-  end
-
   test "Plex_service_two should have two valid sessions" do
     assert_equal 2, @plex_service_two.sessions.count, "Plex_service_one number of services did not match 2"
   end
@@ -217,10 +211,10 @@ class ServiceTest < ActiveSupport::TestCase
     @plex_service_two.sessions.destroy_all
     assert_equal 0, @plex_service_two.sessions.count
     @plex_service_two.token = "zV75NzEnTA1migSb21ze"
-    # assert_not_nil @plex_service_one.get_plex_sessions(), "Getting new session failed"
-    @plex_service_two.get_plex_sessions()
-    assert_requested(:get, "https://plex2:32400/status/sessions")
-    assert_equal 2, @plex_service_two.sessions.count, "New sessions were not picked up"
+    assert_difference('@plex_service_two.sessions.count', +2) do
+      assert_not_nil @plex_service_two.get_plex_sessions(), "Getting plex sessions returned nil"
+      assert_requested(:get, "https://plex2:32400/status/sessions")
+    end
   end
 
   test "Service with a session can update the existing plex session" do
@@ -248,16 +242,16 @@ class ServiceTest < ActiveSupport::TestCase
       @plex_service_one.get_plex_sessions()
     end
     assert_requested(:get, "https://plexnosessions:32400/status/sessions")
-    
   end
 
 
   test "Expired sessions will be removed" do
     assert_equal 2, @plex_service_two.sessions.count
     @plex_service_two.token = "zV75NzEnTA1migSb21ze"
+    @plex_service_two.dns_name = "plex1"
     assert_difference('@plex_service_two.sessions.count', -1) do 
       @plex_service_two.get_plex_sessions()
-      assert_requested(:get, "https://plex2:32400/status/sessions")
+      assert_requested(:get, "https://plex1:32400/status/sessions")
     end
   end
   
