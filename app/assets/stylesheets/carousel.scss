@@ -1,3 +1,10 @@
 .carousel-inner > .item > img {
     margin: 0 auto;
 }
+
+.progress-bar {
+  -webkit-transition: width 5.0s ease !important;
+     -moz-transition: width 5.0s ease !important;
+       -o-transition: width 5.0s ease !important;
+          transition: width 5.0s ease !important;
+}

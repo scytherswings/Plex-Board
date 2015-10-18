@@ -1,8 +1,6 @@
 class ServicesController < ApplicationController
     include ActionController::Live
 
-
-
   before_action :set_service, only: [:show, :edit, :update, :destroy]
 
   # GET /services
@@ -16,16 +14,51 @@ class ServicesController < ApplicationController
     response.headers['Content-Type'] = 'text/event-stream'
     @services = Service.all
     @services.each do |service|
-      service.ping
+      service.ping()
       service.plex_recently_added()
-        status_of_service = {
-          service_id:"#{service.id}",
-          name:"#{service.name}",
-          online_status: "#{service.online_status}",
-          last_seen: "#{service.last_seen}",
-          url: "#{service.url}"
-        }
-        response.stream.write "data: #{status_of_service.to_json}\n\n"
+      status_of_service = {
+        service_id:"#{service.id}",
+        name:"#{service.name}",
+        online_status: "#{service.online_status}",
+        last_seen: "#{service.last_seen}",
+        url: "#{service.url}"
+      }
+      response.stream.write "data: #{status_of_service.to_json}\n\n"
+      #This sleep controls how often we check the status of the service
+      sleep 5
+    end
+    rescue IOError
+      logger.info "Stream closed"
+    rescue ClientDisconnected
+      logger.info "Stream closed"
+  ensure
+    response.stream.close
+  end
+  
+  def plex_now_playing
+    response.headers['Content-Type'] = 'text/event-stream'
+    @services = Service.all
+    
+    @services.each do |service|
+      
+      if service.service_type == "Plex"
+        service.get_plex_sessions()
+        
+        service.sessions.each do |plex_session|
+          
+          status_of_session = {
+            session_id:"#{plex_session.id}",
+            progress:"#{plex_session.get_percent_done()}",
+            media_title:"#{plex_session.media_title}",
+            description:"#{plex_session.get_description()}",
+            image:"#{plex_session.get_plex_now_playing_img()}",
+            active_sessions:"#{Session.all.ids}"
+          }
+          response.stream.write "data: #{status_of_session.to_json}\n\n"
+        end
+      end
+        
+      #This sleep controls how often we check the status of the service
       sleep 5
     end
     rescue IOError

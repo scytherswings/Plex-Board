@@ -62,6 +62,11 @@ class Session < ActiveRecord::Base
   def get_percent_done()
     ((self.progress.to_f / self.total_duration.to_f) * 100).to_i
   end
+  
+  def get_description()
+    # limit the length of the description to 140 characters, if over 140, add ellipsis
+    self.description[0..140].gsub(/\s\w+\s*$/,'...')
+  end
 
 
 end
