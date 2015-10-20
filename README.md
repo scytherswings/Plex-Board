@@ -64,4 +64,7 @@ curl -sSL https://get.rvm.io | bash -s stable --rails```
 8. `./serverSetup.sh`
 
 9. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.) Remeber, this is for _testing!_
-Also, keep in mind
+
+### Feedback
+If you run into any weird bugs feel free to make a ticket or ask in the Gitter chat room.
+I am working on this project in my free time so during business hours I won't respond most likely.

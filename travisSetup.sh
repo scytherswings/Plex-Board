@@ -2,10 +2,10 @@
 SECRETS="config/secrets.yml"
 SECRET="$(rake secret)"
 BOGUS="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-rm $SECRETS
+# rm $SECRETS
 echo -e "development:\n  secret_key_base: " $BOGUS "\n" >> $SECRETS
 echo -e "test:\n  secret_key_base: " $BOGUS "\n" >> $SECRETS
 echo -e "production:\n secret_key_base: " $SECRET >> $SECRETS
-rm db/*sqlite3
+# rm db/*sqlite3
 rake db:create
 rake db:migrate
