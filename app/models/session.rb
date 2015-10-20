@@ -41,7 +41,7 @@ class Session < ActiveRecord::Base
   end
 
   def get_plex_now_playing_img()
-    #I'll be honest. I don't know why I needed to add this.. 
+    #I'll be honest. I don't know why I needed to add this..
     #but the ".jpeg" name image problem seems to be fixed for now sooo....
     if self.id.blank?
       return nil
@@ -72,8 +72,8 @@ class Session < ActiveRecord::Base
   end
 
   def get_description()
-    # limit the length of the description to 140 characters, if over 140, add ellipsis
-    self.description[0..140].gsub(/\s\w+\s*$/,'...')
+    # limit the length of the description to 200 characters, if over 200, add ellipsis
+    self.description[0..200].gsub(/\s\w+\s*$/,'...')
   end
 
 
