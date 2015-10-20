@@ -40,11 +40,14 @@ class Session < ActiveRecord::Base
   end
 
   def get_plex_now_playing_img()
-    logger.debug(self.image)
-    if File.file?(self.image)
+
+    #Check if the file exists, if it does return the name of the image
+    if File.file?("#{@@images_dir}/#{self.image}")
+      logger.debug("Image #{self.image.to_s} found!")
       return self.image.to_s
     end
     begin
+      logger.debug("Image was not found, fetching...")
       File.open("#{@@images_dir}/#{self.id}.jpeg", 'wb') do |f|
         f.write open("#{self.connection_string}#{self.thumb_url}",
         "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
@@ -54,7 +57,7 @@ class Session < ActiveRecord::Base
       return self.image.to_s
     rescue => error
       logger.debug(error)
-      nil
+      return nil
     end
 
   end
@@ -62,7 +65,7 @@ class Session < ActiveRecord::Base
   def get_percent_done()
     ((self.progress.to_f / self.total_duration.to_f) * 100).to_i
   end
-  
+
   def get_description()
     # limit the length of the description to 140 characters, if over 140, add ellipsis
     self.description[0..140].gsub(/\s\w+\s*$/,'...')

@@ -6,7 +6,8 @@
       <%= image_tag session.get_plex_now_playing_img %>
 
       <div class="progress now-playing-progress-bar" style="height: 5px">
-        <div id="plex_progressbar_<%= session.id %>" class="progress-bar progress-bar-warning" role="progressbar"
+        <div id="plex_progressbar_<%= session.id %>"
+          class="progress-bar progress-bar-warning" role="progressbar"
           aria-valuenow="<%= session.get_percent_done() %>" aria-valuemin="0"
           aria-valuemax="100" style="width: <%= session.get_percent_done() %>%">
           <% logger.debug(session.get_percent_done()) %>
