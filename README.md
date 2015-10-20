@@ -2,7 +2,7 @@
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 
 # Plex-Board
-## Version 0.1
+## Version 0.2
 
 What is Plex-Board? Put simply, it is a dynamic dashboard for checking the status of multiple services related to Plex Media Server (Plex, Couchpotato, Sickrage, Deluge, Sabnzbd+, etc.).
 
@@ -24,8 +24,8 @@ Plex-Board is meant to help the users **and** administrators of a Plex server ge
 Eventually I intend to support a unified search that will allow users to request media to be added which could then go to an approval page, or be allowed by default.
 
 
-Here are a few screenshots of v0.1
-![home](http://i.imgur.com/8kcDikC.png)
+Here are a few screenshots of v0.2
+![home](http://i.imgur.com/IHuLsAh.png)
 
 ![add](http://i.imgur.com/6qnMZwa.png)
 
