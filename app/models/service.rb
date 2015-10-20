@@ -182,15 +182,17 @@ class Service < ActiveRecord::Base
             stale = false
             #not the most efficient, but this helps from getting screwed up stuff
             new_sessions.delete(newish_session)
-            #move on to the next element in the array so we don't add this one to the new stuff
+            #move on to the next element in the outside array so we
+            #don't add this one to the new stuff
             break
           end
 
           logger.debug("No match to existing sessions. Adding to new_sessions array")
+          # logger.debug(newish_session.to_json)
           new_sessions.add(newish_session)
 
         end
-        logger.debug("stale is " + stale.to_s)
+        # logger.debug("Stale is " + stale.to_s)
         if stale
           logger.debug("Adding session " + known_session.id.to_s + " to stale list")
           stale_ids << known_session.id

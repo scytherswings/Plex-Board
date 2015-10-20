@@ -46,6 +46,10 @@ class ServiceTest < ActiveSupport::TestCase
       to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex2.json").
       read, :headers => HEADERS)
 
+    stub_request(:get, /https:\/\/plex(.*?):32400\/library\/metadata\/(\d*)\/thumb\/(\d*$)/).
+      with(:headers => {'Accept'=>'image/jpeg', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/images/', 'placeholder.png'), :headers => {})
+
 
   end
 
@@ -169,7 +173,7 @@ class ServiceTest < ActiveSupport::TestCase
   end
 
   # test "bad dns_name will not evaluate to online" do
-    
+
   # end
 
 
@@ -246,12 +250,12 @@ class ServiceTest < ActiveSupport::TestCase
     assert_equal 2, @plex_service_two.sessions.count
     @plex_service_two.token = "zV75NzEnTA1migSb21ze"
     @plex_service_two.dns_name = "plex1"
-    assert_difference('@plex_service_two.sessions.count', -1) do 
+    assert_difference('@plex_service_two.sessions.count', -1) do
       @plex_service_two.get_plex_sessions()
       assert_requested(:get, "https://plex1:32400/status/sessions")
     end
   end
-  
+
   test "Calling get_plex_sessions will only add session once" do
     assert_equal 1, @plex_service_one.sessions.count
     @plex_service_one.sessions.destroy_all
@@ -264,9 +268,9 @@ class ServiceTest < ActiveSupport::TestCase
     assert_requested(:get, "https://plex1:32400/status/sessions", times: 3)
   end
   # test "offline service will skip api calls" do
-    
+
   # end
-  
-  
+
+
 
 end

@@ -20,6 +20,7 @@ gem 'rest-client', '~> 1.8.0'
 gem 'json', '~> 1.8.3'
 gem 'sass', '~> 3.4.19'
 gem 'execjs', '~> 2.6.0'
+# gem 'lazyload-rails', '~> 0.3.1' garbage
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

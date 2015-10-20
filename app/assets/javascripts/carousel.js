@@ -1,7 +1,11 @@
 // Carousel Auto-Cycle
-// Interval controls how fast the carousel revolves?
+// Interval controls how fast the carousel revolves
 $(document).ready(function() {
   $('.carousel').carousel({
-    interval: 5000
-  })
+    interval: 8000
+  });
 });
+
+
+
+

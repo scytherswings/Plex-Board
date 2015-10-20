@@ -8,6 +8,7 @@ class Session < ActiveRecord::Base
   # mount_uploader :image, ImageUploader
   before_destroy :delete_thumbnail
   before_save :init
+  after_save :get_plex_now_playing_img
 
   validates_presence_of :session_key
   validates_presence_of :user_name
@@ -31,8 +32,8 @@ class Session < ActiveRecord::Base
   def delete_thumbnail()
     if self.image != "http://placehold.it/400x592"
       begin
-        FileUtils.rm("#{@@images_dir}/#{image}")
-        logger.debug("Deleted #{@@images_dir}/#{image}")
+        FileUtils.rm(self.image)
+        logger.debug("Deleted #{self.image}")
       rescue => error
       logger.debug(error)
       end
@@ -40,11 +41,15 @@ class Session < ActiveRecord::Base
   end
 
   def get_plex_now_playing_img()
-
+    #I'll be honest. I don't know why I needed to add this.. 
+    #but the ".jpeg" name image problem seems to be fixed for now sooo....
+    if self.id.blank?
+      return nil
+    end
     #Check if the file exists, if it does return the name of the image
-    if File.file?("#{@@images_dir}/#{self.image}")
-      logger.debug("Image #{self.image.to_s} found!")
-      return self.image.to_s
+    if File.file?("#{@@images_dir}/#{self.id}.jpeg")
+      logger.debug("Image #{self.image} found!")
+      return self.image
     end
     begin
       logger.debug("Image was not found, fetching...")
@@ -54,7 +59,7 @@ class Session < ActiveRecord::Base
         ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
       end
       self.update(image: "#{self.id}.jpeg")
-      return self.image.to_s
+      return self.image
     rescue => error
       logger.debug(error)
       return nil

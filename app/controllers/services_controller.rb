@@ -45,7 +45,10 @@ class ServicesController < ApplicationController
         service.get_plex_sessions()
         
         service.sessions.each do |plex_session|
-          
+          if plex_session.id.blank?
+            logger.debug("Got plex session with a blank id. Not sending on SSE")
+            next
+          end
           status_of_session = {
             session_id:"#{plex_session.id}",
             progress:"#{plex_session.get_percent_done()}",
