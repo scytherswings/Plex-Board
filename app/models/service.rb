@@ -188,6 +188,7 @@ class Service < ActiveRecord::Base
           end
 
           logger.debug("No match to existing sessions. Adding to new_sessions array")
+          logger.debug("Unmatched session: #{newish_session.to_json}")
           # logger.debug(newish_session.to_json)
           new_sessions.add(newish_session)
 
@@ -237,6 +238,7 @@ class Service < ActiveRecord::Base
       temp_session.save!
 
     rescue => error
+      logger.debug("add_plex_session(new_session) in service.rb error")
       logger.debug(error)
       return nil
     end

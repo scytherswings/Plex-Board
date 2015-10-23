@@ -49,6 +49,7 @@ class ServicesController < ApplicationController
             logger.debug("Got plex session with a blank id. Not sending on SSE")
             next
           end
+
           status_of_session = {
             session_id:"#{plex_session.id}",
             progress:"#{plex_session.get_percent_done()}",
