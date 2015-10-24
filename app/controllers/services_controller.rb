@@ -56,14 +56,14 @@ class ServicesController < ApplicationController
             media_title:"#{plex_session.media_title}",
             description:"#{plex_session.get_description()}",
             image:"#{plex_session.get_plex_now_playing_img()}",
-            active_sessions:"#{Session.all.ids}"
+            active_sessions: Session.all.ids
           }
           response.stream.write "data: #{status_of_session.to_json}\n\n"
         end
       end
         
       #This sleep controls how often we check the status of the service
-      sleep 5
+      sleep 1
     end
     rescue IOError
       logger.info "Stream closed"

@@ -22,15 +22,15 @@ class Session < ActiveRecord::Base
   @@images_dir = "public/images"
 
   def init
-    self.thumb_url ||= "http://placehold.it/400x592"
-    self.image ||= "http://placehold.it/400x592"
+    self.thumb_url ||= "placeholder.png"
+    self.image ||= "placeholder.png"
     if !File.directory?(@@images_dir)
       FileUtils::mkdir_p @@images_dir
     end
   end
 
   def delete_thumbnail()
-    if self.image != "http://placehold.it/400x592"
+    if self.image != "placeholder.png"
       begin
         FileUtils.rm(self.image)
         logger.debug("Deleted #{self.image}")

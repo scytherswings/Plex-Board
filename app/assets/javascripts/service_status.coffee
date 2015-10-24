@@ -1,7 +1,7 @@
 source = new EventSource('/services/online_status')
 source.addEventListener 'message', (e) ->
   service = $.parseJSON(e.data)
-  console.log service
+#  console.log service
   html_offline = """
                  <div class="row" id="service_#{service.service_id}">
                    <div class="col-lg-4">
@@ -44,7 +44,8 @@ source.addEventListener 'message', (e) ->
     console.log "service #{service.name} is online"
     if $('#service_' + service.service_id).length
       console.log "we found the element"
-      console.log "will replace with #{html_online}"
+      console.log "replacing..."
+#      console.log "will replace with #{html_online}"
     else
       console.log "we didn't find the element \"service #{service.service_id}\""
     $('#service_' + service.service_id).replaceWith(html_online)
@@ -52,7 +53,8 @@ source.addEventListener 'message', (e) ->
     console.log "service #{service.name} is not online"
     if $('#service_' + service.service_id).length
       console.log "we found the element"
-      console.log "will replace with #{html_offline}"
+      console.log "replacing..."
+#      console.log "will replace with #{html_offline}"
     else
       console.log "we didn't find the element \"service #{service.service_id}\""
     $('#service_' + service.service_id).replaceWith(html_offline)

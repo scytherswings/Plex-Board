@@ -169,11 +169,11 @@ class Service < ActiveRecord::Base
 
       # are the sessions that plex gave us the same as the ones we already know about?
       self.sessions.each do |known_session|
-        # logger.debug("Match against " + known_session.to_json)
+        # logger.debug("Match against " + JSON.pretty_generate(known_session.to_json))
         #guilty until proven innocent. I mean, stale until proven not stale? heh.
         stale = true
         plex_sessions.each do |newish_session|
-          # logger.debug("New Session " + newish_session.to_json)
+          # logger.debug("New Session " + JSON.pretty_generate(newish_session.to_json)
 
           #Test if the session from plex is the same session key that we already know about.
           if newish_session["sessionKey"].to_s  == known_session.session_key.to_s

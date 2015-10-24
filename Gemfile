@@ -24,7 +24,7 @@ gem 'execjs', '~> 2.6.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', '~> 6.0.2'
+  # gem 'byebug', '~> 6.0.2'
 end
 
 group :test do
