@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="dataSourceStorageLocal">
-    <data-source name="Rails Plex-Board: development" uuid="45453382-a3da-4fed-b14c-2f053f34b3c0" />
-    <data-source name="Rails Plex-Board: test" uuid="49e0f868-af77-49df-8de0-d62523cef4ef" />
-    <data-source name="Rails Plex-Board: production" uuid="153e0735-8940-4d0d-88aa-e7942997f87d" />
-  </component>
-</project>
