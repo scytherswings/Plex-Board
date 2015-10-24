@@ -21,4 +21,4 @@
 /public/images/*
 #Ignore Spring files.
 /spring/*.pid
-/.idea/*
+/.idea/
