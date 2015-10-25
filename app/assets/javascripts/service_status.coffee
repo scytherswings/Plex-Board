@@ -43,8 +43,8 @@ source.addEventListener 'message', (e) ->
   if service.online_status is "true"
     console.log "service #{service.name} is online"
     if $('#service_' + service.service_id).length
-      console.log "we found the element"
-      console.log "replacing..."
+#      console.log "we found the element"
+#      console.log "replacing..."
 #      console.log "will replace with #{html_online}"
     else
       console.log "we didn't find the element \"service #{service.service_id}\""
@@ -52,8 +52,8 @@ source.addEventListener 'message', (e) ->
   else
     console.log "service #{service.name} is not online"
     if $('#service_' + service.service_id).length
-      console.log "we found the element"
-      console.log "replacing..."
+#      console.log "we found the element"
+#      console.log "replacing..."
 #      console.log "will replace with #{html_offline}"
     else
       console.log "we didn't find the element \"service #{service.service_id}\""

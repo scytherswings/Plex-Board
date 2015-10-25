@@ -22,10 +22,15 @@ class Session < ActiveRecord::Base
   @@images_dir = "public/images"
 
   def init
+
     self.thumb_url ||= "placeholder.png"
     self.image ||= "placeholder.png"
     if !File.directory?(@@images_dir)
       FileUtils::mkdir_p @@images_dir
+    end
+    if !File.file?(Rails.root.join @@images_dir, "placeholder.png")
+      FileUtils.cp((Rails.root.join "public/", "placeholder.png"), (Rails.root.join @@images_dir, "placeholder.png"))
+      logger.debug("Copying in placeholder form public/ to public/images")
     end
   end
 

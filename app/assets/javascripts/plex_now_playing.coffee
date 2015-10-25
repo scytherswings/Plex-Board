@@ -72,8 +72,10 @@ source.addEventListener 'message', (e) ->
 
   for k in [0...stale_sessions.length]
     #find the elements by id and remove them from the page
-    console.log "Session " + stale_sessions[k].id + " hidden is " + $("#plex_session_" + stale_sessions[k].id).is(":hidden")
-    if $("#plex_session_#{stale_sessions[k].id}").is(":hidden")
+#    console.log "Session " + stale_sessions[k].id + " visible is " + $("#plex_session_" + stale_sessions[k].id).is(":visible")
+#    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
+    console.log "Session " + stale_sessions[k].id + " visible is " + $("#plex_session_" + stale_sessions[k].id).is(":visible")
+    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
       console.log "Stale element found, removing.."
       console.log "Removing element " + stale_sessions[k].id
       $("#" + stale_sessions[k].id).remove()

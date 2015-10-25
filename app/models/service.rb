@@ -187,8 +187,8 @@ class Service < ActiveRecord::Base
             break
           end
 
-          logger.debug("No match to existing sessions. Adding to new_sessions array")
-          logger.debug("Unmatched session: #{newish_session.to_json}")
+          # logger.debug("No match to existing sessions. Adding to new_sessions array")
+          # logger.debug("Unmatched session: #{newish_session.to_json}")
           # logger.debug(newish_session.to_json)
           new_sessions.add(newish_session)
 
