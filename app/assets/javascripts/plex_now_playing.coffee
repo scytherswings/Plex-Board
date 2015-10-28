@@ -11,10 +11,11 @@ source.addEventListener 'message', (e) ->
                          style="width: #{plex_session.progress}%"></div>
                         """
 
-  console.log "Plex session #{plex_session.session_id}"
+  console.log "Plex - Now Playing - session #{plex_session.session_id}"
 #.length tests to make sure that the id actually has elements
   if $('#plex_session_' + plex_session.session_id).length
-    console.log "Found the element!"
+    console.log "Session " + plex_session.session_id + " has active class? " + $("#plex_session_#{plex_session.session_id}").hasClass("active")
+    console.log "Session " + plex_session.session_id + " has item class? " + $("#plex_session_#{plex_session.session_id}").hasClass("item")
     console.log "Updating progress bar"
 #    console.log "Will replace with #{updated_progressbar}"
     $('#plex_progressbar_' + plex_session.session_id).replaceWith(updated_progressbar)
@@ -74,8 +75,11 @@ source.addEventListener 'message', (e) ->
     #find the elements by id and remove them from the page
 #    console.log "Session " + stale_sessions[k].id + " visible is " + $("#plex_session_" + stale_sessions[k].id).is(":visible")
 #    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
-    console.log "Session " + stale_sessions[k].id + " visible is " + $("#plex_session_" + stale_sessions[k].id).is(":visible")
-    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
+#    console.log "Session " + stale_sessions[k].id + " visible is " + $("#plex_session_" + stale_sessions[k].id).is(":visible")
+#    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
+    console.log "Session " + stale_sessions[k].id + " has active class? " + $("#plex_session_#{stale_sessions[k].id}").hasClass("active")
+    console.log "Session " + stale_sessions[k].id + " has item class? " + $("#plex_session_#{stale_sessions[k].id}").hasClass("item")
+    if !$("#plex_session_#{stale_sessions[k].id}").hasClass("active")
       console.log "Stale element found, removing.."
       console.log "Removing element " + stale_sessions[k].id
       $("#" + stale_sessions[k].id).remove()
