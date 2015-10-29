@@ -19,17 +19,17 @@ class Session < ActiveRecord::Base
   validates_presence_of :connection_string
   validates_presence_of :media_title
 
-  @@images_dir = "public/images"
+  IMAGES_DIR = "public/images"
 
   def init
 
     self.thumb_url ||= "placeholder.png"
     self.image ||= "placeholder.png"
-    if !File.directory?(@@images_dir)
-      FileUtils::mkdir_p @@images_dir
+    if !File.directory?(IMAGES_DIR)
+      FileUtils::mkdir_p IMAGES_DIR
     end
-    if !File.file?(Rails.root.join @@images_dir, "placeholder.png")
-      FileUtils.cp((Rails.root.join "public/", "placeholder.png"), (Rails.root.join @@images_dir, "placeholder.png"))
+    if !File.file?(Rails.root.join IMAGES_DIR, "placeholder.png")
+      FileUtils.cp((Rails.root.join "public/", "placeholder.png"), (Rails.root.join IMAGES_DIR, "placeholder.png"))
       logger.debug("Copying in placeholder form public/ to public/images")
     end
   end
@@ -39,8 +39,10 @@ class Session < ActiveRecord::Base
       begin
         FileUtils.rm(self.image)
         logger.debug("Deleted #{self.image}")
+        true
       rescue => error
-      logger.debug(error)
+        logger.error(error)
+        false
       end
     end
   end
@@ -52,13 +54,13 @@ class Session < ActiveRecord::Base
       return nil
     end
     #Check if the file exists, if it does return the name of the image
-    if File.file?("#{@@images_dir}/#{self.id}.jpeg")
+    if File.file?("#{IMAGES_DIR}/#{self.id}.jpeg")
       logger.debug("Image #{self.image} found!")
       return self.image
     end
     begin
       logger.debug("Image was not found, fetching...")
-      File.open("#{@@images_dir}/#{self.id}.jpeg", 'wb') do |f|
+      File.open("#{IMAGES_DIR}/#{self.id}.jpeg", 'wb') do |f|
         f.write open("#{self.connection_string}#{self.thumb_url}",
         "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
         ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
