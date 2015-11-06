@@ -37,8 +37,12 @@ class Session < ActiveRecord::Base
   def delete_thumbnail()
     if self.image != "placeholder.png"
       begin
-        FileUtils.rm(self.image)
-        logger.debug("Deleted #{self.image}")
+        File.delete!(Rails.root.join IMAGES_DIR, self.image)
+        if File.file?(Rails.root.join IMAGES_DIR, self.image)
+          logger.error("Image #{self.image} was not deleted")
+          false
+        end
+        logger.debug("Deleted #{Rails.root.join IMAGES_DIR, self.image}")
         true
       rescue => error
         logger.error(error)

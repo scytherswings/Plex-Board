@@ -78,7 +78,7 @@ class SessionTest < ActiveSupport::TestCase
     assert_not_nil @session_one.get_plex_now_playing_img, "Image file was not retrieved"
     assert File.file?(Rails.root.join "public/images", (@session_one.id.to_i.to_s + ".jpeg")),
            "Image file was not found"
-   assert @session_one.destroy, "Destroying the session failed"
+    assert @session_one.destroy, "Destroying the session failed"
     assert_not File.file?(Rails.root.join "public/images", (@session_one.id.to_i.to_s + ".jpeg")),
         "The image file was not deleted"
   end
