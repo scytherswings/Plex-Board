@@ -22,3 +22,6 @@
 #Ignore Spring files.
 /spring/*.pid
 /.idea/
+
+#Ignore test images
+/test/test_images/*
