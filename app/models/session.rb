@@ -18,17 +18,22 @@ class Session < ActiveRecord::Base
   validates_presence_of :connection_string
   validates_presence_of :media_title
 
-  IMAGES_DIR = "public/images"
+
+  @@images_dir = "public/images"
+
+  def self.set(options)
+    @@images_dir = options[:images_dir]
+  end
 
   def init
 
     self.thumb_url ||= "placeholder.png"
     self.image ||= "placeholder.png"
-    if !File.directory?(IMAGES_DIR)
-      FileUtils::mkdir_p IMAGES_DIR
+    if !File.directory?(@@images_dir)
+      FileUtils::mkdir_p @@images_dir
     end
-    if !File.file?(Rails.root.join IMAGES_DIR, "placeholder.png")
-      FileUtils.cp((Rails.root.join "public/", "placeholder.png"), (Rails.root.join IMAGES_DIR, "placeholder.png"))
+    if !File.file?(Rails.root.join @@images_dir, "placeholder.png")
+      FileUtils.cp((Rails.root.join "public/", "placeholder.png"), (Rails.root.join @@images_dir, "placeholder.png"))
       logger.debug("Copying in placeholder form public/ to public/images")
     end
   end
@@ -36,16 +41,16 @@ class Session < ActiveRecord::Base
   def delete_thumbnail()
     if self.image != "placeholder.png"
       begin
-        File.delete!(Rails.root.join IMAGES_DIR, self.image)
-        if File.file?(Rails.root.join IMAGES_DIR, self.image)
+        File.delete(Rails.root.join @@images_dir, self.image)
+        if File.file?(Rails.root.join @@images_dir, self.image)
           logger.error("Image #{self.image} was not deleted")
-          false
+          raise "Session image file was not deleted"
         end
-        logger.debug("Deleted #{Rails.root.join IMAGES_DIR, self.image}")
+        logger.debug("Deleted #{Rails.root.join @@images_dir, self.image}")
         true
       rescue => error
         logger.error(error)
-        # false
+        false
       end
     end
   end
@@ -57,13 +62,13 @@ class Session < ActiveRecord::Base
       return nil
     end
     #Check if the file exists, if it does return the name of the image
-    if File.file?("#{IMAGES_DIR}/#{self.id}.jpeg")
+    if File.file?("#{@@images_dir}/#{self.id}.jpeg")
       logger.debug("Image #{self.image} found!")
       return self.image
     end
     begin
       logger.debug("Image was not found, fetching...")
-      File.open("#{IMAGES_DIR}/#{self.id}.jpeg", 'wb') do |f|
+      File.open("#{@@images_dir}/#{self.id}.jpeg", 'wb') do |f|
         f.write open("#{self.connection_string}#{self.thumb_url}",
         "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
         ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
