@@ -2,7 +2,6 @@ class Session < ActiveRecord::Base
   require 'open-uri'
   require 'uri'
   require 'fileutils'
-  # require 'carrierwave/orm/activerecord'
   belongs_to :service
   delegate :token, :to => :service, :prefix => true
   # mount_uploader :image, ImageUploader
@@ -46,7 +45,7 @@ class Session < ActiveRecord::Base
         true
       rescue => error
         logger.error(error)
-        false
+        # false
       end
     end
   end

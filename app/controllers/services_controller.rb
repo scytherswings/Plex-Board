@@ -38,7 +38,7 @@ class ServicesController < ApplicationController
   def plex_now_playing
     response.headers['Content-Type'] = 'text/event-stream'
     @services = Service.all
-    
+
     @services.each do |service|
       
       if service.service_type == "Plex"
@@ -46,10 +46,20 @@ class ServicesController < ApplicationController
         
         service.sessions.each do |plex_session|
           if plex_session.id.blank?
-            logger.debug("Got plex session with a blank id. Not sending on SSE")
+            logger.debug("Got plex session with a blank id of #{plex_session.id}. Not sending on SSE")
+            logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
+            logger.debug("Is id nil? #{plex_session.id.nil?}")
+            # begin
+              # ActiveRecord::ConnectionAdapters::QueryCache:Module.class_attribute
+              # logger.debug("QueryCache cleared")
+            # rescue => error
+              # logger.debug("QueryCache was not cleared")
+              # logger.debug(error)
+            # end
             next
           end
-
+          logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
+          logger.debug("Is id nil? #{plex_session.id.nil?}")
           status_of_session = {
             session_id:"#{plex_session.id}",
             progress:"#{plex_session.get_percent_done()}",
