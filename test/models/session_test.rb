@@ -16,7 +16,7 @@ class SessionTest < ActiveSupport::TestCase
     @session_three = sessions(:three)
     # @plex_service_one = service(:plex_one)
     # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
-    
+
     stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
       with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
       to_return(:status => 201, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "sign_in.json").
@@ -43,7 +43,7 @@ class SessionTest < ActiveSupport::TestCase
 
     stub_request(:get, /https:\/\/plex(.*?):32400\/library\/metadata\/(\d*)\/thumb\/(\d*$)/).
       with(:headers => {'Accept'=>'image/jpeg', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/images/', 'placeholder.png'), :headers => {})
+      to_return(:status => 200, :body => File.read(Rails.root.join 'test/fixtures/images/', 'placeholder.png'), :headers => {})
 
 
   end
@@ -76,10 +76,10 @@ class SessionTest < ActiveSupport::TestCase
 
   test "destroying a session will delete the associated image" do
     assert_not_nil @session_one.get_plex_now_playing_img, "Image file was not retrieved"
-    assert File.file?(Rails.root.join "public/images", (@session_one.id.to_i.to_s + ".jpeg")),
+    assert File.file?(Rails.root.join "test/test_images", (@session_one.id.to_i.to_s + ".jpeg")),
            "Image file was not found"
     assert @session_one.destroy, "Destroying the session failed"
-    assert_not File.file?(Rails.root.join "public/images", (@session_one.id.to_i.to_s + ".jpeg")),
+    assert_not File.file?(Rails.root.join "test/test_images", (@session_one.id.to_i.to_s + ".jpeg")),
         "The image file was not deleted"
   end
 
