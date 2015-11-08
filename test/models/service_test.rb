@@ -14,6 +14,7 @@ class ServiceTest < ActiveSupport::TestCase
 
 
   setup do
+    FileUtils.rm_rf("#{Session.get("images_dir")}/.", secure: true)
     @service_one = services(:one)
     @service_two = services(:two)
     @plex_service_one = services(:plex_one)
@@ -48,8 +49,7 @@ class ServiceTest < ActiveSupport::TestCase
 
     stub_request(:get, /https:\/\/plex(.*?):32400\/library\/metadata\/(\d*)\/thumb\/(\d*$)/).
       with(:headers => {'Accept'=>'image/jpeg', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/images/', 'placeholder.png'), :headers => {})
-
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/images/', 'placeholder.png').read, :headers => {"Content-Type" => "image/jpeg"})
 
   end
 
@@ -182,11 +182,11 @@ class ServiceTest < ActiveSupport::TestCase
 
 
   test "Plex_service_one should have a valid session" do
-    assert_equal 1, @plex_service_one.sessions.count, "Plex_service_one number of services did not match 1"
+    assert_equal 1, @plex_service_one.sessions.count, "Plex_service_one number of sessions did not match 1"
   end
 
   test "Plex_service_two should have two valid sessions" do
-    assert_equal 2, @plex_service_two.sessions.count, "Plex_service_one number of services did not match 2"
+    assert_equal 2, @plex_service_two.sessions.count, "Plex_service_two number of sessions did not match 2"
   end
 
   test "get_plex_token will get token if token is nil" do

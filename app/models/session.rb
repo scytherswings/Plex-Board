@@ -14,6 +14,7 @@ class Session < ActiveRecord::Base
   validates_presence_of :service_id
 
   validates :session_key, uniqueness: { scope: :service_id }
+  # validates :service_token, length: {minimum: 20}
 
   validates_presence_of :connection_string
   validates_presence_of :media_title
@@ -25,6 +26,12 @@ class Session < ActiveRecord::Base
     @@images_dir = options[:images_dir]
   end
 
+  def self.get(options)
+    if options["images_dir"]
+      @@images_dir
+    end
+  end
+
   def init
 
     self.thumb_url ||= "placeholder.png"
@@ -33,8 +40,8 @@ class Session < ActiveRecord::Base
       FileUtils::mkdir_p @@images_dir
     end
     if !File.file?(Rails.root.join @@images_dir, "placeholder.png")
-      FileUtils.cp((Rails.root.join "public/", "placeholder.png"), (Rails.root.join @@images_dir, "placeholder.png"))
-      logger.debug("Copying in placeholder form public/ to public/images")
+      FileUtils.cp((Rails.root.join "test/fixtures/images", "placeholder.png"), (Rails.root.join @@images_dir, "placeholder.png"))
+      logger.debug("Copying in placeholder.png from test/fixtures/images to #{@@images_dir}")
     end
   end
 
@@ -52,6 +59,9 @@ class Session < ActiveRecord::Base
         logger.error(error)
         false
       end
+    else
+      logger.debug("Session image was still set to placeholder.png")
+      true
     end
   end
 
@@ -59,24 +69,38 @@ class Session < ActiveRecord::Base
     #I'll be honest. I don't know why I needed to add this..
     #but the ".jpeg" name image problem seems to be fixed for now sooo....
     if self.id.blank?
+      logger.error("Session ID was blank when getting image")
       return nil
     end
+    if self.service_token.blank?
+      logger.error("Session's service token was blank. Can't fetch image.")
+      return nil
+    end
+
+    imagefile = "#{@@images_dir}/#{self.id}.jpeg"
     #Check if the file exists, if it does return the name of the image
-    if File.file?("#{@@images_dir}/#{self.id}.jpeg")
-      logger.debug("Image #{self.image} found!")
-      return self.image
+    if File.file?(imagefile)
+      if File.size(imagefile).to_f > 0
+        logger.debug("Image #{self.image} found!")
+        return self.image
+      else
+        logger.debug("Image #{self.image} size was not > 0, attempting to grab again...")
+      end
     end
     begin
-      logger.debug("Image was not found, fetching...")
-      File.open("#{@@images_dir}/#{self.id}.jpeg", 'wb') do |f|
+      logger.debug("Image was not found or was invalid, fetching...")
+      File.open(imagefile, 'wb') do |f|
         f.write open("#{self.connection_string}#{self.thumb_url}",
         "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
-        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
+        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read.class
       end
       self.update(image: "#{self.id}.jpeg")
+      logger.debug("Session updated to image #{self.image}")
       return self.image
-    rescue => error
-      logger.debug(error)
+    rescue Exception => error
+      logger.error("There was an error grabbing the image:")
+      logger.error(error)
+      logger.error(self.service_token)
       return nil
     end
 

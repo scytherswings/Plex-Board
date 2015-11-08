@@ -119,8 +119,9 @@ class Service < ActiveRecord::Base
         user: self.username, password: self.password, headers: headers
       self.update(token: (JSON.parse response)['user']['authentication_token'])
       return true #yes, I know that Ruby has implicit returns, but it helps readability
-    rescue => error
-      logger.debug(error)
+    rescue Exception => error
+      logger.error("There was an error getting the plex token")
+      logger.error(error)
       return false
     end
 
