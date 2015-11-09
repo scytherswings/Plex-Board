@@ -74,8 +74,9 @@ class Session < ActiveRecord::Base
     end
     if self.service_token.blank?
       logger.error("Session's service token was blank. Can't fetch image.")
-      logger.error(self.service_token)
-      return nil
+      logger.error(self.id)
+      logger.error(self.service_id)
+      return self.image
     end
 
     imagefile = "#{@@images_dir}/#{self.id}.jpeg"

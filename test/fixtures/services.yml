@@ -14,7 +14,7 @@ plex_two: { id: 4, name: "Plex Test Service Two", ip: "", dns_name: "plex2", por
 
 plex_no_sessions: { id: 5, name: "Plex No Sessions", ip: "", dns_name: "plexnosessions", port: "32400", url: "plex_no_sessions", service_type: "Plex", username: "user", password: "pass"}
 
-plex_with_token_two: { id: 6, name: "Plex Test Service Six", ip: "", dns_name: "plex6", port: "32400", url: "plex_six", service_type: "Plex", username: "user", password: "pass", token: "zV75NzEnTA1migSb21ze"}
+plex_with_token_one: { id: 6, name: "Plex Test Service Six", ip: "", dns_name: "plex6", port: "32400", url: "plex_six", service_type: "Plex", username: "user", password: "pass", token: "zV75NzEnTA1migSb21ze"}
 
-plex_with_token_one: { id: 7, name: "Plex Test Service Seven", ip: "", dns_name: "plex7", port: "32400", url: "plex_seven", service_type: "Plex", username: "user", password: "pass", token: "zV75NzEnTA1migSb21ze"}
+plex_with_token_two: { id: 7, name: "Plex Test Service Seven", ip: "", dns_name: "plex7", port: "32400", url: "plex_seven", service_type: "Plex", username: "user", password: "pass", token: "zV75NzEnTA1migSb21ze"}
 
