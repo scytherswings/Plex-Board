@@ -74,17 +74,21 @@ class Session < ActiveRecord::Base
     end
     if self.service_token.blank?
       logger.error("Session's service token was blank. Can't fetch image.")
+      logger.error(self.service_token)
       return nil
     end
 
     imagefile = "#{@@images_dir}/#{self.id}.jpeg"
     #Check if the file exists, if it does return the name of the image
     if File.file?(imagefile)
-      if File.size(imagefile).to_f > 0
+      if File.size(imagefile) > 100
         logger.debug("Image #{self.image} found!")
         return self.image
       else
-        logger.debug("Image #{self.image} size was not > 0, attempting to grab again...")
+        logger.debug("Image #{self.image} size was not > 100, replacing with placeholder")
+        self.delete_thumbnail()
+        self.update(image: "placeholder.png")
+        return self.image
       end
     end
     begin
@@ -92,7 +96,7 @@ class Session < ActiveRecord::Base
       File.open(imagefile, 'wb') do |f|
         f.write open("#{self.connection_string}#{self.thumb_url}",
         "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
-        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read.class
+        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
       end
       self.update(image: "#{self.id}.jpeg")
       logger.debug("Session updated to image #{self.image}")
@@ -100,7 +104,6 @@ class Session < ActiveRecord::Base
     rescue Exception => error
       logger.error("There was an error grabbing the image:")
       logger.error(error)
-      logger.error(self.service_token)
       return nil
     end
 

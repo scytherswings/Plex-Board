@@ -20,6 +20,8 @@ class ServiceTest < ActiveSupport::TestCase
     @plex_service_one = services(:plex_one)
     @plex_service_two = services(:plex_two)
     @plex_no_sessions = services(:plex_no_sessions)
+    @plex_with_token_one = services(:plex_with_token_one)
+    @plex_service_with_token_two = services(:plex_with_token_two)
     @session_one = sessions(:one)
     @session_two = sessions(:two)
 
@@ -57,6 +59,10 @@ class ServiceTest < ActiveSupport::TestCase
   test "service should be valid" do
     assert @service_one.valid?, "Service_one was invalid"
     assert @service_two.valid?, "Service_two was invalid"
+    assert @plex_service_one.valid?
+    assert @plex_service_two.valid?
+    assert @plex_no_sessions.valid?
+    assert @plex_service_with_token_two.valid?
   end
 
   test "name should be present" do
@@ -189,6 +195,10 @@ class ServiceTest < ActiveSupport::TestCase
     assert_equal 2, @plex_service_two.sessions.count, "Plex_service_two number of sessions did not match 2"
   end
 
+  test "Plex_service_with_token_two should have one valid session" do
+    assert_equal 1, @plex_service_with_token_two.sessions.count, "Plex_service_with_token_two number of sessions did not match 1"
+  end
+
   test "get_plex_token will get token if token is nil" do
     assert_nil @plex_service_one.token
     @plex_service_one.get_plex_token()
@@ -222,16 +232,16 @@ class ServiceTest < ActiveSupport::TestCase
   end
 
   test "Service with a session can update the existing plex session" do
-    assert_equal 1, @plex_service_one.sessions.count
-    temp = @plex_service_one.sessions.first.clone
-    assert_equal temp.id, @plex_service_one.sessions.first.id, "Temp ID was not equal to origin ID"
-    @plex_service_one.token = "zV75NzEnTA1migSb21ze"
-    @plex_service_one.dns_name = "plex1updated"
-    @plex_service_one.get_plex_sessions()
+    assert_equal 1, @plex_service_with_token_two.sessions.count
+    temp = @plex_service_with_token_two.sessions.first.clone
+    assert_not_nil @plex_service_with_token_two.token
+    # @plex_service_with_token_two.token = "zV75NzEnTA1migSb21ze"
+    @plex_service_with_token_two.dns_name = "plex1updated"
+    assert_not_nil @plex_service_with_token_two.get_plex_sessions()
     assert_requested(:get, "https://plex1updated:32400/status/sessions")
-    assert_equal 1, @plex_service_one.sessions.count, "Session number should not change"
-    assert_equal temp.id, @plex_service_one.sessions.first.id, "Session ID should not change when we are updating"
-    assert_not_equal @plex_service_one.sessions.first.progress, temp.progress
+    assert_equal 1, @plex_service_with_token_two.sessions.count, "Session number should not change"
+    assert_equal temp.id, @plex_service_with_token_two.sessions.first.id, "Session ID should not change when we are updating"
+    assert_not_equal @plex_service_with_token_two.sessions.first.progress, temp.progress
   end
 
 
@@ -258,7 +268,7 @@ class ServiceTest < ActiveSupport::TestCase
 
   test "Calling get_plex_sessions will only add session once" do
     assert_equal 1, @plex_service_one.sessions.count
-    @plex_service_one.sessions.destroy_all
+    assert @plex_service_one.sessions.destroy_all
     @plex_service_one.token = "zV75NzEnTA1migSb21ze"
     assert_difference('@plex_service_one.sessions.count', +1) do
       @plex_service_one.get_plex_sessions()

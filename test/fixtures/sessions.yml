@@ -6,8 +6,10 @@ two: {"service_id": 2, "user_name": "Generic_User", "image": "placeholder.png", 
 
 three: {"service_id": 7, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie2", "thumb_url": "/library/metadata/38511/thumb/1444964731", "connection_string": "https://plex7:32400", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "1"}
 
-four: {"service_id": 3, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie1", "thumb_url": "/library/metadata/38511/thumb/1444964731", "connection_string": "https://plex7:32400", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "1"}
+four: {"service_id": 3, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie1", "thumb_url": "/library/metadata/38511/thumb/1444964731", "connection_string": "https://plex3:32400", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "1"}
 
-five: {"service_id": 4, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie1", "thumb_url": "/library/metadata/38511/thumb/1444964731", "connection_string": "https://plex7:32400", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "1"}
+five: {"service_id": 4, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie1", "thumb_url": "/library/metadata/38511/thumb/1444964731", "connection_string": "https://plex4:32400", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "1"}
 
-six: {"service_id": 4, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie2", "thumb_url": "/library/metadata/38511/thumb/1444964731", "connection_string": "https://plex7:32400", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "2"}
+six: {"service_id": 4, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie2", "thumb_url": "/library/metadata/38511/thumb/1444964731", "connection_string": "https://plex4:32400", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "2"}
+
+seven: {"service_id": 6, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie1", "thumb_url": "/library/metadata/38511/thumb/1444964731", "connection_string": "https://plex6:32400", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "1"}
