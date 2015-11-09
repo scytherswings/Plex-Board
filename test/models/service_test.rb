@@ -280,10 +280,10 @@ class ServiceTest < ActiveSupport::TestCase
     end
     assert_requested(:get, "https://plex1:32400/status/sessions", times: 3)
   end
+
   # test "offline service will skip api calls" do
-
+  #   skip("Not finished")
   # end
-
 
 
 end

@@ -11,16 +11,16 @@ source.addEventListener 'message', (e) ->
                          style="width: #{plex_session.progress}%"></div>
                         """
 
-  console.log "Plex - Now Playing - session #{plex_session.session_id}"
+#  console.log "Plex - Now Playing - session #{plex_session.session_id}"
 #.length tests to make sure that the id actually has elements
   if $('#plex_session_' + plex_session.session_id).length
 #    console.log "Session " + plex_session.session_id + " has active class? " + $("#plex_session_#{plex_session.session_id}").hasClass("active")
 #    console.log "Session " + plex_session.session_id + " has item class? " + $("#plex_session_#{plex_session.session_id}").hasClass("item")
-    console.log "Updating progress bar"
+#    console.log "Updating progress bar"
 #    console.log "Will replace with #{updated_progressbar}"
     $('#plex_progressbar_' + plex_session.session_id).replaceWith(updated_progressbar)
   else
-    console.log "Didn't find the element \"session #{plex_session.session_id}\""
+#    console.log "Didn't find the element \"session #{plex_session.session_id}\""
 
     new_session = """
                   <div id="plex_session_#{plex_session.session_id}" class="item">
@@ -46,24 +46,24 @@ source.addEventListener 'message', (e) ->
 
 
 
-    console.log "Adding new session element.."
+#    console.log "Adding new session element.."
     $("[id^=plex_session_]").last().after(new_session)
 
 #Find all the existing elements on the page and compare them to the active ids we got in the SSE
 
   #set every plex_session as stale so we can remove the sessions that aren't found in the active sessions from the server
   stale_sessions = $.find("[id^=plex_session_]")
-  console.log "Current active sessions: " + plex_session.active_sessions
-  console.log "Length of current session array: " + stale_sessions.length
+#  console.log "Current active sessions: " + plex_session.active_sessions
+#  console.log "Length of current session array: " + stale_sessions.length
   #iterate over known sessions
   for i in [0...plex_session.active_sessions.length]
 #    console.log "i = " + i
-    console.log "Active session is: plex_session_" + plex_session.active_sessions[i]
+#    console.log "Active session is: plex_session_" + plex_session.active_sessions[i]
     for j in [0...stale_sessions.length]
 #      console.log "j = " + j
-      console.log "Matching active session against: " + stale_sessions[j].id
+#      console.log "Matching active session against: " + stale_sessions[j].id
       if stale_sessions[j].id == ("plex_session_" + plex_session.active_sessions[i])
-        console.log "Match!"
+#        console.log "Match!"
         #at position i, remove one element from the array
         stale_sessions.splice(j, 1)
 #        console.log "Updated stale sessions length should be one less: " + stale_sessions.length
@@ -71,17 +71,17 @@ source.addEventListener 'message', (e) ->
 #      console.log "Known session: " + stale_sessions[j].id + " did not match active session: plex_session_" + plex_session.active_sessions[j]
 #    console.log "Moving to next active session"
 
-  console.log "Session " + plex_session.session_id + " has active class? " + $("#plex_session_#{plex_session.session_id}").hasClass("active")
-  console.log "Session " + plex_session.session_id + " has item class? " + $("#plex_session_#{plex_session.session_id}").hasClass("item")
+#  console.log "Session " + plex_session.session_id + " has active class? " + $("#plex_session_#{plex_session.session_id}").hasClass("active")
+#  console.log "Session " + plex_session.session_id + " has item class? " + $("#plex_session_#{plex_session.session_id}").hasClass("item")
   for k in [0...stale_sessions.length]
     #find the elements by id and remove them from the page
 #    console.log "Session " + stale_sessions[k].id + " visible is " + $("#plex_session_" + stale_sessions[k].id).is(":visible")
 #    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
 #    console.log "Session " + stale_sessions[k].id + " visible is " + $("#plex_session_" + stale_sessions[k].id).is(":visible")
 #    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
-    console.log "Session " + stale_sessions[k].id + " has active class? " + $("#plex_session_#{stale_sessions[k].id}").hasClass("active")
-    console.log "Session " + stale_sessions[k].id + " has item class? " + $("#plex_session_#{stale_sessions[k].id}").hasClass("item")
+#    console.log "Session " + stale_sessions[k].id + " has active class? " + $("#plex_session_#{stale_sessions[k].id}").hasClass("active")
+#    console.log "Session " + stale_sessions[k].id + " has item class? " + $("#plex_session_#{stale_sessions[k].id}").hasClass("item")
     if !$("#plex_session_#{stale_sessions[k].id}").hasClass("active")
-      console.log "Stale element found, removing.."
+#      console.log "Stale element found, removing.."
       console.log "Removing element " + stale_sessions[k].id
       $("#" + stale_sessions[k].id).remove()

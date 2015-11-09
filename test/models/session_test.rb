@@ -116,21 +116,4 @@ class SessionTest < ActiveSupport::TestCase
   end
 
 
-  # test "Can get stubbed my.plexapp.com" do
-  #   skip("Not finished yet")
-  #   stub_request(:get, "my.plexapp.com/users/sign_in.json")
-  #   Net::HTTP.get("my.plexapp.com","/users/sign_in.json")
-  #   assert_requested(:get, "my.plexapp.com/users/sign_in.json")
-  # end
-  #
-  #
-  # test "Plex.tv sign_in" do
-  #   skip("Not finished yet")
-  #   @plex_session_one.get_plex_token()
-  #   assert_requested(:post, "https://user:pass@my.plexapp.com/users/sign_in.json")
-  #   assert_equal "zV75NzEnTA1migSb21ze", @plex_session_one.token
-  # end
-
-
-
 end

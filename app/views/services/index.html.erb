@@ -31,7 +31,7 @@
               <% logger.debug(service.name) %>
                 <% if j == 0 %>
                   <% logger.debug("First Carousel") %>
-                <div class="carousel-inner">
+                <div class="carousel-inner" id="carousel-inner">
                   <%= render :partial => 'now_playing', :locals => { :session => session, :active => "active"}  %>
                 <% else %>
                   <%= render :partial => 'now_playing', :locals => { :session => session, :active => ""}  %>
