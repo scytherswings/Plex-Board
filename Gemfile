@@ -6,7 +6,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails', '~> 4.0.5'
 gem 'turbolinks', '~> 2.5.3'
-gem 'database_cleaner', '~> 1.5.0'
 gem 'autoprefixer-rails', '~> 6.0.3'
 gem 'jquery-turbolinks', '~> 2.1.0'
 gem 'jbuilder', '~> 2.0'
@@ -33,6 +32,7 @@ group :test do
   gem 'guard', '~> 2.13.0'
   gem 'guard-minitest', '~> 2.4.4'
   gem 'webmock', '~> 1.21.0'
+  # gem 'database_cleaner', '~> 1.5.0'
   # gem 'sinatra', '~> 1.4.6'
 end
 

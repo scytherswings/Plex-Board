@@ -234,19 +234,16 @@ class ServiceTest < ActiveSupport::TestCase
   test "Service with a session can update the existing plex session" do
     assert_equal 1, @plex_service_with_token_two.sessions.count
     temp = @plex_service_with_token_two.sessions.first.clone
-    assert_equal 7, @plex_service_with_token_two.sessions.first.service_id
-    assert_equal 7, temp.service_id
     assert_not_nil @plex_service_with_token_two.token
-    assert_equal 5, @plex_service_with_token_two.sessions.first.progress
     assert_not_nil @plex_service_with_token_two.sessions.first.service_token
-    # @plex_service_with_token_two.token = "zV75NzEnTA1migSb21ze"
-    @plex_service_with_token_two.dns_name = "plex1updated"
+    assert @plex_service_with_token_two.update!(:dns_name => "plex1updated")
     assert_not_nil @plex_service_with_token_two.get_plex_sessions()
     assert_requested(:get, "https://plex1updated:32400/status/sessions")
     assert_equal 1, @plex_service_with_token_two.sessions.count, "Session number should not change"
     assert_equal temp.id, @plex_service_with_token_two.sessions.first.id, "Session ID should not change when we are updating"
-    assert_equal 7, @plex_service_with_token_two.sessions.first.service_id
-
+    #ho lee shit. This fucking line right here... damn SQL.
+    # http://stackoverflow.com/questions/14598604/rails-factory-girl-rolling-back-in-the-middle-of-a-spec-and-transactions
+    @plex_service_with_token_two.reload
     assert_not_equal @plex_service_with_token_two.sessions.first.progress, temp.progress
   end
 

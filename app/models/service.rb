@@ -201,9 +201,7 @@ class Service < ActiveRecord::Base
 
     sessions_to_update.each do |known_session_key|
       logger.debug("new_view_offsets at known_session key: #{new_view_offsets[known_session_key]}")
-      #This is the line that caused the tests to fail. it matches the first Session found, and my fixtures use
-      #the same session key all over the place. fuuuck this took forever to find
-      update_plex_session(Session.find_by(session_key: known_session_key), new_view_offsets[known_session_key])
+      update_plex_session(self.sessions.find_by(session_key: known_session_key), new_view_offsets[known_session_key])
     end
 
     new_sessions = plex_sessions.map {|new_session| new_session["sessionKey"]} - self.sessions.map {|known_session| known_session.session_key}
