@@ -26,6 +26,9 @@ rake db:schema:load RAILS_ENV=production
 rake db:migrate RAILS_ENV=production
 rake assets:precompile RAILS_ENV=production
 echo
+echo "Compiling assets"
+bundle exec rake assets:precompile
+echo
 echo "Creating images directory"
 mkdir public/images
 echo
