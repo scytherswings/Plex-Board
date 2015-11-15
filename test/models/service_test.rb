@@ -22,8 +22,8 @@ class ServiceTest < ActiveSupport::TestCase
     @plex_no_sessions = services(:plex_no_sessions)
     @plex_with_token_one = services(:plex_with_token_one)
     @plex_service_with_token_two = services(:plex_with_token_two)
-    @session_one = sessions(:one)
-    @session_two = sessions(:two)
+    @session_one = plex_sessions(:one)
+    @session_two = plex_sessions(:two)
 
     stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
       with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
@@ -188,15 +188,15 @@ class ServiceTest < ActiveSupport::TestCase
 
 
   test "Plex_service_one should have a valid session" do
-    assert_equal 1, @plex_service_one.sessions.count, "Plex_service_one number of sessions did not match 1"
+    assert_equal 1, @plex_service_one.plex_sessions.count, "Plex_service_one number of sessions did not match 1"
   end
 
   test "Plex_service_two should have two valid sessions" do
-    assert_equal 2, @plex_service_two.sessions.count, "Plex_service_two number of sessions did not match 2"
+    assert_equal 2, @plex_service_two.plex_sessions.count, "Plex_service_two number of sessions did not match 2"
   end
 
   test "Plex_service_with_token_two should have one valid session" do
-    assert_equal 1, @plex_service_with_token_two.sessions.count, "Plex_service_with_token_two number of sessions did not match 1"
+    assert_equal 1, @plex_service_with_token_two.plex_sessions.count, "Plex_service_with_token_two number of sessions did not match 1"
   end
 
   test "get_plex_token will get token if token is nil" do
@@ -218,41 +218,41 @@ class ServiceTest < ActiveSupport::TestCase
     @plex_no_sessions.get_plex_sessions()
     assert_requested(:get, "https://plexnosessions:32400/status/sessions")
     assert_equal "zV75NzEnTA1migSb21ze", @plex_no_sessions.token
-    assert_equal 0, @plex_no_sessions.sessions.count
+    assert_equal 0, @plex_no_sessions.plex_sessions.count
   end
 
   test "Service with no sessions can get two new plex sessions" do
-    @plex_service_two.sessions.destroy_all
-    assert_equal 0, @plex_service_two.sessions.count
+    @plex_service_two.plex_sessions.destroy_all
+    assert_equal 0, @plex_service_two.plex_sessions.count
     @plex_service_two.token = "zV75NzEnTA1migSb21ze"
-    assert_difference('@plex_service_two.sessions.count', +2) do
+    assert_difference('@plex_service_two.plex_sessions.count', +2) do
       assert_not_nil @plex_service_two.get_plex_sessions(), "Getting plex sessions returned nil"
       assert_requested(:get, "https://plex2:32400/status/sessions")
     end
   end
 
   test "Service with a session can update the existing plex session" do
-    assert_equal 1, @plex_service_with_token_two.sessions.count
-    temp = @plex_service_with_token_two.sessions.first.clone
+    assert_equal 1, @plex_service_with_token_two.plex_sessions.count
+    temp = @plex_service_with_token_two.plex_sessions.first.clone
     assert_not_nil @plex_service_with_token_two.token
-    assert_not_nil @plex_service_with_token_two.sessions.first.service_token
+    assert_not_nil @plex_service_with_token_two.plex_sessions.first.service_token
     assert @plex_service_with_token_two.update!(:dns_name => "plex1updated")
     assert_not_nil @plex_service_with_token_two.get_plex_sessions()
     assert_requested(:get, "https://plex1updated:32400/status/sessions")
-    assert_equal 1, @plex_service_with_token_two.sessions.count, "PlexSession number should not change"
-    assert_equal temp.id, @plex_service_with_token_two.sessions.first.id, "PlexSession ID should not change when we are updating"
+    assert_equal 1, @plex_service_with_token_two.plex_sessions.count, "PlexSession number should not change"
+    assert_equal temp.id, @plex_service_with_token_two.plex_sessions.first.id, "PlexSession ID should not change when we are updating"
     #ho lee shit. This fucking line right here... damn SQL.
     # http://stackoverflow.com/questions/14598604/rails-factory-girl-rolling-back-in-the-middle-of-a-spec-and-transactions
     @plex_service_with_token_two.reload
-    assert_not_equal @plex_service_with_token_two.sessions.first.progress, temp.progress
+    assert_not_equal @plex_service_with_token_two.plex_sessions.first.progress, temp.progress
   end
 
 
   test "PlexSession will be removed if Plex has no sessions" do
-    assert_equal 1, @plex_service_one.sessions.count
+    assert_equal 1, @plex_service_one.plex_sessions.count
     @plex_service_one.token = "zV75NzEnTA1migSb21ze"
     @plex_service_one.dns_name = "plexnosessions"
-    assert_difference('@plex_service_one.sessions.count', -1) do
+    assert_difference('@plex_service_one.plex_sessions.count', -1) do
       @plex_service_one.get_plex_sessions()
     end
     assert_requested(:get, "https://plexnosessions:32400/status/sessions")
@@ -260,20 +260,20 @@ class ServiceTest < ActiveSupport::TestCase
 
 
   test "Expired sessions will be removed" do
-    assert_equal 2, @plex_service_two.sessions.count
+    assert_equal 2, @plex_service_two.plex_sessions.count
     @plex_service_two.token = "zV75NzEnTA1migSb21ze"
     @plex_service_two.dns_name = "plex1"
-    assert_difference('@plex_service_two.sessions.count', -1) do
+    assert_difference('@plex_service_two.plex_sessions.count', -1) do
       @plex_service_two.get_plex_sessions()
       assert_requested(:get, "https://plex1:32400/status/sessions")
     end
   end
 
   test "Calling get_plex_sessions will only add session once" do
-    assert_equal 1, @plex_service_one.sessions.count
-    assert @plex_service_one.sessions.destroy_all
+    assert_equal 1, @plex_service_one.plex_sessions.count
+    assert @plex_service_one.plex_sessions.destroy_all
     @plex_service_one.token = "zV75NzEnTA1migSb21ze"
-    assert_difference('@plex_service_one.sessions.count', +1) do
+    assert_difference('@plex_service_one.plex_sessions.count', +1) do
       @plex_service_one.get_plex_sessions()
       @plex_service_one.get_plex_sessions()
       @plex_service_one.get_plex_sessions()

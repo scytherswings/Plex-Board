@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SessionTest < ActiveSupport::TestCase
+class PlexSessionTest < ActiveSupport::TestCase
   def setup
   end
 
@@ -15,13 +15,13 @@ class SessionTest < ActiveSupport::TestCase
 
   setup do
     FileUtils.rm_rf("#{PlexSession.get("images_dir")}/.", secure: true)
-    @session_one = sessions(:one)
-    @session_two = sessions(:two)
-    @session_three = sessions(:three)
+    @session_one = plex_sessions(:one)
+    @session_two = plex_sessions(:two)
+    @session_three = plex_sessions(:three)
     # @session_four = sessions(:four)
     # @session_five = sessions(:five)
     # @session_six = sessions(:six)
-    @session_seven = sessions(:seven)
+    @session_seven = plex_sessions(:seven)
     # @plex_service_one = service(:plex_one)
     # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
 
