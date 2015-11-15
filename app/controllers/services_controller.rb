@@ -44,7 +44,7 @@ class ServicesController < ApplicationController
       if service.service_type == "Plex"
         service.get_plex_sessions()
         
-        service.sessions.each do |plex_session|
+        service.plex_sessions.each do |plex_session|
           if plex_session.id.blank?
             logger.debug("Got plex session with a blank id of #{plex_session.id}. Not sending on SSE")
             logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
@@ -65,8 +65,8 @@ class ServicesController < ApplicationController
             progress:"#{plex_session.get_percent_done()}",
             media_title:"#{plex_session.media_title}",
             description:"#{plex_session.get_description()}",
-            image:"#{plex_session.get_plex_now_playing_img()}",
-            active_sessions: Session.all.ids
+            image:"#{plex_session.get_plex_object_img()}",
+            active_sessions: PlexSession.all.ids
           }
           response.stream.write "data: #{status_of_session.to_json}\n\n"
         end

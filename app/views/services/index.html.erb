@@ -26,18 +26,19 @@
         <% if service.service_type == "Plex" %>
         <% logger.debug("service loop") %>
           <% if i == 0 %>
-              <% service.get_plex_sessions %>
-              <% service.sessions.try(:each_with_index) do |session, j| %>
-              <% logger.debug(service.name) %>
-                <% if j == 0 %>
-                  <% logger.debug("First Carousel") %>
-                <div class="carousel-inner" id="carousel-inner">
-                  <%= render :partial => 'now_playing', :locals => { :session => session, :active => "active"}  %>
-                <% else %>
-                  <%= render :partial => 'now_playing', :locals => { :session => session, :active => ""}  %>
-                <% end %> <!--if sessions-->
+            <% service.get_plex_sessions %>
+            <div class="carousel-inner" id="carousel-inner">
+
+              <% service.plex_sessions.each_with_index do |session, j| %>
+                <% logger.debug(service.name) %>
+                  <% if j == 0 %>
+                    <% logger.debug("First Carousel") %>
+                    <%= render :partial => 'now_playing', :locals => { :session => session, :active => "active"}  %>
+                  <% else %>
+                    <%= render :partial => 'now_playing', :locals => { :session => session, :active => ""}  %>
+                  <% end %> <!--if sessions-->
               <% end %> <!--sessions loop-->
-                </div> <!--carousel-inner div-->
+            </div> <!--carousel-inner div-->
           <% end %> <!--if first time-->
         <% end %> <!--if service_type-->
       <% end %> <!--services.each-->

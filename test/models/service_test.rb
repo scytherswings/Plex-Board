@@ -14,7 +14,7 @@ class ServiceTest < ActiveSupport::TestCase
 
 
   setup do
-    FileUtils.rm_rf("#{Session.get("images_dir")}/.", secure: true)
+    FileUtils.rm_rf("#{PlexSession.get("images_dir")}/.", secure: true)
     @service_one = services(:one)
     @service_two = services(:two)
     @plex_service_one = services(:plex_one)
@@ -239,8 +239,8 @@ class ServiceTest < ActiveSupport::TestCase
     assert @plex_service_with_token_two.update!(:dns_name => "plex1updated")
     assert_not_nil @plex_service_with_token_two.get_plex_sessions()
     assert_requested(:get, "https://plex1updated:32400/status/sessions")
-    assert_equal 1, @plex_service_with_token_two.sessions.count, "Session number should not change"
-    assert_equal temp.id, @plex_service_with_token_two.sessions.first.id, "Session ID should not change when we are updating"
+    assert_equal 1, @plex_service_with_token_two.sessions.count, "PlexSession number should not change"
+    assert_equal temp.id, @plex_service_with_token_two.sessions.first.id, "PlexSession ID should not change when we are updating"
     #ho lee shit. This fucking line right here... damn SQL.
     # http://stackoverflow.com/questions/14598604/rails-factory-girl-rolling-back-in-the-middle-of-a-spec-and-transactions
     @plex_service_with_token_two.reload
@@ -248,7 +248,7 @@ class ServiceTest < ActiveSupport::TestCase
   end
 
 
-  test "Session will be removed if Plex has no sessions" do
+  test "PlexSession will be removed if Plex has no sessions" do
     assert_equal 1, @plex_service_one.sessions.count
     @plex_service_one.token = "zV75NzEnTA1migSb21ze"
     @plex_service_one.dns_name = "plexnosessions"

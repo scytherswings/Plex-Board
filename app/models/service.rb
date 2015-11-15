@@ -8,7 +8,7 @@ class Service < ActiveRecord::Base
     require 'uri'
     require 'json'
 
-    has_many :sessions, dependent: :destroy
+    has_many :plex_sessions, dependent: :destroy
 
 
     SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
@@ -148,7 +148,7 @@ class Service < ActiveRecord::Base
     #if plex has nothing, then fucking nuke that shit
     if plex_sessions.empty?
       logger.debug("plex_sessions was empty... Deleting all sessions")
-      self.sessions.destroy_all
+      self.plex_sessions.destroy_all
       return nil
     end
 
@@ -174,21 +174,21 @@ class Service < ActiveRecord::Base
     # http://stackoverflow.com/questions/24295763/find-intersection-of-arrays-of-hashes-by-hash-value
     # http://stackoverflow.com/questions/8639857/rails-3-how-to-get-the-difference-between-two-arrays
 
-    stale_sessions = self.sessions.map {|known_session| known_session.session_key} - plex_sessions.map {|new_session| new_session["sessionKey"]}
+    stale_sessions = self.plex_sessions.map {|known_session| known_session.session_key} - plex_sessions.map {|new_session| new_session["sessionKey"]}
 
     logger.debug("stale_sessions #{stale_sessions}")
 
     stale_sessions.each do |stale_session|
       begin
-      Session.find_by(session_key: stale_session).destroy
+      PlexSession.find_by(session_key: stale_session).destroy
       rescue Exception => error
         logger.error("Service.get_plex_sessions() could not delete session:")
         logger.error(error)
       end
     end
 
-    sessions_to_update = plex_sessions.map {|new_session| new_session["sessionKey"]} & self.sessions.map {|known_session| known_session.session_key}
 
+    sessions_to_update = plex_sessions.map {|new_session| new_session["sessionKey"]} & self.plex_sessions.map {|known_session| known_session.session_key}
     logger.debug("sessions_to_update #{sessions_to_update}")
 
     new_view_offsets = {}
@@ -198,68 +198,18 @@ class Service < ActiveRecord::Base
     end
 
     logger.debug("new_view_offsets #{new_view_offsets}")
-
     sessions_to_update.each do |known_session_key|
       logger.debug("new_view_offsets at known_session key: #{new_view_offsets[known_session_key]}")
-      update_plex_session(self.sessions.find_by(session_key: known_session_key), new_view_offsets[known_session_key])
+      update_plex_session(self.plex_sessions.find_by(session_key: known_session_key), new_view_offsets[known_session_key])
     end
 
-    new_sessions = plex_sessions.map {|new_session| new_session["sessionKey"]} - self.sessions.map {|known_session| known_session.session_key}
+    new_sessions = plex_sessions.map {|new_session| new_session["sessionKey"]} - self.plex_sessions.map {|known_session| known_session.session_key}
 
     logger.debug("new_sessions #{new_sessions}")
-
     sessions_to_add = plex_sessions.select {|matched| new_sessions.include?(matched["sessionKey"])}
 
     logger.debug("sessions_to_add #{sessions_to_add}")
-
     sessions_to_add.each {|new_session| add_plex_session(new_session)}
-
-
-
-
-    # are the sessions that plex gave us the same as the ones we already know about?
-    # self.sessions.each do |known_session|
-    #   # logger.debug("Match against " + JSON.pretty_generate(known_session.to_json))
-    #   #guilty until proven innocent. I mean, stale until proven not stale? heh.
-    #   stale = true
-    #   plex_sessions.each do |newish_session|
-    #     # logger.debug("New Session " + JSON.pretty_generate(newish_session.to_json)
-    #
-    #     #Test if the session from plex is the same session key that we already know about.
-    #     if newish_session["sessionKey"].to_s  == known_session.session_key.to_s
-    #       logger.debug("Match!")
-    #       update_plex_session(known_session, newish_session)
-    #       stale = false
-    #       #not the most efficient, but this helps from getting screwed up stuff
-    #       new_sessions.delete(newish_session)
-    #       #move on to the next element in the outside array so we
-    #       #don't add this one to the new stuff
-    #       break
-    #     end
-    #
-    #     # logger.debug("No match to existing sessions. Adding to new_sessions array")
-    #     # logger.debug("Unmatched session: #{newish_session.to_json}")
-    #     # logger.debug(newish_session.to_json)
-    #     new_sessions.add(newish_session)
-    #
-    #   end
-    #   # logger.debug("Stale is " + stale.to_s)
-    #   if stale
-    #     logger.debug("Adding session " + known_session.id.to_s + " to stale list")
-    #     stale_ids << known_session.id
-    #   end
-    # end
-
-    # #Destroy the sessions that are stale
-    # stale_ids.each do |stale_id|
-    #   logger.debug("Destroying session ID " + stale_id.to_s)
-    #   Session.destroy(stale_id)
-    # end
-
-    # new_sessions.each do |new_session|
-    #   logger.debug("Adding new session")
-    #   add_plex_session(new_session)
-    # end
 
 
   end
@@ -278,11 +228,11 @@ class Service < ActiveRecord::Base
         temp_thumb = new_session["thumb"]
       end
       #create a new sesion object with the shit we found in the json blob
-      self.sessions.new(user_name: new_session_name, description: new_session["summary"],
+      self.plex_sessions.create!(user_name: new_session_name, description: new_session["summary"],
         media_title: new_session["title"], total_duration: new_session["duration"],
         progress: new_session["viewOffset"], thumb_url: temp_thumb,
         connection_string: "https://#{connect_method()}:#{self.port}",
-        session_key: new_session["sessionKey"]).save!
+        session_key: new_session["sessionKey"])
 
 
     rescue => error

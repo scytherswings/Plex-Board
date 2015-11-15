@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015035631) do
+ActiveRecord::Schema.define(version: 20151115055953) do
+
+  create_table "plex_objects", force: :cascade do |t|
+    t.integer  "service_id"
+    t.string   "image"
+    t.string   "media_title"
+    t.string   "thumb_url"
+    t.string   "connection_string"
+    t.string   "type"
+    t.text     "description"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "user_name"
+    t.integer  "total_duration"
+    t.integer  "progress"
+    t.string   "session_key"
+  end
+
+  add_index "plex_objects", ["service_id"], name: "index_plex_objects_on_service_id"
 
   create_table "services", force: :cascade do |t|
     t.string   "name"
@@ -32,23 +50,5 @@ ActiveRecord::Schema.define(version: 20151015035631) do
 
   add_index "services", ["name"], name: "index_services_on_name", unique: true
   add_index "services", ["url"], name: "index_services_on_url", unique: true
-
-  create_table "sessions", force: :cascade do |t|
-    t.integer  "service_id"
-    t.string   "user_name"
-    t.string   "image"
-    t.string   "media_title"
-    t.string   "thumb_url"
-    t.string   "connection_string"
-    t.string   "total_duration"
-    t.string   "progress"
-    t.text     "description"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.string   "session_key"
-  end
-
-  add_index "sessions", ["service_id"], name: "index_sessions_on_service_id"
-  add_index "sessions", ["session_key", "service_id"], name: "index_sessions_on_session_key_and_service_id", unique: true
 
 end

@@ -14,7 +14,7 @@ class SessionTest < ActiveSupport::TestCase
   AUTH_HEADERS = { "Content-Type" => "application/json; charset=utf-8", "Access-Control-Max-Age" => 86400 }
 
   setup do
-    FileUtils.rm_rf("#{Session.get("images_dir")}/.", secure: true)
+    FileUtils.rm_rf("#{PlexSession.get("images_dir")}/.", secure: true)
     @session_one = sessions(:one)
     @session_two = sessions(:two)
     @session_three = sessions(:three)
@@ -61,7 +61,7 @@ class SessionTest < ActiveSupport::TestCase
   #   # ObjectSpace.each_object(File) do |f|
   #   #   puts "%s: %d" % [f.path, f.fileno] unless f.closed?
   #   # end
-  #   FileUtils.rm_rf("#{Session.get("images_dir")}/.", secure: true)
+  #   FileUtils.rm_rf("#{PlexSession.get("images_dir")}/.", secure: true)
   #   # puts "Teardown finished"
   # end
 
@@ -78,14 +78,14 @@ class SessionTest < ActiveSupport::TestCase
 
   test "user_name should be present" do
     @session_one.user_name = nil
-    assert_not @session_one.valid?, "Session user_name should not be nil"
+    assert_not @session_one.valid?, "PlexSession user_name should not be nil"
     @session_one.user_name = ""
-    assert_not @session_one.valid?, "Session user_name should not be empty string"
+    assert_not @session_one.valid?, "PlexSession user_name should not be empty string"
   end
 
   test "user_name should not be whitespace only" do
     @session_one.user_name = "     "
-    assert_not @session_one.valid?, "Session with whitespace string user_name should not be valid"
+    assert_not @session_one.valid?, "PlexSession with whitespace string user_name should not be valid"
   end
 
 
@@ -101,13 +101,13 @@ class SessionTest < ActiveSupport::TestCase
     assert @session_seven.delete_thumbnail, "Deleting thumbnail failed"
     assert_not File.file?(Rails.root.join "test/test_images", (@session_seven.id.to_i.to_s + ".jpeg")),
            "Image file should not be present"
-    assert_not_nil @session_seven.get_plex_now_playing_img, "Image file was not retrieved"
+    assert_not_nil @session_seven.get_plex_object_img, "Image file was not retrieved"
     assert File.file?(Rails.root.join "test/test_images", (@session_seven.id.to_i.to_s + ".jpeg")),
            "Image file was not found"
   end
 
   test "destroying a session will delete the associated image" do
-    assert_not_nil @session_seven.get_plex_now_playing_img, "Image file was not retrieved"
+    assert_not_nil @session_seven.get_plex_object_img, "Image file was not retrieved"
     assert File.file?(Rails.root.join "test/test_images", (@session_seven.id.to_i.to_s + ".jpeg")),
            "Image file was not found"
     assert @session_seven.destroy, "Destroying the session failed"

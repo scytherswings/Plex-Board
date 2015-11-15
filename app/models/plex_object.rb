@@ -1,26 +1,23 @@
-class Session < ActiveRecord::Base
+class PlexObject < ActiveRecord::Base
   require 'open-uri'
   require 'uri'
   require 'fileutils'
   belongs_to :service
   delegate :token, :to => :service, :prefix => true
-  # mount_uploader :image, ImageUploader
+
   before_destroy :delete_thumbnail
   before_save :init
-  after_save :get_plex_now_playing_img
-
-  validates_presence_of :session_key
-  validates_presence_of :user_name
+  after_save :get_plex_object_img
   validates_presence_of :service_id
-
-  validates :session_key, uniqueness: { scope: :service_id }
-  # validates :service_token, length: {minimum: 20}
-
   validates_presence_of :connection_string
   validates_presence_of :media_title
 
 
   @@images_dir = "public/images"
+
+  def self.types
+    %w(PlexSession PlexRecentlyAdded)
+  end
 
   def self.set(options)
     @@images_dir = options[:images_dir]
@@ -51,7 +48,7 @@ class Session < ActiveRecord::Base
         File.delete(Rails.root.join @@images_dir, self.image)
         if File.file?(Rails.root.join @@images_dir, self.image)
           logger.error("Image #{self.image} was not deleted")
-          raise "Session image file was not deleted"
+          raise "PlexSession image file was not deleted"
         end
         logger.debug("Deleted #{Rails.root.join @@images_dir, self.image}")
         true
@@ -60,20 +57,20 @@ class Session < ActiveRecord::Base
         false
       end
     else
-      logger.debug("Session image was still set to placeholder.png")
+      logger.debug("#{self.type} image was still set to placeholder.png")
       true
     end
   end
 
-  def get_plex_now_playing_img()
+  def get_plex_object_img()
     #I'll be honest. I don't know why I needed to add this..
     #but the ".jpeg" name image problem seems to be fixed for now sooo....
     if self.id.blank?
-      logger.error("Session ID was blank when getting image")
+      logger.error("#{self.type} ID was blank when getting image")
       return nil
     end
     if self.service_token.blank?
-      logger.error("Session's service token was blank. Can't fetch image.")
+      logger.error("#{self.type} service token was blank. Can't fetch image.")
       logger.error(self.id)
       logger.error(self.service_id)
       return self.image
@@ -96,11 +93,11 @@ class Session < ActiveRecord::Base
       logger.debug("Image was not found or was invalid, fetching...")
       File.open(imagefile, 'wb') do |f|
         f.write open("#{self.connection_string}#{self.thumb_url}",
-        "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
-        ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
+                     "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
+                     ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
       end
       self.update(image: "#{self.id}.jpeg")
-      logger.debug("Session updated to image #{self.image}")
+      logger.debug("#{self.type} updated to image #{self.image}")
       return self.image
     rescue Exception => error
       logger.error("There was an error grabbing the image:")
@@ -118,6 +115,4 @@ class Session < ActiveRecord::Base
     # limit the length of the description to 200 characters, if over 200, add ellipsis
     self.description[0..200].gsub(/\s\w+\s*$/,'...')
   end
-
-
 end
