@@ -22,8 +22,7 @@
   </div>
   <div class="col-lg-4 text-center">
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
-      <% @services.each_with_index do |service, i| %>
-        <% if service.service_type == "Plex" %>
+      <% @plexes.each_with_index do |service, i| %>
         <% logger.debug("service loop") %>
           <% if i == 0 %>
             <% service.get_plex_sessions %>
@@ -40,7 +39,6 @@
               <% end %> <!--sessions loop-->
             </div> <!--carousel-inner div-->
           <% end %> <!--if first time-->
-        <% end %> <!--if service_type-->
       <% end %> <!--services.each-->
     </div>
   </div>

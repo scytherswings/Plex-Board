@@ -1,0 +1,3 @@
+class CouchPotato < Service
+
+end

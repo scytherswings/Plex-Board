@@ -45,6 +45,7 @@ class ActiveSupport::TestCase
 
 
     WebMock.disable_net_connect!(:allow_localhost => true)
+
     WebMock.stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
         with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
         to_return(:status => 201, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "sign_in.json").read, :headers => AUTH_HEADERS)

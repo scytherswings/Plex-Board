@@ -1,0 +1,3 @@
+class Sabnzbd < Service
+
+end

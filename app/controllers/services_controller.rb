@@ -7,6 +7,7 @@ class ServicesController < ApplicationController
   # GET /services.json
   def index
     @services = Service.all
+    @plexes = Plex.all
   end
 
   def recently_added
@@ -41,40 +42,39 @@ class ServicesController < ApplicationController
   
   def plex_now_playing
     response.headers['Content-Type'] = 'text/event-stream'
-    @services = Service.all
+    @services = Plex.all
 
     @services.each do |service|
-      
-      if service.service_type == "Plex"
-        service.get_plex_sessions()
-        
-        service.plex_sessions.each do |plex_session|
-          if plex_session.id.blank?
-            logger.debug("Got plex session with a blank id of #{plex_session.id}. Not sending on SSE")
-            logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
-            logger.debug("Is id nil? #{plex_session.id.nil?}")
-            # begin
-              # ActiveRecord::ConnectionAdapters::QueryCache:Module.class_attribute
-              # logger.debug("QueryCache cleared")
-            # rescue => error
-              # logger.debug("QueryCache was not cleared")
-              # logger.debug(error)
-            # end
-            next
-          end
+
+      service.get_plex_sessions()
+
+      service.plex_sessions.each do |plex_session|
+        if plex_session.id.blank?
+          logger.debug("Got plex session with a blank id of #{plex_session.id}. Not sending on SSE")
           logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
           logger.debug("Is id nil? #{plex_session.id.nil?}")
-          status_of_session = {
-            session_id:"#{plex_session.id}",
-            progress:"#{plex_session.get_percent_done()}",
-            media_title:"#{plex_session.media_title}",
-            description:"#{plex_session.get_description()}",
-            image:"#{plex_session.get_plex_object_img()}",
-            active_sessions: PlexSession.all.ids
-          }
-          response.stream.write "data: #{status_of_session.to_json}\n\n"
+          # begin
+            # ActiveRecord::ConnectionAdapters::QueryCache:Module.class_attribute
+            # logger.debug("QueryCache cleared")
+          # rescue => error
+            # logger.debug("QueryCache was not cleared")
+            # logger.debug(error)
+          # end
+          next
         end
+        logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
+        logger.debug("Is id nil? #{plex_session.id.nil?}")
+        status_of_session = {
+          session_id:"#{plex_session.id}",
+          progress:"#{plex_session.get_percent_done()}",
+          media_title:"#{plex_session.media_title}",
+          description:"#{plex_session.get_description()}",
+          image:"#{plex_session.get_plex_object_img()}",
+          active_sessions: PlexSession.all.ids
+        }
+        response.stream.write "data: #{status_of_session.to_json}\n\n"
       end
+
         
       #This sleep controls how often we check the status of the service
       sleep 1
@@ -164,6 +164,6 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:name, :ip, :dns_name, :port, :url, :service_type, :api, :username, :password)
+      params.require(:service).permit(:name, :ip, :dns_name, :port, :url, :type, :api, :username, :password)
     end
 end

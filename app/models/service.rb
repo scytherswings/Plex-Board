@@ -11,9 +11,9 @@ class Service < ActiveRecord::Base
 
 
 
-    # SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd+", "Deluge"]
+    # SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd", "Deluge"]
     strip_attributes :only => [:ip, :url, :dns_name, :api, :username], :collapse_spaces => true
-    validates_presence_of :service_type
+    # validates_presence_of :service_type
     validates :name, presence: true, uniqueness: true, allow_blank: false
     validates :url, presence: true, uniqueness: true, allow_blank: false
     validates_numericality_of :port
