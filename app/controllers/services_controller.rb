@@ -9,6 +9,10 @@ class ServicesController < ApplicationController
     @services = Service.all
   end
 
+  def recently_added
+    @plex_services = Service.find_by(service_type: "Plex")
+
+  end
 
   def online_status
     response.headers['Content-Type'] = 'text/event-stream'

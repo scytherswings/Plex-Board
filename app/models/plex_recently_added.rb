@@ -1,0 +1,3 @@
+class PlexRecentlyAdded < PlexObject
+
+end
