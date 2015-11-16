@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115055953) do
+ActiveRecord::Schema.define(version: 20151116032929) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.integer  "service_id"
@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 20151115055953) do
     t.string   "url"
     t.string   "username"
     t.string   "api"
-    t.string   "service_type"
     t.string   "password"
     t.string   "token"
     t.boolean  "online_status"
@@ -46,6 +45,7 @@ ActiveRecord::Schema.define(version: 20151115055953) do
     t.datetime "last_seen"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "type"
   end
 
   add_index "services", ["name"], name: "index_services_on_name", unique: true

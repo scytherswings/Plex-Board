@@ -10,7 +10,7 @@ class ServicesController < ApplicationController
   end
 
   def recently_added
-    @plex_services = Service.find_by(service_type: "Plex")
+    @plex_services = Plex.all
 
   end
 
