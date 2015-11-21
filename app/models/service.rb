@@ -8,9 +8,6 @@ class Service < ActiveRecord::Base
     require 'uri'
     require 'json'
 
-
-
-
     # SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd", "Deluge"]
     strip_attributes :only => [:ip, :url, :dns_name, :api, :username], :collapse_spaces => true
     # validates_presence_of :service_type

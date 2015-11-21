@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116032929) do
+ActiveRecord::Schema.define(version: 20151121210436) do
 
   create_table "plex_objects", force: :cascade do |t|
-    t.integer  "service_id"
+    t.integer  "plex_id"
     t.string   "image"
     t.string   "media_title"
     t.string   "thumb_url"
@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 20151116032929) do
     t.integer  "total_duration"
     t.integer  "progress"
     t.string   "session_key"
+    t.integer  "service_id"
   end
 
+  add_index "plex_objects", ["plex_id"], name: "index_plex_objects_on_plex_id"
   add_index "plex_objects", ["service_id"], name: "index_plex_objects_on_service_id"
 
   create_table "services", force: :cascade do |t|
@@ -43,12 +45,14 @@ ActiveRecord::Schema.define(version: 20151116032929) do
     t.boolean  "online_status"
     t.integer  "port"
     t.datetime "last_seen"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "type"
+    t.integer  "plex_object_id"
   end
 
   add_index "services", ["name"], name: "index_services_on_name", unique: true
+  add_index "services", ["plex_object_id"], name: "index_services_on_plex_object_id"
   add_index "services", ["url"], name: "index_services_on_url", unique: true
 
 end

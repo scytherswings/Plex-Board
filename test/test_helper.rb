@@ -31,14 +31,14 @@ class ActiveSupport::TestCase
     @plex_no_sessions = services(:plex_no_sessions)
     @plex_with_token_one = services(:plex_with_token_one)
     @plex_service_with_token_two = services(:plex_with_token_two)
-    @session_one = plex_sessions(:one)
-    @session_two = plex_sessions(:two)
+    @session_one = plex_objects(:one)
+    @session_two = plex_objects(:two)
 
-    @session_three = plex_sessions(:three)
+    @session_three = plex_objects(:three)
     # @session_four = sessions(:four)
     # @session_five = sessions(:five)
     # @session_six = sessions(:six)
-    @session_seven = plex_sessions(:seven)
+    @session_seven = plex_objects(:seven)
     # @plex_service_one = service(:plex_one)
     # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
 

@@ -2,13 +2,15 @@ class PlexObject < ActiveRecord::Base
   require 'open-uri'
   require 'uri'
   require 'fileutils'
-  belongs_to :service
-  delegate :token, :to => :service, :prefix => true
+  belongs_to :plex
+  delegate :token, :to => :plex, :prefix => true
+
+
 
   before_destroy :delete_thumbnail
   before_save :init
   after_save :get_plex_object_img
-  validates_presence_of :service_id
+  validates_presence_of :plex_id
   validates_presence_of :connection_string
   validates_presence_of :media_title
 
@@ -69,10 +71,10 @@ class PlexObject < ActiveRecord::Base
       logger.error("#{self.type} ID was blank when getting image")
       return nil
     end
-    if self.service_token.blank?
-      logger.error("#{self.type} service token was blank. Can't fetch image.")
+    if self.plex_token.blank?
+      logger.error("#{self.type} plex token was blank. Can't fetch image.")
       logger.error(self.id)
-      logger.error(self.service_id)
+      logger.error(self.plex_id)
       return self.image
     end
 
@@ -93,7 +95,7 @@ class PlexObject < ActiveRecord::Base
       logger.debug("Image was not found or was invalid, fetching...")
       File.open(imagefile, 'wb') do |f|
         f.write open("#{self.connection_string}#{self.thumb_url}",
-                     "X-Plex-Token" => self.service_token, "Accept" => "image/jpeg",
+                     "X-Plex-Token" => self.plex_token, "Accept" => "image/jpeg",
                      ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
       end
       self.update(image: "#{self.id}.jpeg")

@@ -2,6 +2,11 @@ class Plex < Service
 
   has_many :plex_sessions, dependent: :destroy
 
+
+  def self.model_name
+    Service.model_name
+  end
+
   def plex_api(method = :get, path = "", headers = {})
     if self.online_status == false
       logger.debug("Service: " + self.name + " is offline, cant grab plex data")
@@ -156,7 +161,7 @@ class Plex < Service
 
 
     rescue => error
-      logger.error("add_plex_session(new_session) in service.rb error")
+      logger.error("add_plex_session(new_session) in plex.rb error")
       logger.error(error)
       return nil
     end

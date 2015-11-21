@@ -8,13 +8,13 @@ one: { id: 1, name: "Test Service One", ip: "127.0.0.1", dns_name: "localhost", 
 
 two: { id: 2, name: "Test Service Two", ip: "127.0.0.2", dns_name: "ubuntu", port: "8080", url: "http://127.0.0.1", type: ""}
 
-plex_one: { id: 3, name: "Plex Test Service One", ip: "", dns_name: "plex1", port: "32400", url: "plex_one", username: "user", password: "pass"}
+plex_one: { id: 3, name: "Plex Test Service One", ip: "", dns_name: "plex1", port: "32400", url: "plex_one", username: "user", password: "pass", type: "Plex"}
 
-plex_two: { id: 4, name: "Plex Test Service Two", ip: "", dns_name: "plex2", port: "32400", url: "plex_two", username: "user", password: "pass"}
+plex_two: { id: 4, name: "Plex Test Service Two", ip: "", dns_name: "plex2", port: "32400", url: "plex_two", username: "user", password: "pass", type: "Plex"}
 
-plex_no_sessions: { id: 5, name: "Plex No Sessions", ip: "", dns_name: "plexnosessions", port: "32400", url: "plex_no_sessions", username: "user", password: "pass"}
+plex_no_sessions: { id: 5, name: "Plex No Sessions", ip: "", dns_name: "plexnosessions", port: "32400", url: "plex_no_sessions", username: "user", password: "pass", type: "Plex"}
 
-plex_with_token_one: { id: 6, name: "Plex Test Service Six", ip: "", dns_name: "plex6", port: "32400", url: "plex_six", username: "user", password: "pass", token: "zV75NzEnTA1migSb21ze"}
+plex_with_token_one: { id: 6, name: "Plex Test Service Six", ip: "", dns_name: "plex6", port: "32400", url: "plex_six", username: "user", password: "pass", token: "zV75NzEnTA1migSb21ze", type: "Plex"}
 
-plex_with_token_two: { id: 7, name: "Plex Test Service Seven", ip: "", dns_name: "plex7", port: "32400", url: "plex_seven", username: "user", password: "pass", token: "zV75NzEnTA1migSb21ze"}
+plex_with_token_two: { id: 7, name: "Plex Test Service Seven", ip: "", dns_name: "plex7", port: "32400", url: "plex_seven", username: "user", password: "pass", token: "zV75NzEnTA1migSb21ze", type: "Plex"}
 
