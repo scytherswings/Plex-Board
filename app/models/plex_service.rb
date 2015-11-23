@@ -1,15 +1,19 @@
-class Plex < Service
+class PlexService < ActiveRecord::Base
+
+  #These polymorphic associations are confusing. I used this as a reference:
+  # https://www.youtube.com/watch?v=t8I4_8HcMPo
+
+  has_one :service, as: :service_flavor, dependent: :destroy
 
   has_many :plex_sessions, dependent: :destroy
+  strip_attributes :only => [:api, :username], :collapse_spaces => true
 
-
-  def self.model_name
-    Service.model_name
-  end
+  validates :username, length: { maximum: 255 }, allow_blank: true
+  validates :password, length: { maximum: 255 }, allow_blank: true
 
   def plex_api(method = :get, path = "", headers = {})
     if self.online_status == false
-      logger.debug("Service: " + self.name + " is offline, cant grab plex data")
+      logger.debug('Service: ' + self.name + ' is offline, cant grab plex data')
       return nil
     end
     if self.token.nil?
@@ -18,15 +22,15 @@ class Plex < Service
       end
     end
 
-    defaults = { "Accept" => "application/json", "Connection" => "Keep-Alive",
-                 "X-Plex-Token" => self.token }
+    defaults = { 'Accept' => 'application/json', 'Connection' => 'Keep-Alive',
+                 'X-Plex-Token' => self.token }
     headers.merge!(defaults)
 
     begin
       JSON.parse(RestClient::Request.execute method: method,
-                   url: "https://#{connect_method()}:#{self.port}#{path}",
-                   headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
-                   timeout: 5, open_timeout: 5)
+                                             url: "https://#{connect_method()}:#{self.port}#{path}",
+                                             headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
+                                             timeout: 5, open_timeout: 5)
     rescue => error
       logger.debug(error)
       return nil
@@ -35,9 +39,9 @@ class Plex < Service
   end
 
   def get_plex_token()
-    url = "https://my.plexapp.com/users/sign_in.json"
+    url = 'https://my.plexapp.com/users/sign_in.json'
     headers = {
-        "X-Plex-Client-Identifier" => "Plex-Board"
+        'X-Plex-Client-Identifier'=> 'Plex-Board'
     }
     begin
       response = RestClient::Request.execute method: :post, url: url,
@@ -45,7 +49,7 @@ class Plex < Service
       self.update(token: (JSON.parse response)['user']['authentication_token'])
       return true #yes, I know that Ruby has implicit returns, but it helps readability
     rescue Exception => error
-      logger.error("There was an error getting the plex toke")
+      logger.error('There was an error getting the plex toke')
       logger.error(error)
 
       return false
@@ -58,7 +62,7 @@ class Plex < Service
 
   def get_plex_sessions()
 
-    sess = plex_api(:get, "/status/sessions")
+    sess = plex_api(:get, '/status/sessions')
 
     # logger.debug(sess)
     # logger.debug(!sess.nil?)
@@ -68,30 +72,15 @@ class Plex < Service
     end
     #chop off the stupid children tag thing
     #so the shit is in a single element array. this is terribly messy... yuck
-    plex_sessions = sess["_children"]
+    plex_sessions = sess['_children']
 
     #if plex has nothing, then fucking nuke that shit
     if plex_sessions.empty?
-      logger.debug("plex_sessions was empty... Deleting all sessions")
+      logger.debug('plex_sessions was empty... Deleting all sessions')
       self.plex_sessions.destroy_all
       return nil
     end
 
-    #A set is like an array that requires its elements to be unique
-    # new_sessions = Set.new []
-
-    #If we don't know about shit, then yes, add the new shit
-    # if self.sessions.empty?
-    #   plex_sessions.each do |new_session|
-    #     new_sessions << new_session
-    #   end
-    #   new_sessions.each do |add_session|
-    #     add_plex_session(add_session)
-    #   end
-    #   return true
-    # end
-
-    # stale_ids = []
 
     # References for the code below:
     # http://stackoverflow.com/questions/10230227/find-values-in-common-between-two-arrays
@@ -107,7 +96,7 @@ class Plex < Service
       begin
         PlexSession.find_by(session_key: stale_session).destroy
       rescue Exception => error
-        logger.error("Service.get_plex_sessions() could not delete session:")
+        logger.error('Service.get_plex_sessions() could not delete session: ')
         logger.error(error)
       end
     end
@@ -161,7 +150,7 @@ class Plex < Service
 
 
     rescue => error
-      logger.error("add_plex_session(new_session) in plex.rb error")
+      logger.error("add_plex_session(new_session) in plex_service.rb error")
       logger.error(error)
       return nil
     end
@@ -182,4 +171,5 @@ class Plex < Service
   def plex_recently_added()
 
   end
+
 end

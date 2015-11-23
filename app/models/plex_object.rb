@@ -2,16 +2,13 @@ class PlexObject < ActiveRecord::Base
   require 'open-uri'
   require 'uri'
   require 'fileutils'
-  belongs_to :plex
-  delegate :token, :to => :plex, :prefix => true
-
-
+  belongs_to :plex_service
+  delegate :token, :to => :plex_service, :prefix => true
 
   before_destroy :delete_thumbnail
   before_save :init
   after_save :get_plex_object_img
-  validates_presence_of :plex_id
-  validates_presence_of :connection_string
+  validates_presence_of :service_id
   validates_presence_of :media_title
 
 
@@ -32,7 +29,7 @@ class PlexObject < ActiveRecord::Base
   end
 
   def init
-
+    @connection_string = 'https://' + self.plex_service.service.dns_name + ':' + self.plex_service.service.port
     self.thumb_url ||= "placeholder.png"
     self.image ||= "placeholder.png"
     if !File.directory?(@@images_dir)
@@ -71,10 +68,10 @@ class PlexObject < ActiveRecord::Base
       logger.error("#{self.type} ID was blank when getting image")
       return nil
     end
-    if self.plex_token.blank?
+    if self.plex_service_token.blank?
       logger.error("#{self.type} plex token was blank. Can't fetch image.")
       logger.error(self.id)
-      logger.error(self.plex_id)
+      logger.error(self.plex_service_id)
       return self.image
     end
 
@@ -94,8 +91,8 @@ class PlexObject < ActiveRecord::Base
     begin
       logger.debug("Image was not found or was invalid, fetching...")
       File.open(imagefile, 'wb') do |f|
-        f.write open("#{self.connection_string}#{self.thumb_url}",
-                     "X-Plex-Token" => self.plex_token, "Accept" => "image/jpeg",
+        f.write open("#{@connection_string}#{self.thumb_url}",
+                     "X-Plex-Token" => self.plex_service_token, "Accept" => "image/jpeg",
                      ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
       end
       self.update(image: "#{self.id}.jpeg")

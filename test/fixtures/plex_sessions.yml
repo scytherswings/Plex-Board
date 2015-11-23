@@ -1,0 +1,20 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  progress: 1
+  total_duration: 1
+  plex_user_name: MyString
+
+two:
+  progress: 1
+  total_duration: 1
+  plex_user_name: MyString
+
+#
+#one: {"plex_service_id": 3, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie1", "thumb_url": "/library/metadata/38501/thumb/1444964730", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "1"}
+#
+#two: {"plex_service_id": 4, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie1", "thumb_url": "/library/metadata/38521/thumb/1444964731", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "1"}
+#
+#three: {"plex_service_id": 4, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie2", "thumb_url": "/library/metadata/38511/thumb/1444964731", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "2"}
+#
+#seven: {"plex_service_id": 7, "user_name": "Generic_User", "image": "placeholder.png", "media_title": "Movie1", "thumb_url": "/library/metadata/38511/thumb/1444964731", "total_duration": "9922756", "progress": "5408000", "description": ".", "session_key": "1"}

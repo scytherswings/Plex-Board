@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     collection { get :plex_now_playing}
   end
 
-  resources :plexes, controller: :services
+  resources :plex_services, controller: :services
   get 'all_services' => 'services#all_services'
   root 'services#index'
   get 'about' => 'info#about'

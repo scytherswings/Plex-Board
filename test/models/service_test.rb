@@ -12,9 +12,12 @@ class ServiceTest < ActiveSupport::TestCase
     assert @plex_service_with_token_two.valid?
   end
 
-  test 'name should be present' do
+  test 'name should not be nil' do
     @service_one.name = nil
     assert_not @service_one.valid?, 'Service name should not be nil'
+  end
+
+  test 'name should not be empty string' do
     @service_one.name = ''
     assert_not @service_one.valid?, 'Service name should not be empty string'
   end
@@ -40,9 +43,12 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not @service_one.valid?, 'Whitespace string should not be allowed for url'
   end
 
-  test 'url should not be blank' do
+  test 'url should not be empty string' do
     @service_one.url = ''
     assert_not @service_one.valid?, 'Blank string should not be allowed for url'
+  end
+
+  test 'url should not be nil' do
     @service_one.url = nil
     assert_not @service_one.valid?, 'URL should not be nil'
   end
@@ -104,26 +110,17 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not @service_one.valid?, 'IP and dns_name should not both be blank'
   end
 
-  test 'api key must be >= 32 char' do
-    @service_one.api = 'x' * 32
-    assert @service_one.valid?, 'API key should be >= 32 char'
-  end
+  # test 'api key must be >= 32 char' do
+  #   @service_one.api = 'x' * 32
+  #   assert @service_one.valid?, 'API key should be >= 32 char'
+  # end
+  #
+  # test 'api key must not be > 255 char' do
+  #   @service_one.api = 'x' * 256
+  #   assert_not @service_one.valid?, 'API key should be <= 255 char'
+  # end
 
-  test 'api key must not be > 255 char' do
-    @service_one.api = 'x' * 256
-    assert_not @service_one.valid?, 'API key should be <= 255 char'
-  end
 
-
-  test 'username must not be > 255 char' do
-    @service_one.username = 'x' * 256
-    assert_not @service_one.valid?, 'username should be <= 255 char'
-  end
-
-  test 'password must not be > 255' do
-    @service_one.password = 'x' * 256
-    assert_not @service_one.valid?, 'password should be <= 255 char'
-  end
 
   # test 'bad dns_name will not evaluate to online' do
 

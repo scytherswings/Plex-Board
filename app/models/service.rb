@@ -8,9 +8,10 @@ class Service < ActiveRecord::Base
     require 'uri'
     require 'json'
 
-    # SERVICE_TYPES = ["Generic Service", "Plex", "Couchpotato", "Sickrage", "Sabnzbd", "Deluge"]
-    strip_attributes :only => [:ip, :url, :dns_name, :api, :username], :collapse_spaces => true
-    # validates_presence_of :service_type
+    belongs_to :service_flavor, polymorphic: :true
+
+    strip_attributes :only => [:ip, :url, :dns_name], :collapse_spaces => true
+
     validates :name, presence: true, uniqueness: true, allow_blank: false
     validates :url, presence: true, uniqueness: true, allow_blank: false
     validates_numericality_of :port
@@ -27,10 +28,9 @@ class Service < ActiveRecord::Base
 
     validates :dns_name, presence: true, if: (:ip_and_dns_name_dont_exist)
 
-    validates :api, length: { minimum: 32, maximum: 255 }, allow_blank: true
+    # validates :api, length: { minimum: 32, maximum: 255 }, allow_blank: true
 
-    validates :username, length: { maximum: 255 }, allow_blank: true
-    validates :password, length: { maximum: 255 }, allow_blank: true
+
     after_initialize :init
 
     def init

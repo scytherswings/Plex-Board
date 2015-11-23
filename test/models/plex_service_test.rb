@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PlexTest < ActiveSupport::TestCase
+class PlexServiceTest < ActiveSupport::TestCase
 
 
   #Tests for Plex integration
@@ -17,6 +17,18 @@ class PlexTest < ActiveSupport::TestCase
   test 'Plex_service_with_token_two should have one valid session' do
     assert_equal 1, @plex_service_with_token_two.plex_sessions.count, 'Plex_service_with_token_two number of sessions did not match 1'
   end
+
+
+  test 'username must not be > 255 char' do
+    @service_one.username = 'x' * 256
+    assert_not @service_one.valid?, 'username should be <= 255 char'
+  end
+
+  test 'password must not be > 255' do
+    @service_one.password = 'x' * 256
+    assert_not @service_one.valid?, 'password should be <= 255 char'
+  end
+
 
   test 'get_plex_token will get token if token is nil' do
     assert_nil @plex_service_one.token
