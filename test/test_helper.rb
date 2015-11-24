@@ -1,8 +1,8 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require "minitest/reporters"
-require "strip_attributes/matchers"
+require 'minitest/reporters'
+require 'strip_attributes/matchers'
 require 'webmock/minitest'
 Minitest::Reporters.use!
 
@@ -10,7 +10,7 @@ Minitest::Reporters.use!
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  PlexSession.set(images_dir: "test/test_images")
+  PlexSession.set(images_dir: 'test/test_images')
   fixtures :all
   include StripAttributes::Matchers
 
@@ -23,16 +23,11 @@ class ActiveSupport::TestCase
   AUTH_HEADERS = { "Content-Type" => "application/json; charset=utf-8", "Access-Control-Max-Age" => 86400 }
 
   def setup
-    FileUtils.rm_rf("#{PlexSession.get("images_dir")}/.", secure: true)
-    @service_one = services(:one)
-    @service_two = services(:two)
-    @plex_service_one = services(:plex_one)
-    @plex_service_two = services(:plex_two)
-    @plex_no_sessions = services(:plex_no_sessions)
-    @plex_with_token_one = services(:plex_with_token_one)
-    @plex_service_with_token_two = services(:plex_with_token_two)
-    @session_one = plex_objects(:one)
-    @session_two = plex_objects(:two)
+    FileUtils.rm_rf("#{PlexSession.get('images_dir')}/.", secure: true)
+    @generic_service = services(:generic_service)
+    @plex_service_one = plex_services(:plex_service)
+    @session_one = plex_sessions(:one)
+    @session_two = plex_sessions(:two)
 
     @session_three = plex_objects(:three)
     # @session_four = sessions(:four)

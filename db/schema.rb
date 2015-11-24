@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151123042532) do
+ActiveRecord::Schema.define(version: 20151124041208) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.string   "image"
@@ -20,9 +20,14 @@ ActiveRecord::Schema.define(version: 20151123042532) do
     t.string   "plex_user_name"
     t.integer  "total_duration"
     t.integer  "progress"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "plex_service_id"
+    t.integer  "plex_object_flavor_id"
+    t.string   "plex_object_flavor_type"
   end
+
+  add_index "plex_objects", ["plex_service_id"], name: "index_plex_objects_on_plex_service_id"
 
   create_table "plex_services", force: :cascade do |t|
     t.string   "username"
@@ -30,6 +35,14 @@ ActiveRecord::Schema.define(version: 20151123042532) do
     t.string   "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "plex_sessions", force: :cascade do |t|
+    t.integer  "progress"
+    t.integer  "total_duration"
+    t.string   "plex_user_name"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "services", force: :cascade do |t|
@@ -45,5 +58,8 @@ ActiveRecord::Schema.define(version: 20151123042532) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
+
+  add_index "services", ["service_flavor_id"], name: "index_services_on_service_flavor_id"
+  add_index "services", ["service_flavor_type"], name: "index_services_on_service_flavor_type"
 
 end

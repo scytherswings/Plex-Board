@@ -1,13 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
- one:
+plex_service:
   id: 1
   username: "user"
   password: "pass"
   token: "zV75NzEnTA1migSb21ze"
 
-two:
+no_token:
   id: 2
+  username: "user"
+  password: "pass"
+  token: nil
+
+one_session:
+  id: 3
+  username: "user"
+  password: "pass"
+  token: "zV75NzEnTA1migSb21ze"
+
+two_sessions:
+  id: 4
   username: "user"
   password: "pass"
   token: "zV75NzEnTA1migSb21ze"

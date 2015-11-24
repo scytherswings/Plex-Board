@@ -4,7 +4,17 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: { id: 1, name: "Test Service One", ip: "127.0.0.1", dns_name: "localhost", port: "80", url: "http://localhost"}
+generic_service:
+  name: "Test Service One"
+  ip: "127.0.0.1"
+  dns_name: "localhost"
+  port: "80"
+  url: "http://localhost"
 
-two: { id: 2, name: "Test Service Two", ip: "127.0.0.2", dns_name: "ubuntu", port: "8080", url: "http://127.0.0.1"}
+two:
+  name: "Test Service Two"
+  ip: "127.0.0.2"
+  dns_name: "ubuntu"
+  port: "8080"
+  url: "http://127.0.0.1"
 

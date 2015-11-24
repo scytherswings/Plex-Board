@@ -5,14 +5,16 @@ class PlexObject < ActiveRecord::Base
   belongs_to :plex_service
   delegate :token, :to => :plex_service, :prefix => true
 
+  belongs_to :plex_object_flavor, polymorphic: :true
+
   before_destroy :delete_thumbnail
   before_save :init
   after_save :get_plex_object_img
-  validates_presence_of :service_id
+  validates_presence_of :plex_service_id
   validates_presence_of :media_title
 
 
-  @@images_dir = "public/images"
+  @@images_dir = 'public/images'
 
   def self.types
     %w(PlexSession PlexRecentlyAdded)
@@ -23,7 +25,7 @@ class PlexObject < ActiveRecord::Base
   end
 
   def self.get(options)
-    if options["images_dir"]
+    if options['images_dir']
       @@images_dir
     end
   end
@@ -41,7 +43,7 @@ class PlexObject < ActiveRecord::Base
     end
   end
 
-  def delete_thumbnail()
+  def delete_thumbnail
     if self.image != "placeholder.png"
       begin
         File.delete(Rails.root.join @@images_dir, self.image)
@@ -61,7 +63,7 @@ class PlexObject < ActiveRecord::Base
     end
   end
 
-  def get_plex_object_img()
+  def get_plex_object_img
     #I'll be honest. I don't know why I needed to add this..
     #but the ".jpeg" name image problem seems to be fixed for now sooo....
     if self.id.blank?
@@ -83,7 +85,7 @@ class PlexObject < ActiveRecord::Base
         return self.image
       else
         logger.debug("Image #{self.image} size was not > 100, replacing with placeholder")
-        self.delete_thumbnail()
+        self.delete_thumbnail
         self.update(image: "placeholder.png")
         return self.image
       end
@@ -106,11 +108,11 @@ class PlexObject < ActiveRecord::Base
 
   end
 
-  def get_percent_done()
+  def get_percent_done
     ((self.progress.to_f / self.total_duration.to_f) * 100).to_i
   end
 
-  def get_description()
+  def get_description
     # limit the length of the description to 200 characters, if over 200, add ellipsis
     self.description[0..200].gsub(/\s\w+\s*$/,'...')
   end
