@@ -1,20 +1,43 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
 generic_service:
-  name: "Test Service One"
-  ip: "127.0.0.1"
-  dns_name: "localhost"
-  port: "80"
-  url: "http://localhost"
+  name: Test Service One
+  ip: 127.0.0.1
+  dns_name: localhost
+  port: 80
+  url: http://localhost
 
-two:
-  name: "Test Service Two"
-  ip: "127.0.0.2"
-  dns_name: "ubuntu"
-  port: "8080"
-  url: "http://127.0.0.1"
+plex_1:
+  name: Test Plex Service one
+  ip: 127.0.0.2
+  dns_name: ubuntu
+  port: 8080
+  url: http://127.0.0.1
+  service_flavor_id: 1
+  service_flavor_type: PlexService
 
+plex_2:
+  name: Test Plex Service Two
+  ip: 127.0.0.3
+  dns_name: ubuntu
+  port: 8080
+  url: http://127.0.0.1
+  service_flavor_id: 2
+  service_flavor_type: PlexService
+
+plex_3:
+  name: Test Plex Service three
+  ip: 127.0.0.4
+  dns_name: ubuntu
+  port: 8080
+  url: http://127.0.0.1
+  service_flavor_id: 3
+  service_flavor_type: PlexService
+
+plex_4:
+  name: Test Plex Service Four
+  ip: 127.0.0.5
+  dns_name: ubuntu
+  port: 8080
+  url: http://127.0.0.1
+  service_flavor_id: 4
+  service_flavor_type: PlexService

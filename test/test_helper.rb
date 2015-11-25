@@ -24,18 +24,23 @@ class ActiveSupport::TestCase
 
   def setup
     FileUtils.rm_rf("#{PlexSession.get('images_dir')}/.", secure: true)
-    @generic_service = services(:generic_service)
-    @plex_service_one = plex_services(:plex_service)
-    @session_one = plex_sessions(:one)
-    @session_two = plex_sessions(:two)
 
-    @session_three = plex_objects(:three)
-    # @session_four = sessions(:four)
-    # @session_five = sessions(:five)
-    # @session_six = sessions(:six)
-    @session_seven = plex_objects(:seven)
-    # @plex_service_one = service(:plex_one)
-    # stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").to_rack(FakePlexTV)
+    @generic_service = services(:generic_service)
+    @plex_1 = services(:plex_1)
+    @plex_2 = services(:plex_2)
+    @plex_3 = services(:plex_3)
+    @plex_4 = services(:plex_4)
+    @plex_service_one = plex_services(:plex_service_1)
+    @plex_service_no_token = plex_services(:plex_service_no_token)
+    @plex_service_with_one_session = plex_services(:plex_service_with_one_session)
+    @plex_service_with_two_sessions = plex_services(:plex_service_with_two_sessions)
+    @plex_object_session_1 = plex_objects(:plex_object_session_1)
+    @plex_object_session_2 = plex_objects(:plex_object_session_2)
+    @plex_object_session_3 = plex_objects(:plex_object_session_3)
+    @plex_service_w1sess_session_1 = plex_sessions(:plex_service_w1sess_session_1)
+    @plex_service_w2sess_session_1 = plex_sessions(:plex_service_w2sess_session_1)
+    @plex_service_w2sess_session_2 = plex_sessions(:plex_service_w2sess_session_2)
+
 
 
 
