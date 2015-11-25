@@ -1,43 +1,50 @@
 
-generic_service:
+generic_service_one:
   name: Test Service One
   ip: 127.0.0.1
-  dns_name: localhost
+  dns_name: localhost1
   port: 80
-  url: http://localhost
+  url: http://localhost1
+
+generic_service_two:
+  name: Test Service Two
+  ip: 127.0.0.2
+  dns_name: localhost2
+  port: 80
+  url: http://localhost2
 
 plex_1:
   name: Test Plex Service one
-  ip: 127.0.0.2
-  dns_name: ubuntu
-  port: 8080
-  url: http://127.0.0.1
+  ip: 127.0.0.3
+  dns_name: ubuntu3
+  port: 32400
+  url: http://127.0.0.3
   service_flavor_id: 1
   service_flavor_type: PlexService
 
 plex_2:
   name: Test Plex Service Two
-  ip: 127.0.0.3
-  dns_name: ubuntu
-  port: 8080
-  url: http://127.0.0.1
+  ip: 127.0.0.4
+  dns_name: ubuntu4
+  port: 32400
+  url: http://127.0.0.4
   service_flavor_id: 2
   service_flavor_type: PlexService
 
 plex_3:
-  name: Test Plex Service three
-  ip: 127.0.0.4
-  dns_name: ubuntu
-  port: 8080
-  url: http://127.0.0.1
+  name: Test Plex Service Three
+  ip: 127.0.0.5
+  dns_name: ubuntu5
+  port: 32400
+  url: http://127.0.0.5
   service_flavor_id: 3
   service_flavor_type: PlexService
 
 plex_4:
   name: Test Plex Service Four
-  ip: 127.0.0.5
-  dns_name: ubuntu
-  port: 8080
-  url: http://127.0.0.1
+  ip: 127.0.0.6
+  dns_name: ubuntu6
+  port: 32400
+  url: http://127.0.0.6
   service_flavor_id: 4
   service_flavor_type: PlexService

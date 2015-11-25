@@ -25,7 +25,8 @@ class ActiveSupport::TestCase
   def setup
     FileUtils.rm_rf("#{PlexSession.get('images_dir')}/.", secure: true)
 
-    @generic_service = services(:generic_service)
+    @generic_service_one = services(:generic_service_one)
+    @generic_service_two = services(:generic_service_two)
     @plex_1 = services(:plex_1)
     @plex_2 = services(:plex_2)
     @plex_3 = services(:plex_3)
@@ -34,13 +35,13 @@ class ActiveSupport::TestCase
     @plex_service_no_token = plex_services(:plex_service_no_token)
     @plex_service_with_one_session = plex_services(:plex_service_with_one_session)
     @plex_service_with_two_sessions = plex_services(:plex_service_with_two_sessions)
-    @plex_object_session_1 = plex_objects(:plex_object_session_1)
-    @plex_object_session_2 = plex_objects(:plex_object_session_2)
-    @plex_object_session_3 = plex_objects(:plex_object_session_3)
-    @plex_service_w1sess_session_1 = plex_sessions(:plex_service_w1sess_session_1)
-    @plex_service_w2sess_session_1 = plex_sessions(:plex_service_w2sess_session_1)
-    @plex_service_w2sess_session_2 = plex_sessions(:plex_service_w2sess_session_2)
-
+    # @plex_object_session_1 = plex_objects(:plex_object_session_1)
+    # @plex_object_session_2 = plex_objects(:plex_object_session_2)
+    # @plex_object_session_3 = plex_objects(:plex_object_session_3)
+    # @plex_service_w1sess_session_1 = plex_sessions(:plex_service_w1sess_session_1)
+    # @plex_service_w2sess_session_1 = plex_sessions(:plex_service_w2sess_session_1)
+    # @plex_service_w2sess_session_2 = plex_sessions(:plex_service_w2sess_session_2)
+    #
 
 
 

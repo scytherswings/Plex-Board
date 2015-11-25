@@ -3,21 +3,27 @@ class PlexService < ActiveRecord::Base
   #These polymorphic associations are confusing. I used this as a reference:
   # https://www.youtube.com/watch?v=t8I4_8HcMPo
 
+  before_create :init
   has_one :service, as: :service_flavor, dependent: :destroy
 
-  has_many :plex_sessions, dependent: :destroy
+  # has_many :plex_objects, dependent: :destroy
+  # has_many :plex_sessions, through: :plex_objects
   strip_attributes :only => [:api, :username], :collapse_spaces => true
 
   validates :username, length: { maximum: 255 }, allow_blank: true
   validates :password, length: { maximum: 255 }, allow_blank: true
 
-  def plex_api(method = :get, path = "", headers = {})
-    if self.online_status == false
+  def init
+    @connection_string = 'https://' + self.service.dns_name + ':' + self.service.port
+  end
+
+  def plex_api(method = :get, path = '', headers = {})
+    if !self.service.online_status
       logger.debug('Service: ' + self.name + ' is offline, cant grab plex data')
       return nil
     end
     if self.token.nil?
-      if !get_plex_token()
+      if !get_plex_token
         return nil
       end
     end
@@ -28,7 +34,7 @@ class PlexService < ActiveRecord::Base
 
     begin
       JSON.parse(RestClient::Request.execute method: method,
-                                             url: "https://#{connect_method()}:#{self.port}#{path}",
+                                             url: "https://#{connect_method}:#{self.port}#{path}",
                                              headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
                                              timeout: 5, open_timeout: 5)
     rescue => error
@@ -38,7 +44,7 @@ class PlexService < ActiveRecord::Base
 
   end
 
-  def get_plex_token()
+  def get_plex_token
     url = 'https://my.plexapp.com/users/sign_in.json'
     headers = {
         'X-Plex-Client-Identifier'=> 'Plex-Board'
@@ -60,7 +66,7 @@ class PlexService < ActiveRecord::Base
   end
 
 
-  def get_plex_sessions()
+  def get_plex_sessions
 
     sess = plex_api(:get, '/status/sessions')
 
@@ -168,7 +174,7 @@ class PlexService < ActiveRecord::Base
 
 
 
-  def plex_recently_added()
+  def plex_recently_added
 
   end
 

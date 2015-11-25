@@ -9,7 +9,6 @@ plex_service_no_token:
   id: 2
   username: user
   password: pass
-  token: nil
 
 plex_service_with_one_session:
   id: 3

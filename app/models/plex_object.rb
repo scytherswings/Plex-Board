@@ -1,16 +1,13 @@
 class PlexObject < ActiveRecord::Base
-  require 'open-uri'
-  require 'uri'
-  require 'fileutils'
-  belongs_to :plex_service
-  delegate :token, :to => :plex_service, :prefix => true
 
+  delegate :token, :to => :plex_service, :prefix => true
+  belongs_to :plex_service
   belongs_to :plex_object_flavor, polymorphic: :true
 
   before_destroy :delete_thumbnail
   before_save :init
   after_save :get_plex_object_img
-  validates_presence_of :plex_service_id
+  # validates_presence_of :plex_service_id
   validates_presence_of :media_title
 
 

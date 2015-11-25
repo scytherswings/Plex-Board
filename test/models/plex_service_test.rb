@@ -6,47 +6,38 @@ class PlexServiceTest < ActiveSupport::TestCase
   #Tests for Plex integration
 
 
-  test 'Plex_service_one should have a valid session' do
-    assert_equal 1, @plex_service_one.plex_sessions.count, 'Plex_service_one number of sessions did not match 1'
+  test 'Plex_service_with_one_session should have a session' do
+    assert_equal 1, @plex_service_with_one_session.plex_sessions.count, 'Plex_service_with_one_session number of sessions did not match 1'
   end
 
-  test 'Plex_service_two should have two valid sessions' do
-    assert_equal 2, @plex_service_two.plex_sessions.count, 'Plex_service_two number of sessions did not match 2'
+  test 'Plex_service_with_two_sessions should have two sessions' do
+    assert_equal 2, @plex_service_with_two_sessions.plex_sessions.count, 'Plex_service_with_two_sessions number of sessions did not match 2'
   end
-
-  test 'Plex_service_with_token_two should have one valid session' do
-    assert_equal 1, @plex_service_with_token_two.plex_sessions.count, 'Plex_service_with_token_two number of sessions did not match 1'
-  end
-
 
   test 'username must not be > 255 char' do
-    @service_one.username = 'x' * 256
-    assert_not @service_one.valid?, 'username should be <= 255 char'
+    @plex_service_one.username = 'x' * 256
+    assert_not @plex_service_one.valid?, 'username should be <= 255 char'
   end
 
   test 'password must not be > 255' do
-    @service_one.password = 'x' * 256
-    assert_not @service_one.valid?, 'password should be <= 255 char'
+    @plex_service_one.password = 'x' * 256
+    assert_not @plex_service_one.valid?, 'password should be <= 255 char'
   end
 
-
   test 'get_plex_token will get token if token is nil' do
-    assert_nil @plex_service_one.token
-    @plex_service_one.get_plex_token()
+    @plex_service_with_no_token.get_plex_token
     assert_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json')
-    assert_equal 'zV75NzEnTA1migSb21ze', @plex_service_one.token
+    assert_equal 'zV75NzEnTA1migSb21ze', @plex_service_with_no_token.token
   end
 
   test 'plex_api will not get token if token is not nil' do
-    @plex_service_one.token = 'zV75NzEnTA1migSb21ze'
     assert_equal 'zV75NzEnTA1migSb21ze', @plex_service_one.token
     @plex_service_one.plex_api(:get, '/status/sessions')
     assert_not_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json')
   end
 
   test 'Service with no sessions will not change when plex has no sessions' do
-    @plex_no_sessions.token = 'zV75NzEnTA1migSb21ze'
-    @plex_no_sessions.get_plex_sessions()
+    @plex_service_one.get_plex_sessions
     assert_requested(:get, 'https://plexnosessions:32400/status/sessions')
     assert_equal 'zV75NzEnTA1migSb21ze', @plex_no_sessions.token
     assert_equal 0, @plex_no_sessions.plex_sessions.count
@@ -57,7 +48,7 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_equal 0, @plex_service_two.plex_sessions.count
     @plex_service_two.token = 'zV75NzEnTA1migSb21ze'
     assert_difference('@plex_service_two.plex_sessions.count', +2) do
-      assert_not_nil @plex_service_two.get_plex_sessions(), 'Getting plex sessions returned nil'
+      assert_not_nil @plex_service_two.get_plex_sessions, 'Getting plex sessions returned nil'
       assert_requested(:get, 'https://plex2:32400/status/sessions')
     end
   end
@@ -68,7 +59,7 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_not_nil @plex_service_with_token_two.token
     assert_not_nil @plex_service_with_token_two.plex_sessions.first.plex_token
     assert @plex_service_with_token_two.update!(:dns_name => 'plex1updated')
-    assert_not_nil @plex_service_with_token_two.get_plex_sessions()
+    assert_not_nil @plex_service_with_token_two.get_plex_sessions
     assert_requested(:get, 'https://plex1updated:32400/status/sessions')
     assert_equal 1, @plex_service_with_token_two.plex_sessions.count, 'PlexSession number should not change'
     assert_equal temp.id, @plex_service_with_token_two.plex_sessions.first.id, 'PlexSession ID should not change when we are updating'

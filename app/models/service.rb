@@ -1,13 +1,4 @@
 class Service < ActiveRecord::Base
-    require 'resolv'
-    require 'timeout'
-    require 'socket'
-    require 'time'
-    require 'open-uri'
-    require 'net/http'
-    require 'uri'
-    require 'json'
-
     belongs_to :service_flavor, polymorphic: :true
 
     strip_attributes :only => [:ip, :url, :dns_name], :collapse_spaces => true
@@ -34,13 +25,13 @@ class Service < ActiveRecord::Base
     after_initialize :init
 
     def init
+        @timeout ||= 5
         self.port ||=80
-        # self.online_status ||=false
+        self.online_status ||= false
     end
 
     def ip_and_dns_name_dont_exist
-        if ((ip.blank? || ip.to_s.empty?) &&
-          (dns_name.blank? || dns_name.to_s.empty?))
+        if ((ip.blank? || ip.to_s.empty?) && (dns_name.blank? || dns_name.to_s.empty?))
             self.errors.add(:base, 'IP Address or DNS Name must exist')
             true
         else
@@ -48,10 +39,10 @@ class Service < ActiveRecord::Base
         end
     end
 
-  def ping()
-    ping_destination = connect_method()
+  def ping
+    ping_destination = connect_method
     begin
-      Timeout.timeout(5) do
+      Timeout.timeout(@timeout) do
         s = TCPSocket.new(ping_destination, self.port)
         s.close
         self.update(online_status: true, last_seen: Time.now)
@@ -69,7 +60,7 @@ class Service < ActiveRecord::Base
     end
   end
 
-  def connect_method()
+  def connect_method
     if !self.ip.blank?
       self.ip
     else

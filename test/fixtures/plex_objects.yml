@@ -1,27 +1,29 @@
 
-plex_object_session_1:
-  plex_service_id: 3
-  image: placeholder.png
-  media_title: Movie1
-  description: .
-  thumb_url: /library/metadata/38501/thumb/1444964730
-  plex_object_flavor_id: 1
-  plex_object_flavor_type: PlexSession
+#plex_object_session_1:
+#  id: 1
+#  plex_service_id: 3
+#  image: placeholder.png
+#  media_title: Movie1
+#  description: .
+#  thumb_url: /library/metadata/38501/thumb/1444964730
+#  plex_object_flavor: plex_service_w1sess_session_1 (PlexSession)
 
-plex_object_session_2:
-  plex_service_id: 4
-  image: placeholder.png
-  media_title: Movie1
-  description: .
-  thumb_url: /library/metadata/38501/thumb/1444964730
-  plex_object_flavor_id: 2
-  plex_object_flavor_type: PlexSession
-
-plex_object_session_3:
-  plex_service_id: 4
-  image: placeholder.png
-  media_title: Movie1
-  description: .
-  thumb_url: /library/metadata/38501/thumb/1444964730
-  plex_object_flavor_id: 3
-  plex_object_flavor_type: PlexSession
+#plex_object_session_2:
+#  id: 2
+#  plex_service_id: 4
+#  image: placeholder.png
+#  media_title: Movie1
+#  description: .
+#  thumb_url: /library/metadata/38501/thumb/1444964730
+#  plex_object_flavor_id: 2
+#  plex_object_flavor_type: PlexSession
+#
+#plex_object_session_3:
+#  id: 3
+#  plex_service_id: 4
+#  image: placeholder.png
+#  media_title: Movie1
+#  description: .
+#  thumb_url: /library/metadata/38501/thumb/1444964730
+#  plex_object_flavor_id: 3
+#  plex_object_flavor_type: PlexSession
