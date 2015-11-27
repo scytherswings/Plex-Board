@@ -7,15 +7,13 @@ class PlexObject < ActiveRecord::Base
   before_destroy :delete_thumbnail
   before_save :init
   after_save :get_plex_object_img
+
   # validates_presence_of :plex_service_id
   validates_presence_of :media_title
 
 
   @@images_dir = 'public/images'
 
-  def self.types
-    %w(PlexSession PlexRecentlyAdded)
-  end
 
   def self.set(options)
     @@images_dir = options[:images_dir]
@@ -28,7 +26,7 @@ class PlexObject < ActiveRecord::Base
   end
 
   def init
-    @connection_string = 'https://' + self.plex_service.service.dns_name + ':' + self.plex_service.service.port
+    @connection_string = 'https://' + self.plex_service.service.connect_method+ ':' + self.plex_service.service.port
     self.thumb_url ||= "placeholder.png"
     self.image ||= "placeholder.png"
     if !File.directory?(@@images_dir)
@@ -55,7 +53,7 @@ class PlexObject < ActiveRecord::Base
         false
       end
     else
-      logger.debug("#{self.type} image was still set to placeholder.png")
+      logger.debug("PlexObject id: #{self.id} image was still set to placeholder.png")
       true
     end
   end
@@ -64,13 +62,11 @@ class PlexObject < ActiveRecord::Base
     #I'll be honest. I don't know why I needed to add this..
     #but the ".jpeg" name image problem seems to be fixed for now sooo....
     if self.id.blank?
-      logger.error("#{self.type} ID was blank when getting image")
+      logger.error("PlexObject id: #{self.id} was blank when getting image")
       return nil
     end
     if self.plex_service_token.blank?
-      logger.error("#{self.type} plex token was blank. Can't fetch image.")
-      logger.error(self.id)
-      logger.error(self.plex_service_id)
+      logger.error("PlexObject id: #{self.id} plex token was blank. Can't fetch image.")
       return self.image
     end
 
@@ -95,22 +91,17 @@ class PlexObject < ActiveRecord::Base
                      ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
       end
       self.update(image: "#{self.id}.jpeg")
-      logger.debug("#{self.type} updated to image #{self.image}")
+      logger.debug("Plex Object ID: #{self.id} updated to image #{self.image}")
       return self.image
     rescue Exception => error
-      logger.error("There was an error grabbing the image:")
+      logger.error("There was an error grabbing the image: ")
       logger.error(error)
       return nil
     end
 
   end
 
-  def get_percent_done
-    ((self.progress.to_f / self.total_duration.to_f) * 100).to_i
-  end
 
-  def get_description
-    # limit the length of the description to 200 characters, if over 200, add ellipsis
-    self.description[0..200].gsub(/\s\w+\s*$/,'...')
-  end
+
+
 end

@@ -2,24 +2,22 @@ class PlexService < ActiveRecord::Base
 
   #These polymorphic associations are confusing. I used this as a reference:
   # https://www.youtube.com/watch?v=t8I4_8HcMPo
-
-  before_create :init
   has_one :service, as: :service_flavor, dependent: :destroy
 
-  # has_many :plex_objects, dependent: :destroy
-  # has_many :plex_sessions, through: :plex_objects
-  strip_attributes :only => [:api, :username], :collapse_spaces => true
+  # has_many :plex_sessions, dependent: :destroy
+  has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession
+  has_many :plex_objects, dependent: :destroy
+  strip_attributes :only => [:username], :collapse_spaces => true
 
   validates :username, length: { maximum: 255 }, allow_blank: true
   validates :password, length: { maximum: 255 }, allow_blank: true
+  validates_presence_of :service
 
-  def init
-    @connection_string = 'https://' + self.service.dns_name + ':' + self.service.port
-  end
 
   def plex_api(method = :get, path = '', headers = {})
+    connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
     if !self.service.online_status
-      logger.debug('Service: ' + self.name + ' is offline, cant grab plex data')
+      logger.warn('Service: ' + self.service.name + ' is offline, cant grab plex data')
       return nil
     end
     if self.token.nil?
@@ -34,7 +32,7 @@ class PlexService < ActiveRecord::Base
 
     begin
       JSON.parse(RestClient::Request.execute method: method,
-                                             url: "https://#{connect_method}:#{self.port}#{path}",
+                                             url: "#{connection_string}#{path}",
                                              headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
                                              timeout: 5, open_timeout: 5)
     rescue => error
@@ -52,10 +50,10 @@ class PlexService < ActiveRecord::Base
     begin
       response = RestClient::Request.execute method: :post, url: url,
                                              user: self.username, password: self.password, headers: headers
-      self.update(token: (JSON.parse response)['user']['authentication_token'])
+      self.update!(token: (JSON.parse response)['user']['authentication_token'])
       return true #yes, I know that Ruby has implicit returns, but it helps readability
     rescue Exception => error
-      logger.error('There was an error getting the plex toke')
+      logger.error('There was an error getting the plex token')
       logger.error(error)
 
       return false
@@ -67,7 +65,6 @@ class PlexService < ActiveRecord::Base
 
 
   def get_plex_sessions
-
     sess = plex_api(:get, '/status/sessions')
 
     # logger.debug(sess)
@@ -130,11 +127,12 @@ class PlexService < ActiveRecord::Base
 
     logger.debug("sessions_to_add #{sessions_to_add}")
     sessions_to_add.each {|new_session| add_plex_session(new_session)}
-
-
   end
 
+
   def add_plex_session(new_session)
+    connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
+
     begin
       #expression will get the username out of the messy nested json
       expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
@@ -151,9 +149,8 @@ class PlexService < ActiveRecord::Base
       self.plex_sessions.create!(user_name: new_session_name, description: new_session["summary"],
                                  media_title: new_session["title"], total_duration: new_session["duration"],
                                  progress: new_session["viewOffset"], thumb_url: temp_thumb,
-                                 connection_string: "https://#{connect_method()}:#{self.port}",
+                                 connection_string: connection_string,
                                  session_key: new_session["sessionKey"])
-
 
     rescue => error
       logger.error("add_plex_session(new_session) in plex_service.rb error")

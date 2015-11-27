@@ -1,23 +1,19 @@
 
 plex_service_1:
-  id: 1
   username: user
   password: pass
   token: zV75NzEnTA1migSb21ze
 
-plex_service_no_token:
-  id: 2
+plex_service_with_no_token:
   username: user
   password: pass
 
 plex_service_with_one_session:
-  id: 3
   username: user
   password: pass
   token: zV75NzEnTA1migSb21ze
 
 plex_service_with_two_sessions:
-  id: 4
   username: user
   password: pass
   token: zV75NzEnTA1migSb21ze

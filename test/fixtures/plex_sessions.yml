@@ -1,22 +1,19 @@
 
-#plex_service_w1sess_session_1:
-##  id: 1
-#  progress: 1
-#  total_duration: 100
-#  session_key: 1
-#  plex_user_name: Generic_User
+plex_service_w1sess_session_1:
+  progress: 1
+  total_duration: 100
+  session_key: 1
+  plex_user_name: Generic_User
 
-#plex_service_w2sess_session_1:
-#  id: 2
-#  progress: 1
-#  total_duration: 100
-#  session_key: 1
-#  plex_user_name: Generic_User
-#
-#plex_service_w2sess_session_2:
-#  id: 3
-#  progress: 1
-#  total_duration: 100
-#  session_key: 2
-#  plex_user_name: Generic_User
-#
+plex_service_w2sess_session_1:
+  progress: 1
+  total_duration: 100
+  session_key: 1
+  plex_user_name: Generic_User
+
+plex_service_w2sess_session_2:
+  progress: 1
+  total_duration: 100
+  session_key: 2
+  plex_user_name: Generic_User
+

@@ -61,10 +61,10 @@ class Service < ActiveRecord::Base
   end
 
   def connect_method
-    if !self.ip.blank?
-      self.ip
-    else
+    if !self.dns_name.blank?
       self.dns_name
+    else
+      self.ip
     end
   end
 
