@@ -1,12 +1,12 @@
 class PlexSession < ActiveRecord::Base
 
   has_one :plex_object, as: :plex_object_flavor, dependent: :destroy
-  # has_many :plex_service, through: :plex_objects, source: :plex_object_flavor, source_type: PlexService
-  # delegate :plex_service_id, :to => :plex_object, :prefix => true
+  #accepts_nested_attributes_for
+  # http://www.theodinproject.com/ruby-on-rails/advanced-forms
+
   validates_presence_of :plex_user_name
   validates_presence_of :session_key
   # validates :session_key, uniqueness: { scope: self.plex_service.id}
-
 
 
   def get_percent_done

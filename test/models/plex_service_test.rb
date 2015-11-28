@@ -54,11 +54,9 @@ class PlexServiceTest < ActiveSupport::TestCase
   end
 
   test 'Service with a session can update the existing plex session' do
-    skip('This needs to be redone')
     assert_equal 1, @plex_service_with_one_session.plex_sessions.count
     temp = @plex_service_with_one_session.plex_sessions.first.clone
     assert_not_nil @plex_service_with_one_session.token
-    assert_not_nil @plex_service_with_one_session.plex_sessions.first.plex_service_token
     assert @plex_service_with_one_session.service.update(:dns_name => 'plex5updated')
     assert_not_nil @plex_service_with_one_session.get_plex_sessions
     assert_requested(:get, 'https://plex5updated:32400/status/sessions')
