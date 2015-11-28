@@ -1,3 +1,3 @@
-class PlexRecentlyAdded < PlexObject
+class PlexRecentlyAdded < ActiveRecord::Base
 
 end

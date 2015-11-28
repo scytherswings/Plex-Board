@@ -16,6 +16,8 @@ class PlexService < ActiveRecord::Base
 
   def plex_api(method = :get, path = '', headers = {})
     connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
+    logger.info("Making Plex API call to: #{connection_string}#{path}")
+
     if !self.service.online_status
       logger.warn('Service: ' + self.service.name + ' is offline, cant grab plex data')
       return nil
@@ -36,13 +38,14 @@ class PlexService < ActiveRecord::Base
                                              headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
                                              timeout: 5, open_timeout: 5)
     rescue => error
-      logger.debug(error)
+      logger.error(error)
       return nil
     end
 
   end
 
   def get_plex_token
+    logger.info("Getting Plex token for PlexService: #{self.service.name}")
     url = 'https://my.plexapp.com/users/sign_in.json'
     headers = {
         'X-Plex-Client-Identifier'=> 'Plex-Board'
@@ -52,7 +55,7 @@ class PlexService < ActiveRecord::Base
                                              user: self.username, password: self.password, headers: headers
       self.update!(token: (JSON.parse response)['user']['authentication_token'])
       return true #yes, I know that Ruby has implicit returns, but it helps readability
-    rescue Exception => error
+    rescue => error
       logger.error('There was an error getting the plex token')
       logger.error(error)
 
@@ -65,6 +68,7 @@ class PlexService < ActiveRecord::Base
 
 
   def get_plex_sessions
+    logger.info("Getting PlexSessions for PlexService: #{self.service.name}")
     sess = plex_api(:get, '/status/sessions')
 
     # logger.debug(sess)
@@ -98,7 +102,7 @@ class PlexService < ActiveRecord::Base
     stale_sessions.each do |stale_session|
       begin
         PlexSession.find_by(session_key: stale_session).destroy
-      rescue Exception => error
+      rescue => error
         logger.error('Service.get_plex_sessions() could not delete session: ')
         logger.error(error)
       end
@@ -131,7 +135,7 @@ class PlexService < ActiveRecord::Base
 
 
   def add_plex_session(new_session)
-    connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
+    logger.info("Adding new PlexSessions for PlexService: #{self.service.name}")
 
     begin
       #expression will get the username out of the messy nested json
@@ -146,26 +150,27 @@ class PlexService < ActiveRecord::Base
         temp_thumb = new_session["thumb"]
       end
       #create a new sesion object with the shit we found in the json blob
-      self.plex_sessions.create!(user_name: new_session_name, description: new_session["summary"],
-                                 media_title: new_session["title"], total_duration: new_session["duration"],
-                                 progress: new_session["viewOffset"], thumb_url: temp_thumb,
-                                 connection_string: connection_string,
-                                 session_key: new_session["sessionKey"])
+      new_ses = self.plex_sessions.create!(plex_user_name: new_session_name, total_duration: new_session["duration"],
+                                 progress: new_session["viewOffset"], session_key: new_session["sessionKey"])
 
-    rescue => error
-      logger.error("add_plex_session(new_session) in plex_service.rb error")
-      logger.error(error)
+      logger.debug(new_session["title"])
+      new_ses.plex_object.update!( description: new_session["summary"], media_title: new_session["title"],
+                                    thumb_url: temp_thumb)
+
+    rescue ActiveRecord::RecordInvalid => error
+      logger.error("add_plex_session(new_session) encountered an error: #{error}")
       return nil
     end
   end
 
   def update_plex_session(existing_session, updated_session_viewOffset)
-    begin
+    logger.info("Updating PlexSession ID: #{existing_session.id} for PlexService: #{self.service.name}")
+    # begin
       existing_session.update!(:progress => updated_session_viewOffset)
-    rescue Exception => error
-      logger.error("Could not update plex session:")
-      logger.error(error)
-    end
+    # rescue Exception => error
+    #   logger.error("Could not update plex session:")
+    #   logger.error(error)
+    # end
 
   end
 

@@ -1,10 +1,11 @@
 class PlexSession < ActiveRecord::Base
 
   has_one :plex_object, as: :plex_object_flavor, dependent: :destroy
-  # delegate :id, :to => :plex_object, :prefix => true
+  # has_many :plex_service, through: :plex_objects, source: :plex_object_flavor, source_type: PlexService
+  # delegate :plex_service_id, :to => :plex_object, :prefix => true
   validates_presence_of :plex_user_name
   validates_presence_of :session_key
-  # validates :session_key, uniqueness: { scope: :plex_object_id }
+  # validates :session_key, uniqueness: { scope: self.plex_service.id}
 
 
 

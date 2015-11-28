@@ -7,11 +7,10 @@ class ServicesController < ApplicationController
   # GET /services.json
   def index
     @services = Service.all
-    @plexes = Plex.all
   end
 
   def recently_added
-    @plex_services = Plex.all
+    @plex_services = PlexService.all
 
   end
 
@@ -42,7 +41,7 @@ class ServicesController < ApplicationController
   
   def plex_now_playing
     response.headers['Content-Type'] = 'text/event-stream'
-    @services = Plex.all
+    @services = PlexService.all
 
     @services.each do |service|
 
@@ -106,9 +105,9 @@ class ServicesController < ApplicationController
     # @plex = Plex.new
   end
 
-  def new_plex
-    @plex = Plex.new
-  end
+  # def new_plex
+  #   @plex = Plex.new
+  # end
 
   # GET /services/1/edit
   def edit

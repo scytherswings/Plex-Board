@@ -54,6 +54,7 @@ class PlexServiceTest < ActiveSupport::TestCase
   end
 
   test 'Service with a session can update the existing plex session' do
+    skip('This needs to be redone')
     assert_equal 1, @plex_service_with_one_session.plex_sessions.count
     temp = @plex_service_with_one_session.plex_sessions.first.clone
     assert_not_nil @plex_service_with_one_session.token
@@ -73,7 +74,6 @@ class PlexServiceTest < ActiveSupport::TestCase
   test 'PlexSession will be removed if Plex has no sessions' do
     assert_equal 1, @plex_service_with_one_session.plex_sessions.count
     @plex_service_with_one_session.service.update(dns_name: 'plexnosessions')
-    @plex_service_with_one_session.reload
     assert_difference('@plex_service_with_one_session.plex_sessions.count', -1) do
       @plex_service_with_one_session.get_plex_sessions
     end
@@ -84,7 +84,6 @@ class PlexServiceTest < ActiveSupport::TestCase
   test 'Expired sessions will be removed' do
     assert_equal 2, @plex_service_with_two_sessions.plex_sessions.count
     @plex_service_with_two_sessions.service.update(dns_name: 'plex5')
-    @plex_service_with_two_sessions.service.reload
     assert_difference('@plex_service_with_two_sessions.plex_sessions.count', -1) do
       @plex_service_with_two_sessions.get_plex_sessions
       assert_requested(:get, 'https://plex5:32400/status/sessions')
@@ -92,14 +91,14 @@ class PlexServiceTest < ActiveSupport::TestCase
   end
 
   test 'Calling get_plex_sessions will only add session once' do
-    assert_equal 1, @plex_service_one.plex_sessions.count
-    assert @plex_service_one.plex_sessions.destroy_all
-    assert_difference('@plex_service_one.plex_sessions.count', +1) do
-      @plex_service_one.get_plex_sessions
-      @plex_service_one.get_plex_sessions
-      @plex_service_one.get_plex_sessions
+    assert_equal 1, @plex_service_with_one_session.plex_sessions.count
+    assert @plex_service_with_one_session.plex_sessions.destroy_all
+    assert_difference('@plex_service_with_one_session.plex_sessions.count', +1) do
+      @plex_service_with_one_session.get_plex_sessions
+      @plex_service_with_one_session.get_plex_sessions
+      @plex_service_with_one_session.get_plex_sessions
     end
-    assert_requested(:get, 'https://plex1:32400/status/sessions', times: 3)
+    assert_requested(:get, 'https://plex5:32400/status/sessions', times: 3)
   end
 
   # test 'offline service will skip api calls' do

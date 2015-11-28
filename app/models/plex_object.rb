@@ -1,20 +1,21 @@
 class PlexObject < ActiveRecord::Base
 
-  delegate :token, :to => :plex_service, :prefix => true
+  # delegate :token, :to => :plex_service, :prefix => true
   belongs_to :plex_service
   belongs_to :plex_object_flavor, polymorphic: :true
-
+  delegate :id, :to => :plex_service, :prefix => true
   before_destroy :delete_thumbnail
-  before_save :init
+  before_create :init
   after_save :get_plex_object_img
 
   # validates_presence_of :plex_service_id
-  validates_presence_of :media_title
+  # validates_presence_of :media_title
 
 
   @@images_dir = 'public/images'
-
-
+  DEFAULT_IMAGE_PATH = 'test/fixtures/images'
+  DEFAULT_IMAGE = 'placeholder.png'
+  
   def self.set(options)
     @@images_dir = options[:images_dir]
   end
@@ -26,20 +27,20 @@ class PlexObject < ActiveRecord::Base
   end
 
   def init
-    @connection_string = 'https://' + self.plex_service.service.connect_method+ ':' + self.plex_service.service.port
-    self.thumb_url ||= "placeholder.png"
-    self.image ||= "placeholder.png"
+    # self.thumb_url ||= DEFAULT_IMAGE
+    self.image ||= DEFAULT_IMAGE
     if !File.directory?(@@images_dir)
+      logger.info("Creating #{@@images_dir} since it doesn't exist")
       FileUtils::mkdir_p @@images_dir
     end
-    if !File.file?(Rails.root.join @@images_dir, "placeholder.png")
-      FileUtils.cp((Rails.root.join "test/fixtures/images", "placeholder.png"), (Rails.root.join @@images_dir, "placeholder.png"))
-      logger.debug("Copying in placeholder.png from test/fixtures/images to #{@@images_dir}")
+    if !File.file?(Rails.root.join @@images_dir, DEFAULT_IMAGE)
+      FileUtils.cp((Rails.root.join DEFAULT_IMAGE_PATH, DEFAULT_IMAGE), (Rails.root.join @@images_dir, DEFAULT_IMAGE))
+      logger.debug("Copying in #{DEFAULT_IMAGE} from #{DEFAULT_IMAGE_PATH} to #{@@images_dir}")
     end
   end
 
   def delete_thumbnail
-    if self.image != "placeholder.png"
+    if self.image != DEFAULT_IMAGE
       begin
         File.delete(Rails.root.join @@images_dir, self.image)
         if File.file?(Rails.root.join @@images_dir, self.image)
@@ -59,13 +60,15 @@ class PlexObject < ActiveRecord::Base
   end
 
   def get_plex_object_img
+
+    connection_string = 'https://' + self.plex_service.service.connect_method + ':' + self.plex_service.service.port.to_s
     #I'll be honest. I don't know why I needed to add this..
     #but the ".jpeg" name image problem seems to be fixed for now sooo....
     if self.id.blank?
       logger.error("PlexObject id: #{self.id} was blank when getting image")
       return nil
     end
-    if self.plex_service_token.blank?
+    if self.plex_service.token.blank?
       logger.error("PlexObject id: #{self.id} plex token was blank. Can't fetch image.")
       return self.image
     end
@@ -76,28 +79,48 @@ class PlexObject < ActiveRecord::Base
       if File.size(imagefile) > 100
         logger.debug("Image #{self.image} found!")
         return self.image
-      else
+      elsif self.image != DEFAULT_IMAGE
         logger.debug("Image #{self.image} size was not > 100, replacing with placeholder")
         self.delete_thumbnail
-        self.update(image: "placeholder.png")
+        self.update!(image: DEFAULT_IMAGE)
         return self.image
       end
     end
-    begin
+    # begin
       logger.debug("Image was not found or was invalid, fetching...")
-      File.open(imagefile, 'wb') do |f|
-        f.write open("#{@connection_string}#{self.thumb_url}",
-                     "X-Plex-Token" => self.plex_service_token, "Accept" => "image/jpeg",
-                     ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
-      end
-      self.update(image: "#{self.id}.jpeg")
-      logger.debug("Plex Object ID: #{self.id} updated to image #{self.image}")
-      return self.image
-    rescue Exception => error
-      logger.error("There was an error grabbing the image: ")
-      logger.error(error)
+    logger.debug(imagefile.class)
+    logger.debug(connection_string.class)
+    logger.debug(self.thumb_url.class)
+    logger.debug(self.plex_service.token.class)
+      # File.open(imagefile, 'wb') do |f|
+      #   f.write(open("#{connection_string}#{self.thumb_url}",
+      #                "X-Plex-Token" => self.plex_service.token, "Accept" => "image/jpeg",
+      #                ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)).read
+      # end
+
+    headers = {
+        'X-Plex-Token' => self.plex_service.token,
+        'Accept' => 'image/jpeg'
+    }
+    if self.thumb_url.nil?
+      logger.error("thumb_url was nil for plex_object id: #{self.id}. Can't fetch thumbnail")
       return nil
     end
+
+
+      File.open(imagefile, 'wb') do |f|
+        f.write(RestClient::Request.execute(method: :get, url: "#{connection_string}#{self.thumb_url}", headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE))
+      end
+
+
+      self.update!(image: "#{self.id}.jpeg")
+      logger.debug("Plex Object ID: #{self.id} updated to image #{self.image}")
+      return self.image
+    # rescue => error
+    #   logger.error("There was an error grabbing the image: ")
+    #   logger.error(error)
+    #   return nil
+    # end
 
   end
 
