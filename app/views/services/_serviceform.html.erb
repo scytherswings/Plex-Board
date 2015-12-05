@@ -3,7 +3,7 @@
    <div class="row" id="service_type_dropdown">
      <div class="col-lg-3 form-group"  id="wrapper">
       <br>
-       <%= f.input :type, label: "Service Type:", :collection => Service.descendants.map,
+       <%= f.input :service_flavor_type, label: "Service Type:", :collection => Service.flavors.map,
        :include_blank => false, :required => false %>
      </div>
    </div>
@@ -27,22 +27,6 @@
   <div class="row" id="url_div">
     <div class="col-lg-12 form-group">
       <%= f.input :url, label: "URL", :placeholder => "http://plex.example.com:32400/web", :required => false %>
-    </div>
-  </div>
-  <div id="login_div">
-    <div class="row">
-      <div class="col-lg-6 form-group">
-  	  <%= f.input :username, :placeholder => "username", :required => false %>
-    </div>
-
-    <div class="col-lg-6 form-group">
-  	  <%= f.input :password, :placeholder => "password", :required => false %>
-    </div>
-    </div>
-  </div>
-  <div class="row" id="api_div">
-    <div class="col-lg-12 form-group">
-      <%= f.input :api, label: "API Key", :placeholder => "453867f2a275456ba6d3b4b5a8f6c3ac", :required => false %>
     </div>
   </div>
 
