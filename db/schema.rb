@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125021356) do
+ActiveRecord::Schema.define(version: 20151205191615) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.string   "image"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20151125021356) do
   add_index "plex_objects", ["plex_object_flavor_id"], name: "index_plex_objects_on_plex_object_flavor_id"
   add_index "plex_objects", ["plex_object_flavor_type"], name: "index_plex_objects_on_plex_object_flavor_type"
   add_index "plex_objects", ["plex_service_id"], name: "index_plex_objects_on_plex_service_id"
+
+  create_table "plex_recently_addeds", force: :cascade do |t|
+    t.datetime "added_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "plex_services", force: :cascade do |t|
     t.string   "username"

@@ -50,3 +50,12 @@ plex_4:
   url: http://127.0.0.6
   service_flavor: plex_service_with_two_sessions (PlexService)
   online_status: true
+
+plex_5:
+  name: plex_service_with_one_recently_added
+  ip: 127.0.0.7
+  dns_name: plex7
+  port: 32400
+  url: http://127.0.0.7
+  service_flavor: plex_service_with_one_recently_added (PlexService)
+  online_status: true

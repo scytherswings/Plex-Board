@@ -17,3 +17,8 @@ plex_service_with_two_sessions:
   username: user
   password: pass
   token: zV75NzEnTA1migSb21ze
+
+plex_service_with_one_recently_added:
+  username: user
+  password: pass
+  token: zV75NzEnTA1migSb21ze
