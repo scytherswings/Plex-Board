@@ -15,7 +15,7 @@
 /log/*
 !/log/.keep
 /tmp
-
+/.idea
 /config/secrets.yml
 #Ignore public/images
 /public/images/*
