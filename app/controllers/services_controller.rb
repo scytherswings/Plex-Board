@@ -106,9 +106,9 @@ class ServicesController < ApplicationController
     # @plex = Plex.new
   end
 
-  # def new_plex
-  #   @plex = Plex.new
-  # end
+  def choose_service_type
+    @services = Service.all
+  end
 
   # GET /services/1/edit
   def edit

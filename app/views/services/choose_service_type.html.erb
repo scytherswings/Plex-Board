@@ -1,0 +1,34 @@
+<% provide(:title, 'New Service') %>
+
+<%= render 'layouts/servicepanel' %>
+
+
+
+<div class="col-lg-8">
+  <div class="well" id="formthing">
+
+    <h3>What type of service would you like?</h3>
+
+    <div class="dropdown">
+      <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Service Type
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+        <li class="dropdown-link"><%= link_to 'Generic Service', new_service_path %></li>
+        <li class="dropdown-link"><%= link_to 'Plex', new_plex_service_path %></li>
+      </ul>
+    </div>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+

@@ -4,6 +4,8 @@ class PlexService < ActiveRecord::Base
   # https://www.youtube.com/watch?v=t8I4_8HcMPo
   has_one :service, as: :service_flavor, dependent: :destroy
 
+  accepts_nested_attributes_for :service
+
   # has_many :plex_sessions, dependent: :destroy
   has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession
   has_many :plex_objects, dependent: :destroy

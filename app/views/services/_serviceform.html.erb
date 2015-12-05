@@ -1,13 +1,5 @@
 <%= simple_form_for @service do |f| %>
 
-   <div class="row" id="service_type_dropdown">
-     <div class="col-lg-3 form-group"  id="wrapper">
-      <br>
-       <%= f.input :service_flavor_type, label: 'Service Type:', :collection => Service.flavors.map,
-       :include_blank => false, :required => false %>
-     </div>
-   </div>
-
 
   <div class="row" id="default_info_div">
 

@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  get 'plex_services/edit'
+
+  get 'plex_services/show'
+
+  get 'plex_services/all_plex_services'
+
+  get 'plex_services/new'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -17,6 +25,7 @@ Rails.application.routes.draw do
 
   resources :plex_services, controller: :services
   get 'all_services' => 'services#all_services'
+  get 'choose_service_type' => 'services#choose_service_type'
   root 'services#index'
   get 'about' => 'info#about'
   get 'configuration' => 'info#configuration'

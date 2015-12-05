@@ -1,0 +1,67 @@
+class PlexServicesController < ApplicationController
+  before_action :set_plex_service, only: [:show, :edit, :update, :destroy]
+
+  def edit
+  end
+
+  def show
+  end
+
+  def all_plex_services
+    @plex_services = PlexService.all
+  end
+
+  def new
+    @plex_service = PlexService.new
+  end
+
+  def create
+    @plex_service = PlexService.new(plex_service_params)
+
+    respond_to do |format|
+      if @plex_service.save
+        format.html { redirect_to @plex_service, notice: 'Service was successfully created.' }
+        format.json { render :show, status: :created, location: @plex_service }
+      else
+        format.html { render :new }
+        format.json { render json: @plex_service.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+  def update
+    respond_to do |format|
+      if @plex_service.update(plex_service_params)
+        format.html { redirect_to @plex_service, notice: 'Plex Service was successfully updated.' }
+        format.json { render :show, status: :ok, location: @plex_service }
+      else
+        format.html { render :edit }
+        format.json { render json: @plex_service.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /services/1
+  # DELETE /services/1.json
+  def destroy
+    @plex_service.destroy
+    respond_to do |format|
+      format.html { redirect_to root_url, notice: 'Plex Service was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_plex_service
+    @plex_service = PlexService.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  # Going off of this site as a guide: http://astockwell.com/blog/2014/03/polymorphic-associations-in-rails-4-devise/
+  def plex_service_params
+    params.require(:plex_service).permit(:username, :password, service_attributes: [:id, :name, :ip, :dns_name, :port, :url])
+  end
+end

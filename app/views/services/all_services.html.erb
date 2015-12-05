@@ -16,23 +16,23 @@
         <th>Options</th>
         <% @services.each do |f| %>
           <tr>
-          <td><%= f.name %></td>
-          <td><%= f.ip %></td>
-          <td><%= f.dns_name %></td>
-          <td><%= f.port %> </td>
-          <td><%= f.url %> </td>
+            <td><%= f.name %></td>
+            <td><%= f.ip %></td>
+            <td><%= f.dns_name %></td>
+            <td><%= f.port %></td>
+            <td><%= f.url %></td>
+            <td><%= f.service_flavor_type || 'Generic Service' %></td>
 
-          <td><%= f.service_flavor_type %></td>
-         
-          <td class="text-center">
-            <%= link_to 'Edit', edit_service_path(f), class: "btn btn-md btn-primary" %></td>
+            <td class="text-center">
+              <%= link_to 'Edit', edit_service_path(f), class: "btn btn-md btn-primary" %>
+            </td>
           </tr>
         <% end %>
       </table>
 
     </div>
   <div class="pull-right">
-  <%= link_to "Add New Service", new_service_path, class: "btn btn-success" %>
+  <%= link_to "Add New Service", choose_service_type_path, class: "btn btn-success" %>
   </div>
 
   </div>
