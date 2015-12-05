@@ -7,6 +7,7 @@ class ServicesController < ApplicationController
   # GET /services.json
   def index
     @services = Service.all
+    @plex_services = PlexService.all
   end
 
   def recently_added
@@ -163,6 +164,6 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:name, :ip, :dns_name, :port, :url, :type, :api, :username, :password)
+      params.require(:service).permit(:name, :ip, :dns_name, :port, :url)
     end
 end

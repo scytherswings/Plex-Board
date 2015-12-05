@@ -1,4 +1,8 @@
 
+
+  <%= render 'layouts/servicepanel' %>
+
+
 <% if @services.empty? %>
 
 <div class="col-sm-12 text-center">
@@ -15,14 +19,13 @@
 
 </div>
 
-<% else %>
+<% elsif !@plex_services.empty? %>
 
-  <%= render 'layouts/servicepanel' %>
-  <div class="col-lg-2">
-  </div>
+
+
   <div class="col-lg-4 text-center">
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
-      <% @plexes.each_with_index do |service, i| %>
+      <% @pex_services.each_with_index do |service, i| %>
         <% logger.debug("service loop") %>
           <% if i == 0 %>
             <% service.get_plex_sessions %>

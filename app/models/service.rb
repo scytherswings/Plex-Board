@@ -17,7 +17,7 @@ class Service < ActiveRecord::Base
 
 
     def self.flavors
-      ['Plex']
+      ['Generic Service', 'Plex']
     end
 
     def init

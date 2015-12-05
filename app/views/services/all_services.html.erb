@@ -4,7 +4,7 @@
 
 <div class="col-sm-8">
   <h2>All Services</h2>
-  <div class"row">
+  <div class="row">
     <div class="panel panel-default">
       <table class="table table-bordered">
         <th>Service Name</th>
@@ -13,7 +13,7 @@
         <th>Port</th>
         <th>URL</th>
         <th>Service Type</th>
-        <th></th>
+        <th>Options</th>
         <% @services.each do |f| %>
           <tr>
           <td><%= f.name %></td>
@@ -22,9 +22,10 @@
           <td><%= f.port %> </td>
           <td><%= f.url %> </td>
 
-          <td><%= f.type %></td>
+          <td><%= f.service_flavor_type %></td>
          
-          <td class="text-center"><%= link_to 'Edit', edit_service_path(f), class: "btn btn-md btn-primary" %></td>
+          <td class="text-center">
+            <%= link_to 'Edit', edit_service_path(f), class: "btn btn-md btn-primary" %></td>
           </tr>
         <% end %>
       </table>
