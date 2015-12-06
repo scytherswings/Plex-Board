@@ -1,4 +1,3 @@
-
 plex_object_session_1:
   plex_service: plex_service_with_one_session
   image: placeholder.png

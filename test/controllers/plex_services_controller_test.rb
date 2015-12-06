@@ -2,18 +2,18 @@ require 'test_helper'
 
 class PlexServicesControllerTest < ActionController::TestCase
 
-  def setup
-    @controller = PlexServicesController.new
-  end
+  # def setup
+  #   @controller = PlexServicesController.new
+  # end
 
   test 'should get edit' do
-    get :edit, id: @plex_service_one
+    get :edit, id: @plex_service_one.id
     assert_response :success
     assert_select 'title', "Plex-Board | Edit #{@plex_service_one.service.name}"
   end
 
   test 'should get show' do
-    get :show, id: @plex_service_one
+    get :show, id: @plex_service_one.id
     assert_response :success
     assert_select 'title', "Plex-Board | #{@plex_service_one.service.name}"
   end

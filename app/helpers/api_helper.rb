@@ -1,4 +1,4 @@
-module APIHelper
+module ApiHelper
 
   def api_request(method:, url:, headers:, payload: nil, user: nil )
     raise TypeError unless method.is_a? Symbol

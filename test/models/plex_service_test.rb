@@ -3,8 +3,12 @@ require 'test_helper'
 class PlexServiceTest < ActiveSupport::TestCase
 
 
-  #Tests for Plex integration
-
+  test 'plex services should be valid' do
+    assert @plex_service_one.valid?
+    assert @plex_service_with_no_token.valid?
+    assert @plex_service_with_one_session.valid?
+    assert @plex_service_with_two_sessions.valid?
+  end
 
   test 'Plex_service_with_one_session should have a session' do
     assert_equal 1, @plex_service_with_one_session.plex_sessions.count, 'Plex_service_with_one_session number of sessions did not match 1'

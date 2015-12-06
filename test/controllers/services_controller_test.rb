@@ -1,9 +1,9 @@
 require 'test_helper'
 class ServicesControllerTest < ActionController::TestCase
 
-  def setup
-    @controller = ServicesController.new
-  end
+  # def setup
+  #   @controller = ServicesController.new
+  # end
 
   test 'should get index' do
     get :index
@@ -40,25 +40,25 @@ class ServicesControllerTest < ActionController::TestCase
   end
 
   test 'should show service' do
-    get :show, id: @generic_service_one
+    get :show, id: @generic_service_one.id
     assert_response :success
     assert_select 'title', "Plex-Board | #{@generic_service_one.name}"
   end
 
   test 'should get edit' do
-    get :edit, id: @generic_service_one
+    get :edit, id: @generic_service_one.id
     assert_response :success
     assert_select 'title', "Plex-Board | Edit #{@generic_service_one.name}"
   end
 
   test 'should update service' do
-    patch :update, id: @generic_service_one, service: { name: 'test2', ip: '172.123.1.1', dns_name: 'test', url: 'test' }
+    patch :update, id: @generic_service_one.id, service: { name: 'test2', ip: '172.123.1.1', dns_name: 'test', url: 'test' }
     assert_redirected_to service_path(assigns(:service))
   end
 
   test 'should destroy service' do
     assert_difference('Service.count', -1) do
-      assert delete :destroy, id: @generic_service_one
+      assert delete :destroy, id: @generic_service_one.id
     end
     assert_redirected_to root_url
   end
