@@ -18,6 +18,10 @@ class PlexServicesController < ApplicationController
     @plex_services = PlexService.all
   end
 
+
+# need to use build_service!!!!! This article sparked my thoughts to use build
+# http://stackoverflow.com/questions/26458417/rails-polymorphic-posts-associations-and-form-for-in-views
+
   def new
     @services = Service.all
     @plex_services = PlexService.all
