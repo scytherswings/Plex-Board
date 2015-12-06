@@ -15,54 +15,63 @@ class ServicesController < ApplicationController
 # https://github.com/rails/rails/blob/6061c540ac7880233a6e32de85cec72c20ed8778/actionpack/lib/action_controller/metal/live.rb#L23
 
   def notifications
-    response.headers['Content-Type'] = 'text/event-stream'
+
+      response.headers['Content-Type'] = 'text/event-stream'
+      sse = SSE.new(response.stream, retry: 2000)
     begin
-      sse = SSE.new(response.stream, retry: 1000)
-      @plex_services = PlexService.all
+      while sse.open
+        is_data_ready = false
+        events = Array.new
+        @plex_services = PlexService.all
+        @services = Service.all
 
-      @plex_services.each do |plex_service|
+        # Parallel.each(@plex_services) do |plex_service|
+        #   plex_service.get_plex_sessions
+        #   Parallel.each(plex_service.plex_sessions) do |plex_session|
+        #     if plex_session.id.blank?
+        #       logger.warn("Got plex session with a blank id of #{plex_session.id}. Not sending on SSE")
+        #       logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
+        #       next
+        #     end
+        #     logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
+        #     data = {
+        #         session_id: plex_session.id,
+        #         progress: plex_session.get_percent_done,
+        #         media_title: plex_session.media_title,
+        #         description: plex_session.get_description,
+        #         image: plex_session.get_plex_object_img,
+        #         active_sessions: PlexSession.all.ids
+        #     }
+        #     sse.write(data.to_json, event: 'plex_now_playing')
+        #   end
+        # end
 
-        plex_service.get_plex_sessions()
-
-        plex_service.plex_sessions.each do |plex_session|
-          if plex_session.id.blank?
-            logger.debug("Got plex session with a blank id of #{plex_session.id}. Not sending on SSE")
-            logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
-            logger.debug("Is id nil? #{plex_session.id.nil?}")
-            next
-          end
-          logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
-          logger.debug("Is id nil? #{plex_session.id.nil?}")
-          status_of_session = {
-              session_id:"#{plex_session.id}",
-              progress:"#{plex_session.get_percent_done()}",
-              media_title:"#{plex_session.media_title}",
-              description:"#{plex_session.get_description()}",
-              image:"#{plex_session.get_plex_object_img()}",
-              active_sessions: PlexSession.all.ids
+        @services.each do |service|
+          # if service.last_seen > 10.seconds.ago
+          #   logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
+          #   next
+          # end
+          is_data_ready = true
+          service.ping
+          data = {
+              service_id: service.id,
+              name: service.name,
+              online_status: service.online_status,
+              last_seen: service.last_seen,
+              url: service.url
           }
-          sse.write(status_of_session.to_json, event: "plex_now_playing")
+          events << {data: data, event: 'online_status'}
+          # sse.write(data.to_json,  event: 'online_status')
         end
-        #This sleep controls how often we check the status of the service
+
+        if is_data_ready
+          events.each do |event|
+            sse.write(event[:data], event: event[:event])
+          end
+        else
+          sse.write('keepalive', event: 'keepalive')
+        end
       end
-
-
-      @services = Service.all
-      @services.each do |service|
-        service.ping()
-        status_of_service = {
-            service_id:"#{service.id}",
-            name:"#{service.name}",
-            online_status: "#{service.online_status}",
-            last_seen: "#{service.last_seen}",
-            url: "#{service.url}"
-        }
-        sse.write(status_of_service.to_json,  event: "online_status")
-
-        #This sleep controls how often we check the status of the service
-
-      end
-
     rescue IOError
       logger.info "Stream closed"
     rescue ClientDisconnected
