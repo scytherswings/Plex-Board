@@ -20,24 +20,21 @@
 </div>
 
 <% elsif !@plex_services.empty? %>
-
-
-
-  <div class="col-lg-4 text-center">
+  <div class="col-lg-4 col-lg-offset-2 text-center">
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
-      <% @plex_services.each_with_index do |service, i| %>
+      <% @plex_services.each_with_index do |plex_service, i| %>
         <% logger.debug("service loop") %>
           <% if i == 0 %>
-            <% service.get_plex_sessions %>
+            <% plex_service.get_plex_sessions %>
             <div class="carousel-inner" id="carousel-inner">
 
-              <% service.plex_sessions.each_with_index do |session, j| %>
-                <% logger.debug(service.name) %>
+              <% plex_service.plex_sessions.each_with_index do |plex_session, j| %>
+                <% logger.debug(plex_service.service.name) %>
                   <% if j == 0 %>
                     <% logger.debug("First Carousel") %>
-                    <%= render :partial => 'now_playing', :locals => { :session => session, :active => "active"}  %>
+                    <%= render :partial => 'now_playing', :locals => { :plex_session => plex_session, :active => "active"}  %>
                   <% else %>
-                    <%= render :partial => 'now_playing', :locals => { :session => session, :active => ""}  %>
+                    <%= render :partial => 'now_playing', :locals => { :plex_session => plex_session, :active => ""}  %>
                   <% end %> <!--if sessions-->
               <% end %> <!--sessions loop-->
             </div> <!--carousel-inner div-->

@@ -49,13 +49,13 @@
 #     assert @session_seven.delete_thumbnail, 'Deleting thumbnail failed'
 #     assert_not File.file?(Rails.root.join 'test/test_images', (@session_seven.id.to_i.to_s + '.jpeg')),
 #            'Image file should not be present'
-#     assert_not_nil @session_seven.get_plex_object_img, 'Image file was not retrieved'
+#     assert_not_nil @session_seven.get_img, 'Image file was not retrieved'
 #     assert File.file?(Rails.root.join 'test/test_images', (@session_seven.id.to_i.to_s + '.jpeg')),
 #            'Image file was not found'
 #   end
 #
 #   test 'destroying a session will delete the associated image' do
-#     assert_not_nil @session_seven.get_plex_object_img, 'Image file was not retrieved'
+#     assert_not_nil @session_seven.get_img, 'Image file was not retrieved'
 #     assert File.file?(Rails.root.join 'test/test_images', (@session_seven.id.to_i.to_s + '.jpeg')),
 #            'Image file was not found'
 #     assert @session_seven.destroy, 'Destroying the session failed'

@@ -22,7 +22,7 @@ class PlexServicesController < ApplicationController
     @services = Service.all
     @plex_services = PlexService.all
     @plex_service = PlexService.new
-    @service = @plex_service.service
+    @service = @plex_service.build_service
   end
 
   def create

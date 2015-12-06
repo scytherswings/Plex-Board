@@ -39,7 +39,7 @@ class ServicesController < ApplicationController
                 progress: plex_session.get_percent_done,
                 media_title: plex_session.media_title,
                 description: plex_session.get_description,
-                image: plex_session.get_plex_object_img,
+                image: plex_session.get_img,
                 active_sessions: PlexSession.all.ids
             }
             is_data_ready = true
@@ -75,13 +75,13 @@ class ServicesController < ApplicationController
           end
         else
           # sse.write('keepalive', event: 'keepalive')
-          sleep(1)
+          sleep(30)
         end
       end
     rescue IOError
-      logger.info "Stream closed"
+      logger.info "Stream closed: IO Error"
     rescue ClientDisconnected
-      logger.info "Stream closed"
+      logger.info "Stream closed: Client Disconnect"
     ensure
       sse.close
     end

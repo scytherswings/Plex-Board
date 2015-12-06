@@ -6,13 +6,15 @@ class PlexService < ActiveRecord::Base
   has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession
   has_many :plex_objects, dependent: :destroy
 
+# How accepts_nested_attributes_for must be used in Rails 4+
+# http://stackoverflow.com/questions/17371334/how-is-attr-accessible-used-in-rails-4
   accepts_nested_attributes_for :service
 
   strip_attributes :only => [:username], :collapse_spaces => true
 
   validates :username, length: { maximum: 255 }, allow_blank: true
   validates :password, length: { maximum: 255 }, allow_blank: true
-  validates_presence_of :service
+  # validates_presence_of :service
 
 
   def plex_api(method = :get, path = '', headers = {})

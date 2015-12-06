@@ -6,7 +6,7 @@ class PlexObject < ActiveRecord::Base
   delegate :id, :to => :plex_service, :prefix => true
   before_destroy :delete_thumbnail
   before_create :init
-  after_save :get_plex_object_img
+  after_save :get_img
 
   # validates_presence_of :plex_service_id
   # validates_presence_of :media_title
@@ -59,7 +59,7 @@ class PlexObject < ActiveRecord::Base
     end
   end
 
-  def get_plex_object_img
+  def get_img
 
     connection_string = 'https://' + self.plex_service.service.connect_method + ':' + self.plex_service.service.port.to_s
     #I'll be honest. I don't know why I needed to add this..
@@ -125,6 +125,8 @@ class PlexObject < ActiveRecord::Base
   end
 
 
-
-
+  def get_description
+    # limit the length of the description to 200 characters, if over 200, add ellipsis
+    self.description[0..200].gsub(/\s\w+\s*$/,'...')
+  end
 end
