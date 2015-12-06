@@ -17,11 +17,11 @@ module WebmockHelper
 
   WebMock.stub_request(:get, "https://plex5:32400/status/sessions").
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>TOKEN}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex5.json").read, :headers => HEADERS)
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex_one_session.json").read, :headers => HEADERS)
 
   WebMock.stub_request(:get, "https://plex5updated:32400/status/sessions").
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>TOKEN}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex5_updated_viewOffset.json").read, :headers => HEADERS)
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex_one_session_updated_viewOffset.json").read, :headers => HEADERS)
 
   WebMock.stub_request(:get, "https://plexnosessions:32400/status/sessions").
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>TOKEN}).
@@ -29,7 +29,7 @@ module WebmockHelper
 
   WebMock.stub_request(:get, "https://plex6:32400/status/sessions").
       with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>TOKEN}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex6.json").read, :headers => HEADERS)
+      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex_two_sessions.json").read, :headers => HEADERS)
 
   WebMock.stub_request(:get, /https:\/\/plex(.*?):32400\/library\/metadata\/(\d*)\/thumb\/(\d*$)/).
       with(:headers => {'Accept'=>'image/jpeg', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>TOKEN}).

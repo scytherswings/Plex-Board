@@ -36,11 +36,11 @@ class ActiveSupport::TestCase
 
     WebMock.stub_request(:get, "https://plex5:32400/status/sessions").
         with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>TOKEN}).
-        to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex5.json").read, :headers => HEADERS)
+        to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex_one_session.json").read, :headers => HEADERS)
 
     WebMock.stub_request(:get, "https://plex5updated:32400/status/sessions").
         with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>TOKEN}).
-        to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex5_updated_viewOffset.json").read, :headers => HEADERS)
+        to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex_one_session_updated_viewOffset.json").read, :headers => HEADERS)
 
     WebMock.stub_request(:get, "https://plexnosessions:32400/status/sessions").
         with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>TOKEN}).
@@ -48,11 +48,16 @@ class ActiveSupport::TestCase
 
     WebMock.stub_request(:get, "https://plex6:32400/status/sessions").
         with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>TOKEN}).
-        to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex6.json").read, :headers => HEADERS)
+        to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex_two_sessions.json").read, :headers => HEADERS)
 
     WebMock.stub_request(:get, /https:\/\/plex(.*?):32400\/library\/metadata\/(\d*)\/thumb\/(\d*$)/).
         with(:headers => {'Accept'=>'image/jpeg', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>TOKEN}).
         to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/images/', 'placeholder.png').read, :headers => {'Content-Type'=>'image/jpeg'})
+
+    WebMock.stub_request(:get, "https://plex4:32400/status/sessions").
+        with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'Connection'=>'Keep-Alive', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
+        to_return(:status => 200, :body => "", :headers => {})
+
 
 
     @generic_service_one = services(:generic_service_one)

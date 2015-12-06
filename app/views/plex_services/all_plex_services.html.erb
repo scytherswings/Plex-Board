@@ -1,2 +1,42 @@
-<h1>PlexServices#all_plex_services</h1>
-<p>Find me in app/views/plex_services/all_plex_services.html.erb</p>
+<% provide(:title, 'All Plex Services') %>
+
+<%= render 'layouts/servicepanel' %>
+
+<div class="col-sm-8">
+  <h2>All Services</h2>
+  <div class="row">
+    <div class="panel panel-default">
+      <table class="table table-bordered">
+        <th>Service Name</th>
+        <th>IP Address</th>
+        <th>DNS Name</th>
+        <th>Port</th>
+        <th>URL</th>
+        <th>Service Type</th>
+        <th>Options</th>
+        <% @plex_services.each do |f| %>
+          <tr>
+            <td><%= f.service.name %></td>
+            <td><%= f.service.ip %></td>
+            <td><%= f.service.dns_name %></td>
+            <td><%= f.service.port %></td>
+            <td><%= f.service.url %></td>
+            <td><%= f.service.service_flavor_type || 'Generic Service' %></td>
+
+            <td class="text-center">
+              <%= link_to 'Edit', edit_plex_service_path(f), class: "btn btn-md btn-primary" %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+
+    </div>
+    <div class="pull-right">
+      <%= link_to "Add New Service", choose_service_type_path, class: "btn btn-success" %>
+    </div>
+
+  </div>
+
+</div>
+
+<%= render 'layouts/rightbar' %>

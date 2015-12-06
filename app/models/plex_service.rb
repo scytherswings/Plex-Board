@@ -3,12 +3,11 @@ class PlexService < ActiveRecord::Base
   #These polymorphic associations are confusing. I used this as a reference:
   # https://www.youtube.com/watch?v=t8I4_8HcMPo
   has_one :service, as: :service_flavor, dependent: :destroy
+  has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession
+  has_many :plex_objects, dependent: :destroy
 
   accepts_nested_attributes_for :service
 
-  # has_many :plex_sessions, dependent: :destroy
-  has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession
-  has_many :plex_objects, dependent: :destroy
   strip_attributes :only => [:username], :collapse_spaces => true
 
   validates :username, length: { maximum: 255 }, allow_blank: true

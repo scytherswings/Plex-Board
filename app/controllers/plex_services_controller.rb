@@ -1,18 +1,28 @@
 class PlexServicesController < ApplicationController
+
+
   before_action :set_plex_service, only: [:show, :edit, :update, :destroy]
 
   def edit
+    @services = Service.all
+    @plex_services = PlexService.all
   end
 
   def show
+    @services = Service.all
+    @plex_services = PlexService.all
   end
 
   def all_plex_services
+    @services = Service.all
     @plex_services = PlexService.all
   end
 
   def new
+    @services = Service.all
+    @plex_services = PlexService.all
     @plex_service = PlexService.new
+    @service = @plex_service.service
   end
 
   def create
