@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     collection { get :notifications}
   end
 
-  resources :plex_services, controller: :services
+  resources :plex_services
   get 'all_services' => 'services#all_services'
   get 'choose_service_type' => 'services#choose_service_type'
   root 'services#index'

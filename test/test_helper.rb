@@ -59,7 +59,6 @@ class ActiveSupport::TestCase
         to_return(:status => 200, :body => "", :headers => {})
 
 
-
     @generic_service_one = services(:generic_service_one)
     @generic_service_two = services(:generic_service_two)
     @plex_1 = services(:plex_1)

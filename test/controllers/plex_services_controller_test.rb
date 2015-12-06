@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class PlexServicesControllerTest < ActionController::TestCase
+
+  def setup
+    @controller = PlexServicesController.new
+  end
+
   test 'should get edit' do
     get :edit, id: @plex_service_one
     assert_response :success
