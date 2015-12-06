@@ -4,7 +4,8 @@ source = new EventSource('/services/notifications')
 
 source.addEventListener 'online_status', (e) ->
   service = $.parseJSON(e.data)
-#  console.log service
+  console.log service
+  console.log service.online_status
   html_offline = """
                  <div class="row" id="service_#{service.service_id}">
                    <div class="col-lg-4">
@@ -43,7 +44,7 @@ source.addEventListener 'online_status', (e) ->
                 """
 
 
-  if service.online_status is "true"
+  if service.online_status is true
     console.log "service #{service.name} is online"
     if $('#service_' + service.service_id).length
 #      console.log "we found the element"

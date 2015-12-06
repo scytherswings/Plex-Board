@@ -15,42 +15,43 @@ class ServicesController < ApplicationController
 # https://github.com/rails/rails/blob/6061c540ac7880233a6e32de85cec72c20ed8778/actionpack/lib/action_controller/metal/live.rb#L23
 
   def notifications
-
-      response.headers['Content-Type'] = 'text/event-stream'
-      sse = SSE.new(response.stream, retry: 2000)
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = SSE.new(response.stream, retry: 2000)
     begin
-      while sse.open
+      # logger.debug(SSE.instance_methods)
+      while true
         is_data_ready = false
         events = Array.new
         @plex_services = PlexService.all
         @services = Service.all
 
-        # Parallel.each(@plex_services) do |plex_service|
-        #   plex_service.get_plex_sessions
-        #   Parallel.each(plex_service.plex_sessions) do |plex_session|
-        #     if plex_session.id.blank?
-        #       logger.warn("Got plex session with a blank id of #{plex_session.id}. Not sending on SSE")
-        #       logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
-        #       next
-        #     end
-        #     logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
-        #     data = {
-        #         session_id: plex_session.id,
-        #         progress: plex_session.get_percent_done,
-        #         media_title: plex_session.media_title,
-        #         description: plex_session.get_description,
-        #         image: plex_session.get_plex_object_img,
-        #         active_sessions: PlexSession.all.ids
-        #     }
-        #     sse.write(data.to_json, event: 'plex_now_playing')
-        #   end
-        # end
+        @plex_services.each do |plex_service|
+          plex_service.get_plex_sessions
+          plex_service.plex_sessions.each do |plex_session|
+            if plex_session.id.blank?
+              logger.warn("Got plex session with a blank id of #{plex_session.id}. Not sending on SSE")
+              logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
+              next
+            end
+            logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
+            data = {
+                session_id: plex_session.id,
+                progress: plex_session.get_percent_done,
+                media_title: plex_session.media_title,
+                description: plex_session.get_description,
+                image: plex_session.get_plex_object_img,
+                active_sessions: PlexSession.all.ids
+            }
+            events << {data: data, event: 'plex_now_playing'}
+            # sse.write(data.to_json, event: 'plex_now_playing')
+          end
+        end
 
         @services.each do |service|
-          # if service.last_seen > 10.seconds.ago
-          #   logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
-          #   next
-          # end
+          if service.last_seen > 10.seconds.ago
+            logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
+            next
+          end
           is_data_ready = true
           service.ping
           data = {
@@ -69,7 +70,8 @@ class ServicesController < ApplicationController
             sse.write(event[:data], event: event[:event])
           end
         else
-          sse.write('keepalive', event: 'keepalive')
+          # sse.write('keepalive', event: 'keepalive')
+          sleep(1)
         end
       end
     rescue IOError
