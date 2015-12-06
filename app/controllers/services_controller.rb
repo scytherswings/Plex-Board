@@ -42,12 +42,16 @@ class ServicesController < ApplicationController
                 image: plex_session.get_plex_object_img,
                 active_sessions: PlexSession.all.ids
             }
+            is_data_ready = true
             events << {data: data, event: 'plex_now_playing'}
             # sse.write(data.to_json, event: 'plex_now_playing')
           end
         end
 
         @services.each do |service|
+          if service.last_seen.nil?
+            service.ping
+          end
           if service.last_seen > 10.seconds.ago
             logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
             next
