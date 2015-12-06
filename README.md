@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.2
+## Version 0.4
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg)](https://travis-ci.org/scytherswings/Plex-Board)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
@@ -20,7 +20,7 @@ Plex-Board is meant to help the users **and** administrators of a Plex server ge
 Eventually I intend to support a unified search that will allow users to request media to be added which could then go to an approval page, or be allowed by default.
 
 
-Here are a few screenshots of v0.2
+Here are a few screenshots of v0.4
 ![home](http://i.imgur.com/IHuLsAh.png)
 
 ![add](http://i.imgur.com/6qnMZwa.png)
