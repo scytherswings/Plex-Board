@@ -6,12 +6,12 @@ Rails.application.routes.draw do
   get 'about' => 'info#about'
   get 'configuration' => 'info#configuration'
   get 'status' => 'info#status'
-
+  # get 'notifications' => 'services#notifications'
   get 'plex_services/all_plex_services'
   # get 'plex_services/new'
-  # resources :services do
-  #   collection { get :notifications}
-  # end
+  resources :services do
+    collection { get :notifications}
+  end
   resources :services
   resources :plex_services
 
