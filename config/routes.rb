@@ -19,8 +19,7 @@ Rails.application.routes.draw do
    #services controller be OK with extra stuff, I think it should work fine once
    #I figure that out
   resources :services do
-    collection { get :online_status}
-    collection { get :plex_now_playing}
+    collection { get :notifications}
   end
 
   resources :plex_services, controller: :services

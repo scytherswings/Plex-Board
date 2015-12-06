@@ -10,35 +10,14 @@ class ServicesController < ApplicationController
     @plex_services = PlexService.all
   end
 
-  def online_status
+
+# How to do SSE properly:
+# https://github.com/rails/rails/blob/6061c540ac7880233a6e32de85cec72c20ed8778/actionpack/lib/action_controller/metal/live.rb#L23
+
+  def notifications
     response.headers['Content-Type'] = 'text/event-stream'
     begin
-      @services = Service.all
-      @services.each do |service|
-        service.ping()
-        status_of_service = {
-          service_id:"#{service.id}",
-          name:"#{service.name}",
-          online_status: "#{service.online_status}",
-          last_seen: "#{service.last_seen}",
-          url: "#{service.url}"
-        }
-        response.stream.write "data: #{status_of_service.to_json}\n\n"
-        #This sleep controls how often we check the status of the service
-        sleep 5
-      end
-      rescue IOError
-        logger.info "Stream closed"
-      rescue ClientDisconnected
-        logger.info "Stream closed"
-    ensure
-      response.stream.close
-    end
-  end
-  
-  def plex_now_playing
-    response.headers['Content-Type'] = 'text/event-stream'
-    begin
+      sse = SSE.new(response.stream, retry: 1000)
       @plex_services = PlexService.all
 
       @plex_services.each do |plex_service|
@@ -50,41 +29,48 @@ class ServicesController < ApplicationController
             logger.debug("Got plex session with a blank id of #{plex_session.id}. Not sending on SSE")
             logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
             logger.debug("Is id nil? #{plex_session.id.nil?}")
-            # begin
-              # ActiveRecord::ConnectionAdapters::QueryCache:Module.class_attribute
-              # logger.debug("QueryCache cleared")
-            # rescue => error
-              # logger.debug("QueryCache was not cleared")
-              # logger.debug(error)
-            # end
             next
           end
           logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
           logger.debug("Is id nil? #{plex_session.id.nil?}")
           status_of_session = {
-            session_id:"#{plex_session.id}",
-            progress:"#{plex_session.get_percent_done()}",
-            media_title:"#{plex_session.media_title}",
-            description:"#{plex_session.get_description()}",
-            image:"#{plex_session.get_plex_object_img()}",
-            active_sessions: PlexSession.all.ids
+              session_id:"#{plex_session.id}",
+              progress:"#{plex_session.get_percent_done()}",
+              media_title:"#{plex_session.media_title}",
+              description:"#{plex_session.get_description()}",
+              image:"#{plex_session.get_plex_object_img()}",
+              active_sessions: PlexSession.all.ids
           }
-          response.stream.write "data: #{status_of_session.to_json}\n\n"
+          sse.write(status_of_session.to_json, event: "plex_now_playing")
         end
+        #This sleep controls how often we check the status of the service
+      end
 
+
+      @services = Service.all
+      @services.each do |service|
+        service.ping()
+        status_of_service = {
+            service_id:"#{service.id}",
+            name:"#{service.name}",
+            online_status: "#{service.online_status}",
+            last_seen: "#{service.last_seen}",
+            url: "#{service.url}"
+        }
+        sse.write(status_of_service.to_json,  event: "online_status")
 
         #This sleep controls how often we check the status of the service
-        sleep 1
+
       end
+
     rescue IOError
       logger.info "Stream closed"
     rescue ClientDisconnected
       logger.info "Stream closed"
     ensure
-      response.stream.close
+      sse.close
     end
   end
-
 
   # GET /services/1
   # GET /services/1.json
