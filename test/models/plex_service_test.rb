@@ -51,6 +51,7 @@ class PlexServiceTest < ActiveSupport::TestCase
   test 'Service with no sessions can get two new plex sessions' do
     @plex_service_with_two_sessions.plex_sessions.destroy_all
     assert_equal 0, @plex_service_with_two_sessions.plex_sessions.count
+    @plex_service_with_two_sessions.service.reload
     assert_difference('@plex_service_with_two_sessions.plex_sessions.count', +2) do
       assert_not_nil @plex_service_with_two_sessions.get_plex_sessions, 'Getting plex sessions returned nil'
       assert_requested(:get, 'https://plex6:32400/status/sessions')
@@ -58,6 +59,7 @@ class PlexServiceTest < ActiveSupport::TestCase
   end
 
   test 'Service with a session can update the existing plex session' do
+    @plex_service_with_one_session.plex_sessions.reload
     assert_equal 1, @plex_service_with_one_session.plex_sessions.count
     temp = @plex_service_with_one_session.plex_sessions.first.clone
     assert_not_nil @plex_service_with_one_session.token
@@ -97,8 +99,11 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert @plex_service_with_one_session.plex_sessions.destroy_all
     assert_difference('@plex_service_with_one_session.plex_sessions.count', +1) do
       @plex_service_with_one_session.get_plex_sessions
+      @plex_service_with_one_session.plex_sessions.reload
       @plex_service_with_one_session.get_plex_sessions
+      @plex_service_with_one_session.plex_sessions.reload
       @plex_service_with_one_session.get_plex_sessions
+      @plex_service_with_one_session.plex_sessions.reload
     end
     assert_requested(:get, 'https://plex5:32400/status/sessions', times: 3)
   end

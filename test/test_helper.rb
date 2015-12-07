@@ -65,7 +65,7 @@ class ActiveSupport::TestCase
     @plex_2 = services(:plex_2)
     @plex_3 = services(:plex_3)
     @plex_4 = services(:plex_4)
-    @plex_service_one = plex_services(:plex_service_1)
+    @plex_service_one = plex_services(:plex_service_one)
     @plex_service_with_no_token = plex_services(:plex_service_with_no_token)
     @plex_service_with_one_session = plex_services(:plex_service_with_one_session)
     @plex_service_with_two_sessions = plex_services(:plex_service_with_two_sessions)

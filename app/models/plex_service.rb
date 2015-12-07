@@ -2,9 +2,10 @@ class PlexService < ActiveRecord::Base
 
   #These polymorphic associations are confusing. I used this as a reference:
   # https://www.youtube.com/watch?v=t8I4_8HcMPo
-  has_one :service, as: :service_flavor, dependent: :destroy
-  has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession
-  has_many :plex_objects, dependent: :destroy
+  has_one :service, as: :service_flavor, dependent: :destroy, autosave: true
+  has_many :plex_objects, dependent: :destroy, autosave: true, inverse_of: :plex_service
+  has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession, autosave: true
+
 
 # How accepts_nested_attributes_for must be used in Rails 4+
 # http://stackoverflow.com/questions/17371334/how-is-attr-accessible-used-in-rails-4
@@ -14,6 +15,7 @@ class PlexService < ActiveRecord::Base
 
   validates :username, length: { maximum: 255 }, allow_blank: true
   validates :password, length: { maximum: 255 }, allow_blank: true
+  # validates_associated :service
   # validates_presence_of :service
 
 
@@ -82,11 +84,11 @@ class PlexService < ActiveRecord::Base
     end
     #chop off the stupid children tag thing
     #so the shit is in a single element array. this is terribly messy... yuck
-    plex_sessions = sess['_children']
+    incoming_plex_sessions = sess['_children']
 
     #if plex has nothing, then fucking nuke that shit
-    if plex_sessions.empty?
-      logger.debug('plex_sessions was empty... Deleting all sessions')
+    if incoming_plex_sessions.empty?
+      logger.debug('incoming_plex_sessions was empty... Deleting all sessions')
       self.plex_sessions.destroy_all
       return nil
     end
@@ -98,7 +100,8 @@ class PlexService < ActiveRecord::Base
     # http://stackoverflow.com/questions/24295763/find-intersection-of-arrays-of-hashes-by-hash-value
     # http://stackoverflow.com/questions/8639857/rails-3-how-to-get-the-difference-between-two-arrays
 
-    stale_sessions = self.plex_sessions.map {|known_session| known_session.session_key} - plex_sessions.map {|new_session| new_session["sessionKey"]}
+    stale_sessions = self.plex_sessions.map {|known_session| known_session.session_key} -
+                      incoming_plex_sessions.map {|new_session| new_session["sessionKey"]}
 
     logger.debug("stale_sessions #{stale_sessions}")
 
@@ -112,25 +115,27 @@ class PlexService < ActiveRecord::Base
     end
 
 
-    sessions_to_update = plex_sessions.map {|new_session| new_session["sessionKey"]} & self.plex_sessions.map {|known_session| known_session.session_key}
+    sessions_to_update = incoming_plex_sessions.map {|new_session| new_session["sessionKey"]} & self.plex_sessions.map {|known_session| known_session.session_key}
     logger.debug("sessions_to_update #{sessions_to_update}")
 
-    new_view_offsets = {}
+    new_view_offsets = Hash.new
 
-    plex_sessions.each do |new_session|
+    incoming_plex_sessions.each do |new_session|
       new_view_offsets.merge!(new_session["sessionKey"] => new_session["viewOffset"])
     end
 
     logger.debug("new_view_offsets #{new_view_offsets}")
     sessions_to_update.each do |known_session_key|
       logger.debug("new_view_offsets at known_session key: #{new_view_offsets[known_session_key]}")
-      update_plex_session(self.plex_sessions.find_by(session_key: known_session_key), new_view_offsets[known_session_key])
+      update_plex_session(self.plex_sessions.find_by(session_key: known_session_key),
+                          new_view_offsets[known_session_key])
     end
 
-    new_sessions = plex_sessions.map {|new_session| new_session["sessionKey"]} - self.plex_sessions.map {|known_session| known_session.session_key}
+    new_sessions = incoming_plex_sessions.map {|new_session| new_session["sessionKey"]} -
+                     self.plex_sessions.map {|known_session| known_session.session_key}
 
     logger.debug("new_sessions #{new_sessions}")
-    sessions_to_add = plex_sessions.select {|matched| new_sessions.include?(matched["sessionKey"])}
+    sessions_to_add = incoming_plex_sessions.select {|matched| new_sessions.include?(matched["sessionKey"])}
 
     logger.debug("sessions_to_add #{sessions_to_add}")
     sessions_to_add.each {|new_session| add_plex_session(new_session)}
@@ -139,7 +144,6 @@ class PlexService < ActiveRecord::Base
 
   def add_plex_session(new_session)
     logger.info("Adding new PlexSessions for PlexService: #{self.service.name}")
-
     begin
       #expression will get the username out of the messy nested json
       expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
@@ -153,13 +157,12 @@ class PlexService < ActiveRecord::Base
         temp_thumb = new_session["thumb"]
       end
       #create a new sesion object with the shit we found in the json blob
-      new_ses = self.plex_sessions.create!(plex_user_name: new_session_name, total_duration: new_session["duration"],
-                                 progress: new_session["viewOffset"], session_key: new_session["sessionKey"])
-
-      logger.debug(new_session["title"])
-      new_ses.plex_object.update!( description: new_session["summary"], media_title: new_session["title"],
-                                    thumb_url: temp_thumb)
-
+      self.plex_sessions.build(plex_user_name: new_session_name, total_duration: new_session["duration"],
+                                 progress: new_session["viewOffset"], session_key: new_session["sessionKey"],
+                                 plex_object_attributes: {description: new_session["summary"],
+                                                          media_title: new_session["title"],
+                                                          thumb_url: temp_thumb})
+      self.save!
     rescue ActiveRecord::RecordInvalid => error
       logger.error("add_plex_session(new_session) encountered an error: #{error}")
       return nil

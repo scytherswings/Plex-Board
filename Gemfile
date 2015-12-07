@@ -25,6 +25,7 @@ gem 'parallel', '~> 1.6', '>= 1.6.1'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # gem 'byebug', '~> 6.0.2'
+  gem 'simplecov', '~> 0.11.1'
 end
 
 group :test do

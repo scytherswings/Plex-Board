@@ -8,8 +8,11 @@ class PlexObject < ActiveRecord::Base
   before_create :init
   after_save :get_img
 
-  # validates_presence_of :plex_service_id
-  # validates_presence_of :media_title
+  validates_associated :plex_object_flavor
+  validates_associated :plex_service
+  validates_presence_of :plex_service
+  validates_presence_of :media_title
+  validates_presence_of :description
 
 
   @@images_dir = 'public/images'
@@ -40,19 +43,17 @@ class PlexObject < ActiveRecord::Base
   end
 
   def delete_thumbnail
+    if self.id.nil? || self.image.nil?
+      true
+    end
     if self.image != DEFAULT_IMAGE
-      begin
-        File.delete(Rails.root.join @@images_dir, self.image)
-        if File.file?(Rails.root.join @@images_dir, self.image)
-          logger.error("Image #{self.image} was not deleted")
-          raise "PlexSession image file was not deleted"
-        end
-        logger.debug("Deleted #{Rails.root.join @@images_dir, self.image}")
-        true
-      rescue => error
-        logger.error(error)
-        false
+      File.delete(Rails.root.join @@images_dir, self.image)
+      if File.file?(Rails.root.join @@images_dir, self.image)
+        logger.error("Image #{self.image} was not deleted")
+        raise "PlexSession image file was not deleted"
       end
+      logger.debug("Deleted #{Rails.root.join @@images_dir, self.image}")
+      true
     else
       logger.debug("PlexObject id: #{self.id} image was still set to placeholder.png")
       true
@@ -60,7 +61,9 @@ class PlexObject < ActiveRecord::Base
   end
 
   def get_img
-
+    if self.plex_service.nil?
+      return 'placeholder.png'
+    end
     connection_string = 'https://' + self.plex_service.service.connect_method + ':' + self.plex_service.service.port.to_s
     #I'll be honest. I don't know why I needed to add this..
     #but the ".jpeg" name image problem seems to be fixed for now sooo....
@@ -88,10 +91,10 @@ class PlexObject < ActiveRecord::Base
     end
     # begin
       logger.debug("Image was not found or was invalid, fetching...")
-    logger.debug(imagefile.class)
-    logger.debug(connection_string.class)
-    logger.debug(self.thumb_url.class)
-    logger.debug(self.plex_service.token.class)
+    # logger.debug(imagefile.class)
+    # logger.debug(connection_string.class)
+    # logger.debug(self.thumb_url.class)
+    # logger.debug(self.plex_service.token.class)
       # File.open(imagefile, 'wb') do |f|
       #   f.write(open("#{connection_string}#{self.thumb_url}",
       #                "X-Plex-Token" => self.plex_service.token, "Accept" => "image/jpeg",

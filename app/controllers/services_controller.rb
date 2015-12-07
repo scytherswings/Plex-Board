@@ -28,23 +28,17 @@ class ServicesController < ApplicationController
         @plex_services.each do |plex_service|
           plex_service.get_plex_sessions
           plex_service.plex_sessions.each do |plex_session|
-            if plex_session.id.blank?
-              logger.warn("Got plex session with a blank id of #{plex_session.id}. Not sending on SSE")
-              logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
-              next
-            end
-            logger.debug("Plex session media_title: #{plex_session.media_title}, #{plex_session.service_id}")
+            logger.debug("Plex session media_title: #{plex_session.plex_object.media_title}, #{plex_session.plex_object.plex_service.id}")
             data = {
                 session_id: plex_session.id,
                 progress: plex_session.get_percent_done,
-                media_title: plex_session.media_title,
-                description: plex_session.get_description,
-                image: plex_session.get_img,
+                media_title: plex_session.plex_object.media_title,
+                description: plex_session.plex_object.get_description,
+                image: plex_session.plex_object.get_img,
                 active_sessions: PlexSession.all.ids
             }
             is_data_ready = true
             events << {data: data, event: 'plex_now_playing'}
-            # sse.write(data.to_json, event: 'plex_now_playing')
           end
         end
 

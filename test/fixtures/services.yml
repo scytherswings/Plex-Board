@@ -15,12 +15,12 @@ generic_service_two:
   online_status: true
 
 plex_1:
-  name: plex_service_1
+  name: plex_service_one
   ip: 127.0.0.3
   dns_name: plex3
   port: 32400
   url: http://127.0.0.3
-  service_flavor: plex_service_1 (PlexService)
+  service_flavor: plex_service_one (PlexService)
   online_status: true
 
 plex_2:
