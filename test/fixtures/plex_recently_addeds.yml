@@ -1,2 +1,3 @@
 plex_service_w1ra_pra_1:
+  plex_service: plex_service_with_one_recently_added
   added_date: <%= 5.day.ago.to_s(:db) %>

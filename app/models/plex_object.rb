@@ -1,16 +1,16 @@
 class PlexObject < ActiveRecord::Base
 
   # delegate :token, :to => :plex_service, :prefix => true
-  belongs_to :plex_service
+  # belongs_to :plex_service
   belongs_to :plex_object_flavor, polymorphic: :true
-  delegate :id, :to => :plex_service, :prefix => true
+  # delegate :id, :to => :plex_service, :prefix => true
   before_destroy :delete_thumbnail
   before_create :init
   after_save :get_img
 
   validates_associated :plex_object_flavor
-  validates_associated :plex_service
-  validates_presence_of :plex_service
+  # validates_associated :plex_service
+  # validates_presence_of :plex_service
   validates_presence_of :media_title
   validates_presence_of :description
 
@@ -61,17 +61,14 @@ class PlexObject < ActiveRecord::Base
   end
 
   def get_img
-    if self.plex_service.nil?
-      return 'placeholder.png'
-    end
-    connection_string = 'https://' + self.plex_service.service.connect_method + ':' + self.plex_service.service.port.to_s
+    connection_string = 'https://' + self.plex_object_flavor.plex_service.service.connect_method + ':' + self.plex_object_flavor.plex_service.service.port.to_s
     #I'll be honest. I don't know why I needed to add this..
     #but the ".jpeg" name image problem seems to be fixed for now sooo....
     if self.id.blank?
       logger.error("PlexObject id: #{self.id} was blank when getting image")
       return nil
     end
-    if self.plex_service.token.blank?
+    if self.plex_object_flavor.plex_service.token.blank?
       logger.error("PlexObject id: #{self.id} plex token was blank. Can't fetch image.")
       return self.image
     end
@@ -94,15 +91,15 @@ class PlexObject < ActiveRecord::Base
     # logger.debug(imagefile.class)
     # logger.debug(connection_string.class)
     # logger.debug(self.thumb_url.class)
-    # logger.debug(self.plex_service.token.class)
+    # logger.debug(self.plex_object_flavor.plex_service.token.class)
       # File.open(imagefile, 'wb') do |f|
       #   f.write(open("#{connection_string}#{self.thumb_url}",
-      #                "X-Plex-Token" => self.plex_service.token, "Accept" => "image/jpeg",
+      #                "X-Plex-Token" => self.plex_object_flavor.plex_service.token, "Accept" => "image/jpeg",
       #                ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)).read
       # end
 
     headers = {
-        'X-Plex-Token' => self.plex_service.token,
+        'X-Plex-Token' => self.plex_object_flavor.plex_service.token,
         'Accept' => 'image/jpeg'
     }
     if self.thumb_url.nil?

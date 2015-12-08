@@ -27,8 +27,8 @@ class ServicesController < ApplicationController
 
         @plex_services.each do |plex_service|
           plex_service.get_plex_sessions
-          plex_service.plex_sessions.each do |plex_session|
-            logger.debug("Plex session media_title: #{plex_session.plex_object.media_title}, #{plex_session.plex_object.plex_service.id}")
+          plex_service.plex_sessions.try(:each) do |plex_session|
+            logger.debug("Plex session media_title: #{plex_session.plex_object.media_title}, #{plex_session.plex_service.id}")
             data = {
                 session_id: plex_session.id,
                 progress: plex_session.get_percent_done,
@@ -62,14 +62,14 @@ class ServicesController < ApplicationController
           events << {data: data, event: 'online_status'}
           # sse.write(data.to_json,  event: 'online_status')
         end
-
+        sleep(4)
         if is_data_ready
           events.each do |event|
             sse.write(event[:data], event: event[:event])
           end
         else
           # sse.write('keepalive', event: 'keepalive')
-          sleep(30)
+          sleep(2)
         end
       end
     rescue IOError

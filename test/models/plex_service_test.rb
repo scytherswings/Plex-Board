@@ -99,17 +99,18 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert @plex_service_with_one_session.plex_sessions.destroy_all
     assert_difference('@plex_service_with_one_session.plex_sessions.count', +1) do
       @plex_service_with_one_session.get_plex_sessions
-      @plex_service_with_one_session.plex_sessions.reload
       @plex_service_with_one_session.get_plex_sessions
-      @plex_service_with_one_session.plex_sessions.reload
       @plex_service_with_one_session.get_plex_sessions
-      @plex_service_with_one_session.plex_sessions.reload
     end
     assert_requested(:get, 'https://plex5:32400/status/sessions', times: 3)
   end
 
-  # test 'offline service will skip api calls' do
-  #   skip('Not finished')
-  # end
+  test 'offline service will skip api calls' do
+    @plex_service_with_one_session.service.online_status = false
+    @plex_service_with_one_session.plex_sessions.destroy_all
+    @plex_service_with_one_session.get_plex_sessions
+    assert_requested(:get, 'https://plex5:32400/status/sessions', times: 0)
+    assert_equal 0, @plex_service_with_one_session.plex_sessions.count
+  end
 
 end

@@ -51,9 +51,9 @@ class Service < ActiveRecord::Base
     rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH
       self.update(online_status: false)
       return false
-    rescue Exception
-      self.update(online_status: false)
-      return false
+    # rescue Exception
+    #   self.update(online_status: false)
+    #   return false
     end
   end
 

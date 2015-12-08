@@ -3,8 +3,10 @@ class PlexService < ActiveRecord::Base
   #These polymorphic associations are confusing. I used this as a reference:
   # https://www.youtube.com/watch?v=t8I4_8HcMPo
   has_one :service, as: :service_flavor, dependent: :destroy, autosave: true
-  has_many :plex_objects, dependent: :destroy, autosave: true, inverse_of: :plex_service
-  has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession, autosave: true
+  has_many :plex_sessions
+  has_many :plex_recently_addeds
+  # has_many :plex_objects, dependent: :destroy, autosave: true, inverse_of: :plex_service
+  # has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession, autosave: true
 
 
 # How accepts_nested_attributes_for must be used in Rails 4+
@@ -106,12 +108,7 @@ class PlexService < ActiveRecord::Base
     logger.debug("stale_sessions #{stale_sessions}")
 
     stale_sessions.each do |stale_session|
-      begin
-        PlexSession.find_by(session_key: stale_session).destroy
-      rescue => error
-        logger.error('Service.get_plex_sessions() could not delete session: ')
-        logger.error(error)
-      end
+      PlexSession.find_by(session_key: stale_session).destroy
     end
 
 
@@ -157,12 +154,11 @@ class PlexService < ActiveRecord::Base
         temp_thumb = new_session["thumb"]
       end
       #create a new sesion object with the shit we found in the json blob
-      self.plex_sessions.build(plex_user_name: new_session_name, total_duration: new_session["duration"],
+      self.plex_sessions.create!(plex_user_name: new_session_name, total_duration: new_session["duration"],
                                  progress: new_session["viewOffset"], session_key: new_session["sessionKey"],
                                  plex_object_attributes: {description: new_session["summary"],
                                                           media_title: new_session["title"],
                                                           thumb_url: temp_thumb})
-      self.save!
     rescue ActiveRecord::RecordInvalid => error
       logger.error("add_plex_session(new_session) encountered an error: #{error}")
       return nil
@@ -171,13 +167,7 @@ class PlexService < ActiveRecord::Base
 
   def update_plex_session(existing_session, updated_session_viewOffset)
     logger.info("Updating PlexSession ID: #{existing_session.id} for PlexService: #{self.service.name}")
-    # begin
-      existing_session.update!(:progress => updated_session_viewOffset)
-    # rescue Exception => error
-    #   logger.error("Could not update plex session:")
-    #   logger.error(error)
-    # end
-
+    existing_session.update!(:progress => updated_session_viewOffset)
   end
 
 
