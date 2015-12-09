@@ -65,16 +65,20 @@ class ActiveSupport::TestCase
     @plex_2 = services(:plex_2)
     @plex_3 = services(:plex_3)
     @plex_4 = services(:plex_4)
+    @plex_5 = services(:plex_5)
     @plex_service_one = plex_services(:plex_service_one)
     @plex_service_with_no_token = plex_services(:plex_service_with_no_token)
     @plex_service_with_one_session = plex_services(:plex_service_with_one_session)
     @plex_service_with_two_sessions = plex_services(:plex_service_with_two_sessions)
+    @plex_service_with_one_recently_added = plex_services(:plex_service_with_one_recently_added)
     @plex_object_session_1 = plex_objects(:plex_object_session_1)
     @plex_object_session_2 = plex_objects(:plex_object_session_2)
     @plex_object_session_3 = plex_objects(:plex_object_session_3)
+    @plex_object_recently_added_1 = plex_objects(:plex_object_recently_added_1)
     @plex_service_w1sess_session_1 = plex_sessions(:plex_service_w1sess_session_1)
     @plex_service_w2sess_session_1 = plex_sessions(:plex_service_w2sess_session_1)
     @plex_service_w2sess_session_2 = plex_sessions(:plex_service_w2sess_session_2)
+    @plex_service_w1ra_pra_1 = plex_recently_addeds(:plex_service_w1ra_pra_1)
 
 
 end

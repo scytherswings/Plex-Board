@@ -10,6 +10,7 @@ class ServiceTest < ActiveSupport::TestCase
     assert @plex_2.valid?, 'Plex_2 was invalid'
     assert @plex_3.valid?, 'Plex_3 was invalid'
     assert @plex_4.valid?, 'Plex_4 was invalid'
+    assert @plex_5.valid?, 'Plex_5 was invalid'
   end
 
   test 'name should not be nil' do

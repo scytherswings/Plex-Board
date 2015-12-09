@@ -40,6 +40,10 @@ class ServicesController < ApplicationController
             is_data_ready = true
             events << {data: data, event: 'plex_now_playing'}
           end
+          plex_service.get_recently_added
+          plex_service.plex_recently_addeds.each do |pra|
+
+          end
         end
 
         @services.each do |service|

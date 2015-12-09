@@ -172,7 +172,8 @@ class PlexService < ActiveRecord::Base
 
 
 
-  def plex_recently_added
+  def get_plex_recently_added
+    logger.info("Getting PlexRecentlyAdded for PlexService: #{self.service.name}")
 
   end
 
