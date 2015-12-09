@@ -80,7 +80,6 @@ class ActiveSupport::TestCase
     @plex_service_w2sess_session_2 = plex_sessions(:plex_service_w2sess_session_2)
     @plex_service_w1ra_pra_1 = plex_recently_addeds(:plex_service_w1ra_pra_1)
 
-
 end
 
 
