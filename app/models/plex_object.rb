@@ -50,7 +50,7 @@ class PlexObject < ActiveRecord::Base
       File.delete(Rails.root.join @@images_dir, self.image)
       if File.file?(Rails.root.join @@images_dir, self.image)
         logger.error("Image #{self.image} was not deleted")
-        raise "PlexSession image file was not deleted"
+        raise 'PlexSession image file was not deleted'
       end
       logger.debug("Deleted #{Rails.root.join @@images_dir, self.image}")
       true
@@ -86,17 +86,8 @@ class PlexObject < ActiveRecord::Base
         return self.image
       end
     end
-    # begin
-      logger.debug("Image was not found or was invalid, fetching...")
-    # logger.debug(imagefile.class)
-    # logger.debug(connection_string.class)
-    # logger.debug(self.thumb_url.class)
-    # logger.debug(self.plex_object_flavor.plex_service.token.class)
-      # File.open(imagefile, 'wb') do |f|
-      #   f.write(open("#{connection_string}#{self.thumb_url}",
-      #                "X-Plex-Token" => self.plex_object_flavor.plex_service.token, "Accept" => "image/jpeg",
-      #                ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)).read
-      # end
+
+    logger.debug('Image was not found or was invalid, fetching...')
 
     headers = {
         'X-Plex-Token' => self.plex_object_flavor.plex_service.token,
@@ -107,20 +98,18 @@ class PlexObject < ActiveRecord::Base
       return nil
     end
 
-
+    begin
       File.open(imagefile, 'wb') do |f|
         f.write(RestClient::Request.execute(method: :get, url: "#{connection_string}#{self.thumb_url}", headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE))
       end
-
+    rescue Errno::ENOENT
+      logger.error "There was a problem opening the file: #{imagefile} for write-binary mode"
+      return self.image
+    end
 
       self.update!(image: "#{self.id}.jpeg")
       logger.debug("Plex Object ID: #{self.id} updated to image #{self.image}")
       return self.image
-    # rescue => error
-    #   logger.error("There was an error grabbing the image: ")
-    #   logger.error(error)
-    #   return nil
-    # end
 
   end
 
