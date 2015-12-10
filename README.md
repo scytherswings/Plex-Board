@@ -1,7 +1,7 @@
 # Plex-Board
 ## Version 0.4
 
-Master branch:
+
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 
@@ -38,11 +38,11 @@ You should have enough space to allow logs and an image cache, so I wouldn't rec
 Rails can probably run on 512MB of RAM fine and CPU usage will vary. You can probably get away with a single core, but dual core may run smoother.
 
 
-###### Development branch status:
+## Install Instructions
+##### Development branch status:
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=dev)](https://travis-ci.org/scytherswings/Plex-Board)
 
-## Install Instructions
 ### This project is not ready for real production use yet, so don't expect stability until a 1.0 release
 
 These instructions have been tested on a fresh install of Ubuntu 14.04 as of 10/16/2015.
