@@ -49,18 +49,20 @@ Other operating systems will probably work, but for now I'm only going to write 
 2. ```gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3;
 curl -sSL https://get.rvm.io | bash -s stable --rails```
 
-4. `cd /opt` Now at this point, you might have to give your user write permissions to this directory. If that is the case run `sudo chmod 777 /opt -R` This is not a best practice, but it will get you by.
+3. `cd /opt` Now at this point, you might have to give your user write permissions to this directory. If that is the case run `sudo chmod 755 /opt -R`
 
-5. `git clone https://github.com/scytherswings/Plex-Board.git`
+4. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-6. Now you might just want to reboot, otherwise you will have to fool around with your shell. `sudo reboot`
+5. `rvm use 2.2.1; cd /opt/Plex-Board;` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
+Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`.
 
-7. `rvm use 2.2.1; cd /opt/Plex-Board;`
+6. `cd /opt/Plex-Board`
 
-8. `./serverSetup.sh`
+7. `./serverSetup.sh`
 
-9. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.) Remeber, this is for _testing!_
+8. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.) Remember, this is for _testing._
 
 ### Feedback
-If you run into any weird bugs feel free to make a ticket or ask in the Gitter chat room.
-I am working on this project in my free time so during business hours I won't respond most likely.
+If you run into any bugs, please, make a ticket or ask in the Gitter chat room. 
+I'm sure I'll miss something in my testing so feel free to let me know what I overlooked. 
+Since I work on this project in my free time, I can't always respond to chats immediately but I'll do the best I can to get back to you within the day.
