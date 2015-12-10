@@ -13,7 +13,7 @@ Pronounced "Plex Dashboard" like that ghetto name [La-a][] (La Dash A)... sorry.
 [La-a]: http://www.urbandictionary.com/define.php?term=la-a
 
 
-Just for clarificaiton, yes this is _another_ Plex dashboard, but this project is _different_ and I'll tell you why.
+Just for clarification, yes this is _another_ Plex dashboard, but this project is _different_ and I'll tell you why.
 
 PlexWatchWeb and the newer (and very cool) PlexPy projects are oriented more towards statistics etc.
 Plex-Board is meant to help the users **and** administrators of a Plex server get a quick overview on the status of the various services related to and including Plex itself.
