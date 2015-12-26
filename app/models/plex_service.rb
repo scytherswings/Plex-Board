@@ -1,4 +1,5 @@
 class PlexService < ActiveRecord::Base
+  include ApiHelper
 
   #These polymorphic associations are confusing. I used this as a reference:
   # https://www.youtube.com/watch?v=t8I4_8HcMPo
@@ -61,7 +62,7 @@ class PlexService < ActiveRecord::Base
       response = RestClient::Request.execute method: :post, url: url,
                                              user: self.username, password: self.password, headers: headers
       self.update!(token: (JSON.parse response)['user']['authentication_token'])
-      return true #yes, I know that Ruby has implicit returns, but it helps readability
+      return true
     rescue => error
       logger.error('There was an error getting the plex token')
       logger.error(error)
@@ -112,7 +113,8 @@ class PlexService < ActiveRecord::Base
     end
 
 
-    sessions_to_update = incoming_plex_sessions.map {|new_session| new_session["sessionKey"]} & self.plex_sessions.map {|known_session| known_session.session_key}
+    sessions_to_update = incoming_plex_sessions.map {|new_session| new_session["sessionKey"]} &
+                            self.plex_sessions.map {|known_session| known_session.session_key}
     logger.debug("sessions_to_update #{sessions_to_update}")
 
     new_view_offsets = Hash.new
@@ -172,8 +174,29 @@ class PlexService < ActiveRecord::Base
 
 
 
+
   def get_plex_recently_added
     logger.info("Getting PlexRecentlyAdded for PlexService: #{self.service.name}")
+    connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
+    plex_token_url = 'https://my.plexapp.com/users/sign_in.json'
+
+    plex_sign_in_headers = {
+        'X-Plex-Client-Identifier'=> 'Plex-Board'
+    }
+
+    pra_url = connection_string + '/library/recentlyAdded'
+
+    if self.token.nil?
+      logger.debug("Plex_token was nil for PlexService: #{self.service.name}. Fetching.")
+      user = PlexUser.new(self.username, self.password)
+      response = api_request(method: :post, url: plex_token_url, headers: plex_sign_in_headers, user: user)
+      self.update!(token: response['user']['authentication_token'])
+    end
+
+    defaults = { 'Accept' => 'application/json', 'Connection' => 'Keep-Alive',
+                 'X-Plex-Token' => self.token }
+
+    response = api_request(method: :get, url: pra_url, headers: defaults)
 
   end
 

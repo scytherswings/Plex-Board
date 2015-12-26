@@ -58,6 +58,22 @@ class ActiveSupport::TestCase
         with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'Connection'=>'Keep-Alive', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
         to_return(:status => 200, :body => "", :headers => {})
 
+    WebMock.stub_request(:get, /https:\/\/plex7(?:_movie)?:32400\/library\/recentlyAdded/).
+        with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'Connection'=>'Keep-Alive', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
+        to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex_recently_added_movie.json").read, :headers => {})
+
+    WebMock.stub_request(:get, "https://plex7_tv_show:32400/library/recentlyAdded").
+        with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'Connection'=>'Keep-Alive', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
+        to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex_recently_added_tv_show.json").read, :headers => {})
+
+    WebMock.stub_request(:get, "https://plex7_all:32400/library/recentlyAdded").
+        with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'Connection'=>'Keep-Alive', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
+        to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex_recently_added_all.json").read, :headers => {})
+
+    WebMock.stub_request(:get, "https://plex7_none:32400/library/recentlyAdded").
+        with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'Connection'=>'Keep-Alive', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
+        to_return(:status => 200, :body => "", :headers => {})
+
 
     @generic_service_one = services(:generic_service_one)
     @generic_service_two = services(:generic_service_two)

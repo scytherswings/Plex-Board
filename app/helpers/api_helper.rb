@@ -1,13 +1,13 @@
+# require ApiException
 module ApiHelper
-
   def api_request(method:, url:, headers:, payload: nil, user: nil )
     raise TypeError unless method.is_a? Symbol
     if url.nil? || url.blank?
       raise ArgumentError, 'api_request was called with a nil/blank url'
     end
-    if method == :post && payload.nil?
-      raise ArgumentError, 'api_request POST method was called for without a payload'
-    end
+    # if method == :post && payload.nil?
+    #   raise ArgumentError, 'api_request POST method was called for without a payload'
+    # end
 
     begin
       if user.nil?
@@ -25,40 +25,39 @@ module ApiHelper
 
   def api_call(method, url, headers, payload)
     RestClient::Request.execute method: method, url: url,
-                                user: user.username, password: user.password,
-                                headers: headers, payload: payload  do |resp, request, result, &block|
+                                headers: headers, payload: payload  do |resp, request|
       case resp.code
         when 200..202
           logger.info("#{resp.code} from #{url}.")
           parsed = (JSON.parse(resp))
-          if parsed.length > 0
+          # if parsed.length > 0
             logger.debug("The response body has a length of: #{parsed.length}")
-            user.update!(:cookie => resp.cookies.to_json)
+            # user.update!(:cookie => resp.cookies.to_json)
             return parsed
-          else
-            logger.warn("Got empty response from #{url}, clearing cookie just in case")
-            user.update!(:cookie => nil)
-            return parsed
-          end
+          # else
+            # logger.warn("Got empty response from #{url}, clearing cookie just in case")
+            # user.update!(:cookie => nil)
+            # return parsed
+          # end
         when 401
-          logger.warn("Got 401 Unauthorized from #{url}.")
+          logger.warn("Got 401 Unauthorized from #{url}")
           log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
-          raise APIException.new '401 Unauthorized', resp
+          raise ApiException.new '401 Unauthorized', resp
         when 400
           logger.warn("Got 400 Bad Request back from #{url}")
           log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
-          raise APIException.new '400 Bad Request', resp
+          raise ApiException.new '400 Bad Request', resp
         when 404
           logger.warn("Got 404 Not Found from #{url}")
           log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
-          raise APIException.new '404 Bad Request', resp
+          raise ApiException.new '404 Bad Request', resp
         when 500
           logger.error("Got 500 Internal Server Error from #{url}")
           log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
-          raise APIException.new '500 Internal Server Error', resp
+          raise ApiException.new '500 Internal Server Error', resp
         else
           log_request_data(user: user, request: request, response: resp, log_level: Logger::FATAL)
-          raise APIException.new "#{resp.code} was unexpected, cannot continue", resp
+          raise ApiException.new "#{resp.code} was unexpected, cannot continue", resp
       end
     end
   end
@@ -66,30 +65,30 @@ module ApiHelper
   def basic_auth(user, method, url, headers, payload)
     RestClient::Request.execute method: method, url: url,
                                 user: user.username, password: user.password,
-                                headers: headers, payload: payload  do |resp, request, result, &block|
+                                headers: headers, payload: payload  do |resp, request|
       case resp.code
         when 200..202
           logger.info("#{resp.code} from #{url}.")
           return (JSON.parse(resp))
         when 401
-          logger.warn("Got 401 Unauthorized from #{url}.")
+          logger.warn("Got 401 Unauthorized from #{url}")
           log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
-          raise APIException.new '401 Unauthorized', resp
+          raise ApiException.new '401 Unauthorized', resp
         when 400
           logger.warn("Got 400 Bad Request back from #{url}")
           log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
-          raise APIException.new '400 Bad Request', resp
+          raise ApiException.new '400 Bad Request', resp
         when 404
           logger.warn("Got 404 Not Found from #{url}")
           log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
-          raise APIException.new '404 Bad Request', resp
+          raise ApiException.new '404 Bad Request', resp
         when 500
           logger.error("Got 500 Internal Server Error from #{url}")
           log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
-          raise APIException.new '500 Internal Server Error', resp
+          raise ApiException.new '500 Internal Server Error', resp
         else
           log_request_data(user: user, request: request, response: resp, log_level: Logger::FATAL)
-          raise APIException.new "#{resp.code} was unexpected, cannot continue", resp
+          raise ApiException.new "#{resp.code} was unexpected, cannot continue", resp
       end
     end
   end
@@ -142,7 +141,7 @@ module ApiHelper
   #         else
   #           logger.warn('API query-retry failed after waiting 500ms.')
   #         end
-  #         raise APIException.new '404 Bad Request', resp
+  #         raise ApiException.new '404 Bad Request', resp
   #       when 500
   #         logger.warn("Got 500 Internal Server Error from #{url}")
   #         log_request_data(user: user, request: request, response: resp)
@@ -161,9 +160,11 @@ module ApiHelper
 
     #logging the payload isn't possible currently because of 
     # https://github.com/rest-client/rest-client/issues/357
-    # if !request.payload.nil?
-    #   logger.add(log_level){"Request Payload: #{request}"}
-    # end
+    unless request.payload.nil?
+      # logger.add(log_level){"Request Payload: #{request.payload}"}
+      logger.add(log_level){"Request Payload: #{request.args[:payload].inspect}"}
+    end
+
     logger.add(log_level){"Headers: #{request.headers}"}
 
     unless request.cookies.empty?

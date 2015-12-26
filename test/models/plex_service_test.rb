@@ -113,4 +113,47 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_equal 0, @plex_service_with_one_session.plex_sessions.count
   end
 
+  test 'get_plex_recently_added should grab plex_token if token is nil' do
+    @plex_service_with_one_recently_added.token = nil
+    @plex_service_with_one_recently_added.get_plex_recently_added
+    assert_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json')
+    assert_not_nil @plex_service_with_one_recently_added.token
+  end
+
+  test 'get_plex_recently_added can get new RA movie when no RAs exist' do
+    skip
+    @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_movie')
+    @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
+    @plex_service_with_one_recently_added.get_plex_recently_added
+    assert_requested(:get, 'https://plex7_movie:32400/library/recentlyAdded')
+    assert_equal 1, @plex_service_with_one_recently_added.plex_recently_addeds.count
+  end
+
+  test 'get_plex_recently_added can get new RA tv_show when no RAs exist' do
+    skip
+    @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_tv_show')
+    @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
+    @plex_service_with_one_recently_added.get_plex_recently_added
+    assert_requested(:get, 'https://plex7_tv_show:32400/library/recentlyAdded')
+    assert_equal 1, @plex_service_with_one_recently_added.plex_recently_addeds.count
+  end
+
+  test 'get_plex_recently_added can get many new RAs when no RAs exist' do
+    skip
+    @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_all')
+    @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
+    @plex_service_with_one_recently_added.get_plex_recently_added
+    assert_requested(:get, 'https://plex7_all:32400/library/recentlyAdded')
+    # assert_equal 1, @plex_service_with_one_recently_added.plex_recently_addeds.count
+  end
+
+  test 'get_plex_recently_added can remove RAs when given nothing' do
+    skip
+    @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_none')
+    @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
+    @plex_service_with_one_recently_added.get_plex_recently_added
+    assert_requested(:get, 'https://plex7_none:32400/library/recentlyAdded')
+    assert_equal 1, @plex_service_with_one_recently_added.plex_recently_addeds.count
+  end
+
 end
