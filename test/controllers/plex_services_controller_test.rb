@@ -2,10 +2,6 @@ require 'test_helper'
 
 class PlexServicesControllerTest < ActionController::TestCase
 
-  # def setup
-  #   @controller = PlexServicesController.new
-  # end
-
   test 'should get edit' do
     get :edit, id: @plex_service_one.id
     assert_response :success
@@ -28,6 +24,26 @@ class PlexServicesControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert_select 'title', 'Plex-Board | New Plex Service'
+  end
+
+  test 'should update PlexService' do
+    patch :update, id: @plex_service_one.id, plex_service: { username: 'boblob', password: 'law', token: 'garbage' }
+    assert_redirected_to plex_service_path(assigns(:plex_service))
+  end
+
+  test 'should create plex_service' do
+    assert_difference('PlexService.count') do
+      post :create, plex_service: { username: 'boblob', password: 'law', token: 'garbage' }
+    end
+
+    assert_redirected_to plex_service_path(assigns(:plex_service))
+  end
+
+  test 'should destroy plex_service' do
+    assert_difference('PlexService.count', -1) do
+      assert delete :destroy, id: @plex_service_one.id
+    end
+    assert_redirected_to root_url
   end
 
 end
