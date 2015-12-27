@@ -4,5 +4,6 @@ class PlexRecentlyAdded < ActiveRecord::Base
   accepts_nested_attributes_for :plex_object
 
   validates_associated :plex_service
-  validates :added_date, presence: true, allow_nil: false, allow_blank: false
+  validates :added_date, presence: :true, allow_blank: :false, allow_nil: :false
+  validates :uuid, presence: :true, allow_blank: :false, allow_nil: :false
 end

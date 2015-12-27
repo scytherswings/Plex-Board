@@ -121,39 +121,44 @@ class PlexServiceTest < ActiveSupport::TestCase
   end
 
   test 'get_plex_recently_added can get new RA movie when no RAs exist' do
-    skip
     @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_movie')
     @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
     @plex_service_with_one_recently_added.get_plex_recently_added
     assert_requested(:get, 'https://plex7_movie:32400/library/recentlyAdded')
-    assert_equal 1, @plex_service_with_one_recently_added.plex_recently_addeds.count
+    assert_equal 1, @plex_service_with_one_recently_added.plex_recently_addeds.count, 'PRA count was not 1'
   end
 
   test 'get_plex_recently_added can get new RA tv_show when no RAs exist' do
-    skip
     @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_tv_show')
     @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
     @plex_service_with_one_recently_added.get_plex_recently_added
     assert_requested(:get, 'https://plex7_tv_show:32400/library/recentlyAdded')
-    assert_equal 1, @plex_service_with_one_recently_added.plex_recently_addeds.count
+    assert_equal 1, @plex_service_with_one_recently_added.plex_recently_addeds.count, 'PRA count was not 1'
   end
 
   test 'get_plex_recently_added can get many new RAs when no RAs exist' do
-    skip
     @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_all')
     @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
     @plex_service_with_one_recently_added.get_plex_recently_added
-    assert_requested(:get, 'https://plex7_all:32400/library/recentlyAdded')
-    # assert_equal 1, @plex_service_with_one_recently_added.plex_recently_addeds.count
+    assert_requested(:get, 'https://plex7_all:32400/library/recentlyAdded', times: 1)
+    assert_equal 50, @plex_service_with_one_recently_added.plex_recently_addeds.count, 'PRA count was not 50'
   end
 
   test 'get_plex_recently_added can remove RAs when given nothing' do
-    skip
     @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_none')
-    @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
     @plex_service_with_one_recently_added.get_plex_recently_added
     assert_requested(:get, 'https://plex7_none:32400/library/recentlyAdded')
-    assert_equal 1, @plex_service_with_one_recently_added.plex_recently_addeds.count
+    assert_equal 0, @plex_service_with_one_recently_added.plex_recently_addeds.count, 'PRA count was not 0'
+  end
+
+  test 'get_plex_recently_added will not add duplicate pras' do
+    @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_all')
+    @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
+    @plex_service_with_one_recently_added.get_plex_recently_added
+    @plex_service_with_one_recently_added.get_plex_recently_added
+    @plex_service_with_one_recently_added.get_plex_recently_added
+    assert_requested(:get, 'https://plex7_all:32400/library/recentlyAdded', times: 3)
+    assert_equal 50, @plex_service_with_one_recently_added.plex_recently_addeds.count, 'PRA count was not 50'
   end
 
 end

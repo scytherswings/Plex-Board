@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208025136) do
+ActiveRecord::Schema.define(version: 20151227040353) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.string   "image"
@@ -32,9 +32,11 @@ ActiveRecord::Schema.define(version: 20151208025136) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "plex_service_id"
+    t.string   "uuid"
   end
 
   add_index "plex_recently_addeds", ["plex_service_id"], name: "index_plex_recently_addeds_on_plex_service_id"
+  add_index "plex_recently_addeds", ["uuid"], name: "index_plex_recently_addeds_on_uuid"
 
   create_table "plex_services", force: :cascade do |t|
     t.string   "username"

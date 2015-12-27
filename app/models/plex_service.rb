@@ -1,4 +1,5 @@
 class PlexService < ActiveRecord::Base
+  require 'time'
   include ApiHelper
 
   #These polymorphic associations are confusing. I used this as a reference:
@@ -96,7 +97,6 @@ class PlexService < ActiveRecord::Base
       return nil
     end
 
-
     # References for the code below:
     # http://stackoverflow.com/questions/10230227/find-values-in-common-between-two-arrays
     # http://stackoverflow.com/questions/3794039/how-to-find-a-hash-key-containing-a-matching-value
@@ -111,7 +111,6 @@ class PlexService < ActiveRecord::Base
     stale_sessions.each do |stale_session|
       PlexSession.find_by(session_key: stale_session).destroy
     end
-
 
     sessions_to_update = incoming_plex_sessions.map {|new_session| new_session["sessionKey"]} &
                             self.plex_sessions.map {|known_session| known_session.session_key}
@@ -142,13 +141,13 @@ class PlexService < ActiveRecord::Base
 
 
   def add_plex_session(new_session)
-    logger.info("Adding new PlexSessions for PlexService: #{self.service.name}")
+    logger.info("Adding new PlexSession for PlexService: #{self.service.name}")
     begin
       #expression will get the username out of the messy nested json
-      expression = new_session["_children"].find { |e| e["_elementType"] == "User" }["title"]
+      expression = new_session['_children'].find { |e| e['_elementType'] == 'User' }['title']
       #if the user's title (read username) is blank, set it to "Local"
       #otherwise, set the name of the session to the user's username
-      new_session_name = expression == "" ? "Local" : expression #check that shit out
+      new_session_name = expression == '' ? 'Local' : expression
       # TV shows need a parent thumb for their cover art
       if new_session.has_key? "parentThumb"
         temp_thumb = new_session["parentThumb"]
@@ -172,18 +171,13 @@ class PlexService < ActiveRecord::Base
     existing_session.update!(:progress => updated_session_viewOffset)
   end
 
-
-
-
   def get_plex_recently_added
     logger.info("Getting PlexRecentlyAdded for PlexService: #{self.service.name}")
     connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
     plex_token_url = 'https://my.plexapp.com/users/sign_in.json'
-
     plex_sign_in_headers = {
         'X-Plex-Client-Identifier'=> 'Plex-Board'
     }
-
     pra_url = connection_string + '/library/recentlyAdded'
 
     if self.token.nil?
@@ -198,6 +192,43 @@ class PlexService < ActiveRecord::Base
 
     response = api_request(method: :get, url: pra_url, headers: defaults)
 
+    if response.nil?
+      logger.debug("Plex doesn't have any recently added")
+      return nil
+    end
+
+    incoming_pras = response['_children']
+
+    stale_pras = self.plex_recently_addeds.map {|known_pra| known_pra.uuid} -
+        incoming_pras.map {|new_pra| new_pra['librarySectionUUID']}
+
+    logger.debug("stale_pras #{stale_pras}")
+
+    stale_pras.each do |stale_pra|
+      PlexRecentlyAdded.find_by(uuid: stale_pra).destroy
+    end
+
+    new_pras = incoming_pras.map {|new_pra| new_pra['librarySectionUUID']} -
+        self.plex_recently_addeds.map {|known_pra| known_pra.uuid}
+
+    logger.debug("new_pras #{new_pras}")
+    pras_to_add = incoming_pras.select {|matched| new_pras.include?(matched['librarySectionUUID'])}
+
+    logger.debug("pras_to_add #{pras_to_add}")
+    pras_to_add.each {|new_pra| add_plex_recently_added(new_pra)}
+  end
+
+  def add_plex_recently_added(new_pra)
+    logger.info("Adding new PlexRecentlyAdded for PlexService: #{self.service.name}")
+
+    media_title = new_pra['_elementType'] == 'Directory' ? new_pra['parentTitle'] + ' - ' + new_pra['title'] : new_pra['title']
+    temp_thumb = new_pra.has_key?('parentThumb') ? new_pra['parentThumb'] : new_pra['thumb']
+    summary = new_pra.has_key?('parentSummary') ? new_pra['parentSummary'] : new_pra['summary']
+    time = Time.at(new_pra['addedAt']).to_datetime
+    self.plex_recently_addeds.create!(uuid: new_pra['librarySectionUUID'], added_date: time,
+                                      plex_object_attributes: {description: summary,
+                                                               media_title: media_title,
+                                                               thumb_url: temp_thumb})
   end
 
 end

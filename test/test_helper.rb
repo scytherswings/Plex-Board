@@ -72,7 +72,7 @@ class ActiveSupport::TestCase
 
     WebMock.stub_request(:get, "https://plex7_none:32400/library/recentlyAdded").
         with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'Connection'=>'Keep-Alive', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
-        to_return(:status => 200, :body => "", :headers => {})
+        to_return(:status => 200, :body => "{\"_elementType\": \"MediaContainer\",\"_children\": []}", :headers => {})
 
 
     @generic_service_one = services(:generic_service_one)

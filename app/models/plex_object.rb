@@ -1,18 +1,13 @@
 class PlexObject < ActiveRecord::Base
 
-  # delegate :token, :to => :plex_service, :prefix => true
-  # belongs_to :plex_service
   belongs_to :plex_object_flavor, polymorphic: :true
-  # delegate :id, :to => :plex_service, :prefix => true
   before_destroy :delete_thumbnail
   before_create :init
   after_save :get_img
 
   validates_associated :plex_object_flavor
-  # validates_associated :plex_service
-  # validates_presence_of :plex_service
   validates_presence_of :media_title
-  validates_presence_of :description
+  # validates_presence_of :description
 
 
   @@images_dir = 'public/images'
