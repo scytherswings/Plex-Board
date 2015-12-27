@@ -40,8 +40,14 @@ class ServicesController < ApplicationController
             is_data_ready = true
             events << {data: data, event: 'plex_now_playing'}
           end
+          if plex_service.plex_sessions.count < 1
+            data = {
+                active_sessions: 0
+            }
+            is_data_ready = true
+            events << {data: data, event: 'plex_now_playing'}
+          end
           plex_service.get_plex_recently_added
-
           plex_service.plex_recently_addeds.try(:each_with_index) do |pra, x|
             if x > 4
               break
@@ -51,6 +57,7 @@ class ServicesController < ApplicationController
                 id: pra.id,
                 media_title: pra.plex_object.media_title,
                 description: pra.plex_object.get_description,
+                added_date: pra.get_added_date,
                 image: pra.plex_object.get_img,
                 active_pras: PlexRecentlyAdded.all.ids
             }

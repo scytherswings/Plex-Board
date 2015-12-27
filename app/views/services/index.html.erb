@@ -27,16 +27,30 @@
           <% if i == 0 %>
             <% plex_service.get_plex_sessions %>
             <div class="carousel-inner" id="carousel-inner">
-
-              <% plex_service.plex_sessions.each_with_index do |plex_session, j| %>
-                <% logger.debug(plex_service.service.name) %>
-                  <% if j == 0 %>
-                    <% logger.debug("First Carousel") %>
-                    <%= render :partial => 'now_playing', :locals => { :plex_session => plex_session, :active => "active"}  %>
-                  <% else %>
-                    <%= render :partial => 'now_playing', :locals => { :plex_session => plex_session, :active => ""}  %>
-                  <% end %> <!--if sessions-->
+            <% plex_service.plex_sessions.each_with_index do |plex_session, j| %>
+              <% logger.debug(plex_service.service.name) %>
+                <% if j == 0 %>
+                  <% logger.debug("First Carousel") %>
+                  <%= render :partial => 'now_playing', :locals => { :plex_session => plex_session, :active => "active"}  %>
+                <% else %>
+                  <%= render :partial => 'now_playing', :locals => { :plex_session => plex_session, :active => ""}  %>
+                <% end %> <!--if sessions-->
               <% end %> <!--sessions loop-->
+              <% if plex_service.plex_sessions.count < 3 %>
+                <% plex_service.get_plex_recently_added %>
+                <% plex_service.plex_recently_addeds.each_with_index do |plex_recently_added, k| %>
+                  <% if k > 4 %>
+                    <% break %>
+                  <% end %>
+                  <% logger.debug(plex_service.service.name) %>
+                  <% if plex_service.plex_sessions.count <= 0 && k == 0 %>
+                    <% logger.debug("First Carousel") %>
+                    <%= render :partial => 'recently_added', :locals => { :plex_recently_added => plex_recently_added, :active => "active"}  %>
+                  <% else %>
+                    <%= render :partial => 'recently_added', :locals => { :plex_recently_added => plex_recently_added, :active => ""}  %>
+                  <% end %> <!--if sessions-->
+                <% end %> <!--sessions loop-->
+              <% end %>
             </div> <!--carousel-inner div-->
           <% end %> <!--if first time-->
       <% end %> <!--services.each-->

@@ -115,7 +115,12 @@ source.addEventListener 'plex_now_playing', (e) ->
 
 
     #    console.log "Adding new session element.."
-    $("[id^=plex_session_]").last().after(new_session)
+    if $("[id^=plex_recently_added_]")
+      $("[id^=plex_recently_added_]").last().after(new_session)
+    else if $("[id^=plex_session_]")
+      $("[id^=plex_session_]").last().after(new_session)
+    else
+      $("[id^=carousel-inner]").append(new_session)
 
   #Find all the existing elements on the page and compare them to the active ids we got in the SSE
 
@@ -156,24 +161,29 @@ source.addEventListener 'plex_now_playing', (e) ->
 source.addEventListener 'plex_recently_added', (e) ->
   pra = $.parseJSON(e.data)
   if $('div[id^=plex_session_]').length < 3
-    console.log "There were less than 3 plex_sessions, adding plex recently added"
-    if $('#pra_' + pra.id).length
-      console.log "The PRA element was found. Not adding it again."
+#    console.log "There were less than 3 plex_sessions, adding plex recently added"
+    if $('#plex_recently_added_' + pra.id).length
+#      console.log "The PRA element was found. Not adding it again."
     else
       console.log "ID of new pra: #{pra.id}"
       new_pra = """
-                <div id="pra_#{pra.id}" class="item">
+                <div id="plex_recently_added_#{pra.id}" class="item">
                   <div style="overflow: auto; height: 90%;">
                     <h2>Recently Added</h2>
                     <div class="thumbnail">
                       <img src="/images/#{pra.image}" alt="#{pra.id}" %>
                       <h3>#{pra.media_title}</h3>
                       <p>#{pra.description}</p>
+                      <p>#{pra.added_date}</p>
                     </div>
                   </div>
                 </div>
                 """
-
-      $("[id^=pra_]").last().after(new_pra)
-  else
-    console.log "There were more than three PlexSessions, not showing RecentlyAdded"
+      if $("[id^=plex_session_]")
+        $("[id^=plex_session_]").last().after(new_pra)
+      else if $("[id^=plex_recently_added_]")
+        $("[id^=plex_recently_added_]").last().after(new_pra)
+      else
+        $("[id^=carousel-inner]").append(new_pra)
+#  else
+#    console.log "There were more than three PlexSessions, not showing RecentlyAdded"

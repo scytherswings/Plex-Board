@@ -58,7 +58,7 @@ class ActiveSupport::TestCase
         with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'Connection'=>'Keep-Alive', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
         to_return(:status => 200, :body => "", :headers => {})
 
-    WebMock.stub_request(:get, /https:\/\/plex7(?:_movie)?:32400\/library\/recentlyAdded/).
+    WebMock.stub_request(:get, /https:\/\/plex[7|4](?:_movie)?:32400\/library\/recentlyAdded/).
         with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'Connection'=>'Keep-Alive', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
         to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex_recently_added_movie.json").read, :headers => {})
 
