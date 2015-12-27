@@ -138,7 +138,6 @@ source.addEventListener 'plex_now_playing', (e) ->
         break
   #      console.log "Known session: " + stale_sessions[j].id + " did not match active session: plex_session_" + plex_session.active_sessions[j]
   #    console.log "Moving to next active session"
-
   #  console.log "PlexSession " + plex_session.session_id + " has active class? " + $("#plex_session_#{plex_session.session_id}").hasClass("active")
   #  console.log "PlexSession " + plex_session.session_id + " has item class? " + $("#plex_session_#{plex_session.session_id}").hasClass("item")
   for k in [0...stale_sessions.length]
@@ -156,25 +155,25 @@ source.addEventListener 'plex_now_playing', (e) ->
 
 source.addEventListener 'plex_recently_added', (e) ->
   pra = $.parseJSON(e.data)
-
-  new_pra = """
-            <div id="pra_#{pra.session_id}" class="item">
-              <div style="overflow: auto; height: 90%;">
-                <h2>Now Playing</h2>
-                <div class="thumbnail">
-                  <img src="/images/#{plex_session.image}" alt="#{plex_session.session_id}" %>
-                  <div class="progress now-playing-progress-bar" style="height: 5px">
-                    <div id="plex_progressbar_#{plex_session.session_id}"
-                       class="progress-bar progress-bar-warning"
-                       role="progressbar"
-                       aria-valuenow="#{plex_session.progress}"
-                       aria-valuemin="0" aria-valuemax="100"
-                       style="width: #{plex_session.progress}%">
+  if $('div[id^=plex_session_]').length < 3
+    console.log "There were less than 3 plex_sessions, adding plex recently added"
+    if $('#pra_' + pra.id).length
+      console.log "The PRA element was found. Not adding it again."
+    else
+      console.log "ID of new pra: #{pra.id}"
+      new_pra = """
+                <div id="pra_#{pra.id}" class="item">
+                  <div style="overflow: auto; height: 90%;">
+                    <h2>Recently Added</h2>
+                    <div class="thumbnail">
+                      <img src="/images/#{pra.image}" alt="#{pra.id}" %>
+                      <h3>#{pra.media_title}</h3>
+                      <p>#{pra.description}</p>
                     </div>
                   </div>
-                  <h3>#{plex_session.media_title}</h3>
-                  <p>#{plex_session.description}</p>
                 </div>
-              </div>
-            </div>
-            """
+                """
+
+      $("[id^=pra_]").last().after(new_pra)
+  else
+    console.log "There were more than three PlexSessions, not showing RecentlyAdded"

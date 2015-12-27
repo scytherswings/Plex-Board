@@ -40,9 +40,22 @@ class ServicesController < ApplicationController
             is_data_ready = true
             events << {data: data, event: 'plex_now_playing'}
           end
-          plex_service.get_recently_added
-          plex_service.plex_recently_addeds.each do |pra|
+          plex_service.get_plex_recently_added
 
+          plex_service.plex_recently_addeds.try(:each_with_index) do |pra, x|
+            if x > 4
+              break
+            end
+            logger.debug("Plex Recently Added media_title: #{pra.plex_object.media_title}, #{pra.plex_service.id}")
+            data = {
+                id: pra.id,
+                media_title: pra.plex_object.media_title,
+                description: pra.plex_object.get_description,
+                image: pra.plex_object.get_img,
+                active_pras: PlexRecentlyAdded.all.ids
+            }
+            is_data_ready = true
+            events << {data: data, event: 'plex_recently_added'}
           end
         end
 
@@ -50,7 +63,7 @@ class ServicesController < ApplicationController
           if service.last_seen.nil?
             service.ping
           end
-          if service.last_seen > 10.seconds.ago
+          if service.last_seen > 10.seconds.ago #the sign is backwards because time always increases and we're using integers for time
             logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
             next
           end

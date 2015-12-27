@@ -190,7 +190,7 @@ class PlexService < ActiveRecord::Base
     defaults = { 'Accept' => 'application/json', 'Connection' => 'Keep-Alive',
                  'X-Plex-Token' => self.token }
 
-    response = api_request(method: :get, url: pra_url, headers: defaults)
+    response = api_request(method: :get, url: pra_url, headers: defaults, verify_ssl: false)
 
     if response.nil?
       logger.debug("Plex doesn't have any recently added")

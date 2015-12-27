@@ -11,6 +11,7 @@ class PlexServicesController < ApplicationController
   def show
     @services = Service.all
     @plex_services = PlexService.all
+    @plex_service = PlexService.find(params[:id])
   end
 
   def all_plex_services
@@ -76,6 +77,6 @@ class PlexServicesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   # Going off of this site as a guide: http://astockwell.com/blog/2014/03/polymorphic-associations-in-rails-4-devise/
   def plex_service_params
-    params.require(:plex_service).permit(:username, :password, service_attscytheributes: [:id, :name, :ip, :dns_name, :port, :url])
+    params.require(:plex_service).permit(:username, :password, service_attributes: [:id, :name, :ip, :dns_name, :port, :url])
   end
 end

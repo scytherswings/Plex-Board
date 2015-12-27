@@ -1,6 +1,6 @@
 # require ApiException
 module ApiHelper
-  def api_request(method:, url:, headers:, payload: nil, user: nil )
+  def api_request(method:, url:, headers:, payload: nil, user: nil, verify_ssl: true)
     raise TypeError unless method.is_a? Symbol
     if url.nil? || url.blank?
       raise ArgumentError, 'api_request was called with a nil/blank url'
@@ -11,9 +11,9 @@ module ApiHelper
 
     begin
       if user.nil?
-        api_call(method, url, headers, payload)
+        api_call(method, url, headers, payload, verify_ssl)
       else
-        basic_auth(user, method, url, headers, payload)
+        basic_auth(user, method, url, headers, payload, verify_ssl)
       end
     rescue RestClient::Exception => error
       logger.error("Unable to connect to #{url}")
@@ -23,9 +23,9 @@ module ApiHelper
     end
   end
 
-  def api_call(method, url, headers, payload)
+  def api_call(method, url, headers, payload, verify_ssl)
     RestClient::Request.execute method: method, url: url,
-                                headers: headers, payload: payload  do |resp, request|
+                                headers: headers, payload: payload, verify_ssl: verify_ssl  do |resp, request|
       case resp.code
         when 200..202
           logger.info("#{resp.code} from #{url}.")
@@ -62,10 +62,10 @@ module ApiHelper
     end
   end
 
-  def basic_auth(user, method, url, headers, payload)
+  def basic_auth(user, method, url, headers, payload, verify_ssl)
     RestClient::Request.execute method: method, url: url,
                                 user: user.username, password: user.password,
-                                headers: headers, payload: payload  do |resp, request|
+                                headers: headers, payload: payload, verify_ssl: verify_ssl  do |resp, request|
       case resp.code
         when 200..202
           logger.info("#{resp.code} from #{url}.")
