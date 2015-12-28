@@ -1,34 +1,37 @@
 <%= simple_form_for @service do |f| %>
-
-
   <div class="row" id="default_info_div">
-
-    <div class="col-lg-4 form-group">
-  	  <%= f.input :name, :placeholder => "New serivce name", :required => false %>
+    <div class="col-md-4 col-lg-4 form-group">
+  	  <%= f.input :name, :placeholder => 'New serivce name', :required => false %>
   	</div>
-    <div class="col-lg-3 form-group">
-  	  <%= f.input :ip, label: "IP Address", :placeholder => "127.0.0.1", :required => false %>
+    <div class="col-md-3 col-lg-3 form-group">
+  	  <%= f.input :ip, label: 'IP Address', :placeholder => '127.0.0.1', :required => false %>
     </div>
-    <div class="col-lg-3 form-group">
-  	  <%= f.input :dns_name, label: "DNS Name", :placeholder => "plex", :required => false %>
+    <div class="col-md-3 col-lg-3 form-group">
+  	  <%= f.input :dns_name, label: 'DNS Name', :placeholder => 'plex', :required => false %>
     </div>
-    <div class="col-lg-2 form-group">
-  	  <%= f.input :port, :placeholder => "80", :required => false %>
+    <div class="col-md-2 col-lg-2 form-group">
+  	  <%= f.input :port, :placeholder => '80', :required => false %>
     </div>
   </div>
   <div class="row" id="url_div">
     <div class="col-lg-12 form-group">
-      <%= f.input :url, label: "URL", :placeholder => "http://plex.example.com:32400/web", :required => false %>
+      <%= f.input :url, label: 'URL', :placeholder => 'http://plex.example.com:32400/web', :required => false %>
     </div>
   </div>
 
   <div class="row">
     <div class="col-lg-12 form-group">
-      <% if request.original_url.include? "edit" %>
+      <% if request.original_url.include? 'edit' %>
         <% str = "Are you sure you want to delete: #{@service.name}?" %>
-        <%= link_to 'Delete Service', @service, method: :delete, data: { confirm: str }, class: "btn btn-md btn-danger" %>
+        <% if @service.service_flavor_id %>
+          <%= link_to 'Delete Service', {controller: @service.service_flavor_type.tableize,
+                                         method: :delete, data: { confirm: str }, anchor: @service},
+                      class: 'btn btn-md btn-danger' %>
+        <% else %>
+          <%= link_to 'Delete Service', @service, method: :delete, data: { confirm: str }, class: 'btn btn-md btn-danger' %>
+        <% end %>
     <% end %>
-      <%= f.button :submit, class: "btn-success pull-right" %>
+      <%= f.button :submit, class: 'btn-success pull-right' %>
     </div>
   </div>
 

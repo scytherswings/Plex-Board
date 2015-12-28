@@ -12,7 +12,7 @@
         <th>DNS Name</th>
         <th>Port</th>
         <th>URL</th>
-        <th>Service Type</th>
+        <th>Username</th>
         <th>Options</th>
         <% @plex_services.each do |f| %>
           <tr>
@@ -21,8 +21,7 @@
             <td><%= f.service.dns_name %></td>
             <td><%= f.service.port %></td>
             <td><%= f.service.url %></td>
-            <td><%= f.service.service_flavor_type || 'Generic Service' %></td>
-
+            <td><%= f.username %></td>
             <td class="text-center">
               <%= link_to 'Edit', edit_plex_service_path(f), class: "btn btn-md btn-primary" %>
             </td>

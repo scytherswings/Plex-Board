@@ -1,42 +1,45 @@
 <% provide(:title, "All Services") %>
 
 <%= render 'layouts/servicepanel' %>
-
-<div class="col-sm-8">
+<%= render 'layouts/rightbar' %>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-md-pull-0 col-lg-pull-2">
   <h2>All Services</h2>
-  <div class="row">
     <div class="panel panel-default">
       <table class="table table-bordered">
-        <th>Service Name</th>
-        <th>IP Address</th>
-        <th>DNS Name</th>
-        <th>Port</th>
-        <th>URL</th>
-        <th>Service Type</th>
-        <th>Options</th>
-        <% @services.each do |f| %>
-          <tr>
-            <td><%= f.name %></td>
-            <td><%= f.ip %></td>
-            <td><%= f.dns_name %></td>
-            <td><%= f.port %></td>
-            <td><%= f.url %></td>
-            <td><%= f.service_flavor_type || 'Generic Service' %></td>
+        <thead>
+          <th>Service Name</th>
+          <th>IP Address</th>
+          <th>DNS Name</th>
+          <th>Port</th>
+          <th>URL</th>
+          <th>Service Type</th>
+          <th>Options</th>
+        </thead>
+        <tbody>
+          <% @services.each do |f| %>
+            <tr>
+              <td><%= f.name %></td>
+              <td><%= f.ip %></td>
+              <td><%= f.dns_name %></td>
+              <td><%= f.port %></td>
+              <td><%= f.url %></td>
+              <td><%= f.service_flavor_type || 'Generic Service' %></td>
 
-            <td class="text-center">
-              <%= link_to 'Edit', edit_service_path(f), class: "btn btn-md btn-primary" %>
-            </td>
-          </tr>
-        <% end %>
+              <td class="text-center">
+                <% if f.service_flavor_id %>
+                  <%= link_to 'Edit', {controller: f.service_flavor_type.tableize, action: 'edit', id: f.service_flavor_id}, class: 'btn btn-md btn-primary' %>
+                <% else %>
+                  <%= link_to 'Edit', edit_service_path(f), class: 'btn btn-md btn-primary' %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
       </table>
-
     </div>
-  <div class="pull-right">
-  <%= link_to "Add New Service", choose_service_type_path, class: "btn btn-success" %>
-  </div>
-
-  </div>
-
+    <div class="pull-right">
+      <%= link_to "Add New Service", choose_service_type_path, class: "btn btn-success" %>
+    </div>
 </div>
 
-<%= render 'layouts/rightbar' %>
+

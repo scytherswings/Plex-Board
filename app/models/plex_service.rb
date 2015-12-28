@@ -5,8 +5,8 @@ class PlexService < ActiveRecord::Base
   #These polymorphic associations are confusing. I used this as a reference:
   # https://www.youtube.com/watch?v=t8I4_8HcMPo
   has_one :service, as: :service_flavor, dependent: :destroy, autosave: true
-  has_many :plex_sessions
-  has_many :plex_recently_addeds
+  has_many :plex_sessions, dependent: :destroy
+  has_many :plex_recently_addeds, dependent: :destroy
   # has_many :plex_objects, dependent: :destroy, autosave: true, inverse_of: :plex_service
   # has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession, autosave: true
 
@@ -190,6 +190,15 @@ class PlexService < ActiveRecord::Base
     defaults = { 'Accept' => 'application/json', 'Connection' => 'Keep-Alive',
                  'X-Plex-Token' => self.token }
 
+    if !self.service.online_status
+      logger.warn('Service: ' + self.service.name + ' is offline, cant grab plex data')
+      return nil
+    end
+    if self.token.nil?
+      if !get_plex_token
+        return nil
+      end
+    end
     response = api_request(method: :get, url: pra_url, headers: defaults, verify_ssl: false)
 
     if response.nil?

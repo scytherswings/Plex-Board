@@ -3,16 +3,16 @@
   <%= i.simple_fields_for :service do |f| %>
     <div class="row" id="default_info_div">
 
-      <div class="col-lg-4 form-group">
+      <div class="col-md-4 col-lg-4form-group">
         <%= f.input :name, :placeholder => "New serivce name", :required => false %>
       </div>
-      <div class="col-lg-3 form-group">
+      <div class="col-md-3 col-lg-3 form-group">
         <%= f.input :ip, label: "IP Address", :placeholder => "127.0.0.1", :required => false %>
       </div>
-      <div class="col-lg-3 form-group">
+      <div class="col-md-3 col-lg-3 form-group">
         <%= f.input :dns_name, label: "DNS Name", :placeholder => "plex", :required => false %>
       </div>
-      <div class="col-lg-2 form-group">
+      <div class="col-md-2 col-lg-2 form-group">
         <%= f.input :port, :placeholder => "80", :required => false %>
       </div>
     </div>
@@ -24,10 +24,10 @@
   <% end %>
 
   <div class="row" id="plex_service_info_div">
-    <div class="col-lg-3 form-group">
+    <div class="col-md-3 col-lg-3 form-group">
       <%= i.input :username, :placeholder => "username", :required => false %>
     </div>
-    <div class="col-lg-3 form-group">
+    <div class="col-md-3 col-lg-3 form-group">
       <%= i.input :password, :placeholder => "password", :required => false %>
     </div>
   </div>

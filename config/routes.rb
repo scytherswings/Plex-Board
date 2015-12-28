@@ -12,7 +12,5 @@ Rails.application.routes.draw do
   resources :services do
     collection { get :notifications}
   end
-  resources :services
   resources :plex_services
-
 end

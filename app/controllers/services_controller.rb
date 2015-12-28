@@ -70,7 +70,7 @@ class ServicesController < ApplicationController
           if service.last_seen.nil?
             service.ping
           end
-          if service.last_seen > 10.seconds.ago #the sign is backwards because time always increases and we're using integers for time
+          if !service.last_seen.nil? && service.last_seen > 10.seconds.ago #the sign is backwards because time always increases and we're using integers for time
             logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
             next
           end

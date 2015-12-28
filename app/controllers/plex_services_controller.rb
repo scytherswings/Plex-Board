@@ -11,7 +11,6 @@ class PlexServicesController < ApplicationController
   def show
     @services = Service.all
     @plex_services = PlexService.all
-    @plex_service = PlexService.find(params[:id])
   end
 
   def all_plex_services

@@ -1,5 +1,6 @@
 class Service < ActiveRecord::Base
     belongs_to :service_flavor, polymorphic: :true
+    # before_destroy :destroy_associated
     after_initialize :init
 
     strip_attributes :only => [:ip, :url, :dns_name], :collapse_spaces => true
@@ -16,6 +17,9 @@ class Service < ActiveRecord::Base
     validates :ip, presence: true, if: (:ip_and_dns_name_dont_exist)
     validates :dns_name, presence: true, if: (:ip_and_dns_name_dont_exist)
 
+    # def destroy_associated
+    #   self.service_flavor.destroy
+    # end
 
     def self.flavors
       ['Generic Service', 'Plex']
@@ -48,7 +52,7 @@ class Service < ActiveRecord::Base
     rescue Errno::ECONNREFUSED
       self.update(online_status: true, last_seen: Time.now)
       return true
-    rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH
+    rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH, SocketError
       self.update(online_status: false)
       return false
     # rescue Exception
