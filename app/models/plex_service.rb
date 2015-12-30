@@ -15,7 +15,7 @@ class PlexService < ActiveRecord::Base
 # http://stackoverflow.com/questions/17371334/how-is-attr-accessible-used-in-rails-4
   accepts_nested_attributes_for :service
 
-  strip_attributes :only => [:username], :collapse_spaces => true
+  strip_attributes only: [:username], collapse_spaces: true
 
   validates :username, length: { maximum: 255 }, allow_blank: true
   validates :password, length: { maximum: 255 }, allow_blank: true
@@ -27,18 +27,18 @@ class PlexService < ActiveRecord::Base
     connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
     logger.info("Making Plex API call to: #{connection_string}#{path}")
 
-    if !self.service.online_status
+    unless self.service.online_status
       logger.warn('Service: ' + self.service.name + ' is offline, cant grab plex data')
       return nil
     end
     if self.token.nil?
-      if !get_plex_token
+      unless get_plex_token
         return nil
       end
     end
 
-    defaults = { 'Accept' => 'application/json', 'Connection' => 'Keep-Alive',
-                 'X-Plex-Token' => self.token }
+    defaults = { 'Accept': 'application/json', 'Connection': 'Keep-Alive',
+                 'X-Plex-Token': self.token }
     headers.merge!(defaults)
 
     begin
@@ -57,7 +57,7 @@ class PlexService < ActiveRecord::Base
     logger.info("Getting Plex token for PlexService: #{self.service.name}")
     url = 'https://my.plexapp.com/users/sign_in.json'
     headers = {
-        'X-Plex-Client-Identifier'=> 'Plex-Board'
+        'X-Plex-Client-Identifier': 'Plex-Board'
     }
     begin
       response = RestClient::Request.execute method: :post, url: url,
@@ -168,7 +168,7 @@ class PlexService < ActiveRecord::Base
 
   def update_plex_session(existing_session, updated_session_viewOffset)
     logger.info("Updating PlexSession ID: #{existing_session.id} for PlexService: #{self.service.name}")
-    existing_session.update!(:progress => updated_session_viewOffset)
+    existing_session.update!(progress: updated_session_viewOffset)
   end
 
   def get_plex_recently_added
@@ -176,7 +176,7 @@ class PlexService < ActiveRecord::Base
     connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
     plex_token_url = 'https://my.plexapp.com/users/sign_in.json'
     plex_sign_in_headers = {
-        'X-Plex-Client-Identifier'=> 'Plex-Board'
+        'X-Plex-Client-Identifier': 'Plex-Board'
     }
     pra_url = connection_string + '/library/recentlyAdded'
 
@@ -187,15 +187,15 @@ class PlexService < ActiveRecord::Base
       self.update!(token: response['user']['authentication_token'])
     end
 
-    defaults = { 'Accept' => 'application/json', 'Connection' => 'Keep-Alive',
-                 'X-Plex-Token' => self.token }
+    defaults = { 'Accept': 'application/json', 'Connection': 'Keep-Alive',
+                 'X-Plex-Token': self.token }
 
-    if !self.service.online_status
+    unless self.service.online_status
       logger.warn('Service: ' + self.service.name + ' is offline, cant grab plex data')
       return nil
     end
     if self.token.nil?
-      if !get_plex_token
+      unless get_plex_token
         return nil
       end
     end
