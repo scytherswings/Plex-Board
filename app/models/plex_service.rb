@@ -62,17 +62,14 @@ class PlexService < ActiveRecord::Base
     begin
       response = RestClient::Request.execute method: :post, url: url,
                                              user: self.username, password: self.password, headers: headers
-      self.update!(token: (JSON.parse response)['user']['authentication_token'])
+      self.update!(token: (JSON.parse response)['user']['authentication_token'], auth_successful: true)
       return true
     rescue => error
       logger.error('There was an error getting the plex token')
       logger.error(error)
-
+      self.update!(auth_successful: false)
       return false
     end
-
-    # logger.debug(response)
-    # logger.debug(self.token)
   end
 
 
@@ -183,7 +180,11 @@ class PlexService < ActiveRecord::Base
     if self.token.nil?
       logger.debug("Plex_token was nil for PlexService: #{self.service.name}. Fetching.")
       user = PlexUser.new(self.username, self.password)
-      response = api_request(method: :post, url: plex_token_url, headers: plex_sign_in_headers, user: user)
+      # begin
+        response = api_request(method: :post, url: plex_token_url, headers: plex_sign_in_headers, user: user)
+      # rescue ApiException.response.status == 403
+      #
+      # end
       self.update!(token: response['user']['authentication_token'])
     end
 

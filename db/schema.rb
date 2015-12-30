@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151227040353) do
+ActiveRecord::Schema.define(version: 20151230044756) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.string   "image"
@@ -42,8 +42,9 @@ ActiveRecord::Schema.define(version: 20151227040353) do
     t.string   "username"
     t.string   "password"
     t.string   "token"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.boolean  "auth_successful"
   end
 
   create_table "plex_sessions", force: :cascade do |t|

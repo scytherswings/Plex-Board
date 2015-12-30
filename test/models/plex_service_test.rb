@@ -161,4 +161,11 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_equal 50, @plex_service_with_one_recently_added.plex_recently_addeds.count, 'PRA count was not 50'
   end
 
+  test 'get_plex_token will only hit the api twice if given a 403' do
+    @plex_service_with_no_token.update(username: 'baduser')
+    2.times {|i| @plex_service_with_no_token.get_plex_sessions}
+    2.times {|i| @plex_service_with_no_token.get_plex_recently_added}
+    assert_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json', times: 2)
+  end
+
 end

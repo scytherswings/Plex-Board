@@ -30,33 +30,30 @@ module ApiHelper
         when 200..202
           logger.info("#{resp.code} from #{url}.")
           parsed = (JSON.parse(resp))
-          # if parsed.length > 0
-            logger.debug("The response body has a length of: #{parsed.length}")
-            # user.update!(:cookie => resp.cookies.to_json)
-            return parsed
-          # else
-            # logger.warn("Got empty response from #{url}, clearing cookie just in case")
-            # user.update!(:cookie => nil)
-            # return parsed
-          # end
+          logger.debug("The response body has a length of: #{parsed.length}")
+          return parsed
         when 401
           logger.warn("Got 401 Unauthorized from #{url}")
-          log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
+          log_request_data(request: request, response: resp, log_level: Logger::ERROR)
           raise ApiException.new '401 Unauthorized', resp
+        when 403
+          logger.warn("Got 403 Forbidden from #{url}")
+          log_request_data(request: request, response: resp, log_level: Logger::ERROR)
+          raise ApiException.new '403 Forbidden', resp
         when 400
           logger.warn("Got 400 Bad Request back from #{url}")
-          log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
+          log_request_data(request: request, response: resp, log_level: Logger::ERROR)
           raise ApiException.new '400 Bad Request', resp
         when 404
           logger.warn("Got 404 Not Found from #{url}")
-          log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
+          log_request_data(request: request, response: resp, log_level: Logger::ERROR)
           raise ApiException.new '404 Bad Request', resp
         when 500
           logger.error("Got 500 Internal Server Error from #{url}")
-          log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
+          log_request_data(request: request, response: resp, log_level: Logger::ERROR)
           raise ApiException.new '500 Internal Server Error', resp
         else
-          log_request_data(user: user, request: request, response: resp, log_level: Logger::FATAL)
+          log_request_data(request: request, response: resp, log_level: Logger::FATAL)
           raise ApiException.new "#{resp.code} was unexpected, cannot continue", resp
       end
     end
@@ -72,22 +69,27 @@ module ApiHelper
           return (JSON.parse(resp))
         when 401
           logger.warn("Got 401 Unauthorized from #{url}")
-          log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
+          log_request_data(request: request, response: resp, log_level: Logger::ERROR)
           raise ApiException.new '401 Unauthorized', resp
+        when 403
+          logger.warn("Got 403 Forbidden from #{url}")
+          log_request_data(request: request, response: resp, log_level: Logger::ERROR)
+          # raise RestClient::Exception
+          raise ApiException.new '403 Forbidden', resp
         when 400
           logger.warn("Got 400 Bad Request back from #{url}")
-          log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
+          log_request_data(request: request, response: resp, log_level: Logger::ERROR)
           raise ApiException.new '400 Bad Request', resp
         when 404
           logger.warn("Got 404 Not Found from #{url}")
-          log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
+          log_request_data(request: request, response: resp, log_level: Logger::ERROR)
           raise ApiException.new '404 Bad Request', resp
         when 500
           logger.error("Got 500 Internal Server Error from #{url}")
-          log_request_data(user: user, request: request, response: resp, log_level: Logger::ERROR)
+          log_request_data(request: request, response: resp, log_level: Logger::ERROR)
           raise ApiException.new '500 Internal Server Error', resp
         else
-          log_request_data(user: user, request: request, response: resp, log_level: Logger::FATAL)
+          log_request_data(request: request, response: resp, log_level: Logger::FATAL)
           raise ApiException.new "#{resp.code} was unexpected, cannot continue", resp
       end
     end
