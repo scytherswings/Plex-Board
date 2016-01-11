@@ -2,26 +2,26 @@ plex_object_session_1:
   image: placeholder.png
   media_title: Movie1
   description: .
-  thumb_url: "/library/metadata/38501/thumb/1444964730"
+  thumb_url: /library/metadata/38501/thumb/1444964730
   plex_object_flavor: plex_service_w1sess_session_1 (PlexSession)
 
 plex_object_session_2:
   image: placeholder.png
   media_title: Movie1
   description: .
-  thumb_url: "/library/metadata/38501/thumb/1444964730"
+  thumb_url: /library/metadata/38501/thumb/1444964730
   plex_object_flavor: plex_service_w2sess_session_1 (PlexSession)
 
 plex_object_session_3:
   image: placeholder.png
   media_title: Movie1
   description: .
-  thumb_url: "/library/metadata/38501/thumb/1444964730"
+  thumb_url: /library/metadata/38501/thumb/1444964730
   plex_object_flavor: plex_service_w2sess_session_2 (PlexSession)
 
 plex_object_recently_added_1:
   image: placeholder.png
   media_title: Movie1
   description: .
-  thumb_url: "/library/metadata/38501/thumb/1444964730"
+  thumb_url: /library/metadata/38501/thumb/1444964730
   plex_object_flavor: plex_service_w1ra_pra_1 (PlexRecentlyAdded)

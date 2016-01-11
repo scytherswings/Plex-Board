@@ -78,20 +78,18 @@ class PlexServiceTest < ActiveSupport::TestCase
   test 'PlexSession will be removed if Plex has no sessions' do
     assert_equal 1, @plex_service_with_one_session.plex_sessions.count
     @plex_service_with_one_session.service.update(dns_name: 'plexnosessions')
-    assert_difference('@plex_service_with_one_session.plex_sessions.count', -1) do
-      @plex_service_with_one_session.get_plex_sessions
-    end
+    @plex_service_with_one_session.get_plex_sessions
     assert_requested(:get, 'https://plexnosessions:32400/status/sessions')
+    assert_equal 0, @plex_service_with_one_session.plex_sessions.count
   end
 
 
   test 'Expired sessions will be removed' do
     assert_equal 2, @plex_service_with_two_sessions.plex_sessions.count
     @plex_service_with_two_sessions.service.update(dns_name: 'plex5')
-    assert_difference('@plex_service_with_two_sessions.plex_sessions.count', -1) do
-      @plex_service_with_two_sessions.get_plex_sessions
-      assert_requested(:get, 'https://plex5:32400/status/sessions')
-    end
+    @plex_service_with_two_sessions.get_plex_sessions
+    assert_requested(:get, 'https://plex5:32400/status/sessions')
+    assert_equal 1, @plex_service_with_two_sessions.plex_sessions.count
   end
 
   test 'Calling get_plex_sessions will only add session once' do
@@ -161,10 +159,25 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_equal 50, @plex_service_with_one_recently_added.plex_recently_addeds.count, 'PRA count was not 50'
   end
 
+  test 'get_plex_token will only hit the api twice if given a 404' do
+    # @plex_service_with_no_token.set(plex_url: 'https://my.plexapp.com/user/sign_in.json')
+    @plex_service_with_no_token.update(username: '404user')
+    2.times {|_| @plex_service_with_no_token.get_plex_sessions}
+    2.times {|_| @plex_service_with_no_token.get_plex_recently_added}
+    assert_requested(:post, 'https://user:pass@my.plexapp.com/user/sign_in.json', times: 2)
+  end
+
   test 'get_plex_token will only hit the api twice if given a 403' do
     @plex_service_with_no_token.update(username: 'baduser')
-    2.times {|i| @plex_service_with_no_token.get_plex_sessions}
-    2.times {|i| @plex_service_with_no_token.get_plex_recently_added}
+    2.times {|_| @plex_service_with_no_token.get_plex_sessions}
+    2.times {|_| @plex_service_with_no_token.get_plex_recently_added}
+    assert_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json', times: 2)
+  end
+
+  test 'get_plex_token will only hit the api twice if given a 401' do
+    @plex_service_with_no_token.update(password: 'badpass')
+    2.times {|_| @plex_service_with_no_token.get_plex_sessions}
+    2.times {|_| @plex_service_with_no_token.get_plex_recently_added}
     assert_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json', times: 2)
   end
 

@@ -22,6 +22,17 @@ class PlexService < ActiveRecord::Base
   # validates_associated :service
   # validates_presence_of :service
 
+  PLEX_URL = 'https://my.plexapp.com/users/sign_in.json'
+
+  # def set(options)
+  #   PLEX_URL = options[:plex_url]
+  # end
+  # 
+  # def get(options)
+  #   if options['plex_url']
+  #     PLEX_URL
+  #   end
+  # end
 
   def plex_api(method = :get, path = '', headers = {})
     connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
@@ -43,7 +54,7 @@ class PlexService < ActiveRecord::Base
 
     begin
       JSON.parse(RestClient::Request.execute method: method,
-                                             url: "#{connection_string}#{path}",
+                                             url: connection_string + path,
                                              headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
                                              timeout: 5, open_timeout: 5)
     rescue => error
@@ -55,12 +66,12 @@ class PlexService < ActiveRecord::Base
 
   def get_plex_token
     logger.info("Getting Plex token for PlexService: #{self.service.name}")
-    url = 'https://my.plexapp.com/users/sign_in.json'
+
     headers = {
         'X-Plex-Client-Identifier': 'Plex-Board'
     }
     begin
-      response = RestClient::Request.execute method: :post, url: url,
+      response = RestClient::Request.execute method: :post, url: PLEX_URL,
                                              user: self.username, password: self.password, headers: headers
       self.update!(token: (JSON.parse response)['user']['authentication_token'], auth_successful: true)
       return true
@@ -171,7 +182,6 @@ class PlexService < ActiveRecord::Base
   def get_plex_recently_added
     logger.info("Getting PlexRecentlyAdded for PlexService: #{self.service.name}")
     connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
-    plex_token_url = 'https://my.plexapp.com/users/sign_in.json'
     plex_sign_in_headers = {
         'X-Plex-Client-Identifier': 'Plex-Board'
     }
@@ -181,7 +191,7 @@ class PlexService < ActiveRecord::Base
       logger.debug("Plex_token was nil for PlexService: #{self.service.name}. Fetching.")
       user = PlexUser.new(self.username, self.password)
       # begin
-        response = api_request(method: :post, url: plex_token_url, headers: plex_sign_in_headers, user: user)
+        response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
       # rescue ApiException.response.status == 403
       #
       # end
