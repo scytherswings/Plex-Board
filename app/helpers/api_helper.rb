@@ -1,72 +1,61 @@
-# require ApiException
 module ApiHelper
   def api_request(method:, url:, headers:, payload: nil, user: nil, verify_ssl: true)
-    raise TypeError unless method.is_a? Symbol
     if url.nil? || url.blank?
       raise ArgumentError, 'api_request was called with a nil/blank url'
     end
-
     if user.nil?
       api_call(method, url, headers, payload, verify_ssl)
     else
       basic_auth(user, method, url, headers, payload, verify_ssl)
     end
-  rescue RestClient::Exception => error
-    logger.error("Unable to connect to #{url}")
-    logger.error("The error returned was: #{error.message}")
-    # logger.debug("Backtrace:\n#{error.backtrace.join("\n")}")
-    raise error
   end
 
   def api_call(method, url, headers, payload, verify_ssl)
-    RestClient::Request.execute method: method, url: url,
-                                headers: headers, payload: payload, verify_ssl: verify_ssl  do |resp, request|
-      handle_response(resp, request, url)
-    end
+    response = RestClient::Request.execute method: method, url: url,
+                                headers: headers, payload: payload, verify_ssl: verify_ssl #do |resp, request|
+      # handle_response(resp, request, url)
+    # end
+    JSON.parse(response)
   end
 
   def basic_auth(user, method, url, headers, payload, verify_ssl)
-    RestClient::Request.execute method: method, url: url,
+    response = RestClient::Request.execute method: method, url: url,
                                 user: user.username, password: user.password,
-                                headers: headers, payload: payload, verify_ssl: verify_ssl  do |resp, request|
-      handle_response(resp, request, url)
-    end
+                                headers: headers, payload: payload, verify_ssl: verify_ssl #do |resp, request|
+      # handle_response(resp, request, url)
+    # end
+    JSON.parse(response)
   end
 
   def handle_response(resp, request, url)
     case resp.code
       when 200..202
         logger.info("#{resp.code} from #{url}.")
-        parsed = (JSON.parse(resp))
-        logger.debug("The response body has a length of: #{parsed.length}")
-        return parsed
       when 400
         logger.warn("Got 400 Bad Request back from #{url}")
-        log_request_data(request: request, response: resp, log_level: Logger::ERROR)
-        raise ApiException.new '400 Bad Request', resp
+        log_request_data(request: request, response: resp)
       when 401
         logger.warn("Got 401 Unauthorized from #{url}")
-        log_request_data(request: request, response: resp, log_level: Logger::ERROR)
-        raise ApiException.new '401 Unauthorized', resp
+        log_request_data(request: request, response: resp)
       when 403
         logger.warn("Got 403 Forbidden from #{url}")
-        log_request_data(request: request, response: resp, log_level: Logger::ERROR)
-        raise ApiException.new '403 Forbidden', resp
+        log_request_data(request: request, response: resp)
       when 404
         logger.warn("Got 404 Not Found from #{url}")
-        log_request_data(request: request, response: resp, log_level: Logger::ERROR)
-        raise ApiException.new '404 Bad Request', resp
+        log_request_data(request: request, response: resp)
+      when 429
+        logger.warn("Got 429 Too Many Requests from #{url}")
+        log_request_data(request: request, response: resp)
       when 500
-        logger.error("Got 500 Internal Server Error from #{url}")
-        log_request_data(request: request, response: resp, log_level: Logger::ERROR)
-        raise ApiException.new '500 Internal Server Error', resp
+        logger.warn("Got 500 Internal Server Error from #{url}")
+        log_request_data(request: request, response: resp)
       else
-        log_request_data(request: request, response: resp, log_level: Logger::FATAL)
+        log_request_data(request: request, response: resp, log_level: Logger::ERROR)
         raise ApiException.new "#{resp.code} was unexpected, cannot continue", resp
     end
   end
 
-  def log_request_data(request:, response:, log_level: Logger::WARN)
+  def log_request_data(request:, response:, log_level: Logger::DEBUG)
     logger.add(log_level){'Request and response data below...'}
     logger.add(log_level){"Request method: #{request.method.upcase}"}
 

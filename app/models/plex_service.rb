@@ -190,12 +190,18 @@ class PlexService < ActiveRecord::Base
     if self.token.nil?
       logger.debug("Plex_token was nil for PlexService: #{self.service.name}. Fetching.")
       user = PlexUser.new(self.username, self.password)
-      # begin
+      begin
         response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
-      # rescue ApiException.response.status == 403
-      #
-      # end
-      self.update!(token: response['user']['authentication_token'])
+        self.update!(token: response['user']['authentication_token'])
+      rescue RestClient::Forbidden
+        #show flash message somehow
+      rescue RestClient::Unauthorized
+        #show flash message somehow
+      rescue RestClient::NotFound
+        #show flash message somehow
+      end
+
+
     end
 
     defaults = { 'Accept': 'application/json', 'Connection': 'Keep-Alive',
@@ -210,7 +216,18 @@ class PlexService < ActiveRecord::Base
         return nil
       end
     end
-    response = api_request(method: :get, url: pra_url, headers: defaults, verify_ssl: false)
+
+    begin
+      response = api_request(method: :get, url: pra_url, headers: defaults, verify_ssl: false)
+
+    rescue RestClient::Forbidden
+      #show flash message somehow
+    rescue RestClient::Unauthorized
+      #show flash message somehow
+    rescue RestClient::NotFound
+      #show flash message somehow
+    end
+
 
     if response.nil?
       logger.debug("Plex doesn't have any recently added")
