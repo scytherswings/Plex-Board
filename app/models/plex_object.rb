@@ -27,11 +27,11 @@ class PlexObject < ActiveRecord::Base
   def init
     # self.thumb_url ||= DEFAULT_IMAGE
     self.image ||= DEFAULT_IMAGE
-    if !File.directory?(@@images_dir)
+    unless File.directory?(@@images_dir)
       logger.info("Creating #{@@images_dir} since it doesn't exist")
       FileUtils::mkdir_p @@images_dir
     end
-    if !File.file?(Rails.root.join @@images_dir, DEFAULT_IMAGE)
+    unless File.file?(Rails.root.join @@images_dir, DEFAULT_IMAGE)
       FileUtils.cp((Rails.root.join DEFAULT_IMAGE_PATH, DEFAULT_IMAGE), (Rails.root.join @@images_dir, DEFAULT_IMAGE))
       logger.debug("Copying in #{DEFAULT_IMAGE} from #{DEFAULT_IMAGE_PATH} to #{@@images_dir}")
     end
@@ -41,11 +41,11 @@ class PlexObject < ActiveRecord::Base
     if self.id.nil? || self.image.nil?
       true
     end
-    if self.image != DEFAULT_IMAGE
+    if self.image != DEFAULT_IMAGE && File.file?(Rails.root.join @@images_dir, self.image)
       File.delete(Rails.root.join @@images_dir, self.image)
       if File.file?(Rails.root.join @@images_dir, self.image)
-        logger.error("Image #{self.image} was not deleted")
-        raise 'PlexSession image file was not deleted'
+        logger.error "Failed to delete #{Rails.root.join @@images_dir, self.image}"
+        false
       end
       logger.debug("Deleted #{Rails.root.join @@images_dir, self.image}")
       true
@@ -85,8 +85,8 @@ class PlexObject < ActiveRecord::Base
     logger.debug('Image was not found or was invalid, fetching...')
 
     headers = {
-        'X-Plex-Token' => self.plex_object_flavor.plex_service.token,
-        'Accept' => 'image/jpeg'
+        'X-Plex-Token': self.plex_object_flavor.plex_service.token,
+        'Accept': 'image/jpeg'
     }
     if self.thumb_url.nil?
       logger.error("thumb_url was nil for plex_object id: #{self.id}. Can't fetch thumbnail")
@@ -101,11 +101,9 @@ class PlexObject < ActiveRecord::Base
       logger.error "There was a problem opening the image file: #{imagefile} for write-binary mode. Returning existing image."
       return self.image
     end
-
       self.update!(image: "#{self.id}.jpeg")
       logger.debug("Plex Object ID: #{self.id} updated to image #{self.image}")
       return self.image
-
   end
 
 

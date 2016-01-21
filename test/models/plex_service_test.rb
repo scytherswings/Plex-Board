@@ -164,21 +164,21 @@ class PlexServiceTest < ActiveSupport::TestCase
     @plex_service_with_no_token.update(username: '404user')
     2.times {@plex_service_with_no_token.get_plex_sessions}
     2.times {@plex_service_with_no_token.get_plex_recently_added}
-    assert_requested(:post, 'https://404user:pass@my.plexapp.com/user/sign_in.json', times: 2)
+    assert_requested(:post, 'https://404user:pass@my.plexapp.com/user/sign_in.json', times: 1)
   end
 
   test 'get_plex_token will only hit the api once if given a 403' do
     @plex_service_with_no_token.update(username: 'baduser')
     2.times {@plex_service_with_no_token.get_plex_sessions}
     2.times {@plex_service_with_no_token.get_plex_recently_added}
-    assert_requested(:post, 'https://baduser:pass@my.plexapp.com/users/sign_in.json', times: 2)
+    assert_requested(:post, 'https://baduser:pass@my.plexapp.com/users/sign_in.json', times: 1)
   end
 
   test 'get_plex_token will only hit the api once if given a 401' do
     @plex_service_with_no_token.update(password: 'badpass')
     2.times {@plex_service_with_no_token.get_plex_sessions}
     2.times {@plex_service_with_no_token.get_plex_recently_added}
-    assert_requested(:post, 'https://user:badpass@my.plexapp.com/users/sign_in.json', times: 2)
+    assert_requested(:post, 'https://user:badpass@my.plexapp.com/users/sign_in.json', times: 1)
   end
 
 end

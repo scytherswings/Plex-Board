@@ -28,7 +28,7 @@
                                          method: :delete, data: { confirm: str }, anchor: @service},
                       class: 'btn btn-md btn-danger' %>
         <% else %>
-          <%= link_to 'Delete Service', @service, method: :delete, data: { confirm: str }, class: 'btn btn-md btn-danger' %>
+          <%= button_to 'Delete Service', @service, method: :delete, data: { confirm: str }, class: 'btn btn-md btn-danger' %>
         <% end %>
     <% end %>
       <%= f.button :submit, class: 'btn-success pull-right' %>

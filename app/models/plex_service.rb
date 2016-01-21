@@ -7,8 +7,6 @@ class PlexService < ActiveRecord::Base
   has_one :service, as: :service_flavor, dependent: :destroy, autosave: true
   has_many :plex_sessions, dependent: :destroy
   has_many :plex_recently_addeds, dependent: :destroy
-  # has_many :plex_objects, dependent: :destroy, autosave: true, inverse_of: :plex_service
-  # has_many :plex_sessions, through: :plex_objects, dependent: :destroy, source: :plex_object_flavor, source_type: PlexSession, autosave: true
 
 
 # How accepts_nested_attributes_for must be used in Rails 4+
@@ -19,73 +17,56 @@ class PlexService < ActiveRecord::Base
 
   validates :username, length: { maximum: 255 }, allow_blank: true
   validates :password, length: { maximum: 255 }, allow_blank: true
-  # validates_associated :service
-  # validates_presence_of :service
 
   PLEX_URL = 'https://my.plexapp.com/users/sign_in.json'
 
-  # def set(options)
-  #   PLEX_URL = options[:plex_url]
-  # end
-  # 
-  # def get(options)
-  #   if options['plex_url']
-  #     PLEX_URL
-  #   end
-  # end
+
+  def get_connection_string
+    if service
+      'https://' + service.connect_method + ':' + service.port.to_s
+    else
+      nil
+    end
+  end
 
   def plex_api(method = :get, path = '', headers = {})
-    connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
-    logger.info("Making Plex API call to: #{connection_string}#{path}")
+    logger.info("Making Plex API call to: #{get_connection_string}#{path}")
 
-    unless self.service.online_status
-      logger.warn('Service: ' + self.service.name + ' is offline, cant grab plex data')
+    unless service.online_status
+      logger.warn('Service: ' + service.name + ' is offline, cant grab plex data')
       return nil
-    end
-    if self.token.nil?
-      unless get_plex_token
-        return nil
-      end
     end
 
     defaults = { 'Accept': 'application/json', 'Connection': 'Keep-Alive',
-                 'X-Plex-Token': self.token }
+                 'X-Plex-Token': get_plex_token }
+
     headers.merge!(defaults)
 
-    begin
-      JSON.parse(RestClient::Request.execute method: method,
-                                             url: connection_string + path,
-                                             headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
-                                             timeout: 5, open_timeout: 5)
-    rescue => error
-      logger.error(error)
-      return nil
-    end
-
+    api_request(method: method, url: get_connection_string + path,
+                headers: headers, verify_ssl: false)
   end
 
   def get_plex_token
-    logger.info("Getting Plex token for PlexService: #{self.service.name}")
-
-    headers = {
+    unless token.nil?
+      return token
+    end
+    logger.info("Getting Plex token for PlexService: #{service.name}")
+    plex_sign_in_headers = {
         'X-Plex-Client-Identifier': 'Plex-Board'
     }
-    begin
-      response = RestClient::Request.execute method: :post, url: PLEX_URL,
-                                             user: self.username, password: self.password, headers: headers
-      self.update!(token: (JSON.parse response)['user']['authentication_token'], auth_successful: true)
-      return true
-    rescue => error
-      logger.error('There was an error getting the plex token')
-      logger.error(error)
-      self.update!(auth_successful: false)
-      return false
+    user = PlexUser.new(username, password)
+    if !api_error
+      response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
+    else
+      errors.add(:auth_successful, "Authentication to #{PLEX_URL} failed, please check the Plex username and password")
     end
+    update!(token: response['user']['authentication_token'])
+    token
   end
 
 
   def get_plex_sessions
-    logger.info("Getting PlexSessions for PlexService: #{self.service.name}")
+    logger.info("Getting PlexSessions for PlexService: #{service.name}")
     sess = plex_api(:get, '/status/sessions')
 
     # logger.debug(sess)
@@ -101,7 +82,7 @@ class PlexService < ActiveRecord::Base
     #if plex has nothing, then fucking nuke that shit
     if incoming_plex_sessions.empty?
       logger.debug('incoming_plex_sessions was empty... Deleting all sessions')
-      self.plex_sessions.destroy_all
+      plex_sessions.destroy_all
       return nil
     end
 
@@ -111,7 +92,7 @@ class PlexService < ActiveRecord::Base
     # http://stackoverflow.com/questions/24295763/find-intersection-of-arrays-of-hashes-by-hash-value
     # http://stackoverflow.com/questions/8639857/rails-3-how-to-get-the-difference-between-two-arrays
 
-    stale_sessions = self.plex_sessions.map {|known_session| known_session.session_key} -
+    stale_sessions = plex_sessions.map {|known_session| known_session.session_key} -
                       incoming_plex_sessions.map {|new_session| new_session["sessionKey"]}
 
     logger.debug("stale_sessions #{stale_sessions}")
@@ -121,7 +102,7 @@ class PlexService < ActiveRecord::Base
     end
 
     sessions_to_update = incoming_plex_sessions.map {|new_session| new_session["sessionKey"]} &
-                            self.plex_sessions.map {|known_session| known_session.session_key}
+                            plex_sessions.map {|known_session| known_session.session_key}
     logger.debug("sessions_to_update #{sessions_to_update}")
 
     new_view_offsets = Hash.new
@@ -133,12 +114,12 @@ class PlexService < ActiveRecord::Base
     logger.debug("new_view_offsets #{new_view_offsets}")
     sessions_to_update.each do |known_session_key|
       logger.debug("new_view_offsets at known_session key: #{new_view_offsets[known_session_key]}")
-      update_plex_session(self.plex_sessions.find_by(session_key: known_session_key),
+      update_plex_session(plex_sessions.find_by(session_key: known_session_key),
                           new_view_offsets[known_session_key])
     end
 
     new_sessions = incoming_plex_sessions.map {|new_session| new_session["sessionKey"]} -
-                     self.plex_sessions.map {|known_session| known_session.session_key}
+                     plex_sessions.map {|known_session| known_session.session_key}
 
     logger.debug("new_sessions #{new_sessions}")
     sessions_to_add = incoming_plex_sessions.select {|matched| new_sessions.include?(matched["sessionKey"])}
@@ -149,7 +130,7 @@ class PlexService < ActiveRecord::Base
 
 
   def add_plex_session(new_session)
-    logger.info("Adding new PlexSession for PlexService: #{self.service.name}")
+    logger.info("Adding new PlexSession for PlexService: #{service.name}")
     begin
       #expression will get the username out of the messy nested json
       expression = new_session['_children'].find { |e| e['_elementType'] == 'User' }['title']
@@ -163,7 +144,7 @@ class PlexService < ActiveRecord::Base
         temp_thumb = new_session["thumb"]
       end
       #create a new sesion object with the shit we found in the json blob
-      self.plex_sessions.create!(plex_user_name: new_session_name, total_duration: new_session["duration"],
+      plex_sessions.create!(plex_user_name: new_session_name, total_duration: new_session["duration"],
                                  progress: new_session["viewOffset"], session_key: new_session["sessionKey"],
                                  plex_object_attributes: {description: new_session["summary"],
                                                           media_title: new_session["title"],
@@ -175,59 +156,24 @@ class PlexService < ActiveRecord::Base
   end
 
   def update_plex_session(existing_session, updated_session_viewOffset)
-    logger.info("Updating PlexSession ID: #{existing_session.id} for PlexService: #{self.service.name}")
+    logger.debug("Updating PlexSession ID: #{existing_session.id} for PlexService: #{service.name}")
     existing_session.update!(progress: updated_session_viewOffset)
   end
 
   def get_plex_recently_added
-    logger.info("Getting PlexRecentlyAdded for PlexService: #{self.service.name}")
-    connection_string = 'https://' + self.service.connect_method + ':' + self.service.port.to_s
-    plex_sign_in_headers = {
-        'X-Plex-Client-Identifier': 'Plex-Board'
-    }
-    pra_url = connection_string + '/library/recentlyAdded'
+    logger.info("Getting PlexRecentlyAdded for PlexService: #{service.name}")
 
-    if self.token.nil?
-      logger.debug("Plex_token was nil for PlexService: #{self.service.name}. Fetching.")
-      user = PlexUser.new(self.username, self.password)
-      begin
-        response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
-        self.update!(token: response['user']['authentication_token'])
-      rescue RestClient::Forbidden
-        #show flash message somehow
-      rescue RestClient::Unauthorized
-        #show flash message somehow
-      rescue RestClient::NotFound
-        #show flash message somehow
-      end
-
-
-    end
+    pra_url = get_connection_string + '/library/recentlyAdded'
 
     defaults = { 'Accept': 'application/json', 'Connection': 'Keep-Alive',
-                 'X-Plex-Token': self.token }
+                 'X-Plex-Token': get_plex_token }
 
-    unless self.service.online_status
-      logger.warn('Service: ' + self.service.name + ' is offline, cant grab plex data')
+    unless service.online_status
+      logger.warn('Service: ' + service.name + ' is offline, cant grab plex data')
       return nil
     end
-    if self.token.nil?
-      unless get_plex_token
-        return nil
-      end
-    end
 
-    begin
-      response = api_request(method: :get, url: pra_url, headers: defaults, verify_ssl: false)
-
-    rescue RestClient::Forbidden
-      #show flash message somehow
-    rescue RestClient::Unauthorized
-      #show flash message somehow
-    rescue RestClient::NotFound
-      #show flash message somehow
-    end
-
+    response = api_request(method: :get, url: pra_url, headers: defaults, verify_ssl: false)
 
     if response.nil?
       logger.debug("Plex doesn't have any recently added")
@@ -236,7 +182,7 @@ class PlexService < ActiveRecord::Base
 
     incoming_pras = response['_children']
 
-    stale_pras = self.plex_recently_addeds.map {|known_pra| known_pra.uuid} -
+    stale_pras = plex_recently_addeds.map {|known_pra| known_pra.uuid} -
         incoming_pras.map {|new_pra| new_pra['librarySectionUUID']}
 
     logger.debug("stale_pras #{stale_pras}")
@@ -246,23 +192,30 @@ class PlexService < ActiveRecord::Base
     end
 
     new_pras = incoming_pras.map {|new_pra| new_pra['librarySectionUUID']} -
-        self.plex_recently_addeds.map {|known_pra| known_pra.uuid}
+        plex_recently_addeds.map {|known_pra| known_pra.uuid}
 
     logger.debug("new_pras #{new_pras}")
     pras_to_add = incoming_pras.select {|matched| new_pras.include?(matched['librarySectionUUID'])}
 
     logger.debug("pras_to_add #{pras_to_add}")
     pras_to_add.each {|new_pra| add_plex_recently_added(new_pra)}
+
+    rescue RestClient::Forbidden
+      update!(api_error: true)
+    rescue RestClient::Unauthorized
+      update!(api_error: true)
+    rescue RestClient::NotFound
+      update!(api_error: true)
   end
 
   def add_plex_recently_added(new_pra)
-    logger.info("Adding new PlexRecentlyAdded for PlexService: #{self.service.name}")
+    logger.info("Adding new PlexRecentlyAdded for PlexService: #{service.name}")
 
     media_title = new_pra['_elementType'] == 'Directory' ? new_pra['parentTitle'] + ' - ' + new_pra['title'] : new_pra['title']
     temp_thumb = new_pra.has_key?('parentThumb') ? new_pra['parentThumb'] : new_pra['thumb']
     summary = new_pra.has_key?('parentSummary') ? new_pra['parentSummary'] : new_pra['summary']
     time = Time.at(new_pra['addedAt']).to_datetime
-    self.plex_recently_addeds.create!(uuid: new_pra['librarySectionUUID'], added_date: time,
+    plex_recently_addeds.create!(uuid: new_pra['librarySectionUUID'], added_date: time,
                                       plex_object_attributes: {description: summary,
                                                                media_title: media_title,
                                                                thumb_url: temp_thumb})

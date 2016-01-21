@@ -46,7 +46,7 @@
                              data: { confirm: str }, anchor: @plex_service.service}, class: 'btn btn-md btn-danger' %>
     <% else %>
       <%= link_to 'Edit', edit_service_path(@plex_service.service), class: 'btn btn-md btn-primary' %>
-      <%= link_to 'Delete', @plex_service.service, method: :delete, data: { confirm: str }, class: 'btn btn-md btn-danger' %>
+      <%= link_to 'Delete', @plex_service, method: :delete, data: { confirm: str }, class: 'btn btn-md btn-danger' %>
     <% end %>
   </div>
 </div>

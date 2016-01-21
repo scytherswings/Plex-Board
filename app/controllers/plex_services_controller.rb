@@ -3,6 +3,12 @@ class PlexServicesController < ApplicationController
 
   before_action :set_plex_service, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @services = Service.all
+    @plex_services = PlexService.all
+    # redirect_to root_path
+  end
+
   def edit
     @services = Service.all
     @plex_services = PlexService.all

@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.4
+## Version 0.4.1
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
@@ -19,10 +19,10 @@ Just for clarification, yes this is _another_ Plex dashboard, but this project i
 
 PlexWatchWeb and the newer (and very cool) PlexPy projects are oriented more towards statistics etc.
 Plex-Board is meant to help the users **and** administrators of a Plex server get a quick overview on the status of the various services related to and including Plex itself.
-Eventually I intend to support a unified search that will allow users to request media to be added which could then go to an approval page, or be allowed by default.
+There's a large list of features I plan to support in the future and I take all requests into consideration. If there is something you'd like to see, feel free to chat about it on Gitter, or create a feature request ticket.
 
 
-Here are a few screenshots of v0.4
+Here are a few screenshots of v0.4.1
 ![home](http://i.imgur.com/IHuLsAh.png)
 
 ![add](http://i.imgur.com/6qnMZwa.png)
