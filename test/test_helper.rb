@@ -23,7 +23,7 @@ class ActiveSupport::TestCase
 
   AUTH_HEADERS = { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Max-Age': 86400 }
   TOKEN = 'zV75NzEnTA1migSb21ze'
-  USER_AGENT = 'rest-client/2.0.0.rc2 (linux-gnu x86_64) ruby/2.2.1p85'
+  USER_AGENT = /rest-client\/2\.0\.0\.rc2 .*/
   HOST = 'my.plexapp.com'
   def setup
     FileUtils.rm_rf("#{PlexObject.get('images_dir')}/.", secure: true)
