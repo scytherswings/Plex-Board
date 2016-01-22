@@ -17,9 +17,13 @@ class PlexService < ActiveRecord::Base
 
   validates :username, length: { maximum: 255 }, allow_blank: true
   validates :password, length: { maximum: 255 }, allow_blank: true
-  after_create :get_plex_token
+  before_save :get_plex_token
+  after_initialize :init
   PLEX_URL = 'https://my.plexapp.com/users/sign_in.json'
 
+  def init
+    @api_error = false
+  end
 
   def get_connection_string
     if service
@@ -28,6 +32,15 @@ class PlexService < ActiveRecord::Base
       nil
     end
   end
+
+  def update_plex_data
+    unless token.nil?
+      get_plex_sessions
+      get_plex_recently_added
+    end
+  end
+
+
 
   def plex_api(method = :get, path = '', headers = {})
     logger.info("Making Plex API call to: #{get_connection_string}#{path}")
@@ -47,14 +60,32 @@ class PlexService < ActiveRecord::Base
   end
 
   def get_plex_token
-    # logger.info("Getting Plex token for PlexService: #{service.name}")
+    logger.info("Getting Plex token for PlexService ID: #{id} using username: #{username}")
     plex_sign_in_headers = {
         'X-Plex-Client-Identifier': 'Plex-Board'
     }
-    user = PlexUser.new(username, password)
-    response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
-    update!(token: response['user']['authentication_token'])
-    true
+    if !api_error || token.nil?
+      if username.nil? || password.nil?
+        logger.error "Plex Session ID: #{id} had nil username or password when get_plex_token was called."
+        return false
+      end
+      user = PlexUser.new(username, password)
+      response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
+      update!(token: response['user']['authentication_token'])
+      @api_error = false
+      return true
+    end
+    false
+
+    rescue RestClient::Forbidden
+      @api_error = true
+      false
+    rescue RestClient::Unauthorized
+      @api_error = true
+      false
+    rescue RestClient::NotFound
+      @api_error = true
+      false
   end
 
 
@@ -190,13 +221,6 @@ class PlexService < ActiveRecord::Base
 
     logger.debug("pras_to_add #{pras_to_add}")
     pras_to_add.each {|new_pra| add_plex_recently_added(new_pra)}
-
-    rescue RestClient::Forbidden
-      update!(api_error: true)
-    rescue RestClient::Unauthorized
-      update!(api_error: true)
-    rescue RestClient::NotFound
-      update!(api_error: true)
   end
 
   def add_plex_recently_added(new_pra)

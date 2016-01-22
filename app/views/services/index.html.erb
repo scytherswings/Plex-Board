@@ -16,9 +16,8 @@
 <% elsif !@plex_services.nil? && !@plex_services.empty? %>
   <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
-      <% @plex_services.each_with_index do |plex_service, i| %>
+      <% @plex_services.try(:each_with_index) do |plex_service, i| %>
           <% if i == 0 %>
-            <% plex_service.get_plex_sessions %>
             <div class="carousel-inner" id="carousel-inner">
             <% plex_service.plex_sessions.try(:each_with_index) do |plex_session, j| %>
                 <% if j == 0 %>
@@ -28,7 +27,6 @@
                 <% end %> <!--if sessions-->
               <% end %> <!--sessions loop-->
               <% if plex_service.plex_sessions.count < 3 %>
-                <% plex_service.get_plex_recently_added %>
                 <% plex_service.plex_recently_addeds.try(:each_with_index) do |plex_recently_added, k| %>
                   <% if k > 4 %>
                     <% break %>

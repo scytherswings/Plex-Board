@@ -111,14 +111,6 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_equal 0, @plex_service_with_one_session.plex_sessions.count
   end
 
-  test 'get_plex_recently_added should grab plex_token if token is nil' do
-    skip 'The way tokens are handled this test is now invalid'
-    @plex_service_with_one_recently_added.token = nil
-    @plex_service_with_one_recently_added.get_plex_recently_added
-    assert_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json')
-    assert_not_nil @plex_service_with_one_recently_added.token
-  end
-
   test 'get_plex_recently_added can get new RA movie when no RAs exist' do
     @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_movie')
     @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
@@ -161,24 +153,20 @@ class PlexServiceTest < ActiveSupport::TestCase
   end
 
   test 'get_plex_token will only hit the api once if given a 404' do
-    # @plex_service_with_no_token.set(plex_url: 'https://my.plexapp.com/user/sign_in.json')
     @plex_service_with_no_token.update(username: '404user')
-    2.times {@plex_service_with_no_token.get_plex_sessions}
-    2.times {@plex_service_with_no_token.get_plex_recently_added}
-    assert_requested(:post, 'https://404user:pass@my.plexapp.com/user/sign_in.json', times: 1)
+    3.times {@plex_service_with_no_token.get_plex_token}
+    assert_requested(:post, 'https://404user:pass@my.plexapp.com/users/sign_in.json', times: 1)
   end
 
   test 'get_plex_token will only hit the api once if given a 403' do
     @plex_service_with_no_token.update(username: 'baduser')
-    2.times {@plex_service_with_no_token.get_plex_sessions}
-    2.times {@plex_service_with_no_token.get_plex_recently_added}
+    3.times {@plex_service_with_no_token.get_plex_token}
     assert_requested(:post, 'https://baduser:pass@my.plexapp.com/users/sign_in.json', times: 1)
   end
 
   test 'get_plex_token will only hit the api once if given a 401' do
     @plex_service_with_no_token.update(password: 'badpass')
-    2.times {@plex_service_with_no_token.get_plex_sessions}
-    2.times {@plex_service_with_no_token.get_plex_recently_added}
+    3.times {@plex_service_with_no_token.get_plex_token}
     assert_requested(:post, 'https://user:badpass@my.plexapp.com/users/sign_in.json', times: 1)
   end
 

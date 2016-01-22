@@ -8,6 +8,7 @@ class ServicesController < ApplicationController
   def index
     @services = Service.all
     @plex_services = PlexService.all
+    @plex_services.each {|ps| ps.update_plex_data}
   end
 
 
