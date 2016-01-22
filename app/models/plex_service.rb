@@ -17,7 +17,7 @@ class PlexService < ActiveRecord::Base
 
   validates :username, length: { maximum: 255 }, allow_blank: true
   validates :password, length: { maximum: 255 }, allow_blank: true
-
+  after_create :get_plex_token
   PLEX_URL = 'https://my.plexapp.com/users/sign_in.json'
 
 
@@ -38,7 +38,7 @@ class PlexService < ActiveRecord::Base
     end
 
     defaults = { 'Accept': 'application/json', 'Connection': 'Keep-Alive',
-                 'X-Plex-Token': get_plex_token }
+                 'X-Plex-Token': token }
 
     headers.merge!(defaults)
 
@@ -47,21 +47,14 @@ class PlexService < ActiveRecord::Base
   end
 
   def get_plex_token
-    unless token.nil?
-      return token
-    end
-    logger.info("Getting Plex token for PlexService: #{service.name}")
+    # logger.info("Getting Plex token for PlexService: #{service.name}")
     plex_sign_in_headers = {
         'X-Plex-Client-Identifier': 'Plex-Board'
     }
     user = PlexUser.new(username, password)
-    if !api_error
-      response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
-    else
-      errors.add(:auth_successful, "Authentication to #{PLEX_URL} failed, please check the Plex username and password")
-    end
+    response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
     update!(token: response['user']['authentication_token'])
-    token
+    true
   end
 
 
@@ -131,7 +124,6 @@ class PlexService < ActiveRecord::Base
 
   def add_plex_session(new_session)
     logger.info("Adding new PlexSession for PlexService: #{service.name}")
-    begin
       #expression will get the username out of the messy nested json
       expression = new_session['_children'].find { |e| e['_elementType'] == 'User' }['title']
       #if the user's title (read username) is blank, set it to "Local"
@@ -152,7 +144,6 @@ class PlexService < ActiveRecord::Base
     rescue ActiveRecord::RecordInvalid => error
       logger.error("add_plex_session(new_session) encountered an error: #{error}")
       return nil
-    end
   end
 
   def update_plex_session(existing_session, updated_session_viewOffset)
@@ -166,7 +157,7 @@ class PlexService < ActiveRecord::Base
     pra_url = get_connection_string + '/library/recentlyAdded'
 
     defaults = { 'Accept': 'application/json', 'Connection': 'Keep-Alive',
-                 'X-Plex-Token': get_plex_token }
+                 'X-Plex-Token': token }
 
     unless service.online_status
       logger.warn('Service: ' + service.name + ' is offline, cant grab plex data')

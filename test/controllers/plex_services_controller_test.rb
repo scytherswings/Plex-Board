@@ -33,7 +33,7 @@ class PlexServicesControllerTest < ActionController::TestCase
 
   test 'should create plex_service' do
     assert_difference('PlexService.count') do
-      post :create, plex_service: { username: 'boblob', password: 'law', token: 'garbage' }
+      post :create, plex_service: { username: 'user', password: 'pass', token: 'garbage' }
     end
 
     assert_redirected_to plex_service_path(assigns(:plex_service))

@@ -112,6 +112,7 @@ class PlexServiceTest < ActiveSupport::TestCase
   end
 
   test 'get_plex_recently_added should grab plex_token if token is nil' do
+    skip 'The way tokens are handled this test is now invalid'
     @plex_service_with_one_recently_added.token = nil
     @plex_service_with_one_recently_added.get_plex_recently_added
     assert_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json')
