@@ -1,6 +1,6 @@
 #!/bin/bash
 SECRETS="config/secrets.yml"
-SECRET="$(rake secret)"
+SECRET="$(bundle exec rake secret)"
 BOGUS="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 # rm $SECRETS
 echo -e "development:\n  secret_key_base: " $BOGUS "\n" >> $SECRETS
