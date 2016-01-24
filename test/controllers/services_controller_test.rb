@@ -1,106 +1,78 @@
 require 'test_helper'
 class ServicesControllerTest < ActionController::TestCase
-  
-  HEADERS = {"Cache-Control" => "no-cache", "Connection" => "Keep-Alive",
-    "Content-Type" => "application/json", "Keep-Alive" => "timeout=20",
-    "X-Plex-Protocol" => "1.0"}
 
-  AUTH_HEADERS = { "Content-Type" => "application/json; charset=utf-8", "Access-Control-Max-Age" => 86400 }
-
-  setup do
-    @service_one = services(:one)
-    @plex_service_one = services(:plex_one)
-    
-    stub_request(:post, "https://user:pass@my.plexapp.com/users/sign_in.json").
-      with(:headers => {'Accept'=>'*/*; q=0.5, application/xml', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Client-Identifier'=>'Plex-Board'}).
-      to_return(:status => 201, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "sign_in.json").
-      read, :headers => AUTH_HEADERS)
-
-    stub_request(:get, "https://plex1:32400/status/sessions").
-      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1.json").
-      read, :headers => HEADERS)
-
-    stub_request(:get, "https://plex1updated:32400/status/sessions").
-      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex1_updated_viewOffset.json").
-      read, :headers => HEADERS)
-
-    stub_request(:get, "https://plexnosessions:32400/status/sessions").
-      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
-      to_return(:status => 200, :body => "{\"_elementType\": \"MediaContainer\",\"_children\": []}", :headers => HEADERS)
-
-    stub_request(:get, "https://plex2:32400/status/sessions").
-      with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip, deflate', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/JSON/', "plex2.json").
-      read, :headers => HEADERS)
-      
-    stub_request(:get, /https:\/\/plex(.*?):32400\/library\/metadata\/(\d*)\/thumb\/(\d*$)/).
-      with(:headers => {'Accept'=>'image/jpeg', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby', 'X-Plex-Token'=>'zV75NzEnTA1migSb21ze'}).
-      to_return(:status => 200, :body => File.open(Rails.root.join 'test/fixtures/images/', 'placeholder.png'), :headers => {})
-
-  end
-
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:services)
+    assert_select 'title', 'Plex-Board'
   end
-  test "should get all_services" do
+  
+  test 'should get all_services' do
     get :all_services
     assert_response :success
     assert_not_nil assigns(:services)
+    assert_select 'title', 'Plex-Board | All Services'
   end
 
-  test "should get new" do
+  test 'should get choose_service_type' do
+    get :choose_service_type
+    assert_response :success
+    assert_select 'title', 'Plex-Board | Choose Service Type'
+  end
+  
+  test 'should get new' do
     get :new
     assert_response :success
+    assert_select 'title', 'Plex-Board | New Service'
   end
 
-  test "should create service" do
+  test 'should create service' do
     assert_difference('Service.count') do
-      post :create, service: { name: "test_create", ip: "172.111.3.1", dns_name: "test_create", url: "test_create", service_type: "Generic Service" }
+      post :create, service: { name: 'test_create', ip: '172.111.3.1', port: 80, dns_name: 'test_create', url: 'test_create'}
     end
 
     assert_redirected_to service_path(assigns(:service))
   end
 
-  test "should show service" do
-    get :show, id: @service_one
+  test 'should show service' do
+    get :show, id: @generic_service_one.id
     assert_response :success
+    assert_select 'title', "Plex-Board | #{@generic_service_one.name}"
   end
 
-  test "should get edit" do
-    get :edit, id: @service_one
+  test 'should get edit' do
+    get :edit, id: @generic_service_one.id
     assert_response :success
+    assert_select 'title', "Plex-Board | Edit #{@generic_service_one.name}"
   end
 
-  test "should update service" do
-    patch :update, id: @service_one, service: { name: "test2", ip: "172.123.1.1", dns_name: "test", url: "test" }
+  test 'should update service' do
+    patch :update, id: @generic_service_one.id, service: { name: 'test2', ip: '172.123.1.1', dns_name: 'test', url: 'test' }
     assert_redirected_to service_path(assigns(:service))
   end
 
-  test "should destroy service" do
+  test 'should destroy service' do
     assert_difference('Service.count', -1) do
-      assert delete :destroy, id: @service_one
+      assert delete :destroy, id: @generic_service_one.id
     end
     assert_redirected_to root_url
   end
-  
-  # test "Bad plex service port wont break page load" do
-  #   get :index
-  #   assert_response :success
-  #   assert_requested(:get, "https://plex1:32400/status/sessions")
-  #   @plex_service_one.update(port: 32401)
-  #   get :index
 
+  # test 'Bad plex service port wont break page load' do
+  #   get :index
   #   assert_response :success
+  #   assert_requested(:get, 'https://plex4:32400/status/sessions')
+  #   @plex_service_one.service.update(port: 32401)
+  #   get :index
+  #   assert_response :success
+  #   assert_requested(:get, 'https://plex4:32401/status/sessions')
   # end
-  
+
   # This might take some tinkering
-  # test "should show service as online" do
-    
+  # test 'should show service as online' do
+
   # end
-  
+
 
 end

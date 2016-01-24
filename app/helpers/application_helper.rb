@@ -6,7 +6,7 @@ module ApplicationHelper
     if page_title.empty?                              # Boolean test
       base_title                                      # Implicit return
     else
-      page_title + " | " + base_title                 # String concatenation
+      base_title  + " | " + page_title           # String concatenation
     end
   end
   

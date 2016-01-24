@@ -1,17 +1,60 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+generic_service_one:
+  name: Test Service One
+  ip: 127.0.0.1
+  dns_name: localhost1
+  port: 80
+  url: http://localhost1
+  online_status: true
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: { id: 1, name: "Test Service One", ip: "127.0.0.1", dns_name: "localhost", port: "80", url: "http://localhost", service_type: "Generic Service"}
+generic_service_two:
+  name: Test Service Two
+  ip: 127.0.0.2
+  dns_name: localhost2
+  port: 80
+  url: http://localhost2
+  online_status: true
 
-two: { id: 2, name: "Test Service Two", ip: "127.0.0.2", dns_name: "ubuntu", port: "8080", url: "http://127.0.0.1", service_type: "Generic Service"}
+plex_1:
+  name: plex_service_one
+  ip: 127.0.0.3
+  dns_name: plex3
+  port: 32400
+  url: http://127.0.0.3
+  service_flavor: plex_service_one (PlexService)
+  online_status: true
 
-plex_one: { id: 3, name: "Plex Test Service One", ip: "", dns_name: "plex1", port: "32400", url: "plex_one", service_type: "Plex", username: "user", password: "pass"}
+plex_2:
+  name: plex_service_no_token
+  ip: 127.0.0.4
+  dns_name: plex4
+  port: 32400
+  url: http://127.0.0.4
+  service_flavor: plex_service_with_no_token (PlexService)
+  online_status: true
 
-plex_two: { id: 4, name: "Plex Test Service Two", ip: "", dns_name: "plex2", port: "32400", url: "plex_two", service_type: "Plex", username: "user", password: "pass"}
+plex_3:
+  name: plex_service_with_one_session
+  ip: 127.0.0.5
+  dns_name: plex5
+  port: 32400
+  url: http://127.0.0.5
+  service_flavor: plex_service_with_one_session (PlexService)
+  online_status: true
 
-plex_no_sessions: { id: 5, name: "Plex No Sessions", ip: "", dns_name: "plexnosessions", port: "32400", url: "plex_no_sessions", service_type: "Plex", username: "user", password: "pass"}
+plex_4:
+  name: plex_service_with_two_sessions
+  ip: 127.0.0.6
+  dns_name: plex6
+  port: 32400
+  url: http://127.0.0.6
+  service_flavor: plex_service_with_two_sessions (PlexService)
+  online_status: true
 
-plex_three: { id: 6, name: "Plex Test Service Three", ip: "", dns_name: "plex3", port: "32400", url: "plex_three", service_type: "Plex", username: "user", password: "pass"}
+plex_5:
+  name: plex_service_with_one_recently_added
+  ip: 127.0.0.7
+  dns_name: plex7
+  port: 32400
+  url: http://127.0.0.7
+  service_flavor: plex_service_with_one_recently_added (PlexService)
+  online_status: true

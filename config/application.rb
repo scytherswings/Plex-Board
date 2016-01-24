@@ -31,5 +31,6 @@ module Workspace
   #   Rails.application.configure do
   #   config.web_console.whiny_requests = false
   # end
+  #   config.middleware.delete "ActiveRecord::QueryCache"
   end
 end

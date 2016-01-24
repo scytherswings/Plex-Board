@@ -11,44 +11,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015035631) do
+ActiveRecord::Schema.define(version: 20160124033003) do
+
+  create_table "plex_objects", force: :cascade do |t|
+    t.string   "image"
+    t.string   "thumb_url"
+    t.text     "description"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "plex_object_flavor_id"
+    t.string   "plex_object_flavor_type"
+    t.string   "media_title"
+  end
+
+  add_index "plex_objects", ["plex_object_flavor_id"], name: "index_plex_objects_on_plex_object_flavor_id"
+  add_index "plex_objects", ["plex_object_flavor_type"], name: "index_plex_objects_on_plex_object_flavor_type"
+
+  create_table "plex_recently_addeds", force: :cascade do |t|
+    t.datetime "added_date"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "plex_service_id"
+    t.string   "uuid"
+  end
+
+  add_index "plex_recently_addeds", ["plex_service_id"], name: "index_plex_recently_addeds_on_plex_service_id"
+  add_index "plex_recently_addeds", ["uuid"], name: "index_plex_recently_addeds_on_uuid"
+
+  create_table "plex_services", force: :cascade do |t|
+    t.string   "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "plex_sessions", force: :cascade do |t|
+    t.integer  "progress"
+    t.integer  "total_duration"
+    t.string   "plex_user_name"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "session_key"
+    t.integer  "plex_service_id"
+  end
+
+  add_index "plex_sessions", ["plex_service_id"], name: "index_plex_sessions_on_plex_service_id"
+  add_index "plex_sessions", ["session_key"], name: "index_plex_sessions_on_session_key"
 
   create_table "services", force: :cascade do |t|
     t.string   "name"
     t.string   "dns_name"
     t.string   "ip"
     t.string   "url"
-    t.string   "username"
-    t.string   "api"
-    t.string   "service_type"
-    t.string   "password"
-    t.string   "token"
     t.boolean  "online_status"
     t.integer  "port"
     t.datetime "last_seen"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "service_flavor_id"
+    t.string   "service_flavor_type"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
-  add_index "services", ["name"], name: "index_services_on_name", unique: true
-  add_index "services", ["url"], name: "index_services_on_url", unique: true
-
-  create_table "sessions", force: :cascade do |t|
-    t.integer  "service_id"
-    t.string   "user_name"
-    t.string   "image"
-    t.string   "media_title"
-    t.string   "thumb_url"
-    t.string   "connection_string"
-    t.integer  "total_duration"
-    t.integer  "progress"
-    t.text     "description"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "session_key"
-  end
-
-  add_index "sessions", ["service_id"], name: "index_sessions_on_service_id"
-  add_index "sessions", ["session_key", "service_id"], name: "index_sessions_on_session_key_and_service_id", unique: true
+  add_index "services", ["service_flavor_id"], name: "index_services_on_service_flavor_id"
+  add_index "services", ["service_flavor_type"], name: "index_services_on_service_flavor_type"
 
 end

@@ -1,0 +1,20 @@
+<% provide(:title, "Edit #{@plex_service.service.name}") %>
+
+<%= render 'layouts/servicepanel' %>
+<%= render 'layouts/rightbar' %>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-md-pull-0 col-lg-pull-2">
+  <h2>Editing Plex Service: <%= @plex_service.service.name %></h2>
+  <div class="well">
+    <%= render 'shared/error_messages' %>
+    <%= render 'plexserviceform' %>
+  </div>
+</div>
+
+
+
+
+
+
+
+

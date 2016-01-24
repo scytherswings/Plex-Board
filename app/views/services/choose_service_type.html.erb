@@ -1,0 +1,28 @@
+<% provide(:title, 'Choose Service Type') %>
+
+<%= render 'layouts/servicepanel' %>
+<%= render 'layouts/rightbar' %>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-md-pull-0 col-lg-pull-2 text-center">
+  <div class="well">
+    <h3>What type of service would you like?</h3>
+    <div class="btn-group text-center">
+      <div class="dropdown">
+        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Service Type
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li class="dropdown-link"><%= link_to 'Generic Service', new_service_path %></li>
+          <li class="dropdown-link"><%= link_to 'Plex', new_plex_service_path %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

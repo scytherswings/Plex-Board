@@ -1,0 +1,55 @@
+<% provide(:title, @plex_service.service.name) %>
+
+<%= render 'layouts/servicepanel' %>
+<%= render 'layouts/rightbar' %>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-md-pull-0 col-lg-pull-2">
+  <h2>Plex Service: <%= @plex_service.service.name %></h2>
+  <div class="panel panel-default">
+    <table class="table table-bordered">
+      <th>Plex Service Name</th>
+      <% if @plex_service.service.ip.nil? || @plex_service.service.ip.empty? %>
+        <th>DNS Name</th>
+      <% elsif @plex_service.service.dns_name.nil? || @plex_service.service.dns_name.empty? %>
+        <th>IP Address</th>
+      <% else %>
+        <th>DNS Name</th>
+        <th>IP Address</th>
+      <% end %>
+      <th>Port</th>
+      <th>URL</th>
+      <th>Token</th>
+
+      <tr>
+        <td><%= @plex_service.service.name %></td>
+        <% if @plex_service.service.ip.nil? || @plex_service.service.ip.empty? %>
+          <td><%= @plex_service.service.dns_name %></td>
+        <% elsif  @plex_service.service.dns_name.nil? || @plex_service.service.dns_name.empty? %>
+          <td><%= @plex_service.service.ip %> </td>
+        <% else %>
+          <td><%= @plex_service.service.dns_name %></td>
+          <td><%= @plex_service.service.ip %> </td>
+        <% end %>
+        <td><%= @plex_service.service.port %> </td>
+        <td><%= @plex_service.service.url %> </td>
+        <td><%= @plex_service.token %></td>
+      </tr>
+    </table>
+
+  </div>
+  <div class="pull-right">
+    <% str = "Are you sure you want to delete: #{@plex_service.service.name}?" %>
+    <% if @plex_service.service.service_flavor_id %>
+      <%= link_to 'Edit', {controller: @plex_service.service.service_flavor_type.tableize, action: 'edit',
+                           id: @plex_service.service.service_flavor_id},  class: 'btn btn-md btn-primary' %>
+    <% else %>
+      <%= link_to 'Edit', edit_service_path(@plex_service.service), class: 'btn btn-md btn-primary' %>
+    <% end %>
+    <%= link_to 'Delete', @plex_service, method: :delete, data: { confirm: str }, class: 'btn btn-md btn-danger' %>
+
+  </div>
+</div>
+
+
+
+

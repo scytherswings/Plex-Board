@@ -1,49 +1,59 @@
+<%= render 'layouts/servicepanel' %>
+<%= render 'layouts/rightbar' %>
 
 <% if @services.empty? %>
-
-<div class="col-sm-12 text-center">
-
-  <div class="jumbotron">
-    <h1>Welcome to Plex-Board!</h1>
-    <h2>It looks like you haven't added a service yet...</h2>
-    <h2>You should add one here: </h2>
-    <div class="row">
-      <%= link_to "Add Service!", new_service_path, class: "btn btn-lg btn-success" %>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+    <div class="jumbotron">
+      <h1>Welcome to Plex-Board!</h1>
+      <h2>It looks like you haven't added a service yet...</h2>
+      <h2>You should add one here: </h2>
+      <div class="row">
+        <%= link_to "Add Service!", choose_service_type_path, class: "btn btn-lg btn-success" %>
+      </div>
     </div>
-
   </div>
-
-</div>
-
-<% else %>
-
-  <%= render 'layouts/servicepanel' %>
-  <div class="col-lg-2">
-  </div>
-  <div class="col-lg-4 text-center">
+<% elsif !@plex_services.nil? && !@plex_services.empty? %>
+  <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
-      <% @services.each_with_index do |service, i| %>
-        <% if service.service_type == "Plex" %>
-        <% logger.debug("service loop") %>
+      <% @plex_services.try(:each_with_index) do |plex_service, i| %>
           <% if i == 0 %>
-              <% service.get_plex_sessions %>
-              <% service.sessions.try(:each_with_index) do |session, j| %>
-              <% logger.debug(service.name) %>
+            <div class="carousel-inner" id="carousel-inner">
+            <% plex_service.plex_sessions.try(:each_with_index) do |plex_session, j| %>
                 <% if j == 0 %>
-                  <% logger.debug("First Carousel") %>
-                <div class="carousel-inner">
-                  <%= render :partial => 'now_playing', :locals => { :session => session, :active => "active"}  %>
+                  <%= render partial: 'now_playing', locals: { plex_session: plex_session, active: 'active'}  %>
                 <% else %>
-                  <%= render :partial => 'now_playing', :locals => { :session => session, :active => ""}  %>
+                  <%= render partial: 'now_playing', locals: { plex_session: plex_session, active: ''}  %>
                 <% end %> <!--if sessions-->
               <% end %> <!--sessions loop-->
-                </div> <!--carousel-inner div-->
+              <% if plex_service.plex_sessions.count < 3 %>
+                <% plex_service.plex_recently_addeds.try(:each_with_index) do |plex_recently_added, k| %>
+                  <% if k > 4 %>
+                    <% break %>
+                  <% end %>
+                  <% if plex_service.plex_sessions.count <= 0 && k == 0 %>
+                    <%= render partial: 'recently_added', locals: { plex_recently_added: plex_recently_added, active: 'active'}  %>
+                  <% else %>
+                    <%= render partial: 'recently_added', locals: { plex_recently_added: plex_recently_added, active: ''}  %>
+                  <% end %> <!--if sessions-->
+                <% end %> <!--sessions loop-->
+              <% end %>
+            </div> <!--carousel-inner div-->
           <% end %> <!--if first time-->
-        <% end %> <!--if service_type-->
       <% end %> <!--services.each-->
     </div>
   </div>
-  <div class="col-lg-2">
-  </div>
-  <%= render 'layouts/rightbar' %>
+
+<% else %>
+    <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
+      <!--<div class="row">-->
+        <div class="well">
+          <h3>It looks like you haven't added a Plex service yet...</h3>
+          <h4>You should add one here:</h4>
+          <div class="row">
+            <%= link_to 'Add Plex Service!', new_plex_service_path, class: 'btn btn-md btn-success' %>
+          </div>
+        </div>
+      <!--</div>-->
+    </div>
+
 <% end %>

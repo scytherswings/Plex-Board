@@ -1,0 +1,3797 @@
+{
+  "_elementType": "MediaContainer",
+  "allowSync": "0",
+  "identifier": "com.plexapp.plugins.library",
+  "mediaTagPrefix": "/system/bundle/media/flags/",
+  "mediaTagVersion": "1446845086",
+  "mixedParents": "1",
+  "_children": [
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38553,
+      "key": "/library/metadata/38553/children",
+      "parentRatingKey": 38552,
+      "type": "season",
+      "title": "Season 1",
+      "parentKey": "/library/metadata/38552",
+      "parentTitle": "True Detective",
+      "parentSummary": "An anthology series in which police investigations unearth the personal and professional secrets of those involved, both within and outside the law.",
+      "summary": "",
+      "index": 1,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/38553/thumb/1451162138",
+      "art": "/library/metadata/38552/art/1451162138",
+      "parentThumb": "/library/metadata/38552/thumb/1451162138",
+      "parentTheme": "/library/metadata/38552/theme/1451162138",
+      "leafCount": 8,
+      "viewedLeafCount": 0,
+      "addedAt": 1451162091,
+      "updatedAt": 1451162138,
+      "_children": []
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39680,
+      "key": "/library/metadata/39680",
+      "studio": "United Artists",
+      "type": "movie",
+      "title": "Rocky II",
+      "contentRating": "PG",
+      "summary": "After Rocky goes the distance with champ Apollo Creed, both try to put the fight behind them and move on. Rocky settles down with Adrian but can't put his life together outside the ring, while Creed seeks a rematch to restore his reputation. Soon enough, the \"Master of Disaster\" and the \"Italian Stallion\" are set on a collision course for a climactic battle that is brutal and unforgettable.",
+      "rating": "7.3",
+      "audienceRating": "8.1",
+      "year": 1979,
+      "tagline": "Once he fought for a dream. Now he's fighting for love!",
+      "thumb": "/library/metadata/39680/thumb/1450858923",
+      "art": "/library/metadata/39680/art/1450858923",
+      "duration": 7150984,
+      "originallyAvailableAt": "1979-06-15",
+      "addedAt": 1450858867,
+      "updatedAt": 1450858923,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "mixed",
+      "primaryExtraKey": "/library/metadata/39681",
+      "ratingImage": "rottentomatoes://image.rating.ripe",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 108255,
+          "duration": 7150984,
+          "bitrate": 17552,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "108481",
+              "key": "/library/parts/108481/file.mkv",
+              "duration": 7150984,
+              "file": "/mnt/PLEX-MEDIA/Movies/Rocky II (1979)/Rocky II.mkv",
+              "size": 15689396303,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Sport"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Sylvester Stallone"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Sylvester Stallone"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Sylvester Stallone"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Talia Shire"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Burt Young"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39664,
+      "key": "/library/metadata/39664",
+      "studio": "TriStar Pictures",
+      "type": "movie",
+      "title": "The Walk",
+      "titleSort": "Walk",
+      "contentRating": "PG",
+      "summary": "The story of French high-wire artist Philippe Petit's attempt to cross the Twin Towers of the World Trade Center in 1974.",
+      "rating": "8.5",
+      "audienceRating": "8.3",
+      "year": 2015,
+      "tagline": "Dream High.",
+      "thumb": "/library/metadata/39664/thumb/1450857084",
+      "art": "/library/metadata/39664/art/1450857084",
+      "duration": 7391392,
+      "originallyAvailableAt": "2015-10-02",
+      "addedAt": 1450857060,
+      "updatedAt": 1450857084,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39665",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 108209,
+          "duration": 7391392,
+          "bitrate": 10164,
+          "width": 1920,
+          "height": 800,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "108435",
+              "key": "/library/parts/108435/file.mkv",
+              "duration": 7391392,
+              "file": "/mnt/PLEX-MEDIA/Movies/Walk, The (2015)/The Walk.mkv",
+              "size": 9390686353,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Biography"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Thriller"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Robert Zemeckis"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Christopher Browne"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Robert Zemeckis"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Joseph Gordon-Levitt"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Charlotte Le Bon"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Guillaume Baillargeon"
+        }
+      ]
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38954,
+      "key": "/library/metadata/38954/children",
+      "parentRatingKey": 28916,
+      "type": "season",
+      "title": "Season 2",
+      "parentKey": "/library/metadata/28916",
+      "parentTitle": "The Flash (2014)",
+      "parentSummary": "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion – and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become... The Flash.",
+      "summary": "",
+      "index": 2,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/38954/thumb/1450853494",
+      "art": "/library/metadata/28916/art/1450853494",
+      "parentThumb": "/library/metadata/28916/thumb/1450853494",
+      "parentTheme": "/library/metadata/28916/theme/1450853494",
+      "leafCount": 9,
+      "viewedLeafCount": 0,
+      "addedAt": 1450853469,
+      "updatedAt": 1450853494,
+      "_children": []
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39634,
+      "key": "/library/metadata/39634",
+      "studio": "United Artists",
+      "type": "movie",
+      "title": "Rocky",
+      "contentRating": "PG",
+      "summary": "When world heavyweight boxing champ Apollo Creed wants to give an unknown fighter a shot at the title as a publicity stunt, his handlers pick palooka Rocky Balboa, an uneducated collector for a Philadelphia loan shark.",
+      "rating": "9.3",
+      "audienceRating": "6.9",
+      "year": 1976,
+      "tagline": "His whole life was a million-to-one shot.",
+      "thumb": "/library/metadata/39634/thumb/1450851675",
+      "art": "/library/metadata/39634/art/1450851675",
+      "duration": 7175175,
+      "originallyAvailableAt": "1976-11-21",
+      "addedAt": 1450851659,
+      "updatedAt": 1450851675,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "agent",
+      "primaryExtraKey": "/library/metadata/39653",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 108135,
+          "duration": 7175175,
+          "bitrate": 9516,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "108361",
+              "key": "/library/parts/108361/file.mkv",
+              "duration": 7175175,
+              "file": "/mnt/PLEX-MEDIA/Movies/Rocky (1976)/Rocky.mkv",
+              "size": 8534969823,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Sport"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Sylvester Stallone"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "John G. Avildsen"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Sylvester Stallone"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Talia Shire"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Burt Young"
+        }
+      ]
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38485,
+      "key": "/library/metadata/38485/children",
+      "parentRatingKey": 12523,
+      "type": "season",
+      "title": "Season 4",
+      "parentKey": "/library/metadata/12523",
+      "parentTitle": "Arrow",
+      "parentSummary": "Oliver Queen and his father are lost at sea when their luxury yacht sinks. His father doesn't survive. Oliver survives on an uncharted island for five years learning to fight, but also learning about his father's corruption and unscrupulous business dealings. He returns to civilization a changed man, determined to put things right. He disguises himself with the hood of one of his mysterious island mentors, arms himself with a bow and sets about hunting down the men and women who have corrupted his city.",
+      "summary": "",
+      "index": 4,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/38485/thumb/1450849981",
+      "art": "/library/metadata/12523/art/1450849981",
+      "parentThumb": "/library/metadata/12523/thumb/1450849981",
+      "parentTheme": "/library/metadata/12523/theme/1450849981",
+      "leafCount": 9,
+      "viewedLeafCount": 0,
+      "addedAt": 1450849881,
+      "updatedAt": 1450849981,
+      "_children": []
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39615,
+      "key": "/library/metadata/39615",
+      "studio": "Tokuma Shoten",
+      "type": "movie",
+      "title": "Only Yesterday",
+      "originalTitle": "Omohide poro poro",
+      "summary": "A 27-year-old office worker travels to the countryside while reminiscing about her childhood. When she returns to the family farm she meets a young farmer who is the cousin of her brother-in-law. She is immediately taken with his hard-working, salt-of-the-earth ways.",
+      "rating": "10.0",
+      "audienceRating": "8.7",
+      "year": 1991,
+      "thumb": "/library/metadata/39615/thumb/1450849892",
+      "art": "/library/metadata/39615/art/1450849892",
+      "duration": 7128295,
+      "originallyAvailableAt": "1991-07-20",
+      "addedAt": 1450849860,
+      "updatedAt": 1450849892,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "ratingImage": "rottentomatoes://image.rating.ripe",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 108082,
+          "duration": 7128295,
+          "bitrate": 14404,
+          "width": 1920,
+          "height": 1036,
+          "aspectRatio": "1.85",
+          "audioChannels": 2,
+          "audioCodec": "flac",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "108308",
+              "key": "/library/parts/108308/file.mkv",
+              "duration": 7128295,
+              "file": "/mnt/PLEX-MEDIA/Movies/Only Yesterday (1991)/Only Yesterday.mkv",
+              "size": 12834597677,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Animation"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Romance"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Isao Takahata"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Isao Takahata"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "Japan"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Miki Imai"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Toshirô Yanagiba"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Youko Honna"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39614,
+      "key": "/library/metadata/39614",
+      "studio": "Tokuma Shoten",
+      "type": "movie",
+      "title": "Castle in the Sky",
+      "originalTitle": "天空の城ラピュタ",
+      "contentRating": "PG",
+      "summary": "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world.",
+      "rating": "9.5",
+      "audienceRating": "9.1",
+      "viewOffset": 2605216,
+      "lastViewedAt": 1451159594,
+      "year": 1986,
+      "thumb": "/library/metadata/39614/thumb/1450846273",
+      "art": "/library/metadata/39614/art/1450846273",
+      "duration": 7473568,
+      "originallyAvailableAt": "1989-04-01",
+      "addedAt": 1450846260,
+      "updatedAt": 1450846273,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "agent",
+      "ratingImage": "rottentomatoes://image.rating.ripe",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 108081,
+          "duration": 7473568,
+          "bitrate": 19548,
+          "width": 1920,
+          "height": 1038,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "108307",
+              "key": "/library/parts/108307/file.mkv",
+              "duration": 7473568,
+              "file": "/mnt/PLEX-MEDIA/Movies/Castle in the Sky (1986)/Castle in the Sky.mkv",
+              "size": 18261736303,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Animation"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Family"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Hayao Miyazaki"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Hayao Miyazaki"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "Japan"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Anna Paquin"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "James Van Der Beek"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Cloris Leachman"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39613,
+      "key": "/library/metadata/39613",
+      "studio": "Tokuma Shoten",
+      "type": "movie",
+      "title": "Kiki's Delivery Service",
+      "originalTitle": "魔女の宅急便",
+      "contentRating": "G",
+      "summary": "A young witch, on her mandatory year of independent life, finds fitting into a new community difficult while she supports herself by running an air courier service.",
+      "year": 1989,
+      "tagline": "I was feeling blue, but I'm better now.",
+      "thumb": "/library/metadata/39613/thumb/1450844484",
+      "art": "/library/metadata/39613/art/1450844484",
+      "duration": 6182688,
+      "originallyAvailableAt": "1998-05-23",
+      "addedAt": 1450844461,
+      "updatedAt": 1450844484,
+      "chapterSource": "media",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 108080,
+          "duration": 6182688,
+          "bitrate": 17441,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 2,
+          "audioCodec": "flac",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "108306",
+              "key": "/library/parts/108306/file.mkv",
+              "duration": 6182688,
+              "file": "/mnt/PLEX-MEDIA/Movies/Kiki's Delivery Service (1989)/Kiki's Delivery Service.mkv",
+              "size": 13479226400,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Animation"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Hayao Miyazaki"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Hayao Miyazaki"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "Japan"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Kirsten Dunst"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Minami Takayama"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Rei Sakuma"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39611,
+      "key": "/library/metadata/39611",
+      "studio": "Working Title Films",
+      "type": "movie",
+      "title": "The Secret World of Arrietty",
+      "titleSort": "Secret World of Arrietty",
+      "originalTitle": "Kari-gurashi no Arietti",
+      "contentRating": "G",
+      "summary": "14-year-old Arrietty and the rest of the Clock family live in peaceful anonymity as they make their own home from items \"borrowed\" from the house's human inhabitants. However, life changes for the Clocks when a human boy discovers Arrietty.",
+      "rating": "9.5",
+      "audienceRating": "8.5",
+      "year": 2010,
+      "tagline": "Do not be seen by humans. That's been the law of children of the underfloor.",
+      "thumb": "/library/metadata/39611/thumb/1450939243",
+      "art": "/library/metadata/39611/art/1450939243",
+      "duration": 5668961,
+      "originallyAvailableAt": "2010-07-17",
+      "addedAt": 1450839060,
+      "updatedAt": 1450939243,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39683",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 108076,
+          "duration": 5668961,
+          "bitrate": 9665,
+          "width": 1920,
+          "height": 1038,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "108301",
+              "key": "/library/parts/108301/file.mkv",
+              "duration": 5668961,
+              "file": "/mnt/PLEX-MEDIA/Movies/Secret World of Arrietty, The (2010)/The Secret World of Arrietty.mkv",
+              "size": 6849144021,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Animation"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Family"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Adventure"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Hayao Miyazaki"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Mary Norton"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Hiromasa Yonebayashi"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "Japan"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Bridgit Mendler"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Amy Poehler"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Will Arnett"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39609,
+      "key": "/library/metadata/39609",
+      "studio": "The Walt Disney Company",
+      "type": "movie",
+      "title": "Howl's Moving Castle",
+      "originalTitle": "ハウルの動く城",
+      "contentRating": "PG",
+      "summary": "When Sophie, a shy young woman, is cursed with an old body by a spiteful witch, her only chance of breaking the spell lies with a self-indulgent yet insecure young wizard and his companions in his legged, walking home.",
+      "rating": "8.7",
+      "audienceRating": "9.3",
+      "userRating": "10.0",
+      "viewCount": 1,
+      "lastViewedAt": 1450934623,
+      "year": 2004,
+      "tagline": "Sophie has resigned herself to a boring fate, but fate has other plans for her",
+      "thumb": "/library/metadata/39609/thumb/1450927073",
+      "art": "/library/metadata/39609/art/1450927073",
+      "duration": 7149191,
+      "originallyAvailableAt": "2004-09-05",
+      "addedAt": 1450837259,
+      "updatedAt": 1450927073,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 108072,
+          "duration": 7149191,
+          "bitrate": 10561,
+          "width": 1920,
+          "height": 1038,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "108297",
+              "key": "/library/parts/108297/file.mkv",
+              "duration": 7149191,
+              "file": "/mnt/PLEX-MEDIA/Movies/Howl's Moving Castle (2004)/Howl's Moving Castle.mkv",
+              "size": 9437371859,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Animation"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Family"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Hayao Miyazaki"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Hayao Miyazaki"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "Japan"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Chieko Baishô"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Takuya Kimura"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Tatsuya Gashûin"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39390,
+      "key": "/library/metadata/39390",
+      "studio": "New Line Cinema",
+      "type": "movie",
+      "title": "The Conjuring",
+      "titleSort": "Conjuring",
+      "contentRating": "R",
+      "summary": "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by a dark presence in their farmhouse. Forced to confront a powerful entity, the Warrens find themselves caught in the most terrifying case of their lives.",
+      "rating": "8.6",
+      "audienceRating": "8.2",
+      "year": 2013,
+      "thumb": "/library/metadata/39390/thumb/1450738273",
+      "art": "/library/metadata/39390/art/1450738273",
+      "duration": 6717050,
+      "originallyAvailableAt": "2013-07-19",
+      "addedAt": 1450738258,
+      "updatedAt": 1450738273,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "mixed",
+      "primaryExtraKey": "/library/metadata/39391",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 107418,
+          "duration": 6717050,
+          "bitrate": 11182,
+          "width": 1920,
+          "height": 800,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "107643",
+              "key": "/library/parts/107643/file.mkv",
+              "duration": 6717050,
+              "file": "/mnt/PLEX-MEDIA/Movies/Conjuring, The (2013)/The Conjuring.mkv",
+              "size": 9388363118,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Horror"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Chad Hayes"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Carey Hayes"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "James Wan"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Patrick Wilson"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Vera Farmiga"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Ron Livingston"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39372,
+      "key": "/library/metadata/39372",
+      "studio": "Gotham Group",
+      "type": "movie",
+      "title": "Maze Runner: The Scorch Trials",
+      "contentRating": "PG-13",
+      "summary": "Thomas and his fellow Gladers face their greatest challenge yet: searching for clues about the mysterious and powerful organization known as WCKD. Their journey takes them to the Scorch, a desolate landscape filled with unimaginable obstacles. Teaming up with resistance fighters, the Gladers take on WCKD’s vastly superior forces and uncover its shocking plans for them all.",
+      "rating": "4.9",
+      "audienceRating": "6.0",
+      "year": 2015,
+      "tagline": "The Maze Was Just the Beginning.",
+      "thumb": "/library/metadata/39372/thumb/1450736478",
+      "art": "/library/metadata/39372/art/1450736478",
+      "duration": 7902921,
+      "originallyAvailableAt": "2015-09-18",
+      "addedAt": 1450736458,
+      "updatedAt": 1450736478,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39377",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 107368,
+          "duration": 7902921,
+          "bitrate": 12646,
+          "width": 1920,
+          "height": 800,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "107593",
+              "key": "/library/parts/107593/file.mkv",
+              "duration": 7902921,
+              "file": "/mnt/PLEX-MEDIA/Movies/Maze Runner The Scorch Trials (2015)/Maze Runner The Scorch Trials.mkv",
+              "size": 12492419203,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Sci-Fi"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Action"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Thriller"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "T.S. Nowlin"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Wes Ball"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Dylan O'Brien"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Kaya Scodelario"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Thomas Brodie-Sangster"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39373,
+      "key": "/library/metadata/39373",
+      "studio": "Castle Rock Entertainment",
+      "type": "movie",
+      "title": "Bernie",
+      "contentRating": "PG-13",
+      "summary": "In this true story in the tiny, rural town of Carthage, TX, assistant funeral director Bernie Tiede was one of the town's most beloved residents. Everyone loved and appreciated Bernie, and it came as no surprise when he befriended Marjorie Nugent, an affluent widow who was as well known for her sour attitude as her fortune. Until that day news came that Marjorie Nugent had been dead for some time, and Bernie Tiede was being charged with the murder.",
+      "rating": "9.0",
+      "audienceRating": "7.2",
+      "year": 2011,
+      "tagline": "A story so unbelievable it must be true.",
+      "thumb": "/library/metadata/39373/thumb/1450736483",
+      "art": "/library/metadata/39373/art/1450736483",
+      "duration": 5980000,
+      "originallyAvailableAt": "2011-06-16",
+      "addedAt": 1450736458,
+      "updatedAt": 1450736483,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "mixed",
+      "primaryExtraKey": "/library/metadata/39374",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 107369,
+          "duration": 5980000,
+          "bitrate": 8636,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "107594",
+              "key": "/library/parts/107594/file.mkv",
+              "duration": 5980000,
+              "file": "/mnt/PLEX-MEDIA/Movies/Bernie (2011)/Bernie.mkv",
+              "size": 6455529861,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Crime"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Skip Hollandsworth"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Richard Linklater"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Richard Linklater"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Jack Black"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Shirley MacLaine"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Matthew McConaughey"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39366,
+      "key": "/library/metadata/39366",
+      "studio": "Twentieth Century Fox",
+      "type": "movie",
+      "title": "Hitman: Agent 47",
+      "contentRating": "R",
+      "summary": "An assassin teams up with a woman to help her find her father and uncover the mysteries of her ancestry.",
+      "rating": "0.8",
+      "audienceRating": "4.5",
+      "year": 2015,
+      "tagline": "Your Number is Up.",
+      "thumb": "/library/metadata/39366/thumb/1450734846",
+      "art": "/library/metadata/39366/art/1450734846",
+      "duration": 5776822,
+      "originallyAvailableAt": "2015-08-21",
+      "addedAt": 1450734658,
+      "updatedAt": 1450734846,
+      "audienceRatingImage": "rottentomatoes://image.rating.spilled",
+      "chapterSource": "mixed",
+      "primaryExtraKey": "/library/metadata/39367",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 107352,
+          "duration": 5776822,
+          "bitrate": 14954,
+          "width": 1920,
+          "height": 804,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "107577",
+              "key": "/library/parts/107577/file.mkv",
+              "duration": 5776822,
+              "file": "/mnt/PLEX-MEDIA/Movies/Hitman Agent 47 (2015)/Hitman Agent 47.mkv",
+              "size": 10798636490,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Crime"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Action"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Thriller"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Skip Woods"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Michael Finch"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Kyle Ward"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Aleksander Bach"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Rupert Friend"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Hannah Ware"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Zachary Quinto"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39635,
+      "key": "/library/metadata/39635",
+      "studio": "Twentieth Century Fox Film Corporation",
+      "type": "movie",
+      "title": "The Martian",
+      "titleSort": "Martian",
+      "contentRating": "PG-13",
+      "summary": "During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce storm and left behind by his crew. But Watney has survived and finds himself stranded and alone on the hostile planet. With only meager supplies, he must draw upon his ingenuity, wit and spirit to subsist and find a way to signal to Earth that he is alive.",
+      "rating": "9.3",
+      "audienceRating": "9.3",
+      "viewCount": 2,
+      "lastViewedAt": 1451116948,
+      "year": 2015,
+      "tagline": "Bring Him Home",
+      "thumb": "/library/metadata/39635/thumb/1450851680",
+      "art": "/library/metadata/39635/art/1450851680",
+      "duration": 8504922,
+      "originallyAvailableAt": "2015-10-02",
+      "addedAt": 1450731635,
+      "updatedAt": 1450851680,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39636",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 108136,
+          "duration": 8504922,
+          "bitrate": 4744,
+          "width": 1916,
+          "height": 796,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "108362",
+              "key": "/library/parts/108362/file.mkv",
+              "duration": 8504922,
+              "file": "/mnt/PLEX-MEDIA/Movies/Martian, The (2015)/The Martian.mkv",
+              "size": 5043020343,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39305,
+      "key": "/library/metadata/39305",
+      "studio": "Blue Sky Studios",
+      "type": "movie",
+      "title": "Rio 2",
+      "contentRating": "G",
+      "summary": "It's a jungle out there for Blu, Jewel and their three kids after they're hurtled from Rio de Janeiro to the wilds of the Amazon. As Blu tries to fit in, he goes beak-to-beak with the vengeful Nigel, and meets the most fearsome adversary of all: his father-in-law.",
+      "rating": "4.8",
+      "audienceRating": "5.9",
+      "year": 2014,
+      "tagline": "He's villainous, she's venomous.",
+      "thumb": "/library/metadata/39305/thumb/1450727498",
+      "art": "/library/metadata/39305/art/1450727498",
+      "duration": 6071154,
+      "originallyAvailableAt": "2014-04-11",
+      "addedAt": 1450727459,
+      "updatedAt": 1450727498,
+      "audienceRatingImage": "rottentomatoes://image.rating.spilled",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39307",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 107177,
+          "duration": 6071154,
+          "bitrate": 9270,
+          "width": 1920,
+          "height": 800,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "107402",
+              "key": "/library/parts/107402/file.mkv",
+              "duration": 6071154,
+              "file": "/mnt/PLEX-MEDIA/Movies/Rio 2 (2014)/Rio 2.mkv",
+              "size": 7034617998,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Animation"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Family"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Don Rhymer"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Carlos Kotkin"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Yoni Brenner"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Carlos Saldanha"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Jesse Eisenberg"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Anne Hathaway"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Jemaine Clement"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39304,
+      "key": "/library/metadata/39304",
+      "studio": "Lucasfilm",
+      "type": "movie",
+      "title": "Star Wars: Episode V - The Empire Strikes Back",
+      "contentRating": "PG",
+      "summary": "The epic saga continues as Luke Skywalker, in hopes of defeating the evil Galactic Empire, learns the ways of the Jedi from aging master Yoda. But Darth Vader is more determined than ever to capture Luke. Meanwhile, rebel leader Princess Leia, cocky Han Solo, Chewbacca, and droids C-3PO and R2-D2 are thrown into various stages of capture, betrayal and despair.",
+      "rating": "9.4",
+      "audienceRating": "9.7",
+      "viewCount": 1,
+      "lastViewedAt": 1443511756,
+      "year": 1980,
+      "tagline": "The battle continues...",
+      "thumb": "/library/metadata/39304/thumb/1450727500",
+      "art": "/library/metadata/39304/art/1450727500",
+      "duration": 7641568,
+      "originallyAvailableAt": "1980-05-17",
+      "addedAt": 1450727458,
+      "updatedAt": 1450727500,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39306",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 107176,
+          "duration": 7641568,
+          "bitrate": 11884,
+          "width": 1920,
+          "height": 818,
+          "aspectRatio": "2.35",
+          "audioChannels": 7,
+          "audioCodec": "dca",
+          "videoCodec": "hevc",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "107401",
+              "key": "/library/parts/107401/file.mkv",
+              "duration": 7641568,
+              "file": "/mnt/PLEX-MEDIA/Movies/Star Wars Episode V - The Empire Strikes Back (1980)/Star Wars Episode V - The Empire Strikes Back.mkv",
+              "size": 11351790669,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Sci-Fi"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Action"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Leigh Brackett"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Lawrence Kasdan"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Irvin Kershner"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Mark Hamill"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Harrison Ford"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Carrie Fisher"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39302,
+      "key": "/library/metadata/39302",
+      "studio": "Lucasfilm",
+      "type": "movie",
+      "title": "Star Wars: Episode II - Attack of the Clones",
+      "contentRating": "PG",
+      "summary": "Ten years after the invasion of Naboo, the galaxy is on the brink of civil war. Under the leadership of a renegade Jedi named Count Dooku, thousands of solar systems threaten to break away from the Galactic Republic. When an assassination attempt is made on Senator Padmé Amidala, the former Queen of Naboo, twenty-year-old Jedi apprentice Anakin Skywalker is assigned to protect her. In the course of his mission, Anakin discovers his love for Padmé as well as his own darker side. Soon, Anakin, Padmé, and Obi-Wan Kenobi are drawn into the heart of the Separatist movement and the beginning of the Clone Wars.",
+      "rating": "6.6",
+      "audienceRating": "5.9",
+      "year": 2002,
+      "tagline": "A Jedi Shall Not Know Anger. Nor Hatred. Nor Love.",
+      "thumb": "/library/metadata/39302/thumb/1450674379",
+      "art": "/library/metadata/39302/art/1450674379",
+      "duration": 8547883,
+      "originallyAvailableAt": "2002-05-16",
+      "addedAt": 1450674356,
+      "updatedAt": 1450674379,
+      "audienceRatingImage": "rottentomatoes://image.rating.spilled",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39303",
+      "ratingImage": "rottentomatoes://image.rating.ripe",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 107172,
+          "duration": 8547883,
+          "bitrate": 10959,
+          "width": 1920,
+          "height": 818,
+          "aspectRatio": "2.35",
+          "audioChannels": 7,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "107397",
+              "key": "/library/parts/107397/file.mkv",
+              "duration": 8547883,
+              "file": "/mnt/PLEX-MEDIA/Movies/Star Wars Episode II - Attack of the Clones (2002)/Star Wars Episode II - Attack of the Clones.mkv",
+              "size": 11709703762,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Sci-Fi"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Action"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Jonathan Hales"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "George Lucas"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "George Lucas"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Hayden Christensen"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Natalie Portman"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Ewan McGregor"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39187,
+      "key": "/library/metadata/39187",
+      "studio": "Thunder Road Pictures",
+      "type": "movie",
+      "title": "Sicario",
+      "contentRating": "R",
+      "summary": "A young female FBI agent joins a secret CIA operation to take down a Mexican cartel boss, a job that ends up pushing her ethical and moral values to the limit.",
+      "rating": "9.3",
+      "audienceRating": "8.8",
+      "year": 2015,
+      "tagline": "The deeper you go, the darker it gets.",
+      "thumb": "/library/metadata/39187/thumb/1450502484",
+      "art": "/library/metadata/39187/art/1450502484",
+      "duration": 7280322,
+      "originallyAvailableAt": "2015-09-18",
+      "addedAt": 1450502456,
+      "updatedAt": 1450502484,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39188",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 106837,
+          "duration": 7280322,
+          "bitrate": 9374,
+          "width": 1920,
+          "height": 800,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "107061",
+              "key": "/library/parts/107061/file.mkv",
+              "duration": 7280322,
+              "file": "/mnt/PLEX-MEDIA/Movies/Sicario (2015)/Sicario.mkv",
+              "size": 8530378382,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Crime"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Action"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Taylor Sheridan"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Denis Villeneuve"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Emily Blunt"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Josh Brolin"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Benicio Del Toro"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39137,
+      "key": "/library/metadata/39137",
+      "studio": "Waverly Films",
+      "type": "movie",
+      "title": "The Intern",
+      "titleSort": "Intern",
+      "contentRating": "PG-13",
+      "summary": "",
+      "rating": "6.0",
+      "audienceRating": "7.8",
+      "viewCount": 1,
+      "lastViewedAt": 1450671043,
+      "year": 2015,
+      "tagline": "Experience never gets old",
+      "thumb": "/library/metadata/39137/thumb/1450416095",
+      "art": "/library/metadata/39137/art/1450416095",
+      "duration": 7293343,
+      "addedAt": 1450416056,
+      "updatedAt": 1450416095,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "",
+      "primaryExtraKey": "/library/metadata/39138",
+      "ratingImage": "rottentomatoes://image.rating.ripe",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "720",
+          "id": 106689,
+          "duration": 7293343,
+          "bitrate": 3438,
+          "width": 1280,
+          "height": 720,
+          "aspectRatio": "1.78",
+          "audioChannels": 2,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "NTSC",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106913",
+              "key": "/library/parts/106913/file.mkv",
+              "duration": 7293343,
+              "file": "/mnt/PLEX-MEDIA/Movies/Intern, The (2015)/The Intern.mkv",
+              "size": 3134461797,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Nancy Meyers"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Nancy Meyers"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Robert De Niro"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Anne Hathaway"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Rene Russo"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39094,
+      "key": "/library/metadata/39094",
+      "studio": "Fox Searchlight Pictures",
+      "type": "movie",
+      "title": "The Grand Budapest Hotel",
+      "titleSort": "Grand Budapest Hotel",
+      "contentRating": "R",
+      "summary": "The Grand Budapest Hotel tells of a legendary concierge at a famous European hotel between the wars and his friendship with a young employee who becomes his trusted protégé. The story involves the theft and recovery of a priceless Renaissance painting, the battle for an enormous family fortune and the slow and then sudden upheavals that transformed Europe during the first half of the 20th century.",
+      "rating": "9.2",
+      "audienceRating": "8.6",
+      "year": 2014,
+      "thumb": "/library/metadata/39094/thumb/1450414288",
+      "art": "/library/metadata/39094/art/1450414288",
+      "duration": 5994995,
+      "originallyAvailableAt": "2014-03-07",
+      "addedAt": 1450414256,
+      "updatedAt": 1450414288,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "mixed",
+      "primaryExtraKey": "/library/metadata/39113",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 106564,
+          "duration": 5994995,
+          "bitrate": 11388,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106788",
+              "key": "/library/parts/106788/file.mkv",
+              "duration": 5994995,
+              "file": "/mnt/PLEX-MEDIA/Movies/Grand Budapest Hotel, The (2014)/The Grand Budapest Hotel.mkv",
+              "size": 8533636188,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Adventure"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Wes Anderson"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Wes Anderson"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Ralph Fiennes"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "F. Murray Abraham"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Mathieu Amalric"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39072,
+      "key": "/library/metadata/39072",
+      "studio": "Metro-Goldwyn-Mayer",
+      "type": "movie",
+      "title": "Spaceballs",
+      "contentRating": "PG",
+      "summary": "When the nefarious Dark Helmet hatches a plan to snatch Princess Vespa and steal her planet's air, space-bum-for-hire Lone Starr and his clueless sidekick fly to the rescue. Along the way, they meet Yogurt, who puts Lone Starr wise to the power of \"The Schwartz.\" Can he master it in time to save the day?",
+      "rating": "5.4",
+      "audienceRating": "8.3",
+      "viewCount": 2,
+      "lastViewedAt": 1451108700,
+      "year": 1987,
+      "tagline": "Once upon a time warp in deep space, the struggle between the nice & the rotten goes on...Once upon a time warp in deep space, the struggle between the nice & the rotten goes on...",
+      "thumb": "/library/metadata/39072/thumb/1450411176",
+      "art": "/library/metadata/39072/art/1450411176",
+      "duration": 5772773,
+      "originallyAvailableAt": "1987-06-24",
+      "addedAt": 1450411162,
+      "updatedAt": 1450411176,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "agent",
+      "primaryExtraKey": "/library/metadata/39073",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 106504,
+          "duration": 5772773,
+          "bitrate": 11827,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106728",
+              "key": "/library/parts/106728/file.mkv",
+              "duration": 5772773,
+              "file": "/mnt/PLEX-MEDIA/Movies/Spaceballs (1987)/Spaceballs.mkv",
+              "size": 8534029429,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Sci-Fi"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Adventure"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Mel Brooks"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Thomas Meehan"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Ronny Graham"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Mel Brooks"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Mel Brooks"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "John Candy"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Rick Moranis"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39038,
+      "key": "/library/metadata/39038",
+      "studio": "Columbia Pictures",
+      "type": "movie",
+      "title": "Hotel Transylvania 2",
+      "contentRating": "PG",
+      "summary": "When the old-old-old-fashioned vampire Vlad arrives at the hotel for an impromptu family get-together, Hotel Transylvania is in for a collision of supernatural old-school and modern day cool.",
+      "rating": "5.2",
+      "audienceRating": "6.9",
+      "year": 2015,
+      "tagline": "They're back to raise a little terror",
+      "thumb": "/library/metadata/39038/thumb/1450410687",
+      "art": "/library/metadata/39038/art/1450410687",
+      "duration": 5353467,
+      "originallyAvailableAt": "2015-09-25",
+      "addedAt": 1450410657,
+      "updatedAt": 1450410687,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "",
+      "primaryExtraKey": "/library/metadata/39061",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 106404,
+          "duration": 5353467,
+          "bitrate": 6992,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 2,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "NTSC",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106628",
+              "key": "/library/parts/106628/file.mkv",
+              "duration": 5353467,
+              "file": "/mnt/PLEX-MEDIA/Movies/Hotel Transylvania 2 (2015)/Hotel Transylvania 2.mkv",
+              "size": 4679055274,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Animation"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Family"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Dan Hageman"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Kevin Hageman"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Genndy Tartakovsky"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Adam Sandler"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Andy Samberg"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Selena Gomez"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39037,
+      "key": "/library/metadata/39037",
+      "studio": "Warner Bros.",
+      "type": "movie",
+      "title": "Black Mass",
+      "contentRating": "R",
+      "summary": "The true story of Whitey Bulger, the brother of a state senator and the most infamous violent criminal in the history of South Boston, who became an FBI informant to take down a Mafia family invading his turf.",
+      "rating": "7.5",
+      "audienceRating": "7.2",
+      "year": 2015,
+      "tagline": "Keep your enemies close.",
+      "thumb": "/library/metadata/39037/thumb/1450414273",
+      "art": "/library/metadata/39037/art/1450414273",
+      "duration": 7320000,
+      "originallyAvailableAt": "2015-09-18",
+      "addedAt": 1450410656,
+      "updatedAt": 1450414273,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "primaryExtraKey": "/library/metadata/39096",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "id": 106562,
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106786",
+              "key": "/library/parts/106786/file.avi",
+              "file": "/mnt/PLEX-MEDIA/Movies/Black Mass (2015)/Black Mass.avi",
+              "size": 831520768
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Biography"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Crime"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Jez Butterworth"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Mark Mallouk"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Scott Cooper"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Johnny Depp"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Benedict Cumberbatch"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Dakota Johnson"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39036,
+      "key": "/library/metadata/39036",
+      "studio": "Wildwood Enterprises",
+      "type": "movie",
+      "title": "A Walk in the Woods",
+      "titleSort": "Walk in the Woods",
+      "contentRating": "R",
+      "summary": "After spending two decades in England, Bill Bryson returns to the U.S., where he decides the best way to connect with his homeland is to hike the Appalachian Trail with one of his oldest friends.",
+      "rating": "4.5",
+      "audienceRating": "5.6",
+      "viewCount": 1,
+      "lastViewedAt": 1450663905,
+      "year": 2015,
+      "tagline": "When you push yourself to the edge, the real fun begins.",
+      "thumb": "/library/metadata/39036/thumb/1450410680",
+      "art": "/library/metadata/39036/art/1450410680",
+      "duration": 6277819,
+      "originallyAvailableAt": "2015-09-02",
+      "addedAt": 1450410656,
+      "updatedAt": 1450410680,
+      "audienceRatingImage": "rottentomatoes://image.rating.spilled",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39039",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 106402,
+          "duration": 6277819,
+          "bitrate": 10432,
+          "width": 1920,
+          "height": 800,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106626",
+              "key": "/library/parts/106626/file.mkv",
+              "duration": 6277819,
+              "file": "/mnt/PLEX-MEDIA/Movies/Walk in the Woods, A (2015)/A Walk in the Woods.mkv",
+              "size": 8186085232,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Adventure"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Bill Bryson"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Bill Holderman"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Rick Kerb"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Ken Kwapis"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Robert Redford"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Nick Nolte"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Emma Thompson"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 39034,
+      "key": "/library/metadata/39034",
+      "studio": "20th Century Fox",
+      "type": "movie",
+      "title": "Home Alone 2: Lost in New York",
+      "contentRating": "PG",
+      "summary": "Instead of flying to Florida with his folks, Kevin ends up alone in New York, where he gets a hotel room with his dad's credit card—despite problems from a clerk and meddling bellboy. But when Kevin runs into his old nemeses, the Wet Bandits, he's determined to foil their plans to rob a toy store on Christmas eve.",
+      "rating": "2.4",
+      "audienceRating": "6.1",
+      "viewCount": 1,
+      "lastViewedAt": 1450753594,
+      "year": 1992,
+      "tagline": "He's up past his bedtime in the city that never sleeps.",
+      "thumb": "/library/metadata/39034/thumb/1451030512",
+      "art": "/library/metadata/39034/art/1451030512",
+      "duration": 6907600,
+      "originallyAvailableAt": "1992-11-19",
+      "addedAt": 1450409900,
+      "updatedAt": 1451030512,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "agent",
+      "primaryExtraKey": "/library/metadata/39776",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "sd",
+          "id": 106398,
+          "duration": 6907600,
+          "bitrate": 1039,
+          "width": 688,
+          "height": 372,
+          "aspectRatio": "1.85",
+          "audioChannels": 2,
+          "audioCodec": "aac",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "PAL",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106622",
+              "key": "/library/parts/106622/file.mkv",
+              "duration": 6907600,
+              "file": "/mnt/PLEX-MEDIA/Movies/Home.Alone.2.1992.DVDRIP.mkv",
+              "size": 897388815,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Family"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Adventure"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "John Hughes"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Chris Columbus"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Macaulay Culkin"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Joe Pesci"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Daniel Stern"
+        }
+      ]
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38483,
+      "key": "/library/metadata/38483/children",
+      "parentRatingKey": 1643,
+      "type": "season",
+      "title": "Season 5",
+      "parentKey": "/library/metadata/1643",
+      "parentTitle": "American Horror Story",
+      "parentSummary": "American Horror Story is a horror-drama television franchise created and produced by Ryan Murphy and Brad Falchuk. Described as an anthology series, each season is conceived as a self-contained miniseries, following a disparate set of characters and settings, and a storyline with its own \"beginning, middle and end\".",
+      "summary": "",
+      "index": 5,
+      "parentIndex": 1,
+      "viewCount": 1,
+      "lastViewedAt": 1450372892,
+      "thumb": "/library/metadata/38483/thumb/1450331537",
+      "art": "/library/metadata/1643/art/1450331537",
+      "parentThumb": "/library/metadata/1643/thumb/1450331537",
+      "parentTheme": "/library/metadata/1643/theme/1450331537",
+      "leafCount": 10,
+      "viewedLeafCount": 10,
+      "addedAt": 1450331471,
+      "updatedAt": 1450331537,
+      "_children": []
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38716,
+      "key": "/library/metadata/38716/children",
+      "parentRatingKey": 19182,
+      "type": "season",
+      "title": "Season 3",
+      "parentKey": "/library/metadata/19182",
+      "parentTitle": "Being Mary Jane",
+      "parentSummary": "Mary Jane Paul is a one-woman-show: a successful TV news anchor, and an entirely self-sufficient powerhouse who remains devoted to a family that doesn't share her motivation. Intense drama and unforgettable moments unfold as Mary Jane juggles her life, her relationships, her work, and commitments to her family.",
+      "summary": "",
+      "index": 3,
+      "parentIndex": 1,
+      "viewCount": 1,
+      "lastViewedAt": 1450317084,
+      "thumb": "/library/metadata/19182/thumb/1450255905",
+      "art": "/library/metadata/19182/art/1450255905",
+      "parentThumb": "/library/metadata/19182/thumb/1450255905",
+      "parentTheme": "/library/metadata/19182/theme/1450255905",
+      "leafCount": 10,
+      "viewedLeafCount": 10,
+      "addedAt": 1450255866,
+      "updatedAt": 1450255905,
+      "_children": []
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 31296,
+      "key": "/library/metadata/31296/children",
+      "parentRatingKey": 31295,
+      "type": "season",
+      "title": "Season 1",
+      "parentKey": "/library/metadata/31295",
+      "parentTitle": "Silicon Valley",
+      "parentSummary": "In the high-tech gold rush of modern Silicon Valley, the people most qualified to succeed are the least capable of handling success. A comedy partially inspired by Mike Judge's own experiences as a Silicon Valley engineer in the late 1980s.",
+      "summary": "",
+      "index": 1,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/31296/thumb/1449906947",
+      "art": "/library/metadata/31295/art/1449906947",
+      "parentThumb": "/library/metadata/31295/thumb/1449906947",
+      "parentTheme": "/library/metadata/31295/theme/1449906947",
+      "leafCount": 8,
+      "viewedLeafCount": 0,
+      "addedAt": 1449906925,
+      "updatedAt": 1449906947,
+      "_children": []
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38488,
+      "key": "/library/metadata/38488/children",
+      "parentRatingKey": 38487,
+      "type": "season",
+      "title": "Season 2",
+      "parentKey": "/library/metadata/38487",
+      "parentTitle": "Shameless (US)",
+      "parentSummary": "Chicagoan Frank Gallagher is the proud single dad of six smart, industrious, independent kids, who without him would be... perhaps better off. When Frank's not at the bar spending what little money they have, he's passed out on the floor. But the kids have found ways to grow up in spite of him. They may not be like any family you know, but they make no apologies for being exactly who they are.",
+      "summary": "",
+      "index": 2,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/38488/thumb/1449906965",
+      "art": "/library/metadata/38487/art/1449906965",
+      "parentThumb": "/library/metadata/38487/thumb/1449906965",
+      "parentTheme": "/library/metadata/38487/theme/1449906965",
+      "leafCount": 12,
+      "viewedLeafCount": 10,
+      "addedAt": 1449906925,
+      "updatedAt": 1449906965,
+      "_children": []
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 21971,
+      "key": "/library/metadata/21971/children",
+      "parentRatingKey": 21926,
+      "type": "season",
+      "title": "Season 2",
+      "parentKey": "/library/metadata/21926",
+      "parentTitle": "Scandal (2012)",
+      "parentSummary": "A former media relations consultant to the President, Olivia Pope (Kerry Washington) dedicates her life to protecting and defending the public images of our nation's elite. After leaving the White House, the power consultant opened her own firm, hoping to start a new chapter -- both professionally and personally -- but she can't seem to completely cut ties with her past. Slowly it becomes apparent that her staff, who specialize in fixing the lives of other people, can't quite fix the ones closest at hand -- their own.",
+      "summary": "",
+      "index": 2,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/21971/thumb/1449903394",
+      "art": "/library/metadata/21926/art/1449903394",
+      "parentThumb": "/library/metadata/21926/thumb/1449903394",
+      "parentTheme": "/library/metadata/21926/theme/1449903394",
+      "leafCount": 22,
+      "viewedLeafCount": 0,
+      "addedAt": 1449903324,
+      "updatedAt": 1449903394,
+      "_children": []
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38574,
+      "key": "/library/metadata/38574/children",
+      "parentRatingKey": 9338,
+      "type": "season",
+      "title": "Season 5",
+      "parentKey": "/library/metadata/9338",
+      "parentTitle": "Once Upon a Time (2011)",
+      "parentSummary": "Emma Swan, a 28-year-old bail bonds collector, has always been a fiercely independent person since being abandoned as a baby. Her son Henry, who she gave up for adoption years ago, finds and tries to convince Emma that she is Snow White's missing daughter. Henry shows Emma that in the fairytale, Prince Charming and Snow White sent her away to protect her. Emma doesn't believe him and takes Henry back to Storybrooke...",
+      "summary": "",
+      "index": 5,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/38574/thumb/1449903395",
+      "art": "/library/metadata/9338/art/1449903395",
+      "parentThumb": "/library/metadata/9338/thumb/1449903395",
+      "parentTheme": "/library/metadata/9338/theme/1449903395",
+      "leafCount": 11,
+      "viewedLeafCount": 8,
+      "addedAt": 1449903324,
+      "updatedAt": 1449903395,
+      "_children": []
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38693,
+      "key": "/library/metadata/38693/children",
+      "parentRatingKey": 9338,
+      "type": "season",
+      "title": "Season 1",
+      "parentKey": "/library/metadata/9338",
+      "parentTitle": "Once Upon a Time (2011)",
+      "parentSummary": "Emma Swan, a 28-year-old bail bonds collector, has always been a fiercely independent person since being abandoned as a baby. Her son Henry, who she gave up for adoption years ago, finds and tries to convince Emma that she is Snow White's missing daughter. Henry shows Emma that in the fairytale, Prince Charming and Snow White sent her away to protect her. Emma doesn't believe him and takes Henry back to Storybrooke...",
+      "summary": "",
+      "index": 1,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/38693/thumb/1449903395",
+      "art": "/library/metadata/9338/art/1449903395",
+      "parentThumb": "/library/metadata/9338/thumb/1449903395",
+      "parentTheme": "/library/metadata/9338/theme/1449903395",
+      "leafCount": 22,
+      "viewedLeafCount": 0,
+      "addedAt": 1449901526,
+      "updatedAt": 1449903395,
+      "_children": []
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38460,
+      "key": "/library/metadata/38460/children",
+      "parentRatingKey": 28921,
+      "type": "season",
+      "title": "Season 6",
+      "parentKey": "/library/metadata/28921",
+      "parentTitle": "Downton Abbey",
+      "parentSummary": "Downton Abbey depicts the lives of the aristocratic Crawley family and their servants in the post-Edwardian era—with great events in history having an effect on their lives and on the British social hierarchy. ",
+      "summary": "",
+      "index": 6,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/38460/thumb/1449899799",
+      "art": "/library/metadata/28921/art/1449899799",
+      "parentThumb": "/library/metadata/28921/thumb/1449899799",
+      "parentTheme": "/library/metadata/28921/theme/1449899799",
+      "leafCount": 8,
+      "viewedLeafCount": 0,
+      "addedAt": 1449899724,
+      "updatedAt": 1449899799,
+      "_children": []
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38010,
+      "key": "/library/metadata/38010/children",
+      "parentRatingKey": 30257,
+      "type": "season",
+      "title": "Season 3",
+      "parentKey": "/library/metadata/30257",
+      "parentTitle": "Drunk History",
+      "parentSummary": "Historical reenactments as narrated by inebriated history buffs as A-list comedy/acting talent perform their tale. (Based on the award-winning web series.)",
+      "summary": "",
+      "index": 3,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/38010/thumb/1449899761",
+      "art": "/library/metadata/30257/art/1449899761",
+      "parentThumb": "/library/metadata/30257/thumb/1449899761",
+      "parentTheme": "/library/metadata/30257/theme/1449899761",
+      "leafCount": 13,
+      "viewedLeafCount": 8,
+      "addedAt": 1449899723,
+      "updatedAt": 1449899761,
+      "_children": []
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 14609,
+      "key": "/library/metadata/14609/children",
+      "parentRatingKey": 14608,
+      "type": "season",
+      "title": "Season 3",
+      "parentKey": "/library/metadata/14608",
+      "parentTitle": "The Walking Dead",
+      "parentSummary": "The world we knew is gone. An epidemic of apocalyptic proportions has swept the globe causing the dead to rise and feed on the living. In a matter of months society has crumbled. In a world ruled by the dead, we are forced to finally start living. Based on a comic book series of the same name by Robert Kirkman, this AMC project focuses on the world after a zombie apocalypse. The series follows a police officer, Rick Grimes, who wakes up from a coma to find the world ravaged with zombies. Looking for his family, he and a group of survivors attempt to battle against the zombies in order to stay alive.\n",
+      "summary": "",
+      "index": 3,
+      "parentIndex": 1,
+      "thumb": "/library/metadata/14609/thumb/1449897996",
+      "art": "/library/metadata/14608/art/1449897996",
+      "parentThumb": "/library/metadata/14608/thumb/1449897996",
+      "parentTheme": "/library/metadata/14608/theme/1449897996",
+      "leafCount": 16,
+      "viewedLeafCount": 0,
+      "addedAt": 1449897987,
+      "updatedAt": 1449897996,
+      "_children": []
+    },
+    {
+      "_elementType": "Directory",
+      "allowSync": "1",
+      "librarySectionID": "2",
+      "librarySectionTitle": "TV Shows",
+      "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+      "ratingKey": 38457,
+      "key": "/library/metadata/38457/children",
+      "parentRatingKey": 14608,
+      "type": "season",
+      "title": "Season 6",
+      "parentKey": "/library/metadata/14608",
+      "parentTitle": "The Walking Dead",
+      "parentSummary": "The world we knew is gone. An epidemic of apocalyptic proportions has swept the globe causing the dead to rise and feed on the living. In a matter of months society has crumbled. In a world ruled by the dead, we are forced to finally start living. Based on a comic book series of the same name by Robert Kirkman, this AMC project focuses on the world after a zombie apocalypse. The series follows a police officer, Rick Grimes, who wakes up from a coma to find the world ravaged with zombies. Looking for his family, he and a group of survivors attempt to battle against the zombies in order to stay alive.\n",
+      "summary": "",
+      "index": 6,
+      "parentIndex": 1,
+      "viewCount": 1,
+      "lastViewedAt": 1450165893,
+      "thumb": "/library/metadata/38457/thumb/1449897996",
+      "art": "/library/metadata/14608/art/1449897996",
+      "parentThumb": "/library/metadata/14608/thumb/1449897996",
+      "parentTheme": "/library/metadata/14608/theme/1449897996",
+      "leafCount": 8,
+      "viewedLeafCount": 8,
+      "addedAt": 1449897925,
+      "updatedAt": 1449897996,
+      "_children": []
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38915,
+      "key": "/library/metadata/38915",
+      "studio": "Blumhouse Productions",
+      "type": "movie",
+      "title": "The Gift",
+      "titleSort": "Gift",
+      "contentRating": "R",
+      "summary": "A husband and wife try to reinvigorate their relationship but their lives are threatened by a \"friend\" from the husband's past who holds a horrifying secret about him, sending their world into a tailspin.",
+      "rating": "9.3",
+      "audienceRating": "7.7",
+      "year": 2015,
+      "tagline": "Not every gift is welcome.",
+      "thumb": "/library/metadata/38915/thumb/1451030512",
+      "art": "/library/metadata/38915/art/1451030512",
+      "duration": 6491454,
+      "originallyAvailableAt": "2015-08-07",
+      "addedAt": 1449891077,
+      "updatedAt": 1451030512,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "agent",
+      "primaryExtraKey": "/library/metadata/39772",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "720",
+          "id": 106095,
+          "duration": 6491454,
+          "bitrate": 3104,
+          "width": 1280,
+          "height": 536,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "ac3",
+          "videoCodec": "mpeg4",
+          "container": "avi",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106319",
+              "key": "/library/parts/106319/file.avi",
+              "duration": 6491454,
+              "file": "/mnt/PLEX-MEDIA/Movies/The Gift (2015) 720p BRRip XviD AC3-RARBG Ingebakken Subs.avi",
+              "size": 2518812672,
+              "container": "avi",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Mystery"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Thriller"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Joel Edgerton"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Joel Edgerton"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Jason Bateman"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Rebecca Hall"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Joel Edgerton"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38914,
+      "key": "/library/metadata/38914",
+      "studio": "Paramount Pictures",
+      "type": "movie",
+      "title": "Mission: Impossible - Rogue Nation",
+      "contentRating": "PG-13",
+      "summary": "Ethan and team take on their most impossible mission yet, eradicating the Syndicate - an International rogue organization as highly skilled as they are, committed to destroying the IMF.",
+      "rating": "9.2",
+      "audienceRating": "8.9",
+      "viewCount": 1,
+      "lastViewedAt": 1450405142,
+      "year": 2015,
+      "tagline": "Go rogue",
+      "thumb": "/library/metadata/38914/thumb/1451030511",
+      "art": "/library/metadata/38914/art/1451030511",
+      "duration": 7893769,
+      "originallyAvailableAt": "2015-07-31",
+      "addedAt": 1449891076,
+      "updatedAt": 1451030511,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "mixed",
+      "primaryExtraKey": "/library/metadata/39755",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 106094,
+          "duration": 7893769,
+          "bitrate": 15777,
+          "width": 1920,
+          "height": 804,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106318",
+              "key": "/library/parts/106318/file.mkv",
+              "duration": 7893769,
+              "file": "/mnt/PLEX-MEDIA/Movies/Mission.Impossible.5.Rogue.Nation.2015.1080p.BluRay.DTS.x264-CyTSuNee.mkv",
+              "size": 15567293553,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Action"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Thriller"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Adventure"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Christopher McQuarrie"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Christopher McQuarrie"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Tom Cruise"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Rebecca Ferguson"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Jeremy Renner"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38869,
+      "key": "/library/metadata/38869",
+      "studio": "Pandemonium",
+      "type": "movie",
+      "title": "Coraline",
+      "contentRating": "PG",
+      "summary": "When Coraline moves to an old house, she feels bored and neglected by her parents. She finds a hidden door with a bricked up passage. During the night, she crosses the passage and finds a parallel world where everybody has buttons instead of eyes, with caring parents and all her dreams coming true. When the Other Mother invites Coraline to stay in her world forever, the girl refuses and finds that the alternate reality where she is trapped is only a trick to lure her.",
+      "rating": "9.0",
+      "audienceRating": "7.3",
+      "viewCount": 1,
+      "lastViewedAt": 1450401691,
+      "year": 2009,
+      "tagline": "Be careful what you wish for.",
+      "thumb": "/library/metadata/38869/thumb/1451030510",
+      "art": "/library/metadata/38869/art/1451030510",
+      "duration": 6036246,
+      "originallyAvailableAt": "2009-02-06",
+      "addedAt": 1449890598,
+      "updatedAt": 1451030510,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "agent",
+      "primaryExtraKey": "/library/metadata/39754",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 105963,
+          "duration": 6036246,
+          "bitrate": 9339,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106187",
+              "key": "/library/parts/106187/file.mkv",
+              "duration": 6036246,
+              "file": "/mnt/PLEX-MEDIA/Movies/fb-coraline-1080.mkv",
+              "size": 7046517270,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Animation"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Neil Gaiman"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Henry Selick"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Henry Selick"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Dakota Fanning"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Teri Hatcher"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "John Hodgman"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38868,
+      "key": "/library/metadata/38868",
+      "studio": "20th Century Fox",
+      "type": "movie",
+      "title": "Edward Scissorhands",
+      "contentRating": "PG-13",
+      "summary": "Edward Scissorhands is a classic Tim Burton and Johnny Depp film about a small suburban town that receives a visit from a castaway unfinished science experiment named Edward. A satire on the normality of Middle-America and their fear of outsiders. A magical fairytale story of loneliness, learning, and love; that will make you laugh, curse, and cry.",
+      "rating": "8.9",
+      "audienceRating": "9.1",
+      "viewCount": 1,
+      "lastViewedAt": 1450463794,
+      "year": 1990,
+      "tagline": "His scars run deep.",
+      "thumb": "/library/metadata/38868/thumb/1451030509",
+      "art": "/library/metadata/38868/art/1451030509",
+      "duration": 6300717,
+      "originallyAvailableAt": "1990-12-05",
+      "addedAt": 1449890598,
+      "updatedAt": 1451030509,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "mixed",
+      "primaryExtraKey": "/library/metadata/39753",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 105962,
+          "duration": 6300717,
+          "bitrate": 11917,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106186",
+              "key": "/library/parts/106186/file.mkv",
+              "duration": 6300717,
+              "file": "/mnt/PLEX-MEDIA/Movies/edward.scissorhands.1990.multi.remastered.1080p.bluray.x264-ulshd.mkv",
+              "size": 9385782713,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Romance"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Caroline Thompson"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Tim Burton"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Johnny Depp"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Winona Ryder"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Dianne Wiest"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38867,
+      "key": "/library/metadata/38867",
+      "studio": "20th Century Fox",
+      "type": "movie",
+      "title": "Turbo",
+      "contentRating": "PG",
+      "summary": "The tale of an ordinary garden snail who dreams of winning the Indy 500.",
+      "rating": "6.7",
+      "audienceRating": "6.6",
+      "viewCount": 1,
+      "lastViewedAt": 1448159906,
+      "year": 2013,
+      "tagline": "SLO NO MO",
+      "thumb": "/library/metadata/38867/thumb/1451030508",
+      "art": "/library/metadata/38867/art/1451030508",
+      "duration": 5740741,
+      "originallyAvailableAt": "2013-07-19",
+      "addedAt": 1449890598,
+      "updatedAt": 1451030508,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39741",
+      "ratingImage": "rottentomatoes://image.rating.ripe",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 105961,
+          "duration": 5740741,
+          "bitrate": 18584,
+          "width": 1920,
+          "height": 816,
+          "aspectRatio": "2.35",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106185",
+              "key": "/library/parts/106185/file.mkv",
+              "duration": 5740741,
+              "file": "/mnt/PLEX-MEDIA/Movies/Turbo.2013.1080p.Bluray.x264.DualDTS.mkv",
+              "size": 13335789066,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Animation"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Family"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Darren Lemke "
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "David Soren"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Robert D. Siegel"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "David Soren"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Ryan Reynolds"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Paul Giamatti"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Maya Rudolph"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38869,
+      "key": "/library/metadata/38869",
+      "studio": "Pandemonium",
+      "type": "movie",
+      "title": "Coraline",
+      "contentRating": "PG",
+      "summary": "When Coraline moves to an old house, she feels bored and neglected by her parents. She finds a hidden door with a bricked up passage. During the night, she crosses the passage and finds a parallel world where everybody has buttons instead of eyes, with caring parents and all her dreams coming true. When the Other Mother invites Coraline to stay in her world forever, the girl refuses and finds that the alternate reality where she is trapped is only a trick to lure her.",
+      "rating": "9.0",
+      "audienceRating": "7.3",
+      "viewCount": 1,
+      "lastViewedAt": 1450401691,
+      "year": 2009,
+      "tagline": "Be careful what you wish for.",
+      "thumb": "/library/metadata/38869/thumb/1451030510",
+      "art": "/library/metadata/38869/art/1451030510",
+      "duration": 5705237,
+      "originallyAvailableAt": "2009-02-06",
+      "addedAt": 1449890598,
+      "updatedAt": 1451030510,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "agent",
+      "primaryExtraKey": "/library/metadata/39754",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "720",
+          "id": 106565,
+          "duration": 5705237,
+          "bitrate": 1324,
+          "width": 1216,
+          "height": 704,
+          "aspectRatio": "1.78",
+          "audioChannels": 2,
+          "audioCodec": "aac",
+          "videoCodec": "h264",
+          "container": "mp4",
+          "videoFrameRate": "24p",
+          "optimizedForStreaming": 1,
+          "has64bitOffsets": "0",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106789",
+              "key": "/library/parts/106789/file.mp4",
+              "duration": 5705237,
+              "file": "/mnt/PLEX-MEDIA/Movies/Coraline (2009)/Coraline.mp4",
+              "size": 944122253,
+              "container": "mp4",
+              "has64bitOffsets": "0",
+              "indexes": "sd",
+              "optimizedForStreaming": "1"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Animation"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Neil Gaiman"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Henry Selick"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Henry Selick"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Dakota Fanning"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Teri Hatcher"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "John Hodgman"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38861,
+      "key": "/library/metadata/38861",
+      "studio": "Universal Pictures",
+      "type": "movie",
+      "title": "Casper",
+      "contentRating": "PG",
+      "summary": "Furious that her late father only willed her his gloomy-looking mansion rather than his millions, Carrigan Crittenden is ready to burn the place to the ground when she discovers a map to a treasure hidden in the house. But when she enters the rickety mansion to seek her claim, she is frightened away by a wicked wave of ghosts. Determined to get her hands on this hidden fortune, she hires afterlife therapist Dr. James Harvey to exorcise the ghosts from the mansion. Harvey and his daughter Kat move in, and soon Kat meets Casper, the ghost of a young boy who's \"the friendliest ghost you know.\" But not so friendly are Casper's uncles--Stretch, Fatso and Stinkie--who are determined to drive all \"fleshies\" away.",
+      "rating": "4.4",
+      "audienceRating": "4.9",
+      "year": 1995,
+      "tagline": "Get an afterlife",
+      "thumb": "/library/metadata/38861/thumb/1451030505",
+      "art": "/library/metadata/38861/art/1451030505",
+      "duration": 6008468,
+      "originallyAvailableAt": "1995-05-26",
+      "addedAt": 1449890597,
+      "updatedAt": 1451030505,
+      "audienceRatingImage": "rottentomatoes://image.rating.spilled",
+      "chapterSource": "agent",
+      "primaryExtraKey": "/library/metadata/39730",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "720",
+          "id": 105955,
+          "duration": 6008468,
+          "bitrate": 1054,
+          "width": 1280,
+          "height": 688,
+          "aspectRatio": "1.85",
+          "audioChannels": 2,
+          "audioCodec": "aac",
+          "videoCodec": "h264",
+          "container": "mp4",
+          "videoFrameRate": "24p",
+          "optimizedForStreaming": 1,
+          "has64bitOffsets": "0",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106179",
+              "key": "/library/parts/106179/file.mp4",
+              "duration": 6008468,
+              "file": "/mnt/PLEX-MEDIA/Movies/Casper.1995.720p.BluRay.x264.YIFY.mp4",
+              "size": 791502288,
+              "container": "mp4",
+              "has64bitOffsets": "0",
+              "indexes": "sd",
+              "optimizedForStreaming": "1"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Family"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Sherri Stoner"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Deanna Oliver"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Brad Silberling"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Bill Pullman"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Christina Ricci"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Cathy Moriarty"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38863,
+      "key": "/library/metadata/38863",
+      "studio": "Blue Sky Studios",
+      "type": "movie",
+      "title": "Ice Age: The Meltdown",
+      "contentRating": "PG",
+      "summary": "Diego, Manny and Sid return in this sequel to the hit animated movie Ice Age. This time around, the deep freeze is over, and the ice-covered earth is starting to melt, which will destroy the trio's cherished valley. The impending disaster prompts them to reunite and warn all the other beasts about the desperate situation.",
+      "rating": "5.7",
+      "audienceRating": "7.1",
+      "year": 2006,
+      "tagline": "The Ice age is melting away.",
+      "thumb": "/library/metadata/38863/thumb/1451030506",
+      "art": "/library/metadata/38863/art/1451030506",
+      "duration": 5438397,
+      "originallyAvailableAt": "2006-03-31",
+      "addedAt": 1449890597,
+      "updatedAt": 1451030506,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39731",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 105957,
+          "duration": 5438397,
+          "bitrate": 7221,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106181",
+              "key": "/library/parts/106181/file.mkv",
+              "duration": 5438397,
+              "file": "/mnt/PLEX-MEDIA/Movies/Ice Age 2 The Meltdown (2006) 1080p NL Audio & Subs.mkv",
+              "size": 4909164386,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Adventure"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Family"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Jon Vitti"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Carlos Saldanha"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Ray Romano"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "John Leguizamo"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Denis Leary"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38864,
+      "key": "/library/metadata/38864",
+      "studio": "Twentieth Century Fox Film Corporation",
+      "type": "movie",
+      "title": "Jumper",
+      "contentRating": "PG-13",
+      "summary": "A genetic anomaly allows a young man to teleport himself anywhere. He discovers this gift has existed for centuries and finds himself in a war that has been raging for thousands of years between \"Jumpers\" and those who have sworn to kill them.",
+      "rating": "1.6",
+      "audienceRating": "4.4",
+      "viewCount": 1,
+      "lastViewedAt": 1450196499,
+      "year": 2008,
+      "tagline": "anywhere is possible.",
+      "thumb": "/library/metadata/38864/thumb/1451030506",
+      "art": "/library/metadata/38864/art/1451030506",
+      "duration": 5300768,
+      "originallyAvailableAt": "2008-02-10",
+      "addedAt": 1449890597,
+      "updatedAt": 1451030506,
+      "audienceRatingImage": "rottentomatoes://image.rating.spilled",
+      "chapterSource": "mixed",
+      "primaryExtraKey": "/library/metadata/39732",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 105958,
+          "duration": 5300768,
+          "bitrate": 22578,
+          "width": 1920,
+          "height": 1080,
+          "aspectRatio": "1.78",
+          "audioChannels": 6,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106182",
+              "key": "/library/parts/106182/file.mkv",
+              "duration": 5300768,
+              "file": "/mnt/PLEX-MEDIA/Movies/Jumper.2008.1080p.BluRay.DD5.1.x264-EbP.mkv",
+              "size": 14960087916,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Sci-Fi"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Action"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Thriller"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "David S. Goyer"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Jim Uhls"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Simon Kinberg"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Doug Liman"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "Canada"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Hayden Christensen"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Samuel L. Jackson"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Jamie Bell"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38865,
+      "key": "/library/metadata/38865",
+      "studio": "Universal Pictures",
+      "type": "movie",
+      "title": "The Breakfast Club",
+      "titleSort": "Breakfast Club",
+      "contentRating": "R",
+      "summary": "Five high school students, all different stereotypes, meet in detention, where they pour their hearts out to each other, and discover how they have a lot more in common than they thought.",
+      "rating": "8.9",
+      "audienceRating": "9.2",
+      "year": 1985,
+      "tagline": "They only met once, but it changed their lives forever.",
+      "thumb": "/library/metadata/38865/thumb/1451030507",
+      "art": "/library/metadata/38865/art/1451030507",
+      "duration": 5824838,
+      "originallyAvailableAt": "1985-02-15",
+      "addedAt": 1449890597,
+      "updatedAt": 1451030507,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "media",
+      "primaryExtraKey": "/library/metadata/39733",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 105959,
+          "duration": 5824838,
+          "bitrate": 11424,
+          "width": 1920,
+          "height": 1040,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106183",
+              "key": "/library/parts/106183/file.mkv",
+              "duration": 5824838,
+              "file": "/mnt/PLEX-MEDIA/Movies/The.Breakfast.Club.1985.1080p.Bluray.X264-BARC0DE.mkv",
+              "size": 8317594823,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Drama"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "John Hughes"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "John Hughes"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Emilio Estevez"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Judd Nelson"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Molly Ringwald"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38862,
+      "key": "/library/metadata/38862",
+      "studio": "Walt Disney Pictures",
+      "type": "movie",
+      "title": "Hocus Pocus",
+      "contentRating": "PG",
+      "summary": "After 300 years of slumber, three sister witches are accidentally resurrected in Salem on Halloween night, and it us up to three kids and their newfound feline friend to put an end to the witches' reign of terror once and for all.",
+      "rating": "3.0",
+      "audienceRating": "7.0",
+      "year": 1993,
+      "tagline": "It's just a bunch of Hocus Pocus.",
+      "thumb": "/library/metadata/38862/thumb/1451030505",
+      "art": "/library/metadata/38862/art/1451030505",
+      "duration": 5776832,
+      "originallyAvailableAt": "1993-07-16",
+      "addedAt": 1449890597,
+      "updatedAt": 1451030505,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "agent",
+      "ratingImage": "rottentomatoes://image.rating.rotten",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "sd",
+          "id": 105956,
+          "duration": 5776832,
+          "bitrate": 1814,
+          "width": 720,
+          "height": 392,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "ac3",
+          "videoCodec": "h264",
+          "container": "mp4",
+          "videoFrameRate": "24p",
+          "optimizedForStreaming": 1,
+          "has64bitOffsets": "0",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106180",
+              "key": "/library/parts/106180/file.mp4",
+              "duration": 5776832,
+              "file": "/mnt/PLEX-MEDIA/Movies/Hocus.Pocus.1993.BDRip.X264-CHiVALRiC.mp4",
+              "size": 1310081498,
+              "container": "mp4",
+              "has64bitOffsets": "0",
+              "indexes": "sd",
+              "optimizedForStreaming": "1"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Family"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Fantasy"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Mick Garris"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Neil Cuthbert"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Kenny Ortega"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Bette Midler"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Sarah Jessica Parker"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Kathy Najimy"
+        }
+      ]
+    },
+    {
+      "_elementType": "Video",
+      "allowSync": "1",
+      "librarySectionID": "1",
+      "librarySectionTitle": "Movies",
+      "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+      "ratingKey": 38860,
+      "key": "/library/metadata/38860",
+      "studio": "Marvel Studios",
+      "type": "movie",
+      "title": "Ant-Man",
+      "contentRating": "PG-13",
+      "summary": "Armed with the astonishing ability to shrink in scale but increase in strength, con-man Scott Lang must embrace his inner-hero and help his mentor, Dr. Hank Pym, protect the secret behind his spectacular Ant-Man suit from a new generation of towering threats. Against seemingly insurmountable obstacles, Pym and Lang must plan and pull off a heist that will save the world.",
+      "rating": "8.0",
+      "audienceRating": "8.8",
+      "viewCount": 2,
+      "lastViewedAt": 1450412404,
+      "year": 2015,
+      "tagline": "Heroes Don't Get Any Bigger",
+      "thumb": "/library/metadata/38860/thumb/1451030501",
+      "art": "/library/metadata/38860/art/1451030501",
+      "duration": 7026652,
+      "originallyAvailableAt": "2015-07-17",
+      "addedAt": 1449890595,
+      "updatedAt": 1451030501,
+      "audienceRatingImage": "rottentomatoes://image.rating.upright",
+      "chapterSource": "mixed",
+      "primaryExtraKey": "/library/metadata/39712",
+      "ratingImage": "rottentomatoes://image.rating.certified",
+      "_children": [
+        {
+          "_elementType": "Media",
+          "videoResolution": "1080",
+          "id": 105954,
+          "duration": 7026652,
+          "bitrate": 12377,
+          "width": 1920,
+          "height": 1038,
+          "aspectRatio": "1.85",
+          "audioChannels": 6,
+          "audioCodec": "dca",
+          "videoCodec": "h264",
+          "container": "mkv",
+          "videoFrameRate": "24p",
+          "_children": [
+            {
+              "_elementType": "Part",
+              "id": "106178",
+              "key": "/library/parts/106178/file.mkv",
+              "duration": 7026652,
+              "file": "/mnt/PLEX-MEDIA/Movies/Ant.Man.2015.1080p.BluRay.DTS.x264-CyTSuNee.mkv",
+              "size": 10870869906,
+              "container": "mkv",
+              "indexes": "sd"
+            }
+          ]
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Sci-Fi"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Action"
+        },
+        {
+          "_elementType": "Genre",
+          "tag": "Adventure"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Adam McKay"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Edgar Wright"
+        },
+        {
+          "_elementType": "Writer",
+          "tag": "Joe Cornish"
+        },
+        {
+          "_elementType": "Director",
+          "tag": "Peyton Reed"
+        },
+        {
+          "_elementType": "Country",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Paul Rudd"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Michael Douglas"
+        },
+        {
+          "_elementType": "Role",
+          "tag": "Corey Stoll"
+        }
+      ]
+    }
+  ]
+}

@@ -1,27 +1,31 @@
 <div class="row" id="service_<%= service.id %>">
-  <% if service.online_status %>
-
-    <div class="col-lg-4">
-     <%= link_to service.url, class: "services_link", :target => "_blank" do %>
-      <button class="btn btn-xs btn-success" style="width:62px">
-      <span class="glyphicon glyphicon-ok" style="color:white;"></span> Online</button>
-      <div style="padding:1px"></div>
-    <% end %>
-    </div>
-    <div class="col-lg-8" style="padding-left:20px">
-      <%= link_to service.name, service, class: "services_link" %>
+  <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+     <table>
+       <tbody>
+         <tr>
+           <td>
+             <% if service.online_status %>
+               <%= link_to service.url, class: "services_link", :target => "_blank" do %>
+                 <button class="btn btn-xs btn-success" style="width:62px">
+                   <span class="glyphicon glyphicon-ok" style="color:white;"></span> Online</button>
+               <% end %>
+             <% else %>
+               <%= link_to service.url, class: "services_link", :target => "_blank"  do %>
+                 <button class="btn btn-xs btn-warning" style="width:62px">
+                   <span class="glyphicon glyphicon-remove" style="color:white;"></span> Offline</button>
+               <% end %>
+             <% end %>
+             <div style="padding:1px"></div>
+           </td>
+           <td style="padding-left: 5px;">
+             <% if service.service_flavor_id %>
+               <%= link_to service.name, {controller: service.service_flavor_type.tableize, action: 'show', id: service.service_flavor_id}, class: 'services_link'%>
+             <% else %>
+               <%= link_to service.name, service, class: 'services_link' %>
+             <% end %>
+           </td>
+         </tr>
+       </tbody>
+     </table>
   </div>
-    <% else %>
-    <div class="col-lg-4">
-      <%= link_to service.url, class: "services_link", :target => "_blank"  do %>
-        <button class="btn btn-xs btn-warning" style="width:62px">
-        <span class="glyphicon glyphicon-remove" style="color:white;"></span> Offline</button>
-        <div style="padding:1px"></div>
-      <% end %>
-    </div>
-    <div class="col-lg-8" style="padding-left:20px">
-      <%= link_to service.name, service, class: "services_link" %>
-  </div>
-
-  <% end %>
 </div>

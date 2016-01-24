@@ -10,14 +10,18 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
-
-# Ignore all logfiles and tempfiles.
+/coverage
+# Ignore all logfiles, tempfiles and secrets.yml
 /log/*
 !/log/.keep
 /tmp
-/.idea
 /config/secrets.yml
+
 #Ignore public/images
 /public/images/*
 #Ignore Spring files.
 /spring/*.pid
+/.idea/
+
+#Ignore test images
+/test/test_images/*

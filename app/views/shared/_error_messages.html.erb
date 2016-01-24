@@ -1,9 +1,24 @@
-<% if @service.errors.any? %>
-  <div id="error_explanation">
-    <ul class="list-group">
-    <% @service.errors.full_messages.each do |msg| %>
-      <li class="list-group-item"><span class="glyphicon glyphicon-remove"></span> <%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
+
+<% if @service %>
+  <% if @service.errors.any? %>
+    <div id="error_explanation">
+      <ul class="list-group">
+        <% @service.errors.full_messages.each do |msg| %>
+          <li class="list-group-item"><span class="glyphicon glyphicon-remove"></span> <%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @plex_service %>
+  <% if @plex_service.errors.any? %>
+    <div id="error_explanation">
+      <ul class="list-group">
+        <% @plex_service.errors.full_messages.each do |msg| %>
+          <li class="list-group-item"><span class="glyphicon glyphicon-remove"></span> <%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 <% end %>
