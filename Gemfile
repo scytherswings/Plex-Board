@@ -20,6 +20,7 @@ gem 'json', '~> 1.8.3'
 gem 'sass', '~> 3.4.19'
 gem 'execjs', '~> 2.6.0'
 gem 'parallel', '~> 1.6', '>= 1.6.1'
+gem 'rake', '~> 10.4.2'
 
 group :development, :test do
   gem 'simplecov', '~> 0.11.1'
