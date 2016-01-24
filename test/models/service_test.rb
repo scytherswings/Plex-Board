@@ -7,7 +7,7 @@ class ServiceTest < ActiveSupport::TestCase
     assert @generic_service_one.valid?, 'Generic_service_one was invalid'
     assert @generic_service_two.valid?, 'Generic_service_two was invalid'
     assert @plex_1.valid?, 'Plex_1 was invalid'
-    assert @plex_2.valid?, 'Plex_2 was invalid'
+    assert_not @plex_2.valid?, 'Plex_2 should not be valid'
     assert @plex_3.valid?, 'Plex_3 was invalid'
     assert @plex_4.valid?, 'Plex_4 was invalid'
     assert @plex_5.valid?, 'Plex_5 was invalid'

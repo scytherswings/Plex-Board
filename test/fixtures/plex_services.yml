@@ -1,28 +1,14 @@
 plex_service_one:
-  username: user
-  password: pass
   token: zV75NzEnTA1migSb21ze
-  api_error: false
 
 plex_service_with_no_token:
-  username: user
-  password: pass
-  api_error: false
+  token:
 
 plex_service_with_one_session:
-  username: user
-  password: pass
   token: zV75NzEnTA1migSb21ze
-  api_error: false
 
 plex_service_with_two_sessions:
-  username: user
-  password: pass
   token: zV75NzEnTA1migSb21ze
-  api_error: false
 
 plex_service_with_one_recently_added:
-  username: user
-  password: pass
   token: zV75NzEnTA1migSb21ze
-  api_error: false

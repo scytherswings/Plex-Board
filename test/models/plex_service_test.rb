@@ -5,7 +5,7 @@ class PlexServiceTest < ActiveSupport::TestCase
 
   test 'plex services should be valid' do
     assert @plex_service_one.valid?
-    assert @plex_service_with_no_token.valid?
+    assert_not @plex_service_with_no_token.valid?, 'Plex service with no token should not be valid'
     assert @plex_service_with_one_session.valid?
     assert @plex_service_with_two_sessions.valid?
   end
@@ -18,28 +18,46 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_equal 2, @plex_service_with_two_sessions.plex_sessions.count, 'Plex_service_with_two_sessions number of sessions did not match 2'
   end
 
-  test 'username must not be > 255 char' do
-    @plex_service_one.username = 'x' * 256
-    assert_not @plex_service_one.valid?, 'username should be <= 255 char'
+  # test 'username must not be > 255 char' do
+  #   @plex_service_with_no_token.username = 'x' * 256
+  #   assert_not @plex_service_with_no_token.valid?, 'username should be <= 255 char'
+  # end
+  #
+  # test 'password must not be > 255' do
+  #   # @plex_service_with_no_token.password = 'x' * 256
+  #   assert @plex_service_with_no_token.valid?, 'password should be <= 255 char'
+  # end
+
+  test 'username must not be > 255 characters' do
+    assert_raises ActiveRecord::RecordInvalid do
+      PlexService.create!(username: ('x' * 256), password: 'x')
+    end
   end
 
-  test 'password must not be > 255' do
-    @plex_service_one.password = 'x' * 256
-    assert_not @plex_service_one.valid?, 'password should be <= 255 char'
+  test 'password must not be > 255 characters' do
+    assert_raises ActiveRecord::RecordInvalid do
+      PlexService.create!(username: 'x', password: ('x' * 256))
+    end
   end
 
-  test 'get_plex_token will get token if token is nil' do
-    @plex_service_with_no_token.get_plex_token
-    assert_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json')
-    assert_equal TOKEN, @plex_service_with_no_token.token
+  test 'username must not be an empty string' do
+    assert_raises ActiveRecord::RecordInvalid do
+      PlexService.create!(username: '', password: 'x')
+    end
   end
 
-  test 'plex_api will not get token if token is present' do
-    assert_equal TOKEN, @plex_service_with_one_session.token
-    @plex_service_with_one_session.plex_api(:get, '/status/sessions')
-    assert_not_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json')
+  test 'username must not be empty spaces' do
+    assert_raises ActiveRecord::RecordInvalid do
+      PlexService.create!(username: '    ', password: 'x')
+    end
   end
-
+  
+  test 'password must not be an empty string' do
+    assert_raises ActiveRecord::RecordInvalid do
+      PlexService.create!(username: 'x', password: '')
+    end
+  end
+  
   test 'Service with no sessions will not change when plex has no sessions' do
     @plex_service_one.service.dns_name = 'plexnosessions'
     @plex_service_one.get_plex_sessions
@@ -96,9 +114,7 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_equal 1, @plex_service_with_one_session.plex_sessions.count
     assert @plex_service_with_one_session.plex_sessions.destroy_all
     assert_difference('@plex_service_with_one_session.plex_sessions.count', +1) do
-      @plex_service_with_one_session.get_plex_sessions
-      @plex_service_with_one_session.get_plex_sessions
-      @plex_service_with_one_session.get_plex_sessions
+      3.times {@plex_service_with_one_session.get_plex_sessions}
     end
     assert_requested(:get, 'https://plex5:32400/status/sessions', times: 3)
   end
@@ -145,29 +161,56 @@ class PlexServiceTest < ActiveSupport::TestCase
   test 'get_plex_recently_added will not add duplicate pras' do
     @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_all')
     @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
-    @plex_service_with_one_recently_added.get_plex_recently_added
-    @plex_service_with_one_recently_added.get_plex_recently_added
-    @plex_service_with_one_recently_added.get_plex_recently_added
+    3.times {@plex_service_with_one_recently_added.get_plex_recently_added}
     assert_requested(:get, 'https://plex7_all:32400/library/recentlyAdded', times: 3)
     assert_equal 50, @plex_service_with_one_recently_added.plex_recently_addeds.count, 'PRA count was not 50'
   end
 
+
   test 'get_plex_token will only hit the api once if given a 404' do
-    @plex_service_with_no_token.update(username: '404user')
-    3.times {@plex_service_with_no_token.get_plex_token}
+    test = PlexService.new
+    test.username = '404user'
+    test.password = 'pass'
+    3.times {test.save}
+    assert_not test.valid?
     assert_requested(:post, 'https://404user:pass@my.plexapp.com/users/sign_in.json', times: 1)
   end
 
   test 'get_plex_token will only hit the api once if given a 403' do
-    @plex_service_with_no_token.update(username: 'baduser')
-    3.times {@plex_service_with_no_token.get_plex_token}
+    test = PlexService.new
+    test.username = 'baduser'
+    test.password = 'pass'
+    3.times {test.save}
+    assert_not test.valid?
     assert_requested(:post, 'https://baduser:pass@my.plexapp.com/users/sign_in.json', times: 1)
   end
 
   test 'get_plex_token will only hit the api once if given a 401' do
-    @plex_service_with_no_token.update(password: 'badpass')
-    3.times {@plex_service_with_no_token.get_plex_token}
+    test = PlexService.new
+    test.username = 'user'
+    test.password = 'badpass'
+    3.times {test.save}
+    assert_not test.valid?
     assert_requested(:post, 'https://user:badpass@my.plexapp.com/users/sign_in.json', times: 1)
   end
 
+  test 'a new valid PlexService will have a token after saving' do
+    test = PlexService.new
+    test.username = 'user'
+    test.password = 'pass'
+    test.save
+    assert_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json', times: 1)
+    assert test.valid?
+  end
+
+  test 'a successful auth to plex.tv will delete passwords from the database' do
+    test = PlexService.new
+    test.username = 'user'
+    test.password = 'pass'
+    test.save
+    assert_requested(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json', times: 1)
+    assert test.valid?
+    assert test.username.nil?
+    assert test.password.nil?
+  end
 end

@@ -26,8 +26,12 @@ class ServicesController < ApplicationController
         @plex_services = PlexService.all
         @services = Service.all
 
+        if @plex_services.empty? && @services.empty?
+          raise StandardError.new('No services to iterate over. Exiting notifications loop.')
+        end
+
         @plex_services.each do |plex_service|
-          plex_service.get_plex_sessions
+          plex_service.update_plex_data
           plex_service.plex_sessions.try(:each) do |plex_session|
             logger.debug("Plex session media_title: #{plex_session.plex_object.media_title}, #{plex_session.plex_service.id}")
             data = {
@@ -48,7 +52,7 @@ class ServicesController < ApplicationController
             is_data_ready = true
             events << {data: data, event: 'plex_now_playing'}
           end
-          plex_service.get_plex_recently_added
+          # plex_service.get_plex_recently_added
           plex_service.plex_recently_addeds.try(:each_with_index) do |pra, x|
             if x > 4
               break
@@ -98,9 +102,11 @@ class ServicesController < ApplicationController
         end
       end
     rescue IOError
-      logger.info "Stream closed: IO Error"
+      logger.info 'Stream closed: IO Error'
     rescue ClientDisconnected
-      logger.info "Stream closed: Client Disconnect"
+      logger.info 'Stream closed: Client Disconnect'
+    rescue StandardError => e
+      logger.error "An error occurred during the loop: #{e.message}"
     ensure
       sse.close
     end

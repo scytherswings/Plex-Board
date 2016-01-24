@@ -12,9 +12,7 @@ module ApiHelper
 
   def api_call(method, url, headers, payload, verify_ssl)
     response = RestClient::Request.execute method: method, url: url,
-                                headers: headers, payload: payload, verify_ssl: verify_ssl #do |resp, request|
-      # handle_response(resp, request, url)
-    # end
+                                headers: headers, payload: payload, verify_ssl: verify_ssl
     JSON.parse(response)
   rescue JSON::ParserError
     logger.error 'There was an error parsing an API response. See debug logs for details.'
@@ -25,9 +23,7 @@ module ApiHelper
   def basic_auth(user, method, url, headers, payload, verify_ssl)
     response = RestClient::Request.execute method: method, url: url,
                                 user: user.username, password: user.password,
-                                headers: headers, payload: payload, verify_ssl: verify_ssl #do |resp, request|
-      # handle_response(resp, request, url)
-    # end
+                                headers: headers, payload: payload, verify_ssl: verify_ssl
     JSON.parse(response)
   rescue JSON::ParserError
     logger.error 'There was an error parsing an API response. See debug logs for details.'

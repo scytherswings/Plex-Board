@@ -17,10 +17,6 @@ class Service < ActiveRecord::Base
     validates :ip, presence: true, if: (:ip_and_dns_name_dont_exist)
     validates :dns_name, presence: true, if: (:ip_and_dns_name_dont_exist)
 
-    # def destroy_associated
-    #   self.service_flavor.destroy
-    # end
-
     def self.flavors
       ['Generic Service', 'Plex']
     end
@@ -32,7 +28,7 @@ class Service < ActiveRecord::Base
     end
 
     def ip_and_dns_name_dont_exist
-        if ((ip.blank? || ip.to_s.empty?) && (dns_name.blank? || dns_name.to_s.empty?))
+        if (ip.blank? || ip.to_s.empty?) && (dns_name.blank? || dns_name.to_s.empty?)
             self.errors.add(:base, 'IP Address or DNS Name must exist')
             true
         else

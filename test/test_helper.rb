@@ -40,11 +40,11 @@ class ActiveSupport::TestCase
 
     WebMock.stub_request(:post, 'https://baduser:pass@my.plexapp.com/users/sign_in.json').
         with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
-        to_return(status: 403, body: "{\"_elementType\": \"MediaContainer\",\"_children\": []}", headers: AUTH_HEADERS)
+        to_return(status: 403, body: "{\"error\": \"Invalid email, username, or password.\"}", headers: AUTH_HEADERS)
 
     WebMock.stub_request(:post, 'https://user:badpass@my.plexapp.com/users/sign_in.json').
         with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
-        to_return(status: 401, body: "{\"_elementType\": \"MediaContainer\",\"_children\": []}", headers: AUTH_HEADERS)
+        to_return(status: 401, body: "{\"error\": \"Invalid email, username, or password.\"}", headers: AUTH_HEADERS)
 
     WebMock.stub_request(:get, 'https://plex5updated:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
@@ -82,6 +82,13 @@ class ActiveSupport::TestCase
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection':'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
         to_return(status: 200, body: "{\"_elementType\": \"MediaContainer\",\"_children\": []}", headers: {})
 
+    WebMock.stub_request(:post, /https:\/\/x+?:x+?@my\.plexapp\.com\/users\/sign_in\.json/).
+        with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+        to_return(status: 201, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'sign_in.json').read, headers: AUTH_HEADERS)
+
+    # WebMock.stub_request(:post, /https:\/\/my\.plexapp\.com\/users\/sign_in\.json/).
+    #     with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+    #     to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'sign_in.json').read, headers: AUTH_HEADERS)
 
     # services.each { |name, value| instance_variable_set(name, value) }
     @generic_service_one = services(:generic_service_one)

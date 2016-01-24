@@ -13,16 +13,25 @@ class PlexService < ActiveRecord::Base
 # http://stackoverflow.com/questions/17371334/how-is-attr-accessible-used-in-rails-4
   accepts_nested_attributes_for :service
 
+  attr_accessor :username, :password, :api_error
   strip_attributes only: [:username], collapse_spaces: true
 
-  validates :username, length: { maximum: 255 }, allow_blank: true
-  validates :password, length: { maximum: 255 }, allow_blank: true
-  before_save :get_plex_token
   after_initialize :init
+
+  validates_length_of :username, maximum: 255, allow_blank: false, if: :token_nil?
+  validates_length_of :password, maximum: 255, allow_blank: false, if: :token_nil?
+  validate :get_plex_token, on: :create
+  validates_presence_of :token
+
+
   PLEX_URL = 'https://my.plexapp.com/users/sign_in.json'
 
   def init
     @api_error = false
+  end
+
+  def token_nil?
+    self.token.nil?
   end
 
   def get_connection_string
@@ -40,9 +49,7 @@ class PlexService < ActiveRecord::Base
     end
   end
 
-
-
-  def plex_api(method = :get, path = '', headers = {})
+  def plex_api(method: :get, path: '', headers: {})
     logger.info("Making Plex API call to: #{get_connection_string}#{path}")
 
     unless service.online_status
@@ -55,43 +62,25 @@ class PlexService < ActiveRecord::Base
 
     headers.merge!(defaults)
 
-    api_request(method: method, url: get_connection_string + path,
-                headers: headers, verify_ssl: false)
+    api_request(method: method, url: get_connection_string + path, headers: headers, verify_ssl: false)
+
+  rescue RestClient::Forbidden
+    logger.error 'Getting Plex resource failed with 403 Forbidden.'
+      nil
+  rescue RestClient::Unauthorized
+    logger.error 'Getting Plex resource failed with 401 Unauthorized.'
+      nil
+  rescue RestClient::NotFound
+    logger.error 'Getting Plex resource failed with 404 NotFound.'
+      nil
+  rescue RestClient, OpenSSL::SSL::SSLError => e
+    logger.error "Getting Plex resource failed, an unexpected error was returned: #{e.message}"
+    nil
   end
-
-  def get_plex_token
-    logger.info("Getting Plex token for PlexService ID: #{id} using username: #{username}")
-    plex_sign_in_headers = {
-        'X-Plex-Client-Identifier': 'Plex-Board'
-    }
-    if !api_error || token.nil?
-      if username.nil? || password.nil?
-        logger.error "Plex Session ID: #{id} had nil username or password when get_plex_token was called."
-        return false
-      end
-      user = PlexUser.new(username, password)
-      response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
-      update!(token: response['user']['authentication_token'])
-      @api_error = false
-      return true
-    end
-    false
-
-    rescue RestClient::Forbidden
-      @api_error = true
-      false
-    rescue RestClient::Unauthorized
-      @api_error = true
-      false
-    rescue RestClient::NotFound
-      @api_error = true
-      false
-  end
-
 
   def get_plex_sessions
     logger.info("Getting PlexSessions for PlexService: #{service.name}")
-    sess = plex_api(:get, '/status/sessions')
+    sess = plex_api(method: :get, path: '/status/sessions')
 
     # logger.debug(sess)
     # logger.debug(!sess.nil?)
@@ -172,9 +161,6 @@ class PlexService < ActiveRecord::Base
                                  plex_object_attributes: {description: new_session["summary"],
                                                           media_title: new_session["title"],
                                                           thumb_url: temp_thumb})
-    rescue ActiveRecord::RecordInvalid => error
-      logger.error("add_plex_session(new_session) encountered an error: #{error}")
-      return nil
   end
 
   def update_plex_session(existing_session, updated_session_viewOffset)
@@ -185,7 +171,9 @@ class PlexService < ActiveRecord::Base
   def get_plex_recently_added
     logger.info("Getting PlexRecentlyAdded for PlexService: #{service.name}")
 
-    pra_url = get_connection_string + '/library/recentlyAdded'
+    # pra_url = get_connection_string + '/library/recentlyAdded'
+
+    path = '/library/recentlyAdded'
 
     defaults = { 'Accept': 'application/json', 'Connection': 'Keep-Alive',
                  'X-Plex-Token': token }
@@ -195,7 +183,8 @@ class PlexService < ActiveRecord::Base
       return nil
     end
 
-    response = api_request(method: :get, url: pra_url, headers: defaults, verify_ssl: false)
+    response = plex_api(method: :get, path: path, headers: defaults)
+    # response = api_request(method: :get, url: pra_url, headers: defaults, verify_ssl: false)
 
     if response.nil?
       logger.debug("Plex doesn't have any recently added")
@@ -234,6 +223,44 @@ class PlexService < ActiveRecord::Base
                                       plex_object_attributes: {description: summary,
                                                                media_title: media_title,
                                                                thumb_url: temp_thumb})
+  end
+
+  private
+
+  def get_plex_token
+    if !@api_error && token.nil?
+      if username.nil? || username.blank? || password.nil? || password.blank?
+        logger.error "Plex Session ID: #{id} had nil username or password when get_plex_token was called."
+        return false
+      end
+      logger.info("Getting Plex token for PlexService ID: #{id} using username: #{username}")
+      plex_sign_in_headers = {
+          'X-Plex-Client-Identifier': 'Plex-Board'
+      }
+      user = PlexUser.new(username, password)
+      response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
+      update!(token: response['user']['authentication_token'])
+      logger.debug "Grabbing Plex token was successful, token was: #{response['user']['authentication_token']}. Deleting username and password from database."
+      @username, @password = nil
+      logger.debug 'Username and password were successfully deleted from database.'
+    end
+
+  rescue RestClient::Forbidden
+    logger.error 'Getting Plex token failed with 403 Forbidden.'
+    errors.add(:token, 'Plex authentication failed with 403 Forbidden. Please check Plex username and password.')
+    @api_error = true
+  rescue RestClient::Unauthorized
+    logger.error 'Getting Plex token failed with 401 Unauthorized.'
+    errors.add(:token, 'Plex authentication failed with 401 Unauthorized. Please check Plex username and password.')
+    @api_error = true
+  rescue RestClient::NotFound
+    logger.error 'Getting Plex token failed with 404 NotFound.'
+    errors.add(:token, 'Plex authentication failed with 404 Not Found. See debug logs for more details.')
+    @api_error = true
+  rescue RestClient => e
+    logger.error "Getting Plex token failed, an unexpected error was returned: #{e.message}"
+    errors.add(:token, 'Plex authentication failed with an unexpected error. Cannot create Plex Service. See debug logs for more details.')
+    @api_error = true
   end
 
 end

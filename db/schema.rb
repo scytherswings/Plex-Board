@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121032317) do
+ActiveRecord::Schema.define(version: 20160124033003) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.string   "image"
@@ -39,12 +39,9 @@ ActiveRecord::Schema.define(version: 20160121032317) do
   add_index "plex_recently_addeds", ["uuid"], name: "index_plex_recently_addeds_on_uuid"
 
   create_table "plex_services", force: :cascade do |t|
-    t.string   "username"
-    t.string   "password"
     t.string   "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean  "api_error"
   end
 
   create_table "plex_sessions", force: :cascade do |t|

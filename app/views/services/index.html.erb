@@ -2,17 +2,16 @@
 <%= render 'layouts/rightbar' %>
 
 <% if @services.empty? %>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-  <div class="jumbotron">
-    <h1>Welcome to Plex-Board!</h1>
-    <h2>It looks like you haven't added a service yet...</h2>
-    <h2>You should add one here: </h2>
-    <div class="row">
-      <%= link_to "Add Service!", choose_service_type_path, class: "btn btn-lg btn-success" %>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+    <div class="jumbotron">
+      <h1>Welcome to Plex-Board!</h1>
+      <h2>It looks like you haven't added a service yet...</h2>
+      <h2>You should add one here: </h2>
+      <div class="row">
+        <%= link_to "Add Service!", choose_service_type_path, class: "btn btn-lg btn-success" %>
+      </div>
     </div>
   </div>
-</div>
-
 <% elsif !@plex_services.nil? && !@plex_services.empty? %>
   <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
@@ -45,8 +44,8 @@
   </div>
 
 <% else %>
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center">
-      <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
+      <!--<div class="row">-->
         <div class="well">
           <h3>It looks like you haven't added a Plex service yet...</h3>
           <h4>You should add one here:</h4>
@@ -54,7 +53,7 @@
             <%= link_to 'Add Plex Service!', new_plex_service_path, class: 'btn btn-md btn-success' %>
           </div>
         </div>
-      </div>
+      <!--</div>-->
     </div>
 
 <% end %>

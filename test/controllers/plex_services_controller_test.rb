@@ -27,7 +27,7 @@ class PlexServicesControllerTest < ActionController::TestCase
   end
 
   test 'should update PlexService' do
-    patch :update, id: @plex_service_one.id, plex_service: { username: 'boblob', password: 'law', token: 'garbage' }
+    patch :update, id: @plex_service_one.id, plex_service: { username: 'user', password: 'newpass'}
     assert_redirected_to plex_service_path(assigns(:plex_service))
   end
 
