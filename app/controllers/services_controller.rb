@@ -20,6 +20,7 @@ class ServicesController < ApplicationController
     sse = SSE.new(response.stream, retry: 2000)
     begin
       # logger.debug(SSE.instance_methods)
+      first_loop = true
       while true
         is_data_ready = false
         events = Array.new
@@ -27,7 +28,8 @@ class ServicesController < ApplicationController
         @services = Service.all
 
         if @plex_services.empty? && @services.empty?
-          raise StandardError.new('No services to iterate over. Exiting notifications loop.')
+          logger.info 'There were no PlexServices or Generic Services, sleeping for 60s.'
+          sleep(60)
         end
 
         @plex_services.each do |plex_service|
@@ -75,7 +77,7 @@ class ServicesController < ApplicationController
           if service.last_seen.nil?
             service.ping
           end
-          if !service.last_seen.nil? && service.last_seen > 10.seconds.ago #the sign is backwards because time always increases and we're using integers for time
+          if !first_loop && !service.last_seen.nil? && service.last_seen > 10.seconds.ago #the sign is > because time always increases and we're using integers for time
             logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
             next
           end
@@ -100,13 +102,14 @@ class ServicesController < ApplicationController
           # sse.write('keepalive', event: 'keepalive')
           sleep(2)
         end
+        first_loop = false #this allows us to show services and stuff as online immediately
       end
     rescue IOError
       logger.info 'Stream closed: IO Error'
     rescue ClientDisconnected
       logger.info 'Stream closed: Client Disconnect'
-    rescue StandardError => e
-      logger.error "An error occurred during the loop: #{e.message}"
+    # rescue StandardError => e
+    #   logger.error "An error occurred during the loop: #{e.message}"
     ensure
       sse.close
     end

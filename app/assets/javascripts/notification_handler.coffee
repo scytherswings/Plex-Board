@@ -6,49 +6,49 @@ source.addEventListener 'online_status', (e) ->
   service = $.parseJSON(e.data)
   console.log service
   console.log service.online_status
-#  html_offline = """
-#                 <div class="row" id="service_#{service.service_id}">
-#                   <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-#                    <table>
-#                     <tbody>
-#                       <tr>
-#                         <td>
-#                           <a class="services_link" target="_blank"
-#                            href="#{service.url}">
-#                             <button class="btn btn-xs btn-warning"
-#                              style="width:62px">
-#                             <span class="glyphicon glyphicon-remove"
-#                               style="color:white;"></span> Offline</button>
-#                             <div style="padding:1px"></div>
-#                           </a>
-#                         </td>
-#                         <td>
-#                           <a class="services_link"
-#                             href=
-#                             "/services/#{service.service_id}">#{service.name}</a>
-#                         </td>
-#                       </tr>
-#                     </tbody>
-#                   </table>
-#                 </div>
-#                 """
-#  html_online = """
-#                <div class="row" id="service_#{service.service_id}">
-#                  <div class="col-sm-3 col-md-4 col-lg-4">
-#                    <a class="services_link" target="_blank"
-#                      href="#{service.url}">
-#                      <button class="btn btn-xs btn-success" style="width:62px">
-#                      <span class="glyphicon glyphicon-ok"
-#                        style="color:white;"></span> Online</button>
-#                      <div style="padding:1px"></div>
-#                    </a>
-#                  </div>
-#                  <div class="col-sm-7 col-md-7 col-lg-7 col-md-offset-1 col-lg-offset-0">
-#                    <a class="services_link"
-#                      href="/services/#{service.service_id}">#{service.name}</a>
-#                  </div>
-#                </div>
-#                """
+  html_offline = """
+                 <div class="row" id="service_#{service.service_id}">
+                   <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                    <table>
+                     <tbody>
+                       <tr>
+                         <td>
+                           <a class="services_link" target="_blank" href="#{service.url}">
+                             <button class="btn btn-xs btn-warning" style="width:62px">
+                             <span class="glyphicon glyphicon-remove" style="color:white;"></span> Offline</button>
+                           </a>
+                          <div style="padding:1px"></div>
+                         </td>
+                         <td style="padding-left: 5px;">
+                           <a class="services_link" href="/services/#{service.service_id}">#{service.name}</a>
+                         </td>
+                       </tr>
+                     </tbody>
+                   </table>
+                 </div>
+                 """
+  html_online = """
+                <div class="row" id="service_#{service.service_id}">
+                  <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                     <table>
+                       <tbody>
+                         <tr>
+                           <td>
+                             <a class="services_link" target="_blank" href="#{service.url}">
+                               <button class="btn btn-xs btn-success" style="width:62px">
+                               <span class="glyphicon glyphicon-ok" style="color:white;"></span> Online</button>
+                             </a>
+                             <div style="padding:1px"></div>
+                           </td>
+                           <td style="padding-left: 5px;">
+                               <a class="services_link" href="/services/#{service.service_id}">#{service.name}</a>
+                           </td>
+                         </tr>
+                       </tbody>
+                     </table>
+                  </div>
+                </div>
+                """
 
 
   if service.online_status is true

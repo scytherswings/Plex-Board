@@ -17,8 +17,6 @@
              <% end %>
              <div style="padding:1px"></div>
            </td>
-           <!--</div>-->
-           <!--<div class="col-xs-12 col-sm-4 col-md-7 col-lg-7 col-xs-offset-0 com-sm-offset-1 col-md-offset-1 col-lg-offset-0">-->
            <td style="padding-left: 5px;">
              <% if service.service_flavor_id %>
                <%= link_to service.name, {controller: service.service_flavor_type.tableize, action: 'show', id: service.service_flavor_id}, class: 'services_link'%>

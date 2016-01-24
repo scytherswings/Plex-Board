@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.4.1
+## Version 0.4.2
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
@@ -22,15 +22,16 @@ Plex-Board is meant to help the users **and** administrators of a Plex server ge
 There's a large list of features I plan to support in the future and I take all requests into consideration. If there is something you'd like to see, feel free to chat about it on Gitter, or create a feature request ticket.
 
 
-Here are a few screenshots of v0.4.1
-![home](http://i.imgur.com/IHuLsAh.png)
+Here are a few screenshots of v0.4.2:
+![Now-Playing](http://i.imgur.com/WjyXjMv.png)
 
-![add](http://i.imgur.com/6qnMZwa.png)
+![Recently Added](http://i.imgur.com/C0ZEvvW.png)
 
-![view](http://i.imgur.com/zDbDLD4.png)
+![All Services Panel](http://i.imgur.com/MdRkfZJ.png)
 
-![all](http://i.imgur.com/9JWlycL.png)
+![Plex Token Authentication](http://i.imgur.com/xw2GfUR.png)
 
+![Modal dialog boxes!](http://i.imgur.com/BBDeol0.png)
 
 ## System Requirements
 

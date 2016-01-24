@@ -3,6 +3,7 @@ class Service < ActiveRecord::Base
     # before_destroy :destroy_associated
     after_initialize :init
 
+    attr_accessor :timeout
     strip_attributes :only => [:ip, :url, :dns_name], :collapse_spaces => true
 
     validates_associated :service_flavor
@@ -17,14 +18,9 @@ class Service < ActiveRecord::Base
     validates :ip, presence: true, if: (:ip_and_dns_name_dont_exist)
     validates :dns_name, presence: true, if: (:ip_and_dns_name_dont_exist)
 
-    def self.flavors
-      ['Generic Service', 'Plex']
-    end
-
     def init
-        @timeout ||= 5
-        self.port ||=80
-        self.online_status ||= false
+      @timeout ||= 5
+      self.online_status ||= false
     end
 
     def ip_and_dns_name_dont_exist
@@ -51,9 +47,6 @@ class Service < ActiveRecord::Base
     rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH, SocketError
       self.update(online_status: false)
       return false
-    # rescue Exception
-    #   self.update(online_status: false)
-    #   return false
     end
   end
 

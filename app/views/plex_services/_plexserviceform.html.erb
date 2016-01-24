@@ -4,41 +4,44 @@
     <div class="row" id="default_info_div">
 
       <div class="col-md-4 col-lg-4form-group">
-        <%= f.input :name, :placeholder => "New serivce name", :required => false %>
+        <%= f.input :name, placeholder: 'New service name', required: false %>
       </div>
       <div class="col-md-3 col-lg-3 form-group">
-        <%= f.input :ip, label: "IP Address", :placeholder => "127.0.0.1", :required => false %>
+        <%= f.input :ip, label: 'IP Address', placeholder: '127.0.0.1', required: false %>
       </div>
       <div class="col-md-3 col-lg-3 form-group">
-        <%= f.input :dns_name, label: "DNS Name", :placeholder => "plex", :required => false %>
+        <%= f.input :dns_name, label: 'DNS Name', placeholder: 'plex', required: false %>
       </div>
       <div class="col-md-2 col-lg-2 form-group">
-        <%= f.input :port, :placeholder => "80", :required => false %>
+        <%= f.input :port, placeholder: '32400', required: false %>
       </div>
     </div>
     <div class="row" id="url_div">
       <div class="col-lg-12 form-group">
-        <%= f.input :url, label: "URL", :placeholder => "http://plex.example.com:32400/web", :required => false %>
+        <%= f.input :url, label: 'URL', placeholder: 'http://plex.example.com:32400/web', required: false %>
       </div>
     </div>
   <% end %>
 
   <div class="row" id="plex_service_info_div">
     <div class="col-md-3 col-lg-3 form-group">
-      <%= i.input :username, :placeholder => "username", :required => false %>
+      <%= i.input :username, placeholder: 'username', required: false %>
     </div>
     <div class="col-md-3 col-lg-3 form-group">
-      <%= i.input :password, :placeholder => "password", :required => false %>
+      <%= i.input :password, placeholder: 'password', required: false %>
     </div>
   </div>
 
   <div class="row">
     <div class="col-lg-12 form-group">
-      <% if request.original_url.include? "edit" %>
+      <% if request.original_url.include? 'edit' %>
         <% str = "Are you sure you want to delete: #{@plex_service.service.name}?" %>
-        <%= link_to 'Delete Service', @plex_service, method: :delete, data: { confirm: str }, class: "btn btn-md btn-danger" %>
+        <%= link_to 'Delete Service', @plex_service, method: :delete, data: { confirm: str }, class: 'btn btn-md btn-danger' %>
+        <%= i.button :submit, 'Update Plex Service', class: 'btn-success pull-right' %>
+      <% else %>
+        <%= i.button :submit, 'Create Plex Service', class: 'btn-success pull-right' %>
       <% end %>
-      <%= i.button :submit, class: "btn-success pull-right" %>
+
     </div>
   </div>
 

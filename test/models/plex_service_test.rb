@@ -28,15 +28,15 @@ class PlexServiceTest < ActiveSupport::TestCase
   #   assert @plex_service_with_no_token.valid?, 'password should be <= 255 char'
   # end
 
-  test 'username must not be > 255 characters' do
+  test 'username must not be > 127 characters' do
     assert_raises ActiveRecord::RecordInvalid do
-      PlexService.create!(username: ('x' * 256), password: 'x')
+      PlexService.create!(username: ('x' * 128), password: 'x')
     end
   end
 
-  test 'password must not be > 255 characters' do
+  test 'password must not be > 127 characters' do
     assert_raises ActiveRecord::RecordInvalid do
-      PlexService.create!(username: 'x', password: ('x' * 256))
+      PlexService.create!(username: 'x', password: ('x' * 128))
     end
   end
 
