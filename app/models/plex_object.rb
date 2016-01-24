@@ -98,8 +98,8 @@ class PlexObject < ActiveRecord::Base
         f.write(RestClient::Request.execute(method: :get, url: "#{connection_string}#{self.thumb_url}", headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE))
       end
     rescue Errno::ENOENT
-      logger.error "There was a problem opening the image file: #{imagefile} for write-binary mode. Returning existing image."
-      return self.image
+      logger.error "There was a problem opening the image file: #{imagefile} for write-binary mode. Returning placeholder.png"
+      return DEFAULT_IMAGE
     end
       self.update!(image: "#{self.id}.jpeg")
       logger.debug("Plex Object ID: #{self.id} updated to image #{self.image}")
