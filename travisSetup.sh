@@ -9,5 +9,3 @@ echo -e "production:\n secret_key_base: " $SECRET >> $SECRETS
 # rm db/*sqlite3
 rake db:create
 rake db:migrate
-TRAVIS=TRUE
-export TRAVIS
