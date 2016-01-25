@@ -7,8 +7,11 @@ require 'webmock/minitest'
 require 'rails/test_help'
 require 'strip_attributes/matchers'
 require 'capybara/poltergeist'
+require 'capybara/rails'
 Capybara.javascript_driver = :poltergeist
+require 'capybara-screenshot/minitest'
 Minitest::Reporters.use!
+
 
 
 
@@ -116,6 +119,12 @@ class ActiveSupport::TestCase
     
 end
 
+  class ActionDispatch::IntegrationTest
+    # Make the Capybara DSL available in all integration tests
+    include Capybara::DSL
+    Capybara::Screenshot.prune_strategy = :keep_last_run
+    Capybara::Screenshot.webkit_options = { width: 1920, height: 1080 }
+  end
 
   # Add more helper methods to be used by all tests here...
 end
