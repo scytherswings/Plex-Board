@@ -24,4 +24,4 @@
 /.idea/
 
 #Ignore test images
-/test/test_images/*
+/test/test_images/*.jpeg
