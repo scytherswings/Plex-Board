@@ -6,9 +6,13 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
+    tries ||= 3
     @services = Service.all
     @plex_services = PlexService.all
     @plex_services.each {|ps| ps.update_plex_data}
+  rescue ActiveRecord::StatementInvalid => e
+    logger.error "There was an error interacting with the database. The error was: #{e}"
+    retry unless (tries -= 1).zero?
   end
 
 

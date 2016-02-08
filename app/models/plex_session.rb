@@ -6,6 +6,9 @@ class PlexSession < ActiveRecord::Base
 
   validates_presence_of :plex_user_name
   validates_presence_of :session_key
+  # after_touch do
+  #   validates_associated :plex_object
+  # end
   # validates_associated :plex_object
   validates :session_key, uniqueness: { scope: :plex_service}
 

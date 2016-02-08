@@ -23,19 +23,22 @@ gem 'parallel', '~> 1.6', '>= 1.6.1'
 gem 'rake', '~> 10.4.2'
 
 group :development, :test do
-  gem 'simplecov', '~> 0.11.1'
-  gem 'coveralls', require: false
-  gem 'capybara'
-  gem 'poltergeist'
+
 end
 
 group :test do
+  gem 'simplecov', '~> 0.11.1'
+  gem 'coveralls', require: false
   gem 'minitest-reporters', '~> 1.0.20'
   gem 'mini_backtrace', '~> 0.1.3'
   gem 'webmock', '~> 1.21.0'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'phantomjs', require: 'phantomjs/poltergeist'
+  gem 'capybara-screenshot'
+  # gem 'parallel_tests'
   # gem 'guard', '~> 2.13.0'
   # gem 'guard-minitest', '~> 2.4.4'
-  # gem 'sinatra', '~> 1.4.6'
 end
 
 group :development do

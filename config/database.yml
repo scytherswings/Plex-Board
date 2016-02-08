@@ -19,6 +19,8 @@ development:
 test:
   <<: *default
   database: db/test.sqlite3
+#  database: db/test<%= ENV['TEST_ENV_NUMBER'] %>.sqlite3
+
 
 production:
   <<: *default

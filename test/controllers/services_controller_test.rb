@@ -62,11 +62,11 @@ class ServicesControllerTest < ActionController::TestCase
   # test 'Bad plex service port wont break page load' do
   #   get :index
   #   assert_response :success
-  #   assert_requested(:get, 'https://plex4:32400/status/sessions')
+  #   assert_requested(:get, 'https://plex5:32400/status/sessions')
   #   @plex_service_one.service.update(port: 32401)
   #   get :index
   #   assert_response :success
-  #   assert_requested(:get, 'https://plex4:32401/status/sessions')
+  #   assert_requested(:get, 'https://plex5:32401/status/sessions')
   # end
 
   # This might take some tinkering

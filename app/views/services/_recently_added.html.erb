@@ -5,7 +5,10 @@
       <%= image_tag plex_recently_added.plex_object.get_img %>
       <h3><%= plex_recently_added.plex_object.media_title %></h3>
       <p><%= plex_recently_added.plex_object.get_description %></p>
-      <p>Added <%= plex_recently_added.get_added_date %></p>
+        <p>Added to <%= link_to plex_recently_added.plex_service.service.name,
+                                {controller: plex_recently_added.plex_service.service.service_flavor_type.tableize,
+                                 action: 'show', id: plex_recently_added.plex_service.service.service_flavor_id},
+                                class: 'services_link'%> on <br/><%= plex_recently_added.get_added_date %></p>
     </div>
   </div>
 </div>

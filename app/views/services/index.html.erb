@@ -23,8 +23,8 @@
                   <%= render partial: 'now_playing', locals: { plex_session: plex_session, active: 'active'}  %>
                 <% else %>
                   <%= render partial: 'now_playing', locals: { plex_session: plex_session, active: ''}  %>
-                <% end %> <!--if sessions-->
-              <% end %> <!--sessions loop-->
+                <% end %>
+              <% end %>
               <% if plex_service.plex_sessions.count < 3 %>
                 <% plex_service.plex_recently_addeds.try(:each_with_index) do |plex_recently_added, k| %>
                   <% if k > 4 %>
@@ -34,26 +34,24 @@
                     <%= render partial: 'recently_added', locals: { plex_recently_added: plex_recently_added, active: 'active'}  %>
                   <% else %>
                     <%= render partial: 'recently_added', locals: { plex_recently_added: plex_recently_added, active: ''}  %>
-                  <% end %> <!--if sessions-->
-                <% end %> <!--sessions loop-->
+                  <% end %>
+                <% end %>
               <% end %>
-            </div> <!--carousel-inner div-->
-          <% end %> <!--if first time-->
-      <% end %> <!--services.each-->
+            </div>
+          <% end %>
+      <% end %>
     </div>
   </div>
 
 <% else %>
     <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
-      <!--<div class="row">-->
-        <div class="well">
-          <h3>It looks like you haven't added a Plex service yet...</h3>
-          <h4>You should add one here:</h4>
-          <div class="row">
-            <%= link_to 'Add Plex Service!', new_plex_service_path, class: 'btn btn-md btn-success' %>
-          </div>
+      <div class="well">
+        <h3>It looks like you haven't added a Plex service yet...</h3>
+        <h4>You should add one here:</h4>
+        <div class="row">
+          <%= link_to 'Add Plex Service!', new_plex_service_path, class: 'btn btn-md btn-success' %>
         </div>
-      <!--</div>-->
+      </div>
     </div>
 
 <% end %>
