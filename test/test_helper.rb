@@ -145,6 +145,8 @@ class ActionDispatch::IntegrationTest
 
 
   def setup
+    FileUtils.rm_rf("#{PlexObject.get('images_dir')}/.", secure: true)
+
     WebMock.disable_net_connect!(allow_localhost: true)
 
     WebMock.stub_request(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json').
