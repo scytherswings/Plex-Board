@@ -8,5 +8,5 @@ This project attempts to adhere to [Semantic Versioning](http://semver.org/).
   - Added one UI test to check for keywords on the homepage
 - This changelog!
 
- ### Changed
+### Changed
 - Updated to Ruby 2.3.0
