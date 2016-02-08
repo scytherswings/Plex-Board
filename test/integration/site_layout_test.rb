@@ -8,7 +8,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   #   Capybara.reset_sessions!
   #   Capybara.use_default_driver
   # end
-
+  # Capybara::Screenshot.screenshot_and_save_page
 
   test 'check index for all expected links' do
     visit '/'
@@ -16,7 +16,6 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
       assert page.has_content?(word), "#{word} was missing from \"/\""
     end
     assert page.has_title?('Plex-Board'), '"Plex-Board" was not the title for "/"'
-    # Capybara::Screenshot.screenshot_and_save_page
   end
 
   test 'hit index and check carousel-inner exists' do
