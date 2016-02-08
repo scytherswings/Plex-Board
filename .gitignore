@@ -25,3 +25,4 @@
 
 #Ignore test images
 /test/test_images/*.jpeg
+/test/test_images/*.png
