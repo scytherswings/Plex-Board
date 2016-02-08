@@ -16,11 +16,11 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
       assert page.has_content?(word), "#{word} was missing from \"/\""
     end
     assert page.has_title?('Plex-Board'), '"Plex-Board" was not the title for "/"'
-    Capybara::Screenshot.screenshot_and_save_page
+    # Capybara::Screenshot.screenshot_and_save_page
   end
 
-  # test 'hit index and check for carousel item' do
-  #   visit '/'
-  #   assert page.has_selector?('carousel'), 'Carousel was missing from page'
-  # end
+  test 'hit index and check carousel-inner exists' do
+    visit '/'
+    assert page.has_selector?('#carousel-inner'), '#Carousel-inner was missing from page'
+  end
 end
