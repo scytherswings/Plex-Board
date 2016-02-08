@@ -7,5 +7,6 @@ This project attempts to adhere to [Semantic Versioning](http://semver.org/).
 - PhantomJS testing framework
   - Added one UI test to check for keywords on the homepage
 - This changelog!
+
  ### Changed
 - Updated to Ruby 2.3.0
