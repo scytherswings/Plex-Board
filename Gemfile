@@ -36,6 +36,7 @@ group :test do
   gem 'poltergeist'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'capybara-screenshot'
+  gem 'vcr', '~> 3.0.1'
   # gem 'parallel_tests'
   # gem 'guard', '~> 2.13.0'
   # gem 'guard-minitest', '~> 2.4.4'

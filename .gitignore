@@ -26,3 +26,6 @@
 #Ignore test images
 /test/test_images/*.jpeg
 /test/test_images/*.png
+
+#Ignore plex_test_config.yml to keep private info private
+/test/test_config_files/plex_test_config.yml
