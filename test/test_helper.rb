@@ -134,8 +134,8 @@ class ActionDispatch::IntegrationTest
   include StripAttributes::Matchers
 
   def setup
-    config_file
-    @plex_server = {ip: '127.0.0.1'}
+    # config_file
+    # @plex_server = {ip: '127.0.0.1'}
   end
 end
 
