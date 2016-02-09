@@ -5,11 +5,9 @@ This project attempts to adhere to [Semantic Versioning](http://semver.org/).
 ## [0.5.1] - 2016-2-9
 ### Added
 - VCR and real-world Plex server responses for Integration Tests
-  - plex_test_config.yml file and example_plex_test_config.yml files were added to the test directory.
-  plex_test_config.yml is in .gitignore so that my personal information does not make it into the repo.
+  - service_test_config.yml file and example_service_test_config.yml files were added to the test directory. 
+  service_test_config.yml is in .gitignore so that my personal information does not make it into the repo.
   
-
-
 
 ## [0.5.0] - 2016-2-8
 ### Added

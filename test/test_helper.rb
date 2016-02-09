@@ -9,6 +9,7 @@ require 'strip_attributes/matchers'
 require 'capybara/poltergeist'
 require 'capybara/rails'
 require 'vcr'
+require 'yaml'
 Capybara.javascript_driver = :poltergeist
 require 'capybara-screenshot/minitest'
 Minitest::Reporters.use!
@@ -134,12 +135,15 @@ class ActionDispatch::IntegrationTest
   include StripAttributes::Matchers
 
   def setup
-    # config_file
-    # @plex_server = {ip: '127.0.0.1'}
+    if File.file? Rails.root.join('test/integration_test_config_files', 'service_test_config.yml')
+      config = YAML.load(File.open(Rails.root.join('test/integration_test_config_files', 'service_test_config.yml'), 'r').read)
+    else
+      config = {ip: '127.0.0.1', port: 32400, url: 'https://127.0.0.1:32400/web', username: 'user', password: 'pass'}
+    end
+    @plex_server_1 = config['plex_server_1']
   end
 end
 
-  # Add more helper methods to be used by all tests here...
 end
 
 
