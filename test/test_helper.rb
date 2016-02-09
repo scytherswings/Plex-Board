@@ -134,6 +134,8 @@ class ActionDispatch::IntegrationTest
 
   include StripAttributes::Matchers
 
+
+
   def setup
     if File.file? Rails.root.join('test/integration_test_config_files', 'service_test_config.yml')
       config = YAML.load(File.open(Rails.root.join('test/integration_test_config_files', 'service_test_config.yml'), 'r').read)
