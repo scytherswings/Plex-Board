@@ -1,8 +1,8 @@
 # Change Log
 All notable changes to this project will be documented in this file.
-This project attempts to adhere to [Semantic Versioning](http://semver.org/).
+This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.5.1] - 2016-2-9
+## [0.5.1] - 2016-2-11
 ### Added
 - VCR and real-world Plex server responses for Integration Tests
   - service_test_config.yml file and example_service_test_config.yml files were added to the test directory. 

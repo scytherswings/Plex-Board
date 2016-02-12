@@ -1,7 +1,14 @@
 require 'test_helper'
 
 class PlexObjectTest < ActiveSupport::TestCase
-  
+
+  test 'plex_objects should be valid' do
+    assert @plex_object_session_2.valid?
+    assert @plex_object_session_1.valid?
+    assert @plex_object_session_3.valid?
+    assert @plex_object_recently_added_1.valid?
+  end
+
   test 'plex_object media_title must not be blank' do
     @plex_object_session_1.media_title = nil
     assert_not @plex_object_session_1.valid?, 'media_title should not be allowed to be nil'

@@ -2,17 +2,16 @@ require 'coveralls'
 Coveralls.wear!('rails')
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
+require 'rails/test_help'
 require 'minitest/reporters'
 require 'webmock/minitest'
-require 'rails/test_help'
 require 'strip_attributes/matchers'
+require 'capybara-screenshot/minitest'
 require 'capybara/poltergeist'
 require 'capybara/rails'
-require 'vcr'
 require 'yaml'
-Capybara.javascript_driver = :poltergeist
-require 'capybara-screenshot/minitest'
 Minitest::Reporters.use!
+
 
 
 
@@ -29,14 +28,18 @@ class ActiveSupport::TestCase
              'X-Plex-Protocol': '1.0'}
 
   AUTH_HEADERS = { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Max-Age': 86400 }
-  TOKEN = 'zV75NzEnTA1migSb21ze'
+  TOKEN = 'k3qRS5pJuWFz8U9tJp1d'
   USER_AGENT = /rest-client\/2\.0\.0\.rc2 .*/
   HOST = 'my.plexapp.com'
 
   def setup
-    FileUtils.rm_rf("#{PlexObject.get('images_dir')}/.", secure: true)
-
     WebMock.disable_net_connect!(allow_localhost: true)
+
+    VCR.configure do |config|
+      config.allow_http_connections_when_no_cassette = true
+    end
+
+    FileUtils.rm_rf("#{PlexObject.get('images_dir')}/.", secure: true)
 
     WebMock.stub_request(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json').
         with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
@@ -119,13 +122,17 @@ class ActiveSupport::TestCase
     @plex_service_w2sess_session_1 = plex_sessions(:plex_service_w2sess_session_1)
     @plex_service_w2sess_session_2 = plex_sessions(:plex_service_w2sess_session_2)
     @plex_service_w1ra_pra_1 = plex_recently_addeds(:plex_service_w1ra_pra_1)
-    
+    end
 end
 
 class ActionDispatch::IntegrationTest
+  require 'vcr'
+  require 'minitest-vcr'
+
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
   include Capybara::Screenshot::MiniTestPlugin
+  Capybara.javascript_driver = :poltergeist
   Capybara.current_driver = Capybara.javascript_driver
   # Capybara::Screenshot.prune_strategy = :keep_last_run
   Capybara::Screenshot.webkit_options = { width: 1920, height: 1080 }
@@ -134,9 +141,14 @@ class ActionDispatch::IntegrationTest
 
   include StripAttributes::Matchers
 
-
-
   def setup
+    VCR.configure do |config|
+      config.allow_http_connections_when_no_cassette = true
+      config.cassette_library_dir = Rails.root.join('test/integration_test_config_files/cassettes')
+      config.hook_into :webmock
+    end
+
+    WebMock.disable_net_connect!(allow_localhost: true)
     if File.file? Rails.root.join('test/integration_test_config_files', 'service_test_config.yml')
       config = YAML.load(File.open(Rails.root.join('test/integration_test_config_files', 'service_test_config.yml'), 'r').read)
     else
@@ -145,11 +157,4 @@ class ActionDispatch::IntegrationTest
     @plex_server_1 = config['plex_server_1']
   end
 end
-
-end
-
-
-
-
-
 
