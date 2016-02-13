@@ -19,11 +19,15 @@ gem 'rest-client', '~> 2.0.0.rc2'
 gem 'json', '~> 1.8.3'
 gem 'sass', '~> 3.4.19'
 gem 'execjs', '~> 2.6.0'
-gem 'parallel', '~> 1.6', '>= 1.6.1'
+gem 'parallel', '~> 1.6.1'
 gem 'rake', '~> 10.4.2'
 
 group :development, :test do
+  gem 'spring', '~> 1.4.0'
+end
 
+group :development do
+  # gem 'web-console', '~> 2.0'
 end
 
 group :test do
@@ -38,14 +42,10 @@ group :test do
   gem 'capybara-screenshot'
   gem 'vcr', '~> 3.0.1'
   gem 'minitest-vcr', '~> 1.4.0'
+  gem 'faker', '~> 1.6.1'
   # gem 'parallel_tests'
   # gem 'guard', '~> 2.13.0'
   # gem 'guard-minitest', '~> 2.4.4'
-end
-
-group :development do
-  # gem 'web-console', '~> 2.0'
-  gem 'spring', '~> 1.4.0'
 end
 
 group :production do
