@@ -14,6 +14,7 @@ require 'fabrication'
 require 'faker'
 require 'vcr'
 require 'minitest-vcr'
+require 'parallel_tests/test/runtime_logger' if ENV['RECORD_RUNTIME']
 Minitest::Reporters.use!
 Capybara.javascript_driver = :poltergeist
 
@@ -27,7 +28,7 @@ WebMock.disable_net_connect!(allow_localhost: true)
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  # fixtures :all
+  fixtures :all
   PlexObject.set(images_dir: 'test/test_images')
 
   include StripAttributes::Matchers

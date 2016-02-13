@@ -7,8 +7,8 @@ class PlexObject < ActiveRecord::Base
 
   validates_associated :plex_object_flavor
   validates_presence_of :media_title
-  # validates_presence_of :description
-
+  # validates_presence_of :image
+  validates_presence_of :thumb_url
 
   @@images_dir = 'public/images'
   DEFAULT_IMAGE_PATH = 'test/fixtures/images'

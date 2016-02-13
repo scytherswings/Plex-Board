@@ -4,7 +4,7 @@ class Service < ActiveRecord::Base
     after_initialize :init
 
     attr_accessor :timeout
-    strip_attributes :only => [:ip, :url, :dns_name], :collapse_spaces => true
+    strip_attributes only: [:ip, :url, :dns_name], collapse_spaces: true
 
     validates_associated :service_flavor
     validates :name, presence: true, uniqueness: true, allow_blank: false

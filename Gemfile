@@ -24,6 +24,7 @@ gem 'rake', '~> 10.4.2'
 
 group :development, :test do
   gem 'spring', '~> 1.4.0'
+  gem 'parallel_tests', '~> 2.3.1'
 end
 
 group :development do
@@ -44,7 +45,6 @@ group :test do
   gem 'minitest-vcr', '~> 1.4.0'
   gem 'faker', '~> 1.6.1'
   gem 'fabrication', '~> 2.14.1'
-  # gem 'parallel_tests'
   # gem 'guard', '~> 2.13.0'
   # gem 'guard-minitest', '~> 2.4.4'
 end
