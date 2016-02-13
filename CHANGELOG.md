@@ -3,11 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [v0.5.2] : 2016-2-12
-### Added
+### Changed
 - Changed tests to use fabricators instead of fixtures. 
 This will allow me have an easier time with the integration tests since the database won't be filled with garbage data.
-
-### Changed
 - This changelog's formatting and stuff
 
 
