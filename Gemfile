@@ -43,6 +43,7 @@ group :test do
   gem 'vcr', '~> 3.0.1'
   gem 'minitest-vcr', '~> 1.4.0'
   gem 'faker', '~> 1.6.1'
+  gem 'fabrication', '~> 2.14.1'
   # gem 'parallel_tests'
   # gem 'guard', '~> 2.13.0'
   # gem 'guard-minitest', '~> 2.4.4'

@@ -1,4 +1,0 @@
-plex_service_w1ra_pra_1:
-  plex_service: plex_service_with_one_recently_added
-  added_date: <%= 5.day.ago.to_s(:db) %>
-  uuid: c58dc19b-7a20-475b-adca-a4e26cb340bd
