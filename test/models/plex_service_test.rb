@@ -18,15 +18,16 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_equal 2, @plex_service_with_two_sessions.plex_sessions.count, 'Plex_service_with_two_sessions number of sessions did not match 2'
   end
 
-  # test 'username must not be > 255 char' do
-  #   @plex_service_with_no_token.username = 'x' * 256
-  #   assert_not @plex_service_with_no_token.valid?, 'username should be <= 255 char'
-  # end
-  #
-  # test 'password must not be > 255' do
-  #   # @plex_service_with_no_token.password = 'x' * 256
-  #   assert @plex_service_with_no_token.valid?, 'password should be <= 255 char'
-  # end
+  test 'username must not be > 127 char' do
+    ps = Fabricate(:plex_service)
+    ps.username = 'x' * 128
+    assert_not ps.valid?, 'username should be <= 127 char'
+  end
+
+  test 'password must not be > 255' do
+    @plex_service_with_no_token.password = 'x' * 128
+    assert_not @plex_service_with_no_token.valid?, 'password should be <= 127 char'
+  end
 
   test 'username must not be > 127 characters' do
     assert_raises ActiveRecord::RecordInvalid do
@@ -51,7 +52,7 @@ class PlexServiceTest < ActiveSupport::TestCase
       PlexService.create!(username: '    ', password: 'x')
     end
   end
-  
+
   test 'password must not be an empty string' do
     assert_raises ActiveRecord::RecordInvalid do
       PlexService.create!(username: 'x', password: '')
