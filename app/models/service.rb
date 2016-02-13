@@ -9,8 +9,8 @@ class Service < ActiveRecord::Base
     validates_associated :service_flavor
     validates :name, presence: true, uniqueness: true, allow_blank: false
     validates :url, presence: true, uniqueness: true, allow_blank: false
-    validates_numericality_of :port
-    validates_inclusion_of :number, in: 1..65535
+    # validates_numericality_of :port
+    validates_inclusion_of :port, in: 1..65535
     validates :ip, length: { minimum: 7, maximum: 45 },
         format: { with: Resolv::IPv4::Regex },
         uniqueness: { scope: :port }, allow_blank: true
@@ -58,9 +58,4 @@ class Service < ActiveRecord::Base
       self.ip
     end
   end
-
-
-
-
-
 end
