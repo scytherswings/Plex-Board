@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.5.0
+## Version 0.5.1
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
@@ -45,7 +45,7 @@ Rails can probably run on 512MB of RAM fine and CPU usage will vary. You can pro
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=dev)](https://travis-ci.org/scytherswings/Plex-Board)
 
-### This project is not ready for real production use yet, so don't expect stability until a 1.0 release
+### This project is not ready for real production use yet, so don't expect stability until a 1.0.0 release
 
 These instructions have been tested on a fresh install of Ubuntu 14.04 using bash as of 10/16/2015.
 Other operating systems will probably work, but for now I'm only going to write instructions for Ubuntu.

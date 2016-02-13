@@ -26,3 +26,6 @@
 #Ignore test images
 /test/test_images/*.jpeg
 /test/test_images/*.png
+
+#Ignore service_test_config.yml to keep private safe
+/test/integration_test_config_files/service_test_config.yml

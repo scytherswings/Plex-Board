@@ -1,0 +1,16 @@
+# This file is used to describe your real-life local plex server so it can be used for testing.
+# The actual service_test_config.yml file is not intended to be used after cassettes recordings of
+# interactions with a Plex Server are added to the test/fixtures/cassettes/ folder
+
+plex_server_1:
+  ip: 127.0.0.1
+  port: 32400
+  url: https://127.0.0.1:32400/web
+  username: bob
+  password: 1234
+
+# Future usages could look like this:
+couchpotato_server_1:
+  ip: 127.0.0.1
+  port: 5050
+  url: https://127.0.0.1:5050

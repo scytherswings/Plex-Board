@@ -1,14 +1,14 @@
 plex_service_one:
-  token: zV75NzEnTA1migSb21ze
+  token: k3qRS5pJuWFz8U9tJp1d
 
 plex_service_with_no_token:
   token:
 
 plex_service_with_one_session:
-  token: zV75NzEnTA1migSb21ze
+  token: k3qRS5pJuWFz8U9tJp1d
 
 plex_service_with_two_sessions:
-  token: zV75NzEnTA1migSb21ze
+  token: k3qRS5pJuWFz8U9tJp1d
 
 plex_service_with_one_recently_added:
-  token: zV75NzEnTA1migSb21ze
+  token: k3qRS5pJuWFz8U9tJp1d
