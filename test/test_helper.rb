@@ -6,19 +6,28 @@ require 'rails/test_help'
 require 'minitest/reporters'
 require 'webmock/minitest'
 require 'strip_attributes/matchers'
-require 'capybara-screenshot/minitest'
-require 'capybara/poltergeist'
 require 'capybara/rails'
+require 'capybara/poltergeist'
+require 'capybara-screenshot/minitest'
 require 'yaml'
+require 'fabrication'
+require 'faker'
+require 'vcr'
+require 'minitest-vcr'
 Minitest::Reporters.use!
+Capybara.javascript_driver = :poltergeist
 
 
-
-
+VCR.configure do |config|
+  config.allow_http_connections_when_no_cassette = true
+  config.cassette_library_dir = Rails.root.join('test/integration_test_config_files/cassettes')
+  config.hook_into :webmock
+end
+WebMock.disable_net_connect!(allow_localhost: true)
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+  # fixtures :all
   PlexObject.set(images_dir: 'test/test_images')
 
   include StripAttributes::Matchers
@@ -33,12 +42,6 @@ class ActiveSupport::TestCase
   HOST = 'my.plexapp.com'
 
   def setup
-    WebMock.disable_net_connect!(allow_localhost: true)
-
-    VCR.configure do |config|
-      config.allow_http_connections_when_no_cassette = true
-    end
-
     FileUtils.rm_rf("#{PlexObject.get('images_dir')}/.", secure: true)
 
     WebMock.stub_request(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json').
@@ -126,15 +129,8 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
-  require 'vcr'
-  require 'minitest-vcr'
-
-  # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
   include Capybara::Screenshot::MiniTestPlugin
-  Capybara.javascript_driver = :poltergeist
-  Capybara.current_driver = Capybara.javascript_driver
-  # Capybara::Screenshot.prune_strategy = :keep_last_run
   Capybara::Screenshot.webkit_options = { width: 1920, height: 1080 }
 
   PlexObject.set(images_dir: 'test/test_images')
@@ -142,13 +138,7 @@ class ActionDispatch::IntegrationTest
   include StripAttributes::Matchers
 
   def setup
-    VCR.configure do |config|
-      config.allow_http_connections_when_no_cassette = true
-      config.cassette_library_dir = Rails.root.join('test/integration_test_config_files/cassettes')
-      config.hook_into :webmock
-    end
 
-    WebMock.disable_net_connect!(allow_localhost: true)
     if File.file? Rails.root.join('test/integration_test_config_files', 'service_test_config.yml')
       config = YAML.load(File.open(Rails.root.join('test/integration_test_config_files', 'service_test_config.yml'), 'r').read)
     else
