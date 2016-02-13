@@ -77,6 +77,12 @@ class ServiceTest < ActiveSupport::TestCase
     assert_not @generic_service_two.valid?, 'Duplicate URLs should not be allowed'
   end
 
+  test 'port is within port range' do
+    @generic_service_one.port = '65536'
+    @generic_service_one.save
+    assert_not @generic_service_one.valid?, 'Service should not be valid if the port is beyond 65535'
+  end
+
   test 'dns_name and port combination should be unique' do
     @generic_service_one.port = '8383'
     @generic_service_one.save
