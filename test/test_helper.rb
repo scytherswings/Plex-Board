@@ -18,12 +18,16 @@ require 'parallel_tests/test/runtime_logger' if ENV['RECORD_RUNTIME']
 Minitest::Reporters.use!
 Capybara.javascript_driver = :poltergeist
 
-
+# Allow existing stubs to work with VCR and shit
+# https://github.com/vcr/vcr/issues/146
 VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = true
   config.cassette_library_dir = Rails.root.join('test/integration_test_config_files/cassettes')
   config.hook_into :webmock
 end
+
+VCR.turn_off!
+
 WebMock.disable_net_connect!(allow_localhost: true)
 
 class ActiveSupport::TestCase
@@ -139,7 +143,7 @@ class ActionDispatch::IntegrationTest
   include StripAttributes::Matchers
 
   def setup
-
+    VCR.turn_on!
     if File.file? Rails.root.join('test/integration_test_config_files', 'service_test_config.yml')
       config = YAML.load(File.open(Rails.root.join('test/integration_test_config_files', 'service_test_config.yml'), 'r').read)
     else

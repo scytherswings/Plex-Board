@@ -54,4 +54,14 @@ class BehaviorTest < ActionDispatch::IntegrationTest
   #   visit '/'
   # end
 
+
+  # # Setup: A Plex service in the online state. PS has a bad token.
+  # # Steps:
+  # # Action 1: update_plex_data from Plex server
+  # # Result 1: The server returns a 401. The UI displays an error message.
+  # test 'An expired token will raise an error in the UI' do
+  #
+  # end
+
+
 end
