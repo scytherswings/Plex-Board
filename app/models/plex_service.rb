@@ -79,6 +79,10 @@ class PlexService < ActiveRecord::Base
   end
 
   def get_plex_sessions
+    if service.nil?
+      logger.warn 'get_plex_sessions was called on a PlexService with no Service object.'
+      return nil
+    end
     logger.info("Getting PlexSessions for PlexService: #{service.name}")
     sess = plex_api(method: :get, path: '/status/sessions')
 

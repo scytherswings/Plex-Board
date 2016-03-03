@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.5.3] : 2016-3-2
+### Added
+- Nil check on `service` for `get_plex_sessions` in the `PlexService` class
+
+
 ## [v0.5.2] : 2016-2-13
 ### Changed
 - Started changing tests to use fabricators instead of fixtures. 
