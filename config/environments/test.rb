@@ -37,10 +37,17 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  # if ENV['LOG_TO_FILE'] == 'true'
+  # config.logger = Logger.new(Rails.root.join('log','test.log'))
 
-  # config.logger = Logger.new(STDOUT)
-  # config.log_level = :DEBUG
+  #   config.log_level = :DEBUG
+  # else
+  #   config.logger = Logger.new(STDOUT)
+  #   config.log_level = :DEBUG
+  # end
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
+
 

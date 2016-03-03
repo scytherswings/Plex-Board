@@ -18,9 +18,9 @@ class PlexService < ActiveRecord::Base
 
   after_initialize :init
 
-  validates_length_of :username, maximum: 127, presence: true
-  validates_length_of :password, maximum: 127, presence: true
-  validate :get_plex_token, on: :create
+  validates_length_of :username, maximum: 127, presence: true, unless: :token_empty?
+  validates_length_of :password, maximum: 127, presence: true, unless: :token_empty?
+  validate :get_plex_token, on: :create, if: :token_empty?
   validates_presence_of :token, message: 'was not fetched from Plex.tv. Please check username and password.'
 
 
@@ -30,8 +30,8 @@ class PlexService < ActiveRecord::Base
     @api_error = false
   end
 
-  def token_nil?
-    self.token.nil?
+  def token_empty?
+    token.nil? || token.blank? || token.empty?
   end
 
   def get_connection_string
@@ -79,6 +79,10 @@ class PlexService < ActiveRecord::Base
   end
 
   def get_plex_sessions
+    if service.nil?
+      logger.warn 'get_plex_sessions was called on a PlexService with no Service object.'
+      return nil
+    end
     logger.info("Getting PlexSessions for PlexService: #{service.name}")
     sess = plex_api(method: :get, path: '/status/sessions')
 
@@ -230,10 +234,10 @@ class PlexService < ActiveRecord::Base
   def get_plex_token
     if !@api_error && token.nil?
       if username.nil? || username.blank? || password.nil? || password.blank?
-        logger.error "Plex Session ID: #{id} had nil username or password when get_plex_token was called."
+        logger.error 'Plex Service had nil username or password when get_plex_token was called.'
         return false
       end
-      logger.info("Getting Plex token for PlexService ID: #{id} using username: #{username}")
+      logger.info("Getting Plex token using username: #{username}")
       plex_sign_in_headers = {
           'X-Plex-Client-Identifier': 'Plex-Board'
       }

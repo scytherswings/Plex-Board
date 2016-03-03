@@ -4,7 +4,7 @@ class ServiceTest < ActiveSupport::TestCase
 
 
   test 'services should be valid' do
-    assert @generic_service_one.valid?, 'Generic_service_one was invalid'
+    # assert service.valid?, 'Generic_service_one was invalid'
     assert @generic_service_two.valid?, 'Generic_service_two was invalid'
     assert @plex_1.valid?, 'Plex_1 was invalid'
     assert_not @plex_2.valid?, 'Plex_2 should not be valid'
@@ -13,102 +13,114 @@ class ServiceTest < ActiveSupport::TestCase
     assert @plex_5.valid?, 'Plex_5 was invalid'
   end
 
-  test 'name should not be nil' do
-    @generic_service_one.name = nil
-    assert_not @generic_service_one.valid?, 'Service name should not be nil'
-  end
-
   test 'name should not be empty string' do
-    @generic_service_one.name = ''
-    assert_not @generic_service_one.valid?, 'Service name should not be empty string'
+    service = Fabricate.build(:service)
+    service.name = ''
+    assert_not service.valid?, 'Service name should not be empty string'
   end
 
   test 'name should not be whitespace only' do
-    @generic_service_one.name = '     '
-    assert_not @generic_service_one.valid?, 'Service with whitespace string name should not be valid'
+    service = Fabricate.build(:service)
+    service.name = '     '
+    assert_not service.valid?, 'Service with whitespace string name should not be valid'
   end
 
   # These tests always fail validation isn't worth it right now
-  # test 'ip should not be whitespace only' do
-  #   @generic_service_one.ip = '     '
-  #   assert_not @generic_service_one.valid?, 'Whitespace string should not be allowed for ip'
-  # end
 
-  # test 'dns_name should not be whitespace only' do
-  #   @generic_service_one.dns_name = '      '
-  #   assert_not @generic_service_one.valid?, 'Whitespace string should not be allowed for dns_name'
-  # end
+  test 'ip should not be whitespace only when dns_name is empty' do
+    service = Fabricate.build(:service)
+    service.dns_name = ''
+    service.ip = '     '
+    assert_not service.valid?, 'Whitespace string should not be allowed for ip'
+  end
+
+  test 'dns_name should not be whitespace only when ip is empty' do
+    service = Fabricate.build(:service)
+    service.ip = ''
+    service.dns_name = '      '
+    assert_not service.valid?, 'Whitespace string should not be allowed for dns_name'
+  end
 
   test 'url should not be whitespace only' do
-    @generic_service_one.url = '     '
-    assert_not @generic_service_one.valid?, 'Whitespace string should not be allowed for url'
+    service = Fabricate.build(:service)
+    service.url = '     '
+    assert_not service.valid?, 'Whitespace string should not be allowed for url'
   end
 
   test 'url should not be empty string' do
-    @generic_service_one.url = ''
-    assert_not @generic_service_one.valid?, 'Blank string should not be allowed for url'
-  end
-
-  test 'url should not be nil' do
-    @generic_service_one.url = nil
-    assert_not @generic_service_one.valid?, 'URL should not be nil'
+    service = Fabricate.build(:service)
+    service.url = ''
+    assert_not service.valid?, 'Blank string should not be allowed for url'
   end
 
   test 'ip should be a valid ipv4 address' do
-    @generic_service_one.ip = '155.155.155.257'
-    assert_not @generic_service_one.valid?, 'Invalid IP Addresses should not be allowed'
+    service = Fabricate.build(:service)
+    service.ip = '155.155.155.257'
+    assert_not service.valid?, 'Invalid IP Addresses should not be allowed'
   end
 
   test 'service should be unique' do
-    duplicate_service = @generic_service_one.dup
-    @generic_service_one.save
+    service = Fabricate(:service)
+    duplicate_service = service.dup
+    duplicate_service.save
     assert_not duplicate_service.valid?, 'Duplicate service should not be valid'
   end
 
   test 'name should be unique' do
-    @generic_service_one.save
-    @generic_service_two.name = @generic_service_one.name
-    assert_not @generic_service_two.valid?, 'Duplicate names should not be allowed'
+    service1 = Fabricate(:service)
+    service2 = Fabricate(:service)
+    service2.name = service1.name
+    assert_not service2.valid?, 'Duplicate names should not be allowed'
   end
 
   test 'url should be unique' do
-    @generic_service_one.save
-    @generic_service_two.url = @generic_service_one.url
-    assert_not @generic_service_two.valid?, 'Duplicate URLs should not be allowed'
+    service1 = Fabricate(:service)
+    service2 = Fabricate(:service)
+    service2.url = service1.url
+    assert_not service2.valid?, 'Duplicate URLs should not be allowed'
+  end
+
+  test 'port is within port range' do
+    service = Fabricate.build(:service)
+    service.port = '65536'
+    assert_not service.valid?, 'Service should not be valid if the port is beyond 65535'
   end
 
   test 'dns_name and port combination should be unique' do
-    @generic_service_one.port = '8383'
-    @generic_service_one.save
-    @generic_service_two.dns_name = @generic_service_one.dns_name
-    @generic_service_two.port = @generic_service_one.port
-    assert_not @generic_service_two.valid?, 'Duplicate dns_names and ports should not be allowed'
+    service1 = Fabricate(:service)
+    service2 = Fabricate(:service)
+    service2.dns_name = service1.dns_name
+    service2.port = service1.port
+    assert_not service2.valid?, 'Duplicate dns_names and ports should not be allowed'
   end
 
   test 'ip and port combination should be unique' do
-    @generic_service_one.port = '8383'
-    @generic_service_one.save
-    @generic_service_two.ip = @generic_service_one.ip
-    @generic_service_two.port = @generic_service_one.port
-    assert_not @generic_service_two.valid?, 'Duplicate ip addresses and ports should not be allowed'
+    service1 = Fabricate(:service)
+    service2 = Fabricate(:service)
+    service2.ip = service1.ip
+    service2.port = service1.port
+    assert_not service2.valid?, 'Duplicate ip addresses and ports should not be allowed'
   end
 
   test 'allow ip with no dns_name' do
-    @generic_service_one.dns_name = ''
-    @generic_service_one.ip = '127.0.0.1'
-    assert @generic_service_one.valid?, 'dns_name.blank? should be ok if we have ip'
+    service = Fabricate.build(:service)
+    service.dns_name = ''
+    service.ip = '127.0.0.1'
+    assert service.valid?, 'dns_name.blank? should be ok if we have ip'
   end
 
   test 'allow dns_name with no ip' do
-    @generic_service_one.dns_name = 'testdns'
-    @generic_service_one.ip = ''
-    assert @generic_service_one.valid?, 'ip.blank? should be ok if we have dns_name'
+    service = Fabricate.build(:service)
+    service.dns_name = 'testdns'
+    service.ip = ''
+    assert service.valid?, 'ip.blank? should be ok if we have dns_name'
   end
 
   test 'ip or dns_name must exist' do
-    @generic_service_one.dns_name = ''
-    @generic_service_one.ip = ''
-    assert_not @generic_service_one.valid?, 'IP and dns_name should not both be blank'
+    service = Fabricate.build(:service)
+    service.dns_name = ''
+    service.ip = ''
+    assert_not service.valid?, 'IP and dns_name should not both be blank'
   end
 
   # test 'api key must be >= 32 char' do

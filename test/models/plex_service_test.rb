@@ -2,31 +2,7 @@ require 'test_helper'
 
 class PlexServiceTest < ActiveSupport::TestCase
 
-
-  test 'plex services should be valid' do
-    assert @plex_service_one.valid?
-    assert_not @plex_service_with_no_token.valid?, 'Plex service with no token should not be valid'
-    assert @plex_service_with_one_session.valid?
-    assert @plex_service_with_two_sessions.valid?
-  end
-
-  test 'Plex_service_with_one_session should have a session' do
-    assert_equal 1, @plex_service_with_one_session.plex_sessions.count, 'Plex_service_with_one_session number of sessions did not match 1'
-  end
-
-  test 'Plex_service_with_two_sessions should have two sessions' do
-    assert_equal 2, @plex_service_with_two_sessions.plex_sessions.count, 'Plex_service_with_two_sessions number of sessions did not match 2'
-  end
-
-  # test 'username must not be > 255 char' do
-  #   @plex_service_with_no_token.username = 'x' * 256
-  #   assert_not @plex_service_with_no_token.valid?, 'username should be <= 255 char'
-  # end
-  #
-  # test 'password must not be > 255' do
-  #   # @plex_service_with_no_token.password = 'x' * 256
-  #   assert @plex_service_with_no_token.valid?, 'password should be <= 255 char'
-  # end
+  TOKEN = 'k3qRS5pJuWFz8U9tJp1d'
 
   test 'username must not be > 127 characters' do
     assert_raises ActiveRecord::RecordInvalid do
@@ -51,19 +27,26 @@ class PlexServiceTest < ActiveSupport::TestCase
       PlexService.create!(username: '    ', password: 'x')
     end
   end
-  
+
   test 'password must not be an empty string' do
     assert_raises ActiveRecord::RecordInvalid do
       PlexService.create!(username: 'x', password: '')
     end
   end
-  
+
+  test 'username and password will not be validated if token provided' do
+    ps = PlexService.create!(token: rand(36**20).to_s(36))
+    assert ps.valid?, 'PlexService was not valid when initialized with a token'
+  end
+
   test 'Service with no sessions will not change when plex has no sessions' do
-    @plex_service_one.service.dns_name = 'plexnosessions'
-    @plex_service_one.get_plex_sessions
+    ps = Fabricate.build(:plex_service, ps_token: TOKEN)
+    ps.service.dns_name = 'plexnosessions'
+    ps.service.port = 32400
+    ps.save!
+    ps.get_plex_sessions
     assert_requested(:get, 'https://plexnosessions:32400/status/sessions')
-    assert_equal TOKEN, @plex_service_one.token
-    assert_equal 0, @plex_service_one.plex_sessions.count
+    assert_equal 0, ps.plex_sessions.count
   end
 
   test 'Service with no sessions can get two new plex sessions' do

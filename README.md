@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.5.1
+## Version 0.5.3
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
@@ -66,7 +66,10 @@ Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`.
 
 7. `./serverSetup.sh`
 
-8. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.) Remember, this is for _testing._
+8. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.) 
+
+Remember, this is for _testing._
+
 
 ### Feedback
 If you run into any bugs, please, make a ticket or ask in the Gitter chat room. 
