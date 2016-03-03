@@ -78,6 +78,7 @@ class PlexService < ActiveRecord::Base
     nil
   end
 
+  #TODO Refactor: Need a better -more readable- way to interface with the plex api
   def get_plex_sessions
     if service.nil?
       logger.warn 'get_plex_sessions was called on a PlexService with no Service object.'

@@ -81,6 +81,7 @@ class ServicesController < ApplicationController
           if service.last_seen.nil?
             service.ping
           end
+          # TODO Add configuration parameter to control how often we check up on other services
           if !first_loop && !service.last_seen.nil? && service.last_seen > 10.seconds.ago #the sign is > because time always increases and we're using integers for time
             logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
             next

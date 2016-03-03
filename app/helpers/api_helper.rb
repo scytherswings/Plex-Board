@@ -4,7 +4,6 @@ module ApiHelper
       raise ArgumentError, 'api_request was called with a nil/blank url'
     end
     if user.nil?
-      logger.info()
       api_call(method, url, headers, payload, verify_ssl)
     else
       basic_auth(user, method, url, headers, payload, verify_ssl)
