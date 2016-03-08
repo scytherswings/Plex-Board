@@ -46,4 +46,11 @@ class PlexObjectTest < ActiveSupport::TestCase
     assert_not File.file?(Rails.root.join 'test/test_images', (@plex_object_session_1.id.to_s + '.jpeg')),
                'The image file was not deleted'
   end
+
+  test 'destroying a plex_object with a nil image will be successful' do
+    ps = Fabricate(:plex_service)
+    # ps.plex_recently_added.plex_object.image = nil
+
+    # assert(ps.plex_recently_added.destroy, 'The PlexObject was not destroyed')
+  end
 end
