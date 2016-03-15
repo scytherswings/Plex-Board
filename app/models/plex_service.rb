@@ -64,16 +64,10 @@ class PlexService < ActiveRecord::Base
 
     api_request(method: method, url: get_connection_string + path, headers: headers, verify_ssl: false)
 
-  rescue RestClient::Forbidden
-    logger.error 'Getting Plex resource failed with 403 Forbidden.'
-      nil
   rescue RestClient::Unauthorized
     logger.error 'Getting Plex resource failed with 401 Unauthorized.'
       nil
-  rescue RestClient::NotFound
-    logger.error 'Getting Plex resource failed with 404 NotFound.'
-      nil
-  rescue RestClient, OpenSSL::SSL::SSLError, Errno::ECONNREFUSED => e
+  rescue RestClient::Exception, OpenSSL::SSL::SSLError, Errno::ECONNREFUSED => e
     logger.error "Getting Plex resource failed, an unexpected error was returned: #{e.message}"
     nil
   end

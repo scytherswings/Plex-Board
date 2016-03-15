@@ -118,6 +118,20 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_equal 0, @plex_service_with_one_session.plex_sessions.count
   end
 
+  test 'A 401 from a Plex Server will not crash the app' do
+    @plex_service_with_one_session.service.update(dns_name: 'plex401')
+    @plex_service_with_one_session.plex_sessions.destroy_all
+    @plex_service_with_one_session.get_plex_sessions
+    assert_requested(:get, 'https://plex401:32400/status/sessions')
+  end
+
+  test 'A 500 from a Plex Server will crash the app' do
+    @plex_service_with_one_session.service.update(dns_name: 'plex500')
+    @plex_service_with_one_session.plex_sessions.destroy_all
+    @plex_service_with_one_session.get_plex_sessions
+    assert_requested(:get, 'https://plex500:32400/status/sessions')
+  end
+
   test 'get_plex_recently_added can get new RA movie when no RAs exist' do
     @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_movie')
     @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
@@ -156,7 +170,6 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_requested(:get, 'https://plex7_all:32400/library/recentlyAdded', times: 3)
     assert_equal 50, @plex_service_with_one_recently_added.plex_recently_addeds.count, 'PRA count was not 50'
   end
-
 
   test 'get_plex_token will only hit the api once if given a 404' do
     test = PlexService.new

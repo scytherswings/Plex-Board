@@ -106,7 +106,7 @@ class PlexObject < ActiveRecord::Base
       return self.image
   end
 
-
+  #TODO Add this to configuration
   def get_description
     # limit the length of the description to 200 characters, if over 200, add ellipsis
     self.description[0..200].gsub(/\s\w+\s*$/,'...')
