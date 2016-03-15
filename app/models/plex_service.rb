@@ -255,7 +255,7 @@ class PlexService < ActiveRecord::Base
     logger.error 'Getting Plex token failed with 404 NotFound.'
     self.errors.add(:base, 'Plex authentication failed with 404 Not Found. See debug logs for more details.')
     @api_error = true
-  rescue RestClient => e
+  rescue RestClient::Exception => e
     logger.error "Getting Plex token failed, an unexpected error was returned: #{e.message}"
     self.errors.add(:base, 'Plex authentication failed with an unexpected error. Cannot create Plex Service. See debug logs for more details.')
     @api_error = true
