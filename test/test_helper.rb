@@ -91,7 +91,7 @@ class ActiveSupport::TestCase
 
     WebMock.stub_request(:get, 'https://plex401:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
-        to_return(status: 403, body: '<html><head><title>Unauthorized</title></head><body><h1>401 Unauthorized</h1></body></html>', headers: HEADERS)
+        to_return(status: 401, body: '<html><head><title>Unauthorized</title></head><body><h1>401 Unauthorized</h1></body></html>', headers: HEADERS)
 
     WebMock.stub_request(:get, 'https://plex500:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).

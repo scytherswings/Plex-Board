@@ -125,11 +125,21 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_requested(:get, 'https://plex401:32400/status/sessions')
   end
 
-  test 'A 500 from a Plex Server will crash the app' do
+  test 'A 500 from a Plex Server will not crash the app' do
     @plex_service_with_one_session.service.update(dns_name: 'plex500')
     @plex_service_with_one_session.plex_sessions.destroy_all
     @plex_service_with_one_session.get_plex_sessions
     assert_requested(:get, 'https://plex500:32400/status/sessions')
+  end
+
+  test 'get_plex_recently_added cannot get a new RA movie when the service is offline' do
+    @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_movie')
+    @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
+    @plex_service_with_one_recently_added.service.update(online_status: false)
+    @plex_service_with_one_recently_added.get_plex_recently_added
+    assert_not_requested(:get, 'https://plex7_movie:32400/library/recentlyAdded')
+    assert_equal 0, @plex_service_with_one_recently_added.plex_recently_addeds.count,
+                 'PRA should not have increased since the service was offline'
   end
 
   test 'get_plex_recently_added can get new RA movie when no RAs exist' do
