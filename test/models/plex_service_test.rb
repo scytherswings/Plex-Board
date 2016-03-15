@@ -39,14 +39,22 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert ps.valid?, 'PlexService was not valid when initialized with a token'
   end
 
+  # test 'Service with no sessions will not change when plex has no sessions' do
+  #   ps = Fabricate.build(:plex_service, ps_token: TOKEN)
+  #   ps.service.dns_name = 'plexnosessions'
+  #   ps.service.port = 32400
+  #   ps.save!
+  #   ps.get_plex_sessions
+  #   assert_requested(:get, 'https://plexnosessions:32400/status/sessions')
+  #   assert_equal 0, ps.plex_sessions.count
+  # end
+
   test 'Service with no sessions will not change when plex has no sessions' do
-    ps = Fabricate.build(:plex_service, ps_token: TOKEN)
-    ps.service.dns_name = 'plexnosessions'
-    ps.service.port = 32400
-    ps.save!
-    ps.get_plex_sessions
+    @plex_service_one.service.dns_name = 'plexnosessions'
+    @plex_service_one.get_plex_sessions
     assert_requested(:get, 'https://plexnosessions:32400/status/sessions')
-    assert_equal 0, ps.plex_sessions.count
+    assert_equal TOKEN, @plex_service_one.token
+    assert_equal 0, @plex_service_one.plex_sessions.count
   end
 
   test 'Service with no sessions can get two new plex sessions' do

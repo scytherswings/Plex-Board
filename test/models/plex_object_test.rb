@@ -47,10 +47,10 @@ class PlexObjectTest < ActiveSupport::TestCase
                'The image file was not deleted'
   end
 
-  test 'destroying a plex_object with a nil image will be successful' do
-    ps = Fabricate(:plex_service)
-    # ps.plex_recently_added.plex_object.image = nil
-
-    # assert(ps.plex_recently_added.destroy, 'The PlexObject was not destroyed')
-  end
+  # test 'destroying a plex_object with a nil image will be successful' do
+  #   ps = Fabricate(:plex_service)
+  #   # ps.plex_recently_added.plex_object.image = nil
+  #
+  #   # assert(ps.plex_recently_added.destroy, 'The PlexObject was not destroyed')
+  # end
 end
