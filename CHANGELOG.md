@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.5.4] : 2016-3-15
+### Added
+- Added some info to the "About" page
+- Added more unit tests for `PlexService`
+
 ## [v0.5.3] : 2016-3-2
 ### Added
 - Nil check on `service` for `get_plex_sessions` in the `PlexService` class
