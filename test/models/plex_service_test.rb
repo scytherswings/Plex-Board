@@ -83,7 +83,6 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_not_equal @plex_service_with_one_session.plex_sessions.first.progress, temp.progress
   end
 
-
   test 'PlexSession will be removed if Plex has no sessions' do
     assert_equal 1, @plex_service_with_one_session.plex_sessions.count
     @plex_service_with_one_session.service.update(dns_name: 'plexnosessions')
@@ -91,7 +90,6 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_requested(:get, 'https://plexnosessions:32400/status/sessions')
     assert_equal 0, @plex_service_with_one_session.plex_sessions.count
   end
-
 
   test 'Expired sessions will be removed' do
     assert_equal 2, @plex_service_with_two_sessions.plex_sessions.count
@@ -116,6 +114,14 @@ class PlexServiceTest < ActiveSupport::TestCase
     @plex_service_with_one_session.get_plex_sessions
     assert_requested(:get, 'https://plex5:32400/status/sessions', times: 0)
     assert_equal 0, @plex_service_with_one_session.plex_sessions.count
+  end
+
+  test 'Bad JSON from Plex will not crash the app' do
+    assert_equal 1, @plex_service_with_one_session.plex_sessions.count
+    @plex_service_with_one_session.service.update(dns_name: 'plexbadjson')
+    @plex_service_with_one_session.get_plex_sessions
+    assert_requested(:get, 'https://plexbadjson:32400/status/sessions')
+    assert_equal 1, @plex_service_with_one_session.plex_sessions.count
   end
 
   test 'A 401 from a Plex Server will not crash the app' do

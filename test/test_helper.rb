@@ -81,6 +81,10 @@ class ActiveSupport::TestCase
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
         to_return(status: 200, body: "{\"_elementType\": \"MediaContainer\",\"_children\": []}", headers: HEADERS)
 
+    WebMock.stub_request(:get, 'https://plexbadjson:32400/status/sessions').
+        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        to_return(status: 200, body: "{_elementType\": MediaContainer\"\"_children: [}", headers: HEADERS)
+
     WebMock.stub_request(:get, 'https://plex6:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
         to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'plex_two_sessions.json').read, headers: HEADERS)
