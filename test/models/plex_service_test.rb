@@ -208,7 +208,6 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_requested(:post, 'https://user:badpass@my.plexapp.com/users/sign_in.json', times: 1)
   end
 
-
   test 'get_plex_token will only hit the api once if given a 500' do
     test = PlexService.new
     test.username = 'user'
@@ -216,6 +215,15 @@ class PlexServiceTest < ActiveSupport::TestCase
     3.times {test.save}
     assert_not test.valid?
     assert_requested(:post, 'https://user:failpass@my.plexapp.com/users/sign_in.json', times: 1)
+  end
+
+  test 'get_plex_token will only hit the api once if bad json is returned' do
+    test = PlexService.new
+    test.username = 'user'
+    test.password = 'badjson'
+    3.times {test.save}
+    assert_not test.valid?
+    assert_requested(:post, 'https://user:badjson@my.plexapp.com/users/sign_in.json', times: 1)
   end
 
   test 'a new valid PlexService will have a token after saving' do
