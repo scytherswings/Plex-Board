@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.5.5] : 2016-4-27
+### Added
+- Added some logic to recreate deleted images folder while the server is running.
+
+### Changed
+- Updated install instructions in `README.md` after trying them out.
+
 
 ## [v0.5.4] : 2016-3-15
 ### Added
