@@ -66,9 +66,12 @@ Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`.
 
 6. `cd /opt/Plex-Board`
 
-7. `./serverSetup.sh`
+7. `rvm use 2.3.0@plexdashboard`
 
-8. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.) 
+8. `./serverSetup.sh`
+
+9. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.)
+You could keep it running if you start it in a screen session.
 
 Remember, this is for _testing._
 
