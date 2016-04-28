@@ -28,7 +28,7 @@ class PlexObject < ActiveRecord::Base
     # self.thumb_url ||= DEFAULT_IMAGE
     self.image ||= DEFAULT_IMAGE
     create_default_image_directory
-  en
+  end
 
   def create_default_image_directory
     unless File.directory?(@@images_dir)
@@ -98,11 +98,17 @@ class PlexObject < ActiveRecord::Base
     end
 
     begin
-    create_default_image_directory
+      tries ||= 1
       File.open(imagefile, 'wb') do |f|
-        f.write(RestClient::Request.execute(method: :get, url: "#{connection_string}#{self.thumb_url}", headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE))
+        f.write(RestClient::Request.execute(method: :get, url: "#{connection_string}#{self.thumb_url}",
+                                            headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE))
       end
     rescue Errno::ENOENT
+      if (tries -= 1) >= 0
+        create_default_image_directory
+        retry
+      end
+
       logger.error "There was a problem opening the image file: #{imagefile} for write-binary mode. Returning placeholder.png"
       return DEFAULT_IMAGE
     end
