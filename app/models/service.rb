@@ -1,5 +1,6 @@
 class Service < ActiveRecord::Base
     belongs_to :service_flavor, polymorphic: :true
+    has_one :server_load
     # before_destroy :destroy_associated
     after_initialize :init
 

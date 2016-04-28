@@ -193,7 +193,7 @@ class PlexService < ActiveRecord::Base
     stale_pras = plex_recently_addeds.map {|known_pra| known_pra.uuid} -
         incoming_pras.map {|new_pra| new_pra['librarySectionUUID']}
 
-    logger.debug("stale_pras #{stale_pras}")
+    # logger.debug("stale_pras #{stale_pras}")
 
     stale_pras.each do |stale_pra|
       PlexRecentlyAdded.find_by(uuid: stale_pra).destroy
@@ -202,10 +202,10 @@ class PlexService < ActiveRecord::Base
     new_pras = incoming_pras.map {|new_pra| new_pra['librarySectionUUID']} -
         plex_recently_addeds.map {|known_pra| known_pra.uuid}
 
-    logger.debug("new_pras #{new_pras}")
+    # logger.debug("new_pras #{new_pras}")
     pras_to_add = incoming_pras.select {|matched| new_pras.include?(matched['librarySectionUUID'])}
 
-    logger.debug("pras_to_add #{pras_to_add}")
+    # logger.debug("pras_to_add #{pras_to_add}")
     pras_to_add.each {|new_pra| add_plex_recently_added(new_pra)}
   end
 

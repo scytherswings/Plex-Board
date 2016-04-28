@@ -27,8 +27,12 @@ class PlexObject < ActiveRecord::Base
   def init
     # self.thumb_url ||= DEFAULT_IMAGE
     self.image ||= DEFAULT_IMAGE
+    create_default_image_directory
+  en
+
+  def create_default_image_directory
     unless File.directory?(@@images_dir)
-      logger.info("Creating #{@@images_dir} since it doesn't exist")
+      logger.warn("Creating #{@@images_dir} since it doesn't exist")
       FileUtils::mkdir_p @@images_dir
     end
     unless File.file?(Rails.root.join @@images_dir, DEFAULT_IMAGE)
@@ -94,6 +98,7 @@ class PlexObject < ActiveRecord::Base
     end
 
     begin
+    create_default_image_directory
       File.open(imagefile, 'wb') do |f|
         f.write(RestClient::Request.execute(method: :get, url: "#{connection_string}#{self.thumb_url}", headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE))
       end
@@ -103,7 +108,7 @@ class PlexObject < ActiveRecord::Base
     end
       self.update!(image: "#{self.id}.jpeg")
       logger.debug("Plex Object ID: #{self.id} updated to image #{self.image}")
-      return self.image
+      self.image
   end
 
   #TODO Add this to configuration
