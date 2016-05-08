@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.5.6] : 2016-5-7
+### Added
+- Weather class and beginnings of tests
+- Geolocation gem
+
 ## [v0.5.5] : 2016-4-27
 ### Added
 - Added some logic to recreate deleted images folder while the server is running.
