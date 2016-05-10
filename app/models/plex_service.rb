@@ -74,14 +74,12 @@ class PlexService < ActiveRecord::Base
 
   def get_plex_sessions
     if service.nil?
-      logger.warn 'get_plex_sessions was called on a PlexService with no Service object.'
+      logger.warn 'get_plex_sessions was called on a PlexService with no Service object, can\'t get sessions'
       return nil
     end
     logger.info("Getting PlexSessions for PlexService: #{service.name}")
     sess = plex_api(method: :get, path: '/status/sessions')
 
-    # logger.debug(sess)
-    # logger.debug(!sess.nil?)
     if sess.nil? #does plex have any sessions?
       logger.debug("Plex doesn't have any sessions")
       return nil
@@ -245,9 +243,8 @@ class PlexService < ActiveRecord::Base
       end
 
       update!(token: response['user']['authentication_token'])
-      logger.debug "Grabbing Plex token was successful, token was: #{response['user']['authentication_token']}. Deleting username and password from database."
+      logger.debug "Grabbing Plex token was successful, token was: #{response['user']['authentication_token']}. Forgetting username and password now."
       @username, @password = nil
-      logger.debug 'Username and password were successfully deleted from database.'
     end
 
   rescue RestClient::Forbidden

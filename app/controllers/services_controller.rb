@@ -12,6 +12,7 @@ class ServicesController < ApplicationController
     @plex_services.each {|ps| ps.update_plex_data}
   rescue ActiveRecord::StatementInvalid => e
     logger.error "There was an error interacting with the database. The error was: #{e}"
+    sleep(0.25)
     retry unless (tries -= 1).zero?
   end
 
@@ -32,7 +33,7 @@ class ServicesController < ApplicationController
         @services = Service.all
 
         if @plex_services.empty? && @services.empty?
-          logger.info 'There were no PlexServices or Generic Services, sleeping for 60s.'
+          logger.debug 'There were no PlexServices or Generic Services, sleeping for 60s.'
           sleep(60)
         end
 
@@ -59,8 +60,8 @@ class ServicesController < ApplicationController
             events << {data: data, event: 'plex_now_playing'}
           end
           # plex_service.get_plex_recently_added
-          plex_service.plex_recently_addeds.try(:each_with_index) do |pra, x|
-            if x > 4
+          plex_service.plex_recently_addeds.try(:each_with_index) do |pra, i|
+            if i > 4
               break
             end
             logger.debug("Plex Recently Added media_title: #{pra.plex_object.media_title}, #{pra.plex_service.id}")
@@ -109,9 +110,9 @@ class ServicesController < ApplicationController
         first_loop = false #this allows us to show services and stuff as online immediately
       end
     rescue IOError
-      logger.info 'Stream closed: IO Error'
+      logger.warn 'Stream closed: IO Error'
     rescue ClientDisconnected
-      logger.info 'Stream closed: Client Disconnect'
+      logger.warn 'Stream closed: Client Disconnect'
     # rescue StandardError => e
     #   logger.error "An error occurred during the loop: #{e.message}"
     ensure
