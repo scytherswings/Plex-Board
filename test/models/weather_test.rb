@@ -8,11 +8,14 @@ class WeatherTest < ActiveSupport::TestCase
 
   test 'a provided address will be converted to lat and long' do
     weather = Fabricate.build(:weather)
-    weather.latitude = nil
-    weather.longitude = nil
-    # weather.address = "#{Faker::Address.street_address} #{Faker::Address.city}, #{Faker::Address.state_abbr} #{Faker::Address.zip_code}"
-    weather.address = "2300 Traverwood Dr, Ann Arbor, MI 48105"
-    weather.save!
+    weather.address = '2300 Traverwood Dr, Ann Arbor, MI 48105'
     assert weather.valid?, "Weather with address: \"#{weather.address}\" did not get a lat and long."
+  end
+
+  test 'weather with only latitude is not valid' do
+    skip 'needs further validation'
+    weather = Fabricate.build(:weather)
+    weather.latitude = 35.2341
+    assert_not weather.valid?, 'Weather should not be valid if only supplied latitude'
   end
 end

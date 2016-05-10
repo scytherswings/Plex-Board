@@ -29,7 +29,7 @@ class Weather < ActiveRecord::Base
   end
 
   def loc_empty?
-    latitude.nil? || latitude.blank? || longitude.nil? || longitude.blank?
+    (latitude.nil? || latitude.blank?) || (longitude.nil? || longitude.blank?)
   end
 
   def get_weather
@@ -41,6 +41,13 @@ class Weather < ActiveRecord::Base
 
   def get_precise_location
     geocoded = Geocoder.search(self.address).first
+
+    if geocoded.nil?
+      logger.error "Getting geolocation failed on address: #{self.address}"
+      self.errors.add(:base, 'Fetching the precise location failed. Please check that the address is valid.')
+      return
+    end
+
     self.latitude = geocoded.latitude
     self.longitude = geocoded.longitude
   end

@@ -1,0 +1,92 @@
+{
+  "results": [
+    {
+      "address_components": [
+        {
+          "long_name": "2300",
+          "short_name": "2300",
+          "types": [
+            "street_number"
+          ]
+        },
+        {
+          "long_name": "Traverwood Drive",
+          "short_name": "Traverwood Dr",
+          "types": [
+            "route"
+          ]
+        },
+        {
+          "long_name": "Logan",
+          "short_name": "Logan",
+          "types": [
+            "neighborhood",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Ann Arbor",
+          "short_name": "Ann Arbor",
+          "types": [
+            "locality",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Washtenaw County",
+          "short_name": "Washtenaw County",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Michigan",
+          "short_name": "MI",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        },
+        {
+          "long_name": "48105",
+          "short_name": "48105",
+          "types": [
+            "postal_code"
+          ]
+        }
+      ],
+      "formatted_address": "2300 Traverwood Dr, Ann Arbor, MI 48105, USA",
+      "geometry": {
+        "location": {
+          "lat": 42.306642,
+          "lng": -83.71466199999999
+        },
+        "location_type": "ROOFTOP",
+        "viewport": {
+          "northeast": {
+            "lat": 42.3079909802915,
+            "lng": -83.71331301970849
+          },
+          "southwest": {
+            "lat": 42.3052930197085,
+            "lng": -83.7160109802915
+          }
+        }
+      },
+      "place_id": "ChIJaUsRICysPIgRtu8h-gpZ_pY",
+      "types": [
+        "street_address"
+      ]
+    }
+  ],
+  "status": "OK"
+}

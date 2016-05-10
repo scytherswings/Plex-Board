@@ -51,11 +51,11 @@ class ActiveSupport::TestCase
 
     WebMock.stub_request(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json').
         with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
-        to_return(status: 201, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'sign_in.json').read, headers: AUTH_HEADERS)
+        to_return(status: 201, body: json_file('sign_in.json'), headers: AUTH_HEADERS)
 
     WebMock.stub_request(:post, 'https://404user:pass@my.plexapp.com/users/sign_in.json').
         with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
-        to_return(status: 404, body: File.open(Rails.root.join 'test/fixtures/', 'plex404.html').read, headers: AUTH_HEADERS)
+        to_return(status: 404, body: fixture_file('plex404.html', 'test/fixtures/'), headers: AUTH_HEADERS)
 
     WebMock.stub_request(:post, 'https://baduser:pass@my.plexapp.com/users/sign_in.json').
         with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
@@ -75,7 +75,7 @@ class ActiveSupport::TestCase
 
     WebMock.stub_request(:get, 'https://plex5updated:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
-        to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'plex_one_session_updated_viewOffset.json').read, headers: HEADERS)
+        to_return(status: 200, body: json_file('plex_one_session_updated_viewOffset.json'), headers: HEADERS)
 
     WebMock.stub_request(:get, 'https://plexnosessions:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
@@ -87,15 +87,15 @@ class ActiveSupport::TestCase
 
     WebMock.stub_request(:get, 'https://plex6:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
-        to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'plex_two_sessions.json').read, headers: HEADERS)
+        to_return(status: 200, body: json_file('plex_two_sessions.json'), headers: HEADERS)
 
     WebMock.stub_request(:get, /https:\/\/plex(.*?):32400\/library\/metadata\/(\d*)\/thumb\/(\d*$)/).
         with(headers: {'Accept':'image/jpeg', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
-        to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/images/', 'placeholder.png').read, headers: {'Content-Type': 'image/jpeg'})
+        to_return(status: 200, body: fixture_file('placeholder.png', 'test/fixtures/images/'), headers: {'Content-Type': 'image/jpeg'})
 
     WebMock.stub_request(:get, /https:\/\/plex[3|5|7]:32400\/status\/sessions/).
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
-        to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'plex_one_session.json').read, headers: HEADERS)
+        to_return(status: 200, body: json_file('plex_one_session.json'), headers: HEADERS)
 
     WebMock.stub_request(:get, 'https://plex401:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
@@ -107,15 +107,15 @@ class ActiveSupport::TestCase
 
     WebMock.stub_request(:get, /https:\/\/plex[3-7](?:_movie)?:32400\/library\/recentlyAdded/).
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection':'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
-        to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'plex_recently_added_movie.json').read, headers: {})
+        to_return(status: 200, body: json_file('plex_recently_added_movie.json'), headers: {})
 
     WebMock.stub_request(:get, 'https://plex7_tv_show:32400/library/recentlyAdded').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection':'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
-        to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'plex_recently_added_tv_show.json').read, headers: {})
+        to_return(status: 200, body: json_file('plex_recently_added_tv_show.json'), headers: {})
 
     WebMock.stub_request(:get, 'https://plex7_all:32400/library/recentlyAdded').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection':'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
-        to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'plex_recently_added_all.json').read, headers: {})
+        to_return(status: 200, body: json_file('plex_recently_added_all.json'), headers: {})
 
     WebMock.stub_request(:get, 'https://plex7_none:32400/library/recentlyAdded').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection':'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
@@ -123,7 +123,12 @@ class ActiveSupport::TestCase
 
     WebMock.stub_request(:post, /https:\/\/x+?:x+?@my\.plexapp\.com\/users\/sign_in\.json/).
         with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
-        to_return(status: 201, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'sign_in.json').read, headers: AUTH_HEADERS)
+        to_return(status: 201, body: json_file('sign_in.json'), headers: AUTH_HEADERS)
+
+    WebMock.stub_request(:get, 'https://maps.googleapis.com/maps/api/geocode/json?address=2300%20Traverwood%20Dr,%20Ann%20Arbor,%20MI%2048105&language=en&sensor=false').
+        with(:headers => {'Accept':'*/*', 'Accept-Encoding':'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Ruby'}).
+        to_return(status: 200, body: json_file('google_location_api.json'), headers: {})
+
 
     # WebMock.stub_request(:post, /https:\/\/my\.plexapp\.com\/users\/sign_in\.json/).
     #     with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
@@ -150,7 +155,15 @@ class ActiveSupport::TestCase
     @plex_service_w2sess_session_1 = plex_sessions(:plex_service_w2sess_session_1)
     @plex_service_w2sess_session_2 = plex_sessions(:plex_service_w2sess_session_2)
     @plex_service_w1ra_pra_1 = plex_recently_addeds(:plex_service_w1ra_pra_1)
-    end
+  end
+
+  def json_file(filename)
+    File.open(Rails.root.join 'test/fixtures/JSON/', filename)
+  end
+
+  def fixture_file(filename, filepath)
+    File.open(Rails.root.join filepath, filename)
+  end
 end
 
 class ActionDispatch::IntegrationTest
