@@ -59,7 +59,7 @@ curl -sSL https://get.rvm.io | bash -s stable --rails```
 
 4. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-5. `rvm use 2.3.0; cd /opt/Plex-Board;` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
+5. `rvm use 2.3.0` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
 Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`.
 
 6. `cd /opt/Plex-Board`
