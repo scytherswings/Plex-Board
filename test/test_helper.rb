@@ -126,13 +126,16 @@ class ActiveSupport::TestCase
         to_return(status: 201, body: json_file('sign_in.json'), headers: AUTH_HEADERS)
 
     WebMock.stub_request(:get, 'https://maps.googleapis.com/maps/api/geocode/json?address=2300%20Traverwood%20Dr,%20Ann%20Arbor,%20MI%2048105&language=en&sensor=false').
-        with(:headers => {'Accept':'*/*', 'Accept-Encoding':'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Ruby'}).
+        with(headers: {'Accept':'*/*', 'Accept-Encoding':'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Ruby'}).
         to_return(status: 200, body: json_file('google_location_api.json'), headers: {})
 
     WebMock.stub_request(:get, 'https://maps.googleapis.com/maps/api/geocode/json?address=This%20is%20not%20a%20valid%20address&language=en&sensor=false').
         with(headers: {'Accept':'*/*', 'Accept-Encoding':'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Ruby'}).
         to_return(status: 200, body:"{\"results\": [],\"status\": \"ZERO_RESULTS\"}", headers: {})
 
+    WebMock.stub_request(:get, 'https://api.forecast.io/forecast/0ca1d9fc73742b2dca0dc2643d89994d/42.306642,-83.71466199999999').
+        with(headers: {'Accept':'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Faraday v0.9.2'}).
+        to_return(status: 200, body: json_file('forecast.json'), headers: {})
 
 
     # WebMock.stub_request(:post, /https:\/\/my\.plexapp\.com\/users\/sign_in\.json/).

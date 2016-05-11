@@ -8,9 +8,13 @@ class WeatherTest < ActiveSupport::TestCase
 
   test 'a provided address will be converted to lat and long' do
     weather = Fabricate.build(:weather)
+    weather.latitude = nil
+    weather.longitude = nil
     weather.address = '2300 Traverwood Dr, Ann Arbor, MI 48105'
     weather.save!
-    assert weather.valid?, "Weather with address: \"#{weather.address}\" did not get a lat and long."
+    assert_equal 42.306642, weather.latitude
+    assert_equal -83.71466199999999, weather.longitude
+    assert weather.valid?, "Weather with address: \"#{weather.address}\" should have been valid"
   end
 
   test 'weather with only latitude is not valid' do
@@ -27,6 +31,12 @@ class WeatherTest < ActiveSupport::TestCase
     assert_not weather.valid?, 'Weather should not be valid if only supplied longitude.'
   end
 
+  test 'weather with no api key is not valid' do
+    weather = Fabricate.build(:weather)
+    weather.api_key = nil
+    assert_not weather.valid?, 'Weather should not be valid if there is no api key.'
+  end
+
   test 'an invalid address will throw a RecordInvalid exception' do
     weather = Fabricate.build(:weather)
     weather.longitude = nil
@@ -34,7 +44,16 @@ class WeatherTest < ActiveSupport::TestCase
     weather.address = 'This is not a valid address'
 
     exception = assert_raises(ActiveRecord::RecordInvalid) {weather.save!}
-    assert(exception.message.include?('Fetching the precise location failed. Please check that the address is valid.'),
-                              'The exception didn\'t mention the address error message as expected.')
+    assert exception.message.include?('Fetching the precise location failed. Please check that the address is valid.'),
+                              'The exception didn\'t mention the address error message as expected.'
+  end
+
+  test 'weather can be retrieved with valid parameters' do
+    weather = Fabricate(:weather)
+    weather.latitude = 42.306642
+    weather.longitude = -83.71466199999999
+    weather.api_key = '0ca1d9fc73742b2dca0dc2643d89994d'
+    assert_equal 42.306642, weather.get_weather['latitude']
+    assert_equal -83.71466199999999, weather.get_weather['longitude']
   end
 end
