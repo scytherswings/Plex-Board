@@ -129,6 +129,11 @@ class ActiveSupport::TestCase
         with(:headers => {'Accept':'*/*', 'Accept-Encoding':'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Ruby'}).
         to_return(status: 200, body: json_file('google_location_api.json'), headers: {})
 
+    WebMock.stub_request(:get, 'https://maps.googleapis.com/maps/api/geocode/json?address=This%20is%20not%20a%20valid%20address&language=en&sensor=false').
+        with(headers: {'Accept':'*/*', 'Accept-Encoding':'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Ruby'}).
+        to_return(status: 200, body:"{\"results\": [],\"status\": \"ZERO_RESULTS\"}", headers: {})
+
+
 
     # WebMock.stub_request(:post, /https:\/\/my\.plexapp\.com\/users\/sign_in\.json/).
     #     with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).

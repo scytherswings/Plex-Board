@@ -14,10 +14,27 @@ class WeatherTest < ActiveSupport::TestCase
   end
 
   test 'weather with only latitude is not valid' do
-    skip 'needs further validation'
     weather = Fabricate.build(:weather)
+    weather.longitude = nil
     weather.latitude = 35.2341
-    weather.save!
-    assert_not weather.valid?, 'Weather should not be valid if only supplied latitude'
+    assert_not weather.valid?, 'Weather should not be valid if only supplied latitude.'
+  end
+
+  test 'weather with only longitude is not valid' do
+    weather = Fabricate.build(:weather)
+    weather.longitude = 88.0515
+    weather.latitude = nil
+    assert_not weather.valid?, 'Weather should not be valid if only supplied longitude.'
+  end
+
+  test 'an invalid address will throw a RecordInvalid exception' do
+    weather = Fabricate.build(:weather)
+    weather.longitude = nil
+    weather.latitude = nil
+    weather.address = 'This is not a valid address'
+
+    exception = assert_raises(ActiveRecord::RecordInvalid) {weather.save!}
+    assert(exception.message.include?('Fetching the precise location failed. Please check that the address is valid.'),
+                              'The exception didn\'t mention the address error message as expected.')
   end
 end
