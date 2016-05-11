@@ -35,7 +35,7 @@ Here are a few screenshots of v0.4.2:
 
 ## System Requirements
 
-You should have enough space to allow logs and an image cache, so I wouldn't recommend using on a system with less that 1GB free HDD space.
+You should have enough space to allow logs and an image cache, so I wouldn't recommend using on a system with less than 1GB free HDD space.
 
 Rails can probably run on 512MB of RAM fine and CPU usage will vary. You can probably get away with a single core, but dual core may run smoother.
 
