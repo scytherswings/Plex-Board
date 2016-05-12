@@ -35,7 +35,7 @@ Here are a few screenshots of v0.4.2:
 
 ## System Requirements
 
-You should have enough space to allow logs and an image cache, so I wouldn't recommend using on a system with less that 1GB free HDD space.
+You should have enough space to allow logs and an image cache, so I wouldn't recommend using on a system with less than 1GB free HDD space.
 
 Rails can probably run on 512MB of RAM fine and CPU usage will vary. You can probably get away with a single core, but dual core may run smoother.
 
@@ -61,7 +61,8 @@ curl -sSL https://get.rvm.io | bash -s stable --rails```
 
 4. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-5. `rvm use 2.3.0@plexdashboard --create; cd /opt/Plex-Board;` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
+
+5. `rvm use 2.3.0@plexdashboard --create;` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.`
 Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`.
 
 6. `cd /opt/Plex-Board`
