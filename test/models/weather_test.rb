@@ -53,6 +53,7 @@ class WeatherTest < ActiveSupport::TestCase
     weather.latitude = 42.306642
     weather.longitude = -83.71466199999999
     weather.api_key = '0ca1d9fc73742b2dca0dc2643d89994d'
+    assert_not_nil weather.get_weather, 'weather.get_weather should not return nil for a valid weather object'
     assert_equal 42.306642, weather.get_weather['latitude']
     assert_equal -83.71466199999999, weather.get_weather['longitude']
   end

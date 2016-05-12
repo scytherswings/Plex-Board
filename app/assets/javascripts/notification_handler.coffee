@@ -13,14 +13,14 @@ source.addEventListener 'online_status', (e) ->
                      <tbody>
                        <tr>
                          <td>
-                           <a class="services_link" target="_blank" href="#{service.url}">
+                           <a class="h2_index_link" target="_blank" href="#{service.url}">
                              <button class="btn btn-xs btn-warning" style="width:62px">
                              <span class="glyphicon glyphicon-remove" style="color:white;"></span> Offline</button>
                            </a>
                           <div style="padding:1px"></div>
                          </td>
                          <td style="padding-left: 5px;">
-                           <a class="services_link" href="/services/#{service.service_id}">#{service.name}</a>
+                           <a class="h2_index_link" href="/services/#{service.service_id}">#{service.name}</a>
                          </td>
                        </tr>
                      </tbody>
@@ -34,14 +34,14 @@ source.addEventListener 'online_status', (e) ->
                        <tbody>
                          <tr>
                            <td>
-                             <a class="services_link" target="_blank" href="#{service.url}">
+                             <a class="h2_index_link" target="_blank" href="#{service.url}">
                                <button class="btn btn-xs btn-success" style="width:62px">
                                <span class="glyphicon glyphicon-ok" style="color:white;"></span> Online</button>
                              </a>
                              <div style="padding:1px"></div>
                            </td>
                            <td style="padding-left: 5px;">
-                               <a class="services_link" href="/services/#{service.service_id}">#{service.name}</a>
+                               <a class="h2_index_link" href="/services/#{service.service_id}">#{service.name}</a>
                            </td>
                          </tr>
                        </tbody>

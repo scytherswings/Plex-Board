@@ -34,7 +34,7 @@ class Weather < ActiveRecord::Base
 
   def get_weather
     ForecastIO.api_key = api_key
-    Rails.cache.fetch("#{self.id}/forecast", expires_in: 5.minutes) do
+    Rails.cache.fetch("weather_#{self.id}/forecast", expires_in: 5.minutes) do
       ForecastIO.forecast(latitude, longitude)
     end
   end

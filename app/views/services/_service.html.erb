@@ -5,12 +5,12 @@
          <tr>
            <td>
              <% if service.online_status %>
-               <%= link_to service.url, class: "services_link", :target => "_blank" do %>
+               <%= link_to service.url, class: "h2_index_link", :target => "_blank" do %>
                  <button class="btn btn-xs btn-success" style="width:62px">
                    <span class="glyphicon glyphicon-ok" style="color:white;"></span> Online</button>
                <% end %>
              <% else %>
-               <%= link_to service.url, class: "services_link", :target => "_blank"  do %>
+               <%= link_to service.url, class: "h2_index_link", :target => "_blank"  do %>
                  <button class="btn btn-xs btn-warning" style="width:62px">
                    <span class="glyphicon glyphicon-remove" style="color:white;"></span> Offline</button>
                <% end %>
@@ -19,9 +19,9 @@
            </td>
            <td style="padding-left: 5px;">
              <% if service.service_flavor_id %>
-               <%= link_to service.name, {controller: service.service_flavor_type.tableize, action: 'show', id: service.service_flavor_id}, class: 'services_link'%>
+               <%= link_to service.name, {controller: service.service_flavor_type.tableize, action: 'show', id: service.service_flavor_id}, class: 'h2_index_link'%>
              <% else %>
-               <%= link_to service.name, service, class: 'services_link' %>
+               <%= link_to service.name, service, class: 'h2_index_link' %>
              <% end %>
            </td>
          </tr>

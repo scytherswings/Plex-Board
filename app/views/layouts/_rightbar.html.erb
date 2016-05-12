@@ -1,6 +1,6 @@
 <div id="rightpanel" class="col-xs-6 col-sm-2 col-md-2 col-lg-2 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 col-sm-push-7 col-md-push-8 col-lg-push-8">
   <% unless @weathers.nil? %>
-    <h2><%= link_to 'Weather', configuration_path %></h2>
+    <h2><%= link_to 'Weather', configuration_path, class: 'h2_index_link' %></h2>
     <%= render @weathers %>
   <% end %>
 </div>
