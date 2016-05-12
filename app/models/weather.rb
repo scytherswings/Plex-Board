@@ -23,7 +23,7 @@ class Weather < ActiveRecord::Base
   end
 
   def config
-    if units.nil? || !(units.any? @supported_units)
+    if units.nil? || !(SUPPORTED_UNITS.include? units)
       self.units = @default_units
     end
   end
@@ -34,8 +34,11 @@ class Weather < ActiveRecord::Base
 
   def get_weather
     ForecastIO.api_key = api_key
-    ForecastIO.forecast(latitude, longitude)
+    Rails.cache.fetch("#{self.id}/forecast", expires_in: 5.minutes) do
+      ForecastIO.forecast(latitude, longitude)
+    end
   end
+
 
   private ####################################################
 

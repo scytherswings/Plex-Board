@@ -13,7 +13,7 @@
     </div>
   </div>
 <% elsif !@plex_services.nil? && !@plex_services.empty? %>
-  <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
+  <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
       <% @plex_services.try(:each_with_index) do |plex_service, i| %>
           <% if i == 0 %>

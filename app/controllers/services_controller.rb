@@ -10,6 +10,7 @@ class ServicesController < ApplicationController
     @services = Service.all
     @plex_services = PlexService.all
     @plex_services.each {|ps| ps.update_plex_data}
+    @weathers = Weather.all
   rescue ActiveRecord::StatementInvalid => e
     logger.error "There was an error interacting with the database. The error was: #{e}"
     sleep(0.25)
