@@ -38,14 +38,27 @@ class WeatherTest < ActiveSupport::TestCase
   end
 
   test 'an invalid address will throw a RecordInvalid exception' do
+    expected_message = 'Fetching the precise location failed. Please check that the address is valid.'
     weather = Fabricate.build(:weather)
     weather.longitude = nil
     weather.latitude = nil
     weather.address = 'This is not a valid address'
 
-    exception = assert_raises(ActiveRecord::RecordInvalid) {weather.save!}
-    assert exception.message.include?('Fetching the precise location failed. Please check that the address is valid.'),
-                              'The exception didn\'t mention the address error message as expected.'
+    exception = assert_raises(ActiveRecord::RecordInvalid) { weather.save! }
+    assert exception.message.include?(expected_message),
+           "The exception didn't mention the address error message as expected. \nGot: '#{exception.message}'\nwhen expecting: '#{expected_message}'."
+  end
+
+  test 'an nil address will throw a RecordInvalid exception' do
+    expected_message = 'Fetching the precise location failed. Please check that the address is valid.'
+    weather = Fabricate.build(:weather)
+    weather.longitude = nil
+    weather.latitude = nil
+    weather.address = nil
+
+    exception = assert_raises(ActiveRecord::RecordInvalid) { weather.save! }
+    assert exception.message.include?(expected_message),
+           "The exception didn't mention the address error message as expected. \nGot: '#{exception.message}'\nwhen expecting: '#{expected_message}'."
   end
 
   test 'weather can be retrieved with valid parameters' do

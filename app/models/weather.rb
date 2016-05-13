@@ -1,48 +1,41 @@
 class Weather < ActiveRecord::Base
   require 'geocoder'
   require 'forecast_io'
-
+  serialize :units, Hash
   attr_accessor :address
 
-  after_initialize :config
-  validates_presence_of :address, if: :loc_empty?
-  validate :get_precise_location, on: :create, if: :loc_empty?
+  before_validation :get_precise_location, if: :location_empty?
+  before_validation :config
+
+  validates_presence_of :address, if: :location_empty?
   validates_presence_of :latitude, :longitude, :api_key, :units
 
-  DEFAULT_UNITS = 'US Customary Units'
-  SUPPORTED_UNITS = ['SI', 'US Customary Units']
-
-  class << self
-    attr_accessor :default_units, :supported_units
-  end
-
-  def initialize(*args)
-    @default_units = DEFAULT_UNITS
-    @supported_units = SUPPORTED_UNITS
-    super(*args)
-  end
+  DEFAULT_UNITS = {'US Customary Units': 'us'}
+  SUPPORTED_UNITS = {'SI': 'ca', 'US Customary Units': 'us'}
 
   def config
-    if units.nil? || !(SUPPORTED_UNITS.include? units)
-      self.units = @default_units
+    if units.nil? || units.empty? || !(SUPPORTED_UNITS.keys.include? units)
+      logger.warn "The supplied units: '#{units}' were either nil or not found in this list: #{SUPPORTED_UNITS}. Setting to the default of: #{DEFAULT_UNITS}."
+      self.units = DEFAULT_UNITS
     end
   end
 
-  def loc_empty?
-    (latitude.nil? || latitude.blank?) || (longitude.nil? || longitude.blank?)
+  def location_empty?
+    latitude.nil? || latitude.blank? || longitude.nil? || longitude.blank?
   end
 
   def get_weather
     ForecastIO.api_key = api_key
+    ForecastIO.default_params = {units: units.values.first}
     Rails.cache.fetch("weather_#{self.id}/forecast", expires_in: 5.minutes) do
       ForecastIO.forecast(latitude, longitude)
     end
   end
 
-
   private ####################################################
 
   def get_precise_location
+    logger.debug "Getting precise location for address: #{address}"
     geocoded = Geocoder.search(self.address).first
 
     if geocoded.nil?
@@ -51,7 +44,6 @@ class Weather < ActiveRecord::Base
       return
     end
 
-    self.latitude = geocoded.latitude
-    self.longitude = geocoded.longitude
+    update!(latitude: geocoded.latitude, longitude: geocoded.longitude)
   end
 end

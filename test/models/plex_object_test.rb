@@ -9,11 +9,11 @@ class PlexObjectTest < ActiveSupport::TestCase
     assert @plex_object_recently_added_1.valid?
   end
 
-  test 'plex_object with no plex_session should not be valid' do
-    skip('This test needs more thought')
-    @plex_object_session_1.plex_object_flavor = nil
-    assert_not @plex_object_session_1.valid?, 'Plex object should not be valid if there is no parent plex session'
-  end
+  # test 'plex_object with no plex_session should not be valid' do
+  #   skip('This test needs more thought')
+  #   @plex_object_session_1.plex_object_flavor = nil
+  #   assert_not @plex_object_session_1.valid?, 'Plex object should not be valid if there is no parent plex session'
+  # end
 
   test 'plex_object media_title must not be blank' do
     @plex_object_session_1.media_title = nil

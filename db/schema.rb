@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160510020651) do
+ActiveRecord::Schema.define(version: 20160513022103) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.string   "image"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20160510020651) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "address"
-    t.string   "units"
+    t.text     "units"
   end
 
 end

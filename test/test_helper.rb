@@ -133,7 +133,7 @@ class ActiveSupport::TestCase
         with(headers: {'Accept':'*/*', 'Accept-Encoding':'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Ruby'}).
         to_return(status: 200, body:"{\"results\": [],\"status\": \"ZERO_RESULTS\"}", headers: {})
 
-    WebMock.stub_request(:get, 'https://api.forecast.io/forecast/0ca1d9fc73742b2dca0dc2643d89994d/42.306642,-83.71466199999999').
+    WebMock.stub_request(:get, 'https://api.forecast.io/forecast/0ca1d9fc73742b2dca0dc2643d89994d/42.306642,-83.71466199999999?units=us').
         with(headers: {'Accept':'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Faraday v0.9.2'}).
         to_return(status: 200, body: json_file('forecast.json'), headers: {})
 
