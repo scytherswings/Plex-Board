@@ -1,5 +1,25 @@
 <div class="row" id="weather_<%= weather.id %>">
   <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
     <% forecast = weather.get_weather %>
+    <h4>The current temperature is: </h4>
+    <%= forecast['currently']['temperature'] %>
+    <canvas id="icon1" width="128" height="128"></canvas>
+    <canvas id="icon2" width="128" height="128"></canvas>
+    <script>
+      var skycons = new Skycons({"color": "black"});
+      // on Android, a nasty hack is needed: {"resizeClear": true}
+
+      // you can add a canvas by it's ID...
+      skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+
+      // ...or by the canvas DOM element itself.
+      skycons.add(document.getElementById("icon2"), Skycons.RAIN);
+
+      // if you're using the Forecast API, you can also supply
+      // strings: "partly-cloudy-day" or "rain".
+
+      // start animation!
+      skycons.play();
+    </script>
   </div>
 </div>
