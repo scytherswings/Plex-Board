@@ -27,10 +27,16 @@ class Weather < ActiveRecord::Base
   def get_weather
     ForecastIO.api_key = api_key
     ForecastIO.default_params = {units: units.values.first}
-    Rails.cache.fetch("weather_#{self.id}/forecast", expires_in: 5.minutes) do
+    Rails.cache.fetch("weather_#{self.id}/forecast", expires_in: 1.minutes) do #TODO: Add this to configurable options
       ForecastIO.forecast(latitude, longitude)
     end
   end
+
+  def get_city_and_state
+    resolve_city_and_state
+    "#{city}, #{state}"
+  end
+
 
   private ####################################################
 
@@ -45,5 +51,14 @@ class Weather < ActiveRecord::Base
     end
 
     update!(latitude: geocoded.latitude, longitude: geocoded.longitude)
+  end
+
+  def resolve_city_and_state
+    if city && state
+      return
+    end
+
+    geo_search = Geocoder.search("#{self.latitude}, #{self.longitude}").first
+    update!(city: geo_search.city, state: geo_search.state)
   end
 end

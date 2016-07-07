@@ -1,27 +1,37 @@
+<% forecast = weather.get_weather %>
 <div class="row" id="weather_<%= weather.id %>">
-  <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-    <% forecast = weather.get_weather %>
-    <div class="row">
-      <div class="col-xs-8">
-        <canvas id="currentWeatherIcon"></canvas>
-      </div>
-      <div class="col-xs-4">
+  <div class="row">
+    <div class="col-xs-5">
+      <canvas id="currentWeatherIcon" width="80" height="80"></canvas>
+    </div>
+    <div class="col-xs-7">
+      <p><strong>
+        <%= weather.get_city_and_state %>
+      </strong></p>
+      <p><strong>
         <%= forecast['currently']['temperature'].round %> &deg;
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
+      </strong>
+      </p>
+      <p><strong>
         <%= forecast['currently']['summary'] %>
-      </div>
-
+      </strong>
+      </p>
     </div>
-
-
-    <script>
-      var skycons = new Skycons({"color": "black"});
-      skycons.add("currentWeatherIcon", Skycons.<%= forecast['currently']['icon'].gsub!(/-/, '_').upcase %>);
-      skycons.play();
-    </script>
-    <%= forecast %>
   </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <p>Tomorrow: </br>
+      <%= forecast['daily']['summary'] %>
+      </p>
+    </div>
+  </div>
+
+
+
+  <script>
+    var skycons = new Skycons({"color": "black"});
+    skycons.add("currentWeatherIcon", Skycons.<%= forecast['currently']['icon'].gsub!(/-/, '_').upcase %>);
+    skycons.play();
+  </script>
+
 </div>
