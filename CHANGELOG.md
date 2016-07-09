@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Fixed `serverSetup.sh` thanks to @VuokkoVuorinnen's PR.
 - Built a basic weather view, it's not pretty yet but it works.
+- Layout of the sidebars/main content. It should collapse in a better fashion now.
+
+### Removed
+- HTML 5 shim for IE. We don't support IE (or rather IE doesn't support modern and widely accepted standards) so this is pointless. 
+- Info/Status page. It had no use and I don't have a plan for it.
 
 ## [v0.5.6] : 2016-5-7
 ### Added

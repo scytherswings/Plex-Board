@@ -2,30 +2,29 @@
 <div class="row" id="weather_<%= weather.id %>">
   <div class="col-xs-12">
     <div class="row">
-    <div class="col-xs-5">
-      <canvas id="currentWeatherIcon" width="80" height="80"></canvas>
+      <div class="col-xs-5 col-xs-offset-0 col-sm-offset-0 col-md-push-0">
+        <canvas id="currentWeatherIcon" width="80" height="80"></canvas>
+      </div>
+      <div class="col-xs-7 col-sm-7 col-md-12 col-lg-7">
+        <p><strong>
+          <%= weather.get_city_and_state %>
+        </strong></p>
+        <p><strong>
+          <%= forecast['currently']['temperature'].round %> &deg;
+
+          <%= forecast['currently']['summary'] %>
+        </strong>
+        </p>
+      </div>
+
     </div>
-    <div class="col-xs-7">
-      <p><strong>
-        <%= weather.get_city_and_state %>
-      </strong></p>
-      <p><strong>
-        <%= forecast['currently']['temperature'].round %> &deg;
-      </strong>
-      </p>
-      <p><strong>
-        <%= forecast['currently']['summary'] %>
-      </strong>
-      </p>
+    <div class="row">
+      <div class="col-xs-12">
+        <p>Tomorrow: </br>
+          <%= forecast['daily']['summary'] %>
+        </p>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <p>Tomorrow: </br>
-        <%= forecast['daily']['summary'] %>
-      </p>
-    </div>
-  </div>
   </div>
 
 

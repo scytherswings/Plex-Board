@@ -9,8 +9,8 @@ class InfoController < ApplicationController
     @services = Service.all
     @service = Service.new
     @weather = Weather.new
-    @weathers = Weather.all
     @request_value = request.location
+    @weathers = Weather.all
   end
 
   def about

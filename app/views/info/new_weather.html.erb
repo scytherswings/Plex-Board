@@ -3,23 +3,11 @@
 <%= render 'layouts/servicepanel' %>
 <%= render 'layouts/rightbar' %>
 
-<%= simple_form_for @weather do |f| %>
-  <div class="row" id="default_info_div">
-    <div class="col-md-4 col-lg-4 form-group">
-      <%= f.input :api_key, placeholder: 'Forecast.io API key', required: false %>
-    </div>
-    <div class="col-md-3 col-lg-3 form-group">
-      <%= f.input :latitude, label: 'Latitude', required: false %>
-    </div>
-    <div class="col-md-3 col-lg-3 form-group">
-      <%= f.input :longitude, label: 'Longitude', required: false %>
-    </div>
-    <div class="col-md-2 col-lg-2 form-group">
-      <%= f.input :address, placeholder: '1600 Amphitheatre Pkwy, Mountain View, CA 94043', required: false %>
-    </div>
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-sm-pull-0 col-md-pull-2 col-lg-pull-2">
+  <h2>New Weather</h2>
+  <div class="well">
+    <%= render 'shared/error_messages' %>
+    <%= render 'weatherform' %>
   </div>
-  <div class="col-lg-12">Your current location: <%= @request_value.state %>, <%= @request_value.latitude %><%= @request_value.longitude %></div>
-
-
-<% end %>
+</div>
 
