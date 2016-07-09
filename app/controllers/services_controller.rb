@@ -126,26 +126,31 @@ class ServicesController < ApplicationController
   def show
     @services = Service.all
     # @service = Service.find(params[:id])
+    @weathers = Weather.all
   end
 
   def all_services
     @services = Service.all
+    @weathers = Weather.all
   end
 
   # GET /services/new
   def new
      @services = Service.all
      @service = Service.new
+     @weathers = Weather.all
     # @plex = Plex.new
   end
 
   def choose_service_type
     @services = Service.all
+    @weathers = Weather.all
   end
 
   # GET /services/1/edit
   def edit
     @services = Service.all
+    @weathers = Weather.all
   end
 
   # POST /services

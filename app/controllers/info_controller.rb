@@ -9,16 +9,13 @@ class InfoController < ApplicationController
     @services = Service.all
     @service = Service.new
     @weather = Weather.new
-    @request_value = request.location;
+    @weathers = Weather.all
+    @request_value = request.location
   end
 
   def about
     @services = Service.all
     @plex_services = PlexService.all
-  end
-
-  def status
-    @services = Service.all
-    @plex_services = PlexService.all
+    @weathers = Weather.all
   end
 end
