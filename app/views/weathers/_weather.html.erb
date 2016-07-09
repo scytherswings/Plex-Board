@@ -1,6 +1,7 @@
 <% forecast = weather.get_weather %>
 <div class="row" id="weather_<%= weather.id %>">
-  <div class="row">
+  <div class="col-xs-12">
+    <div class="row">
     <div class="col-xs-5">
       <canvas id="currentWeatherIcon" width="80" height="80"></canvas>
     </div>
@@ -21,11 +22,11 @@
   <div class="row">
     <div class="col-xs-12">
       <p>Tomorrow: </br>
-      <%= forecast['daily']['summary'] %>
+        <%= forecast['daily']['summary'] %>
       </p>
     </div>
   </div>
-
+  </div>
 
 
   <script>
