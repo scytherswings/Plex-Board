@@ -2,7 +2,7 @@
 <div class="row" id="weather_<%= weather.id %>">
   <div class="col-xs-12">
     <div class="row">
-      <div class="col-xs-5 col-xs-offset-0 col-sm-offset-0 col-md-push-0">
+      <div class="col-xs-5">
         <canvas id="currentWeatherIcon" width="80" height="80"></canvas>
       </div>
       <div class="col-xs-7 col-sm-7 col-md-12 col-lg-7">
@@ -20,7 +20,7 @@
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <p>Tomorrow: </br>
+        <p><strong>Tomorrow: </strong></br>
           <%= forecast['daily']['summary'] %>
         </p>
       </div>
