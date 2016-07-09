@@ -65,6 +65,14 @@ class ActiveSupport::TestCase
         with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
         to_return(status: 401, body: "{\"error\": \"Invalid email, username, or password.\"}", headers: AUTH_HEADERS)
 
+    WebMock.stub_request(:post, 'https://user:failpass@my.plexapp.com/users/sign_in.json').
+        with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+        to_return(status: 500, body: "{\"error\": \"Internal Server Error\"}", headers: AUTH_HEADERS)
+
+    WebMock.stub_request(:post, 'https://user:badjson@my.plexapp.com/users/sign_in.json').
+        with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+        to_return(status: 200, body: "{\"this\": \"is bad json", headers: AUTH_HEADERS)
+
     WebMock.stub_request(:get, 'https://plex5updated:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
         to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'plex_one_session_updated_viewOffset.json').read, headers: HEADERS)
@@ -72,6 +80,10 @@ class ActiveSupport::TestCase
     WebMock.stub_request(:get, 'https://plexnosessions:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
         to_return(status: 200, body: "{\"_elementType\": \"MediaContainer\",\"_children\": []}", headers: HEADERS)
+
+    WebMock.stub_request(:get, 'https://plexbadjson:32400/status/sessions').
+        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        to_return(status: 200, body: "{_elementType\": MediaContainer\"\"_children: [}", headers: HEADERS)
 
     WebMock.stub_request(:get, 'https://plex6:32400/status/sessions').
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
@@ -84,6 +96,14 @@ class ActiveSupport::TestCase
     WebMock.stub_request(:get, /https:\/\/plex[3|5|7]:32400\/status\/sessions/).
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
         to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'plex_one_session.json').read, headers: HEADERS)
+
+    WebMock.stub_request(:get, 'https://plex401:32400/status/sessions').
+        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        to_return(status: 401, body: '<html><head><title>Unauthorized</title></head><body><h1>401 Unauthorized</h1></body></html>', headers: HEADERS)
+
+    WebMock.stub_request(:get, 'https://plex500:32400/status/sessions').
+        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        to_return(status: 500, body: '<html><head><title>Internal Server Error</title></head><body><h1>500 Internal Server Error</h1></body></html>', headers: HEADERS)
 
     WebMock.stub_request(:get, /https:\/\/plex[3-7](?:_movie)?:32400\/library\/recentlyAdded/).
         with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection':'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).

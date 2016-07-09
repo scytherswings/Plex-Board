@@ -39,14 +39,22 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert ps.valid?, 'PlexService was not valid when initialized with a token'
   end
 
+  # test 'Service with no sessions will not change when plex has no sessions' do
+  #   ps = Fabricate.build(:plex_service, ps_token: TOKEN)
+  #   ps.service.dns_name = 'plexnosessions'
+  #   ps.service.port = 32400
+  #   ps.save!
+  #   ps.get_plex_sessions
+  #   assert_requested(:get, 'https://plexnosessions:32400/status/sessions')
+  #   assert_equal 0, ps.plex_sessions.count
+  # end
+
   test 'Service with no sessions will not change when plex has no sessions' do
-    ps = Fabricate.build(:plex_service, ps_token: TOKEN)
-    ps.service.dns_name = 'plexnosessions'
-    ps.service.port = 32400
-    ps.save!
-    ps.get_plex_sessions
+    @plex_service_one.service.dns_name = 'plexnosessions'
+    @plex_service_one.get_plex_sessions
     assert_requested(:get, 'https://plexnosessions:32400/status/sessions')
-    assert_equal 0, ps.plex_sessions.count
+    assert_equal TOKEN, @plex_service_one.token
+    assert_equal 0, @plex_service_one.plex_sessions.count
   end
 
   test 'Service with no sessions can get two new plex sessions' do
@@ -75,7 +83,6 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_not_equal @plex_service_with_one_session.plex_sessions.first.progress, temp.progress
   end
 
-
   test 'PlexSession will be removed if Plex has no sessions' do
     assert_equal 1, @plex_service_with_one_session.plex_sessions.count
     @plex_service_with_one_session.service.update(dns_name: 'plexnosessions')
@@ -83,7 +90,6 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_requested(:get, 'https://plexnosessions:32400/status/sessions')
     assert_equal 0, @plex_service_with_one_session.plex_sessions.count
   end
-
 
   test 'Expired sessions will be removed' do
     assert_equal 2, @plex_service_with_two_sessions.plex_sessions.count
@@ -108,6 +114,38 @@ class PlexServiceTest < ActiveSupport::TestCase
     @plex_service_with_one_session.get_plex_sessions
     assert_requested(:get, 'https://plex5:32400/status/sessions', times: 0)
     assert_equal 0, @plex_service_with_one_session.plex_sessions.count
+  end
+
+  test 'Bad JSON from Plex will not crash the app' do
+    assert_equal 1, @plex_service_with_one_session.plex_sessions.count
+    @plex_service_with_one_session.service.update(dns_name: 'plexbadjson')
+    @plex_service_with_one_session.get_plex_sessions
+    assert_requested(:get, 'https://plexbadjson:32400/status/sessions')
+    assert_equal 1, @plex_service_with_one_session.plex_sessions.count
+  end
+
+  test 'A 401 from a Plex Server will not crash the app' do
+    @plex_service_with_one_session.service.update(dns_name: 'plex401')
+    @plex_service_with_one_session.plex_sessions.destroy_all
+    @plex_service_with_one_session.get_plex_sessions
+    assert_requested(:get, 'https://plex401:32400/status/sessions')
+  end
+
+  test 'A 500 from a Plex Server will not crash the app' do
+    @plex_service_with_one_session.service.update(dns_name: 'plex500')
+    @plex_service_with_one_session.plex_sessions.destroy_all
+    @plex_service_with_one_session.get_plex_sessions
+    assert_requested(:get, 'https://plex500:32400/status/sessions')
+  end
+
+  test 'get_plex_recently_added cannot get a new RA movie when the service is offline' do
+    @plex_service_with_one_recently_added.service.update(dns_name: 'plex7_movie')
+    @plex_service_with_one_recently_added.plex_recently_addeds.destroy_all
+    @plex_service_with_one_recently_added.service.update(online_status: false)
+    @plex_service_with_one_recently_added.get_plex_recently_added
+    assert_not_requested(:get, 'https://plex7_movie:32400/library/recentlyAdded')
+    assert_equal 0, @plex_service_with_one_recently_added.plex_recently_addeds.count,
+                 'PRA should not have increased since the service was offline'
   end
 
   test 'get_plex_recently_added can get new RA movie when no RAs exist' do
@@ -149,7 +187,6 @@ class PlexServiceTest < ActiveSupport::TestCase
     assert_equal 50, @plex_service_with_one_recently_added.plex_recently_addeds.count, 'PRA count was not 50'
   end
 
-
   test 'get_plex_token will only hit the api once if given a 404' do
     test = PlexService.new
     test.username = '404user'
@@ -175,6 +212,24 @@ class PlexServiceTest < ActiveSupport::TestCase
     3.times {test.save}
     assert_not test.valid?
     assert_requested(:post, 'https://user:badpass@my.plexapp.com/users/sign_in.json', times: 1)
+  end
+
+  test 'get_plex_token will only hit the api once if given a 500' do
+    test = PlexService.new
+    test.username = 'user'
+    test.password = 'failpass'
+    3.times {test.save}
+    assert_not test.valid?
+    assert_requested(:post, 'https://user:failpass@my.plexapp.com/users/sign_in.json', times: 1)
+  end
+
+  test 'get_plex_token will only hit the api once if bad json is returned' do
+    test = PlexService.new
+    test.username = 'user'
+    test.password = 'badjson'
+    3.times {test.save}
+    assert_not test.valid?
+    assert_requested(:post, 'https://user:badjson@my.plexapp.com/users/sign_in.json', times: 1)
   end
 
   test 'a new valid PlexService will have a token after saving' do

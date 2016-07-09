@@ -64,16 +64,10 @@ class PlexService < ActiveRecord::Base
 
     api_request(method: method, url: get_connection_string + path, headers: headers, verify_ssl: false)
 
-  rescue RestClient::Forbidden
-    logger.error 'Getting Plex resource failed with 403 Forbidden.'
-      nil
   rescue RestClient::Unauthorized
     logger.error 'Getting Plex resource failed with 401 Unauthorized.'
       nil
-  rescue RestClient::NotFound
-    logger.error 'Getting Plex resource failed with 404 NotFound.'
-      nil
-  rescue RestClient, OpenSSL::SSL::SSLError, Errno::ECONNREFUSED => e
+  rescue RestClient::Exception, OpenSSL::SSL::SSLError, Errno::ECONNREFUSED => e
     logger.error "Getting Plex resource failed, an unexpected error was returned: #{e.message}"
     nil
   end
@@ -189,7 +183,6 @@ class PlexService < ActiveRecord::Base
     end
 
     response = plex_api(method: :get, path: path, headers: defaults)
-    # response = api_request(method: :get, url: pra_url, headers: defaults, verify_ssl: false)
 
     if response.nil?
       logger.debug("Plex doesn't have any recently added")
@@ -244,6 +237,14 @@ class PlexService < ActiveRecord::Base
       }
       user = PlexUser.new(username, password)
       response = api_request(method: :post, url: PLEX_URL, headers: plex_sign_in_headers, user: user)
+
+      if response.nil?
+        logger.error "Getting Plex token failed with an unexpected error, the response was nil from #{PLEX_URL}"
+        self.errors.add(:base, 'Fetching the Plex token failed unexpectedly. Plex.tv may be down or inaccessible.')
+        @api_error = true
+        return nil
+      end
+
       update!(token: response['user']['authentication_token'])
       logger.debug "Grabbing Plex token was successful, token was: #{response['user']['authentication_token']}. Deleting username and password from database."
       @username, @password = nil
@@ -262,9 +263,9 @@ class PlexService < ActiveRecord::Base
     logger.error 'Getting Plex token failed with 404 NotFound.'
     self.errors.add(:base, 'Plex authentication failed with 404 Not Found. See debug logs for more details.')
     @api_error = true
-  rescue RestClient => e
+  rescue RestClient::Exception => e
     logger.error "Getting Plex token failed, an unexpected error was returned: #{e.message}"
-    self.errors.add(:base, 'Plex authentication failed with an unexpected error. Cannot create Plex Service. See debug logs for more details.')
+    self.errors.add(:base, 'Plex authentication failed with an unexpected error. Cannot create Plex Service. Plex.tv may be down or inaccessible.')
     @api_error = true
   end
 

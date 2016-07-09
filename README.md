@@ -1,10 +1,10 @@
 # Plex-Board
-## Version 0.5.3
+## Version 0.5.4
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 [![Coverage Status](https://coveralls.io/repos/scytherswings/Plex-Board/badge.svg?branch=dev&service=github)](https://coveralls.io/github/scytherswings/Plex-Board?branch=dev)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 
 What is Plex-Board? Put simply, it is a dynamic dashboard for checking the status of multiple services related to Plex Media Server (Plex, Couchpotato, Sickrage, Deluge, Sabnzbd+, etc.).
 
@@ -35,7 +35,7 @@ Here are a few screenshots of v0.4.2:
 
 ## System Requirements
 
-You should have enough space to allow logs and an image cache, so I wouldn't recommend using on a system with less that 1GB free HDD space.
+You should have enough space to allow logs and an image cache, so I wouldn't recommend using on a system with less than 1GB free HDD space.
 
 Rails can probably run on 512MB of RAM fine and CPU usage will vary. You can probably get away with a single core, but dual core may run smoother.
 
@@ -59,7 +59,7 @@ curl -sSL https://get.rvm.io | bash -s stable --rails```
 
 4. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-5. `rvm use 2.3.0; cd /opt/Plex-Board;` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
+5. `rvm use 2.3.0` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
 Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`.
 
 6. `cd /opt/Plex-Board`

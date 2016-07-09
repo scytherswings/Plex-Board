@@ -3,38 +3,113 @@
   "_children": [
     {
       "_elementType": "Video",
-      "art": "/library/metadata/22074/art/1427351324",
-      "duration": "8078080",
-      "sessionKey": "1",
-      "summary": "Last months of World War.",
-      "thumb": "/library/metadata/22074/thumb/1427351324",
-      "title": "Fury",
-      "type": "movie",
-      "updatedAt": "1427351324",
-      "viewCount": "5",
-      "viewOffset": "4388930",
-      "year": "2014",
+      "addedAt": "1444876466",
+      "art": "/library/metadata/14608/art/1457922670",
+      "chapterSource": "",
+      "contentRating": "TV-MA",
+      "duration": "3897408",
+      "grandparentArt": "/library/metadata/14608/art/1457922670",
+      "grandparentKey": "/library/metadata/14608",
+      "grandparentRatingKey": "14608",
+      "grandparentTheme": "/library/metadata/14608/theme/1457922670",
+      "grandparentThumb": "/library/metadata/14608/thumb/1457922670",
+      "grandparentTitle": "The Walking Dead",
+      "guid": "com.plexapp.agents.thetvdb://153021/6/1?lang=en",
+      "index": "1",
+      "key": "/library/metadata/38458",
+      "lastViewedAt": "1447463738",
+      "librarySectionID": "2",
+      "originallyAvailableAt": "2015-10-11",
+      "parentIndex": "6",
+      "parentKey": "/library/metadata/38457",
+      "parentRatingKey": "38457",
+      "parentThumb": "/library/metadata/38457/thumb/1457922670",
+      "rating": "7.8",
+      "ratingKey": "38458",
+      "sessionKey": "863",
+      "summary": "Rick and the group continue to have trouble assimilating into Alexandria. Multiple threats lead the community to adopt a mindset of hardness, while Rick's group must take a step back from the violence they've come to embrace.",
+      "thumb": "/library/metadata/38458/thumb/1457922668",
+      "title": "First Time Again",
+      "type": "episode",
+      "updatedAt": "1457922668",
+      "viewCount": "2",
+      "year": "2015",
       "_children": [
         {
           "_elementType": "Media",
+          "aspectRatio": "1.78",
+          "audioChannels": "6",
+          "audioCodec": "ac3",
+          "bitrate": "7448",
+          "container": "mkv",
+          "duration": "3897408",
+          "height": "720",
+          "id": "105327",
+          "videoCodec": "h264",
+          "videoFrameRate": "24p",
+          "videoResolution": "720",
+          "width": "1280",
           "_children": [
             {
               "_elementType": "Part",
+              "container": "mkv",
+              "duration": "3897408",
+              "file": "/mnt/PLEX-MEDIA/TV_Shows/The Walking Dead/Season 06/The Walking Dead - S06E01 - First Time Again.mkv",
+              "id": "105529",
+              "indexes": "sd",
+              "key": "/library/parts/105529/file.mkv",
+              "size": "3628511203",
               "_children": [
                 {
                   "_elementType": "Stream",
-                  "width": "1920"
+                  "bitDepth": "8",
+                  "bitrate": "6916",
+                  "cabac": "1",
+                  "chromaSubsampling": "4:2:0",
+                  "codec": "h264",
+                  "codecID": "V_MPEG4/ISO/AVC",
+                  "colorSpace": "yuv",
+                  "duration": "3897397",
+                  "frameRate": "23.976",
+                  "frameRateMode": "cfr",
+                  "hasScalingMatrix": "0",
+                  "height": "720",
+                  "id": "255747",
+                  "index": "0",
+                  "language": "English",
+                  "languageCode": "eng",
+                  "level": "41",
+                  "profile": "high",
+                  "refFrames": "5",
+                  "scanType": "progressive",
+                  "streamType": "1",
+                  "width": "1280"
                 },
                 {
                   "_elementType": "Stream",
+                  "audioChannelLayout": "5.1(side)",
+                  "bitDepth": "16",
+                  "bitrate": "384",
+                  "bitrateMode": "cbr",
+                  "channels": "6",
+                  "codec": "ac3",
+                  "codecID": "A_AC3",
+                  "dialogNorm": "-27",
+                  "duration": "3897408",
+                  "id": "255748",
+                  "index": "1",
+                  "samplingRate": "48000",
+                  "selected": "1",
                   "streamType": "2"
                 },
                 {
                   "_elementType": "Stream",
-                  "title": "English-Forced"
-                },
-                {
-                  "_elementType": "Stream",
+                  "codec": "srt",
+                  "format": "",
+                  "id": "255796",
+                  "key": "/library/streams/255796",
+                  "language": "English",
+                  "languageCode": "eng",
                   "streamType": "3"
                 }
               ]
@@ -42,63 +117,170 @@
           ]
         },
         {
-          "_elementType": "Genre",
-          "count": "18",
-          "id": "10679",
-          "tag": "War film"
+          "_elementType": "Writer",
+          "id": "10409",
+          "tag": "Scott M. Gimple"
+        },
+        {
+          "_elementType": "Writer",
+          "id": "10422",
+          "tag": "Matthew Negrete"
+        },
+        {
+          "_elementType": "Director",
+          "id": "10414",
+          "tag": "Greg Nicotero"
         },
         {
           "_elementType": "User",
-          "id": "4125650",
-          "title": "Generic_User"
+          "id": "1",
+          "thumb": "https://plex.tv/users/24371234d49de110/avatar",
+          "title": "User"
         },
         {
           "_elementType": "Player",
-          "machineIdentifier": "yact8hd58j2h",
-          "platform": "Xbox One",
-          "product": "Plex for Xbox One",
+          "machineIdentifier": "052ex7tagdbr19k1",
+          "platform": "Chrome",
+          "product": "Plex Web",
           "state": "playing",
-          "title": "Xbox-SystemOS"
+          "title": "Plex Web (Chrome)"
         },
         {
           "_elementType": "TranscodeSession",
-          "key": "xcejyc6r53ye",
-          "progress": 59.900001525878906,
-          "speed": 0,
-          "duration": 8078000,
-          "remaining": 41825
+          "key": "1oof90lu6pzoxbt8",
+          "throttled": false,
+          "progress": 0.60000002384185791,
+          "speed": 5.5999999046325684,
+          "duration": 3897000,
+          "remaining": 757,
+          "context": "streaming",
+          "videoDecision": "transcode",
+          "audioDecision": "transcode",
+          "protocol": "http",
+          "container": "mkv",
+          "videoCodec": "h264",
+          "audioCodec": "aac",
+          "audioChannels": 2,
+          "width": 1280,
+          "height": 720
         }
       ]
     },
     {
       "_elementType": "Video",
-      "art": "/library/metadata/15/art/1440399662",
-      "duration": "5257925",
-      "sessionKey": "3",
-      "summary": "Still craving for.",
-      "thumb": "/library/metadata/15/thumb/1440399662",
-      "title": "Airplane!",
+      "addedAt": "1417588046",
+      "art": "/library/metadata/479/art/1419363037",
+      "chapterSource": "media",
+      "contentRating": "R",
+      "duration": "7153070",
+      "guid": "com.plexapp.agents.imdb://tt0115685?lang=en",
+      "key": "/library/metadata/479",
+      "librarySectionID": "1",
+      "originallyAvailableAt": "1996-03-08",
+      "primaryExtraKey": "/library/metadata/4889",
+      "rating": "6.8",
+      "ratingKey": "479",
+      "sessionKey": "862",
+      "studio": "Metro-Goldwyn-Mayer",
+      "summary": "A gay cabaret owner and his drag queen companion agree to put up a false straight front so that their son can introduce them to his fiancé's right-wing moralistic parents.",
+      "tagline": "Come as you are.",
+      "thumb": "/library/metadata/479/thumb/1419363037",
+      "title": "The Birdcage",
+      "titleSort": "Birdcage",
       "type": "movie",
-      "updatedAt": "1440399662",
-      "viewOffset": "791",
-      "year": "1980",
+      "updatedAt": "1419363037",
+      "viewOffset": "1581091",
+      "year": "1996",
       "_children": [
         {
           "_elementType": "Media",
+          "aspectRatio": "1.85",
+          "audioChannels": "6",
+          "audioCodec": "ac3",
+          "bitrate": "3145",
+          "container": "mkv",
+          "duration": "7153070",
+          "height": "688",
+          "id": "479",
+          "videoCodec": "h264",
+          "videoFrameRate": "24p",
+          "videoResolution": "720",
+          "width": "1280",
           "_children": [
             {
               "_elementType": "Part",
+              "container": "mkv",
+              "duration": "7153070",
+              "file": "/mnt/PLEX-MEDIA/Movies/The.Birdcage.1996.720p.BRRip.x264.AC3-MAJESTiC/The.Birdcage.1996.720p.BRRip.x264.AC3-MAJESTiC.mkv",
+              "id": "480",
+              "indexes": "sd",
+              "key": "/library/parts/480/file.mkv",
+              "size": "2811859511",
               "_children": [
                 {
                   "_elementType": "Stream",
+                  "bitDepth": "8",
+                  "bitrate": "2500",
+                  "cabac": "1",
+                  "chromaSubsampling": "4:2:0",
+                  "codec": "h264",
+                  "codecID": "V_MPEG4/ISO/AVC",
+                  "colorSpace": "yuv",
+                  "duration": "7153070",
+                  "frameRate": "23.976",
+                  "frameRateMode": "cfr",
+                  "hasScalingMatrix": "0",
+                  "height": "688",
+                  "id": "98890",
+                  "index": "0",
+                  "language": "English",
+                  "languageCode": "eng",
+                  "level": "40",
+                  "profile": "high",
+                  "refFrames": "8",
+                  "scanType": "progressive",
+                  "streamType": "1",
                   "width": "1280"
                 },
                 {
                   "_elementType": "Stream",
+                  "audioChannelLayout": "5.1(side)",
+                  "bitDepth": "16",
+                  "bitrate": "640",
+                  "bitrateMode": "cbr",
+                  "channels": "6",
+                  "codec": "ac3",
+                  "codecID": "A_AC3",
+                  "dialogNorm": "-31",
+                  "duration": "7153062",
+                  "id": "98891",
+                  "index": "1",
+                  "language": "English",
+                  "languageCode": "eng",
+                  "samplingRate": "48000",
+                  "selected": "1",
                   "streamType": "2"
                 },
                 {
                   "_elementType": "Stream",
+                  "codec": "srt",
+                  "codecID": "S_TEXT/UTF8",
+                  "format": "srt",
+                  "id": "98892",
+                  "index": "2",
+                  "language": "English",
+                  "languageCode": "eng",
+                  "streamType": "3"
+                },
+                {
+                  "_elementType": "Stream",
+                  "codec": "srt",
+                  "codecID": "S_TEXT/UTF8",
+                  "format": "srt",
+                  "id": "98893",
+                  "index": "3",
+                  "language": "English",
+                  "languageCode": "eng",
                   "streamType": "3"
                 }
               ]
@@ -107,31 +289,132 @@
         },
         {
           "_elementType": "Genre",
-          "count": "74",
-          "id": "10750",
-          "tag": "Romance Film"
+          "count": "477",
+          "id": "133",
+          "tag": "Comedy"
+        },
+        {
+          "_elementType": "Writer",
+          "id": "1265",
+          "tag": "Elaine May"
+        },
+        {
+          "_elementType": "Director",
+          "id": "1264",
+          "tag": "Mike Nichols"
+        },
+        {
+          "_elementType": "Producer",
+          "id": "1275",
+          "tag": "Mike Nichols"
+        },
+        {
+          "_elementType": "Country",
+          "count": "629",
+          "id": "50",
+          "tag": "USA"
+        },
+        {
+          "_elementType": "Role",
+          "count": "41",
+          "id": "264",
+          "role": "Armand Goldman",
+          "tag": "Robin Williams"
+        },
+        {
+          "_elementType": "Role",
+          "count": "2",
+          "id": "1266",
+          "role": "Sen. Kevin Keeley",
+          "tag": "Gene Hackman"
+        },
+        {
+          "_elementType": "Role",
+          "count": "5",
+          "id": "1267",
+          "role": "Albert Goldman",
+          "tag": "Nathan Lane"
+        },
+        {
+          "_elementType": "Role",
+          "count": "3",
+          "id": "1268",
+          "role": "Louise Keeley",
+          "tag": "Dianne Wiest"
+        },
+        {
+          "_elementType": "Role",
+          "id": "1269",
+          "role": "National Enquirer Photographer",
+          "tag": "Grant Heslov",
+          "thumb": "http://image.tmdb.org/t/p/original/mV9DTcqcNDcv12VykvjnEH6T4xs.jpg"
+        },
+        {
+          "_elementType": "Role",
+          "count": "9",
+          "id": "1270",
+          "role": "Agador Spartacus",
+          "tag": "Hank Azaria"
+        },
+        {
+          "_elementType": "Role",
+          "id": "1271",
+          "role": "Val Goldman",
+          "tag": "Dan Futterman",
+          "thumb": "http://image.tmdb.org/t/p/original/lohvETRKnXTTsvjYCFvmPSylqJH.jpg"
+        },
+        {
+          "_elementType": "Role",
+          "id": "1272",
+          "role": "Barbara Keeley",
+          "tag": "Calista Flockhart",
+          "thumb": "http://image.tmdb.org/t/p/original/8QHgAF3p4GsGdh7bbt9b6Ni30Ap.jpg"
+        },
+        {
+          "_elementType": "Role",
+          "count": "3",
+          "id": "1273",
+          "role": "Katherine Archer",
+          "tag": "Christine Baranski"
+        },
+        {
+          "_elementType": "Role",
+          "id": "1274",
+          "role": "Harry Radman",
+          "tag": "Tom McGowan",
+          "thumb": "http://image.tmdb.org/t/p/original/40M1HdJmCfhGykN0Wl23BB59duY.jpg"
         },
         {
           "_elementType": "User",
-          "id": "2",
-          "thumb": "https://secure.gravatar.com/",
-          "title": "SomeGuy"
+          "id": "6114698",
+          "title": "User"
         },
         {
           "_elementType": "Player",
-          "machineIdentifier": "239c8bb8",
+          "machineIdentifier": "529c55db-214a-408f-8fcb-781e34c88d01",
           "platform": "Chrome",
           "product": "Plex Web",
-          "state": "paused",
+          "state": "playing",
           "title": "Plex Web (Chrome)"
         },
         {
           "_elementType": "TranscodeSession",
-          "key": "yiouvofgthdl3di",
-          "progress": 4.099999904632568,
+          "key": "8kxizz1cadxkp599xvbwqaod",
+          "throttled": true,
+          "progress": 28.700000762939453,
           "speed": 0,
-          "duration": 5257000,
-          "remaining": 28852
+          "duration": 7153000,
+          "remaining": 76376,
+          "context": "streaming",
+          "videoDecision": "copy",
+          "audioDecision": "transcode",
+          "protocol": "http",
+          "container": "mkv",
+          "videoCodec": "h264",
+          "audioCodec": "aac",
+          "audioChannels": 2,
+          "width": 1280,
+          "height": 688
         }
       ]
     }
