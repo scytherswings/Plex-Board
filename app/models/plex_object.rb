@@ -12,6 +12,7 @@ class PlexObject < ActiveRecord::Base
 
   @@images_dir = 'public/images'
   DEFAULT_IMAGE_PATH = 'test/fixtures/images'
+  #TODO Configure placeholder image
   DEFAULT_IMAGE = 'placeholder.png'
 
   def self.set(options)

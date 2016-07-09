@@ -2,17 +2,17 @@ module ApplicationHelper
 
   # Returns the full title on a per-page basis.       # Documentation comment
   def full_title(page_title = '')                     # Method def, optional arg
-    base_title = "Plex-Board"  # Variable assignment
+    base_title = 'Plex-Board'  # Variable assignment
     if page_title.empty?                              # Boolean test
       base_title                                      # Implicit return
     else
-      base_title  + " | " + page_title           # String concatenation
+      base_title  + ' | ' + page_title           # String concatenation
     end
   end
   
 
   def bootstrap_class_for flash_type
-    { success: "alert-success", error: "alert-danger", alert: "alert-warning", notice: "alert-info" }[flash_type.to_sym] || flash_type.to_s
+    { success: 'alert-success', error: 'alert-danger', alert: 'alert-warning', notice: 'alert-info' }[flash_type.to_sym] || flash_type.to_s
   end
 
   def flash_messages(opts = {})
