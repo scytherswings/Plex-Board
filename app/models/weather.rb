@@ -37,6 +37,11 @@ class Weather < ActiveRecord::Base
     "#{city}, #{state}"
   end
 
+  def as_json(options)
+    json = super(:only => [:id])
+    json[:self_uri] = Rails.application.routes.url_helpers.weather_path(self.id)
+    json
+  end
 
   private ####################################################
 
@@ -61,4 +66,7 @@ class Weather < ActiveRecord::Base
     geo_search = Geocoder.search("#{self.latitude}, #{self.longitude}").first
     update!(city: geo_search.city, state: geo_search.state)
   end
+
+
+
 end

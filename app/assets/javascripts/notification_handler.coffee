@@ -120,7 +120,6 @@ source.addEventListener 'plex_now_playing', (e) ->
                   """
 
 
-
     #    console.log "Adding new session element.."
     if $("[id^=plex_recently_added_]")
       $("[id^=plex_recently_added_]").last().after(new_session)
@@ -200,7 +199,14 @@ source.addEventListener 'plex_recently_added', (e) ->
 
 source.addEventListener 'weather', (e) ->
   weather = $.parseJSON(e.data)
-  console.log("Here's the weather object we got: " + weather)
+  console.log("Here's the weather object id we got: " + weather.id)
+  console.log(weather)
+  $.get weather.self_uri, (data) ->
+    $('#weather_' + weather.id).replaceWith(data)
+    console.log(data)
+    return
+
+
 #  #  console.log plex_session
 #  updated_weather = """
 #                         <div id="plex_progressbar_#{plex_session.session_id}"

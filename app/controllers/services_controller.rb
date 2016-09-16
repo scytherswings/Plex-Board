@@ -101,14 +101,15 @@ class ServicesController < ApplicationController
           # sse.write(data.to_json,  event: 'online_status')
         end
         sleep(4)
-        if is_data_ready
-          events.each do |event|
-            sse.write(event[:data], event: event[:event])
-          end
-        else
-          # sse.write('keepalive', event: 'keepalive')
-          sleep(2)
-        end
+        sse.write(Weather.first, event: 'weather')
+        # if is_data_ready
+        #   events.each do |event|
+        #     sse.write(event[:data], event: event[:event])
+        #   end
+        # else
+        #   # sse.write('keepalive', event: 'keepalive')
+        #   sleep(2)
+        # end
         first_loop = false #this allows us to show services and stuff as online immediately
       end
     rescue IOError
@@ -122,9 +123,9 @@ class ServicesController < ApplicationController
     end
   end
 
-  # GET /weather/1
-  # GET /weather/1.json
-  def weather
+  # GET /weathers/1
+  # GET /weathers/1.json
+  def weathers
     @weather = Weather.find(params[:id])
     respond_to do |format|
       format.html { render @weather }
