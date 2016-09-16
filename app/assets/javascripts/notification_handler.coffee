@@ -198,8 +198,9 @@ source.addEventListener 'plex_recently_added', (e) ->
 
 ############# Weather ################
 
-#source.addEventListener 'weather', (e) ->
-#  weather = $.parseJSON(e.data)
+source.addEventListener 'weather', (e) ->
+  weather = $.parseJSON(e.data)
+  console.log("Here's the weather object we got: " + weather)
 #  #  console.log plex_session
 #  updated_weather = """
 #                         <div id="plex_progressbar_#{plex_session.session_id}"
