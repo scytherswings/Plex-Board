@@ -27,7 +27,8 @@ class Weather < ActiveRecord::Base
   def get_weather
     ForecastIO.api_key = api_key
     ForecastIO.default_params = {units: units.values.first}
-    Rails.cache.fetch("weather_#{self.id}/forecast", expires_in: 1.minutes) do #TODO: Add this to configurable options
+    #TODO: Add this to configurable options add warning that going below 2 minutes will exceed the default 1000 calls/day limit that forecast.io has
+    Rails.cache.fetch("weather_#{self.id}/forecast", expires_in: 2.minutes) do
       ForecastIO.forecast(latitude, longitude)
     end
   end
