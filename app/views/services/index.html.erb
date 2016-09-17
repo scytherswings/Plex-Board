@@ -16,42 +16,42 @@
   <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
     <div class="carousel slide carousel-fade" data-ride="carousel" data-duration="1000" id="plex-carousel">
       <% @plex_services.try(:each_with_index) do |plex_service, i| %>
-          <% if i == 0 %>
-            <div class="carousel-inner" id="carousel-inner">
+        <% if i == 0 %>
+          <div class="carousel-inner" id="carousel-inner">
             <% plex_service.plex_sessions.try(:each_with_index) do |plex_session, j| %>
-                <% if j == 0 %>
-                  <%= render partial: 'now_playing', locals: { plex_session: plex_session, active: 'active'}  %>
+              <% if j == 0 %>
+                <%= render partial: 'now_playing', locals: {plex_session: plex_session, active: 'active'} %>
+              <% else %>
+                <%= render partial: 'now_playing', locals: {plex_session: plex_session, active: ''} %>
+              <% end %>
+            <% end %>
+            <% if plex_service.plex_sessions.count < 3 %>
+              <% plex_service.plex_recently_addeds.try(:each_with_index) do |plex_recently_added, k| %>
+                <% if k > 4 %>
+                  <% break %>
+                <% end %>
+                <% if plex_service.plex_sessions.count <= 0 && k == 0 %>
+                  <%= render partial: 'recently_added', locals: {plex_recently_added: plex_recently_added, active: 'active'} %>
                 <% else %>
-                  <%= render partial: 'now_playing', locals: { plex_session: plex_session, active: ''}  %>
+                  <%= render partial: 'recently_added', locals: {plex_recently_added: plex_recently_added, active: ''} %>
                 <% end %>
               <% end %>
-              <% if plex_service.plex_sessions.count < 3 %>
-                <% plex_service.plex_recently_addeds.try(:each_with_index) do |plex_recently_added, k| %>
-                  <% if k > 4 %>
-                    <% break %>
-                  <% end %>
-                  <% if plex_service.plex_sessions.count <= 0 && k == 0 %>
-                    <%= render partial: 'recently_added', locals: { plex_recently_added: plex_recently_added, active: 'active'}  %>
-                  <% else %>
-                    <%= render partial: 'recently_added', locals: { plex_recently_added: plex_recently_added, active: ''}  %>
-                  <% end %>
-                <% end %>
-              <% end %>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
 
 <% else %>
-    <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
-      <div class="well">
-        <h3>It looks like you haven't added a Plex service yet...</h3>
-        <h4>You should add one here:</h4>
-        <div class="row">
-          <%= link_to 'Add Plex Service!', new_plex_service_path, class: 'btn btn-md btn-success' %>
-        </div>
+  <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 col-sm-pull-2 col-md-pull-2 col-lg-pull-2 text-center">
+    <div class="well">
+      <h3>It looks like you haven't added a Plex service yet...</h3>
+      <h4>You should add one here:</h4>
+      <div class="row">
+        <%= link_to 'Add Plex Service!', new_plex_service_path, class: 'btn btn-md btn-success' %>
       </div>
     </div>
+  </div>
 
 <% end %>
