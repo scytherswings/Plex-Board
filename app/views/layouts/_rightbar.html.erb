@@ -1,6 +1,6 @@
 <div id="rightpanel" class="col-xs-6 col-sm-6 col-md-2 col-lg-2 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-md-push-8 col-lg-push-8">
   <div id="WeatherPlaceholder" style="display: none;"></div>
-  <% unless @weathers.nil? || @services.empty? || @services.blank? %>
+  <% unless @weathers.nil? || @weathers.empty? %>
     <h2><%= link_to 'Weather', configuration_path, class: 'h2_index_link' %></h2>
     <%= render @weathers %>
   <% end %>
