@@ -39,7 +39,7 @@ class Weather < ActiveRecord::Base
   end
 
   def as_json(options)
-    json = super(:only => [:id])
+    json = super(only: [:id])
     json[:self_uri] = Rails.application.routes.url_helpers.weather_path(self.id)
     json
   end

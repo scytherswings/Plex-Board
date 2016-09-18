@@ -28,9 +28,14 @@ class PlexServicesController < ApplicationController
 
   # GET /now_playings/1
   # GET /now_playings/1.json
-  def now_playings
+  def now_playing
     @plex_session = PlexSession.find(params[:id])
-    @active = 'active'
+    @active = ''
+
+    if params[:active] && params[:active].casecmp('true').zero?
+      @active = 'active'
+    end
+
     respond_to do |format|
       format.html { render @plex_session }
       format.json { render @plex_session }
@@ -39,17 +44,23 @@ class PlexServicesController < ApplicationController
 
   # GET /recently_addeds/1
   # GET /recently_addeds/1.json
-  def recently_addeds
-    @weather = Service.find(params[:id])
+  def recently_added
+    @plex_recently_added = PlexRecentlyAdded.find(params[:id])
+    @active = ''
+
+    if params[:active] && params[:active].casecmp('true').zero?
+      @active = 'active'
+    end
+
     respond_to do |format|
-      format.html { render @weather }
-      format.json { render @weather }
+      format.html { render @plex_recently_added }
+      format.json { render @plex_recently_added }
     end
   end
 
 
-# need to use build_service!!!!! This article sparked my thoughts to use build
-# http://stackoverflow.com/questions/26458417/rails-polymorphic-posts-associations-and-form-for-in-views
+  # need to use build_service!!!!! This article sparked my thoughts to use build
+  # http://stackoverflow.com/questions/26458417/rails-polymorphic-posts-associations-and-form-for-in-views
 
   def new
     @services = Service.all

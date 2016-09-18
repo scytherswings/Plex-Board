@@ -26,7 +26,7 @@ class ServicesController < ApplicationController
     begin
       # logger.debug(SSE.instance_methods)
       first_loop = true
-      while true
+      loop do
         is_data_ready = false
         events = Array.new
         @plex_services = PlexService.all
@@ -100,7 +100,7 @@ class ServicesController < ApplicationController
           # sse.write(data.to_json,  event: 'online_status')
         end
         sleep(4)
-        sse.write(Weather.first, event: 'weather')
+        sse.write(Service.first, event: 'online_status')
         # if is_data_ready
         #   events.each do |event|
         #     sse.write(event[:data], event: event[:event])
@@ -119,6 +119,17 @@ class ServicesController < ApplicationController
         #   logger.error "An error occurred during the loop: #{e.message}"
     ensure
       sse.close
+    end
+  end
+
+  # GET /services/:id/online_status
+  # GET /services/:id/online_status.json
+  def online_status
+    @service = Service.find(params[:id])
+
+    respond_to do |format|
+      format.html { render @service }
+      format.json { render @service }
     end
   end
 

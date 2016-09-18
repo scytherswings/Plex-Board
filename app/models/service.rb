@@ -59,4 +59,10 @@ class Service < ActiveRecord::Base
       self.ip
     end
   end
+
+  def as_json(options)
+    json = super(only: [:id])
+    json[:self_uri] = Rails.application.routes.url_helpers.services_path(self.id)
+    json
+  end
 end
