@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918051347) do
+ActiveRecord::Schema.define(version: 20160918061444) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.string   "image"

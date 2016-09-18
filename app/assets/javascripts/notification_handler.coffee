@@ -1,5 +1,5 @@
 source = new EventSource('/services/notifications')
-
+console.log("please")
 ########### Service Online Status ############
 
 source.addEventListener 'online_status', (e) ->
