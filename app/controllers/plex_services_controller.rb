@@ -1,6 +1,4 @@
 class PlexServicesController < ApplicationController
-
-
   before_action :set_plex_service, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -26,6 +24,27 @@ class PlexServicesController < ApplicationController
     @services = Service.all
     @plex_services = PlexService.all
     @weathers = Weather.all
+  end
+
+  # GET /now_playings/1
+  # GET /now_playings/1.json
+  def now_playings
+    @plex_session = PlexSession.find(params[:id])
+    @active = 'active'
+    respond_to do |format|
+      format.html { render @plex_session }
+      format.json { render @plex_session }
+    end
+  end
+
+  # GET /recently_addeds/1
+  # GET /recently_addeds/1.json
+  def recently_addeds
+    @weather = Service.find(params[:id])
+    respond_to do |format|
+      format.html { render @weather }
+      format.json { render @weather }
+    end
   end
 
 

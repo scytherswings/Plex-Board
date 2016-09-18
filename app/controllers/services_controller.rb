@@ -8,8 +8,7 @@ class ServicesController < ApplicationController
   def index
     tries ||= 3
     @services = Service.all
-    @plex_services = PlexService.all
-    @plex_services.each { |ps| ps.update_plex_data }
+    @plex_services = PlexService.all.each { |ps| ps.update_plex_data }
     @weathers = Weather.all
   rescue ActiveRecord::StatementInvalid => e
     logger.error "There was an error interacting with the database. The error was: #{e}"
@@ -123,15 +122,6 @@ class ServicesController < ApplicationController
     end
   end
 
-  # GET /weathers/1
-  # GET /weathers/1.json
-  def weathers
-    @weather = Weather.find(params[:id])
-    respond_to do |format|
-      format.html { render @weather }
-      format.json { render @weather }
-    end
-  end
 
   # GET /services/1
   # GET /services/1.json

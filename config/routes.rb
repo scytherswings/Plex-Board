@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'plex_services/all_plex_services'
   # get 'plex_services/new'
   get '/weathers/:id' => 'services#weathers'
+  get '/now_playings/:id' => 'plex_services#now_playings'
+
   resources :services do
     collection { get :notifications}
   end
