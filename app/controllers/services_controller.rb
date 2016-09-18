@@ -7,9 +7,9 @@ class ServicesController < ApplicationController
   # GET /services.json
   def index
     tries ||= 3
-    @services = Service.all
+    @services = Service.all.each { |s| s.ping }
     @plex_services = PlexService.all.each { |ps| ps.update_plex_data }
-    @weathers = Weather.all
+    @weathers = Weather.all.each { |w| w.get_weather }
   rescue ActiveRecord::StatementInvalid => e
     logger.error "There was an error interacting with the database. The error was: #{e}"
     sleep(0.25)
@@ -30,18 +30,25 @@ class ServicesController < ApplicationController
         @services = Service.all
         @weathers = Weather.all
 
-        if @plex_services.empty? || @services.empty?
-          logger.debug 'There were no PlexServices or Generic Services, sleeping for 60s.'
+        if @plex_services.empty? && @services.empty?
+          logger.debug 'There were no PlexServices or Generic Services, sleeping for 10s.'
           sleep(10)
         end
 
         @services.try(:each) do |service|
+          service.ping
           events << {data: service, event: 'online_status'}
         end
 
-      events.each do |e|
-        sse.write(data: e[:data], event: e[:event])
-      end
+        @weathers.try(:each) do |weather|
+          weather.get_weather
+          events << {data: weather, event: 'online_status'}
+        end
+
+
+        events.each do |e|
+          sse.write(data: e[:data], event: e[:event])
+        end
         sleep 2
       end
     rescue IOError

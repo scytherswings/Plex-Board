@@ -202,9 +202,9 @@ source.addEventListener 'plex_recently_added', (e) ->
 
 ############# Weather ################
 
-source.addEventListener 'weather', (e) ->
+source.addEventListener 'weathers', (e) ->
   weather = $.parseJSON(e.data)
-  console.log("Here's the weather object id we got: " + weather.id)
+  console.log("Here's the weathers object id we got: " + weather.id)
   console.log(weather)
   $.get weather.self_uri, (data) ->
     $('#weather_' + weather.id).replaceWith(data)

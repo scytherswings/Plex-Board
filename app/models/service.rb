@@ -4,6 +4,7 @@ class Service < ActiveRecord::Base
   has_one :server_load
   # before_destroy :destroy_associated
   after_initialize :init
+  after_create :ping
 
   attr_accessor :timeout
   strip_attributes only: [:ip, :url, :dns_name], collapse_spaces: true

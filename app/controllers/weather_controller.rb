@@ -63,6 +63,6 @@ class WeatherController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   # Going off of this site as a guide: http://astockwell.com/blog/2014/03/polymorphic-associations-in-rails-4-devise/
   def weather_params
-    params.require(:weather).permit(:address, :latitude, :longitude, :api_key, :units)
+    params.require(:weathers).permit(:address, :latitude, :longitude, :api_key, :units)
   end
 end

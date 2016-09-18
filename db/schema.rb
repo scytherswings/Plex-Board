@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918061444) do
+ActiveRecord::Schema.define(version: 20160707043058) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.string   "image"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20160918061444) do
   add_index "services", ["service_flavor_id"], name: "index_services_on_service_flavor_id"
   add_index "services", ["service_flavor_type"], name: "index_services_on_service_flavor_type"
 
-  create_table "weather", force: :cascade do |t|
+  create_table "weathers", force: :cascade do |t|
     t.string   "api_key"
     t.float    "latitude"
     t.float    "longitude"
