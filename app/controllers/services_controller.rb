@@ -24,7 +24,6 @@ class ServicesController < ApplicationController
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 2000)
     begin
-      # logger.debug(SSE.instance_methods)
       first_loop = true
       loop do
         is_data_ready = false
@@ -125,7 +124,7 @@ class ServicesController < ApplicationController
   # GET /services/:id/online_status
   # GET /services/:id/online_status.json
   def online_status
-    @service = Service.find(params[:id])
+    @service = Service.find(params[:service_id])
 
     respond_to do |format|
       format.html { render @service }

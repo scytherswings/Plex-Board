@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   end
 
   resources :plex_services
-  resources :weathers
+  resources :weather
 end

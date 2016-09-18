@@ -44,8 +44,13 @@ class PlexService < ActiveRecord::Base
 
   def update_plex_data
     unless token.nil?
-      get_plex_sessions
-      get_plex_recently_added
+      Rails.cache.fetch("plex_service_#{self.id}/update_plex_data", expires_in: 10.seconds) do
+        get_plex_sessions
+        get_plex_recently_added
+        self
+      end
+      logger.debug('Poopie butt')
+      logger.debug(Rails.cache.fetch("plex_service_#{self.id}/update_plex_data"))
     end
   rescue => ex
     @api_error = true

@@ -35,6 +35,28 @@ class Service < ActiveRecord::Base
   end
 
   def ping
+    Rails.cache.fetch("service_#{self.id}/online", expires_in: 10.seconds) do
+      check_online_status
+    end
+  end
+
+  def connect_method
+    if !self.dns_name.blank?
+      self.dns_name
+    else
+      self.ip
+    end
+  end
+
+  def as_json(options)
+    json = super(only: [:id])
+    json[:self_uri] = Rails.application.routes.url_helpers.service_online_status_path(self.id)
+    json
+  end
+
+  private
+
+  def check_online_status
     ping_destination = connect_method
     begin
       Timeout.timeout(@timeout) do
@@ -50,19 +72,5 @@ class Service < ActiveRecord::Base
       self.update(online_status: false)
       return false
     end
-  end
-
-  def connect_method
-    if !self.dns_name.blank?
-      self.dns_name
-    else
-      self.ip
-    end
-  end
-
-  def as_json(options)
-    json = super(only: [:id])
-    json[:self_uri] = Rails.application.routes.url_helpers.services_path(self.id)
-    json
   end
 end
