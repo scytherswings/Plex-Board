@@ -5,6 +5,12 @@ class Service < ActiveRecord::Base
   # before_destroy :destroy_associated
   after_initialize :init
   after_create :ping
+  after_validation do
+    if Rails.cache.delete("service_#{self.id}/online")
+      logger.debug('Successfully deleted cache!')
+      ping
+    end
+  end
 
   attr_accessor :timeout
   strip_attributes only: [:ip, :url, :dns_name], collapse_spaces: true

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-Fabricator(:weathers) do
+Fabricator(:weather) do
   transient :units
   api_key { Proc.new { rand(36**32).to_s(36) }.call }
   latitude { Proc.new { rand(-90.0..90.0).to_s }.call }

@@ -6,75 +6,10 @@ source.addEventListener 'online_status', (e) ->
   service = $.parseJSON(e.data)
   console.log(service)
   console.log("TESEST")
-  #  console.log service
-  #  console.log service.online_status
-  #  html_offline = """
-  #                 <div class="row" id="service_#{service.service_id}">
-  #                   <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-  #                    <table>
-  #                     <tbody>
-  #                       <tr>
-  #                         <td>
-  #                           <a class="h2_index_link" target="_blank" href="#{service.url}">
-  #                             <button class="btn btn-xs btn-warning" style="width:62px">
-  #                             <span class="glyphicon glyphicon-remove" style="color:white;"></span> Offline</button>
-  #                           </a>
-  #                          <div style="padding:1px"></div>
-  #                         </td>
-  #                         <td style="padding-left: 5px;">
-  #                           <a class="h2_index_link" href="/services/#{service.service_id}">#{service.name}</a>
-  #                         </td>
-  #                       </tr>
-  #                     </tbody>
-  #                   </table>
-  #                 </div>
-  #                 """
-  #  html_online = """
-  #                <div class="row" id="service_#{service.service_id}">
-  #                  <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-  #                     <table>
-  #                       <tbody>
-  #                         <tr>
-  #                           <td>
-  #                             <a class="h2_index_link" target="_blank" href="#{service.url}">
-  #                               <button class="btn btn-xs btn-success" style="width:62px">
-  #                               <span class="glyphicon glyphicon-ok" style="color:white;"></span> Online</button>
-  #                             </a>
-  #                             <div style="padding:1px"></div>
-  #                           </td>
-  #                           <td style="padding-left: 5px;">
-  #                               <a class="h2_index_link" href="/services/#{service.service_id}">#{service.name}</a>
-  #                           </td>
-  #                         </tr>
-  #                       </tbody>
-  #                     </table>
-  #                  </div>
-  #                </div>
-  #                """
-  #
-
-  #  if service.online_status is true
-  #    console.log "service #{service.name} is online"
-  #    if $('#service_' + service.service_id).length
-  ##      console.log "we found the element"
-  ##      console.log "replacing..."
-  ##      console.log "will replace with #{html_online}"
-  #    else
-  #      console.log "we didn't find the element \"service #{service.service_id}\""
-  #    $('#service_' + service.service_id).replaceWith(html_online)
-  #  else
-  #    console.log "service #{service.name} is not online"
-  #    if $('#service_' + service.service_id).length
-  ##      console.log "we found the element"
-  ##      console.log "replacing..."
-  ##      console.log "will replace with #{html_offline}"
-  #    else
-  #      console.log "we didn't find the element \"service #{service.service_id}\""
-  #    $('#service_' + service.service_id).replaceWith(html_offline)
 
   $.get service.self_uri, (data) ->
-    $('#service_' + service.service_id).replaceWith(data)
-    #    console.log(data)
+    $('#service_' + service.id).replaceWith(data)
+    console.log(data)
     return
 
 ############# Plex Now Playing ################
@@ -208,5 +143,5 @@ source.addEventListener 'weathers', (e) ->
   console.log(weather)
   $.get weather.self_uri, (data) ->
     $('#weather_' + weather.id).replaceWith(data)
-    #    console.log(data)
+    console.log(data)
     return

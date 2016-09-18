@@ -42,12 +42,12 @@ class ServicesController < ApplicationController
 
         @weathers.try(:each) do |weather|
           weather.get_weather
-          events << {data: weather, event: 'online_status'}
+          events << {data: weather, event: 'weather'}
         end
 
 
         events.each do |e|
-          sse.write(data: e[:data], event: e[:event])
+          sse.write(e[:data], event: e[:event])
         end
         sleep 2
       end
@@ -127,7 +127,7 @@ class ServicesController < ApplicationController
   # PATCH/PUT /services/1.json
   def update
     respond_to do |format|
-      if @service.update(service_params)
+      if @service.update!(service_params)
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
         format.json { render :show, status: :ok, location: @service }
       else
