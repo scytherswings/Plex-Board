@@ -4,6 +4,8 @@ source = new EventSource('/services/notifications')
 
 source.addEventListener 'online_status', (e) ->
   service = $.parseJSON(e.data)
+  console.log(service)
+  console.log("TESEST")
   #  console.log service
   #  console.log service.online_status
   #  html_offline = """

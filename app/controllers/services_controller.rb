@@ -24,91 +24,25 @@ class ServicesController < ApplicationController
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 2000)
     begin
-      first_loop = true
       loop do
-        is_data_ready = false
         events = Array.new
         @plex_services = PlexService.all
         @services = Service.all
+        @weathers = Weather.all
 
-        if @plex_services.empty? && @services.empty?
+        if @plex_services.empty? || @services.empty?
           logger.debug 'There were no PlexServices or Generic Services, sleeping for 60s.'
-          sleep(60)
+          sleep(10)
         end
 
-        @plex_services.each do |plex_service|
-          plex_service.update_plex_data
-          plex_service.plex_sessions.try(:each) do |plex_session|
-            logger.debug("Plex session media_title: #{plex_session.plex_object.media_title}, #{plex_session.plex_service.id}")
-            data = {
-                session_id: plex_session.id,
-                progress: plex_session.get_percent_done,
-                media_title: plex_session.plex_object.media_title,
-                description: plex_session.plex_object.get_description,
-                image: plex_session.plex_object.get_img,
-                active_sessions: PlexSession.all.ids
-            }
-            is_data_ready = true
-            events << {data: data, event: 'plex_now_playing'}
-          end
-          if plex_service.plex_sessions.count < 1
-            data = {
-                active_sessions: 0
-            }
-            is_data_ready = true
-            events << {data: data, event: 'plex_now_playing'}
-          end
-          # plex_service.get_plex_recently_added
-          plex_service.plex_recently_addeds.try(:each_with_index) do |pra, i|
-            if i > 4
-              break
-            end
-            logger.debug("Plex Recently Added media_title: #{pra.plex_object.media_title}, #{pra.plex_service.id}")
-            data = {
-                id: pra.id,
-                media_title: pra.plex_object.media_title,
-                description: pra.plex_object.get_description,
-                added_date: pra.get_added_date,
-                image: pra.plex_object.get_img,
-                active_pras: PlexRecentlyAdded.all.ids
-            }
-            is_data_ready = true
-            events << {data: data, event: 'plex_recently_added'}
-          end
+        @services.try(:each) do |service|
+          events << {data: service, event: 'online_status'}
         end
 
-        @services.each do |service|
-          if service.last_seen.nil?
-            service.ping
-          end
-          # TODO Add configuration parameter to control how often we check up on other services
-          if !first_loop && !service.last_seen.nil? && service.last_seen > 10.seconds.ago #the sign is > because time always increases and we're using integers for time
-            logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
-            next
-          end
-          is_data_ready = true
-          service.ping
-          data = {
-              service_id: service.id,
-              name: service.name,
-              online_status: service.online_status,
-              last_seen: service.last_seen,
-              url: service.url
-          }
-          events << {data: data, event: 'online_status'}
-          # sse.write(data.to_json,  event: 'online_status')
-        end
-        sleep(4)
-        sse.write(Service.first, event: 'online_status')
-        # if is_data_ready
-        #   events.each do |event|
-        #     sse.write(event[:data], event: event[:event])
-        #   end
-        # else
-        #   # sse.write('keepalive', event: 'keepalive')
-        #   sleep(2)
-        # end
-        first_loop = false #this allows us to show services and stuff as online immediately
+      events.each do |e|
+        sse.write(data: e[:data], event: e[:event])
+      end
+        sleep 2
       end
     rescue IOError
       logger.warn 'Stream closed: IO Error'
