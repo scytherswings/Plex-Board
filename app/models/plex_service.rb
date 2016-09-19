@@ -49,8 +49,6 @@ class PlexService < ActiveRecord::Base
         get_plex_recently_added
         self
       end
-      logger.debug('Poopie butt')
-      logger.debug(Rails.cache.fetch("plex_service_#{self.id}/update_plex_data"))
     end
   rescue => ex
     @api_error = true

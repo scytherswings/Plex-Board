@@ -31,6 +31,16 @@ class PlexObject < ActiveRecord::Base
     create_default_image_directory
   end
 
+  def as_json(options)
+    json = super(only: [:id, :media_title, :description])
+    json[:plex_thumb_url] = thumb_url
+    json[:image_uri] = ActionView::Helpers::AssetUrlHelper.image_url(image)
+    json[:created_at] = created_at
+    json[:update_at] = updated_at
+    json
+  end
+
+
   def create_default_image_directory
     unless File.directory?(@@images_dir)
       logger.warn("Creating #{@@images_dir} since it doesn't exist")

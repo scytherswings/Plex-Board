@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get 'configuration' => 'info#configuration'
   get 'plex_services/all_plex_services'
 
-  get 'now_playing' => 'plex_services#now_playing'
   get 'recently_added' => 'plex_services#recently_added'
 
   resources :services do
@@ -15,6 +14,8 @@ Rails.application.routes.draw do
     get :online_status
   end
 
-  resources :plex_services
+  resources :plex_services do
+    get :now_playing
+  end
   resources :weather
 end

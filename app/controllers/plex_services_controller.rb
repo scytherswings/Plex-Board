@@ -29,16 +29,25 @@ class PlexServicesController < ApplicationController
   # GET /now_playings/1
   # GET /now_playings/1.json
   def now_playing
-    @plex_session = PlexSession.find(params[:id])
-    @active = ''
+    if params[:id].nil? && params[:plex_service_id]
+      @plex_sessions = PlexService.find(params[:plex_service_id]).plex_sessions
+      @active = ''
+      respond_to do |format|
+        format.html { render partial: 'plex_services/plex_session', collection: @plex_sessions }
+        format.json { render json:  @plex_sessions }
+      end
+    else
+      @plex_session = PlexSession.find(params[:id])
+      @active = ''
 
-    if params[:active] && params[:active].casecmp('true').zero?
-      @active = 'active'
-    end
+      if params[:active] && params[:active].casecmp('true').zero?
+        @active = 'active'
+      end
 
-    respond_to do |format|
-      format.html { render @plex_session }
-      format.json { render @plex_session }
+      respond_to do |format|
+        format.html { render @plex_session }
+        format.json { render @plex_session }
+      end
     end
   end
 
