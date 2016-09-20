@@ -1,7 +1,7 @@
 <%= render 'layouts/servicepanel' %>
 <%= render 'layouts/rightbar' %>
 
-<% if @services.empty? %>
+<% if @services.nil? || @services.empty? %>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
     <div class="jumbotron">
       <h1>Welcome to Plex-Board!</h1>
