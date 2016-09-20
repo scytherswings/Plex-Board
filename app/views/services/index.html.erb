@@ -21,6 +21,7 @@
             <% plex_service.plex_sessions.try(:each_with_index) do |plex_session, j| %>
               <% if plex_session.plex_object.nil? %>
                 <% logger.error "PlexSession: #{plex_session.id} was missing a PlexObject. Not adding to carousel." %>
+                <% next %>
               <% end %>
               <% if j == 0 %>
                 <%= render partial: 'now_playing', locals: {plex_session: plex_session, active: 'active'} %>
