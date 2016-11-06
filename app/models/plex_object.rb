@@ -112,13 +112,15 @@ class PlexObject < ActiveRecord::Base
 
     imagefile = "#{@@images_dir}/#{self.id}.jpeg"
 
+    #TODO: Add control for timeouts
     begin
       tries ||= 1
       File.open(imagefile, 'wb') do |f|
         f.write(RestClient::Request.execute(method: :get, url: "#{connection_string}#{self.thumb_url}",
-                                            headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE))
+                                            headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
+                                            timeout: 2, open_timeout: 2))
       end
-    rescue Errno::ENOENT
+    rescue Errno::ENOENT, RestClient::NotFound, RestClient::Exceptions::Timeout, RestClient::Exceptions::OpenTimeout
       if (tries -= 1) >= 0
         create_default_image_directory
         retry

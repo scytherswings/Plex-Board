@@ -5,7 +5,6 @@ console.log("please")
 source.addEventListener 'online_status', (e) ->
   service = $.parseJSON(e.data)
   console.log(service)
-  console.log("TESEST")
 
   $.get service.self_uri, (data) ->
     $('#service_' + service.id).replaceWith(data)
