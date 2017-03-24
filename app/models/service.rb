@@ -1,3 +1,4 @@
+require 'resolv'
 class Service < ActiveRecord::Base
     belongs_to :service_flavor, polymorphic: :true
     # before_destroy :destroy_associated

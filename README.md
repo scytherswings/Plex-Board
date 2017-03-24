@@ -52,15 +52,17 @@ Other operating systems will probably work, but for now I'm only going to write 
 
 1. `sudo apt-get update; sudo apt-get install git bundler nodejs -y;`
 
-2. ```gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3;
-curl -sSL https://get.rvm.io | bash -s stable --rails```
+2.      gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3;
+        curl -sSL https://get.rvm.io | bash -s stable --rails
+
 
 3. `cd /opt` Now at this point, you might have to give your user write permissions to this directory. If that is the case run `sudo chmod 755 /opt -R`
 
 4. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-5. `rvm use 2.3.0` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
-Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`.
+5. `rvm use 2.3.0@plexdashboard --create` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
+Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`. If you get an error saying that the gemset already
+exists then you can omit `--create`.
 
 6. `cd /opt/Plex-Board`
 
