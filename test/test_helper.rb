@@ -41,101 +41,101 @@ class ActiveSupport::TestCase
              'Content-Type': 'application/json', 'Keep-Alive': 'timeout=20',
              'X-Plex-Protocol': '1.0'}
 
-  AUTH_HEADERS = { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Max-Age': 86400 }
+  AUTH_HEADERS = {'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Max-Age': 86400}
   TOKEN = 'k3qRS5pJuWFz8U9tJp1d'
-  USER_AGENT = /rest-client\/2\.0\.0\.rc2 .*/
+  USER_AGENT = /.*/
   HOST = 'my.plexapp.com'
 
   def setup
     FileUtils.rm_rf("#{PlexObject.get('images_dir')}/.", secure: true)
 
     WebMock.stub_request(:post, 'https://user:pass@my.plexapp.com/users/sign_in.json').
-        with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+        with(headers: {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier': 'Plex-Board'}).
         to_return(status: 201, body: json_file('sign_in.json'), headers: AUTH_HEADERS)
 
     WebMock.stub_request(:post, 'https://404user:pass@my.plexapp.com/users/sign_in.json').
-        with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+        with(headers: {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier': 'Plex-Board'}).
         to_return(status: 404, body: fixture_file('plex404.html', 'test/fixtures/'), headers: AUTH_HEADERS)
 
     WebMock.stub_request(:post, 'https://baduser:pass@my.plexapp.com/users/sign_in.json').
-        with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+        with(headers: {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier': 'Plex-Board'}).
         to_return(status: 403, body: "{\"error\": \"Invalid email, username, or password.\"}", headers: AUTH_HEADERS)
 
     WebMock.stub_request(:post, 'https://user:badpass@my.plexapp.com/users/sign_in.json').
-        with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+        with(headers: {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier': 'Plex-Board'}).
         to_return(status: 401, body: "{\"error\": \"Invalid email, username, or password.\"}", headers: AUTH_HEADERS)
 
     WebMock.stub_request(:post, 'https://user:failpass@my.plexapp.com/users/sign_in.json').
-        with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+        with(headers: {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier': 'Plex-Board'}).
         to_return(status: 500, body: "{\"error\": \"Internal Server Error\"}", headers: AUTH_HEADERS)
 
     WebMock.stub_request(:post, 'https://user:badjson@my.plexapp.com/users/sign_in.json').
-        with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+        with(headers: {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier': 'Plex-Board'}).
         to_return(status: 200, body: "{\"this\": \"is bad json", headers: AUTH_HEADERS)
 
     WebMock.stub_request(:get, 'https://plex5updated:32400/status/sessions').
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 200, body: json_file('plex_one_session_updated_viewOffset.json'), headers: HEADERS)
 
     WebMock.stub_request(:get, 'https://plexnosessions:32400/status/sessions').
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 200, body: "{\"_elementType\": \"MediaContainer\",\"_children\": []}", headers: HEADERS)
 
     WebMock.stub_request(:get, 'https://plexbadjson:32400/status/sessions').
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 200, body: "{_elementType\": MediaContainer\"\"_children: [}", headers: HEADERS)
 
     WebMock.stub_request(:get, 'https://plex6:32400/status/sessions').
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 200, body: json_file('plex_two_sessions.json'), headers: HEADERS)
 
     WebMock.stub_request(:get, /https:\/\/plex(.*?):32400\/library\/metadata\/(\d*)\/thumb\/(\d*$)/).
-        with(headers: {'Accept':'image/jpeg', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'image/jpeg', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 200, body: fixture_file('placeholder.png', 'test/fixtures/images/'), headers: {'Content-Type': 'image/jpeg'})
 
     WebMock.stub_request(:get, /https:\/\/plex[3|5|7]:32400\/status\/sessions/).
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 200, body: json_file('plex_one_session.json'), headers: HEADERS)
 
     WebMock.stub_request(:get, 'https://plex401:32400/status/sessions').
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 401, body: '<html><head><title>Unauthorized</title></head><body><h1>401 Unauthorized</h1></body></html>', headers: HEADERS)
 
     WebMock.stub_request(:get, 'https://plex500:32400/status/sessions').
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 500, body: '<html><head><title>Internal Server Error</title></head><body><h1>500 Internal Server Error</h1></body></html>', headers: HEADERS)
 
     WebMock.stub_request(:get, /https:\/\/plex[3-7](?:_movie)?:32400\/library\/recentlyAdded/).
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection':'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection': 'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 200, body: json_file('plex_recently_added_movie.json'), headers: {})
 
     WebMock.stub_request(:get, 'https://plex7_tv_show:32400/library/recentlyAdded').
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection':'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection': 'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 200, body: json_file('plex_recently_added_tv_show.json'), headers: {})
 
     WebMock.stub_request(:get, 'https://plex7_all:32400/library/recentlyAdded').
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection':'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection': 'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
         to_return(status: 200, body: json_file('plex_recently_added_all.json'), headers: {})
 
     WebMock.stub_request(:get, 'https://plex7_none:32400/library/recentlyAdded').
-        with(headers: {'Accept':'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection':'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token':TOKEN}).
-        to_return(status: 200, body: "{\"_elementType\": \"MediaContainer\",\"_children\": []}", headers: {})
+        with(headers: {'Accept': 'application/json', 'Accept-Encoding': 'gzip, deflate', 'Connection': 'Keep-Alive', 'User-Agent': USER_AGENT, 'X-Plex-Token': TOKEN}).
+        to_return(status: 200, body: "{\"MediaContainer\": {\"size\": 0}}", headers: {})
 
-    WebMock.stub_request(:post, /https:\/\/x+?:x+?@my\.plexapp\.com\/users\/sign_in\.json/).
-        with(headers: {'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier':'Plex-Board'}).
+    WebMock.stub_request(:post, /https:\/\/my\.plexapp\.com\/users\/sign_in\.json/).
+        with(headers: {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Host': HOST, 'User-Agent': USER_AGENT, 'X-Plex-Client-Identifier': 'Plex-Board', 'Authorization': /.*/}).
         to_return(status: 201, body: json_file('sign_in.json'), headers: AUTH_HEADERS)
 
     WebMock.stub_request(:get, 'https://maps.googleapis.com/maps/api/geocode/json?address=2300%20Traverwood%20Dr,%20Ann%20Arbor,%20MI%2048105&language=en&sensor=false').
-        with(headers: {'Accept':'*/*', 'Accept-Encoding':'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Ruby'}).
+        with(headers: {'Accept': '*/*', 'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent': 'Ruby'}).
         to_return(status: 200, body: json_file('google_location_api.json'), headers: {})
 
     WebMock.stub_request(:get, 'https://maps.googleapis.com/maps/api/geocode/json?address=This%20is%20not%20a%20valid%20address&language=en&sensor=false').
-        with(headers: {'Accept':'*/*', 'Accept-Encoding':'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Ruby'}).
-        to_return(status: 200, body:"{\"results\": [],\"status\": \"ZERO_RESULTS\"}", headers: {})
+        with(headers: {'Accept': '*/*', 'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent': 'Ruby'}).
+        to_return(status: 200, body: "{\"results\": [],\"status\": \"ZERO_RESULTS\"}", headers: {})
 
-    WebMock.stub_request(:get, 'https://api.forecast.io/forecast/0ca1d9fc73742b2dca0dc2643d89994d/42.306642,-83.71466199999999?units=us').
-        with(headers: {'Accept':'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent':'Faraday v0.9.2'}).
-        to_return(status: 200, body: json_file('forecast.json'), headers: {})
+    WebMock.stub_request(:get, 'https://api.darksky.net/forecast/0ca1d9fc73742b2dca0dc2643d89994d/42.306642,-83.71466199999999?units=us').
+        with(:headers => {'Accept': '*/*', 'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent': 'Faraday v0.11.0'}).
+        to_return(:status => 200, body: json_file('forecast.json'), :headers => {})
 
 
     # WebMock.stub_request(:post, /https:\/\/my\.plexapp\.com\/users\/sign_in\.json/).
@@ -177,7 +177,7 @@ end
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Screenshot::MiniTestPlugin
-  Capybara::Screenshot.webkit_options = { width: 1920, height: 1080 }
+  Capybara::Screenshot.webkit_options = {width: 1920, height: 1080}
 
   PlexObject.set(images_dir: 'test/test_images')
 

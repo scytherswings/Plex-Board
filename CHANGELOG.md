@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.6.0] : 2017-3-25
+### Changed
+- Updated almost all of the gems used by this project.
+- Plex changed their API and it broke this app. This should be fixed now.
+
 ## [v0.5.7] : 2016-7-8
 ### Changed
 - Fixed `serverSetup.sh` thanks to @VuokkoVuorinnen's PR.

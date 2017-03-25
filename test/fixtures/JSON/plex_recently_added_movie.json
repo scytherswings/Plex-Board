@@ -5,7 +5,7 @@
     "identifier": "com.plexapp.plugins.library",
     "mediaTagPrefix": "/system/bundle/media/flags/",
     "mediaTagVersion": 1481837967,
-    "mixedParents": true
+    "mixedParents": true,
     "Metadata": [
       {
         "allowSync": true,

@@ -1,410 +1,515 @@
 {
-  "_elementType": "MediaContainer",
-  "_children": [
-    {
-      "_elementType": "Video",
-      "addedAt": "1444876466",
-      "art": "/library/metadata/14608/art/1457922670",
-      "chapterSource": "",
-      "contentRating": "TV-MA",
-      "duration": "3897408",
-      "grandparentArt": "/library/metadata/14608/art/1457922670",
-      "grandparentKey": "/library/metadata/14608",
-      "grandparentRatingKey": "14608",
-      "grandparentTheme": "/library/metadata/14608/theme/1457922670",
-      "grandparentThumb": "/library/metadata/14608/thumb/1457922670",
-      "grandparentTitle": "The Walking Dead",
-      "guid": "com.plexapp.agents.thetvdb://153021/6/1?lang=en",
-      "index": "1",
-      "key": "/library/metadata/38458",
-      "lastViewedAt": "1447463738",
-      "librarySectionID": "2",
-      "originallyAvailableAt": "2015-10-11",
-      "parentIndex": "6",
-      "parentKey": "/library/metadata/38457",
-      "parentRatingKey": "38457",
-      "parentThumb": "/library/metadata/38457/thumb/1457922670",
-      "rating": "7.8",
-      "ratingKey": "38458",
-      "sessionKey": "863",
-      "summary": "Rick and the group continue to have trouble assimilating into Alexandria. Multiple threats lead the community to adopt a mindset of hardness, while Rick's group must take a step back from the violence they've come to embrace.",
-      "thumb": "/library/metadata/38458/thumb/1457922668",
-      "title": "First Time Again",
-      "type": "episode",
-      "updatedAt": "1457922668",
-      "viewCount": "2",
-      "year": "2015",
-      "_children": [
-        {
-          "_elementType": "Media",
-          "aspectRatio": "1.78",
-          "audioChannels": "6",
-          "audioCodec": "ac3",
-          "bitrate": "7448",
-          "container": "mkv",
-          "duration": "3897408",
-          "height": "720",
-          "id": "105327",
-          "videoCodec": "h264",
-          "videoFrameRate": "24p",
-          "videoResolution": "720",
-          "width": "1280",
-          "_children": [
-            {
-              "_elementType": "Part",
-              "container": "mkv",
-              "duration": "3897408",
-              "file": "/mnt/PLEX-MEDIA/TV_Shows/The Walking Dead/Season 06/The Walking Dead - S06E01 - First Time Again.mkv",
-              "id": "105529",
-              "indexes": "sd",
-              "key": "/library/parts/105529/file.mkv",
-              "size": "3628511203",
-              "_children": [
-                {
-                  "_elementType": "Stream",
-                  "bitDepth": "8",
-                  "bitrate": "6916",
-                  "cabac": "1",
-                  "chromaSubsampling": "4:2:0",
-                  "codec": "h264",
-                  "codecID": "V_MPEG4/ISO/AVC",
-                  "colorSpace": "yuv",
-                  "duration": "3897397",
-                  "frameRate": "23.976",
-                  "frameRateMode": "cfr",
-                  "hasScalingMatrix": "0",
-                  "height": "720",
-                  "id": "255747",
-                  "index": "0",
-                  "language": "English",
-                  "languageCode": "eng",
-                  "level": "41",
-                  "profile": "high",
-                  "refFrames": "5",
-                  "scanType": "progressive",
-                  "streamType": "1",
-                  "width": "1280"
-                },
-                {
-                  "_elementType": "Stream",
-                  "audioChannelLayout": "5.1(side)",
-                  "bitDepth": "16",
-                  "bitrate": "384",
-                  "bitrateMode": "cbr",
-                  "channels": "6",
-                  "codec": "ac3",
-                  "codecID": "A_AC3",
-                  "dialogNorm": "-27",
-                  "duration": "3897408",
-                  "id": "255748",
-                  "index": "1",
-                  "samplingRate": "48000",
-                  "selected": "1",
-                  "streamType": "2"
-                },
-                {
-                  "_elementType": "Stream",
-                  "codec": "srt",
-                  "format": "",
-                  "id": "255796",
-                  "key": "/library/streams/255796",
-                  "language": "English",
-                  "languageCode": "eng",
-                  "streamType": "3"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "_elementType": "Writer",
-          "id": "10409",
-          "tag": "Scott M. Gimple"
-        },
-        {
-          "_elementType": "Writer",
-          "id": "10422",
-          "tag": "Matthew Negrete"
-        },
-        {
-          "_elementType": "Director",
-          "id": "10414",
-          "tag": "Greg Nicotero"
-        },
-        {
-          "_elementType": "User",
+  "MediaContainer": {
+    "size": 2,
+    "Video": [
+      {
+        "addedAt": "1487306987",
+        "art": "/library/metadata/48500/art/1487307055",
+        "audienceRating": "9.1",
+        "audienceRatingImage": "rottentomatoes://image.rating.upright",
+        "chapterSource": "media",
+        "contentRating": "PG",
+        "duration": "6432811",
+        "guid": "com.plexapp.agents.imdb://tt3521164?lang=en",
+        "key": "/library/metadata/48500",
+        "lastViewedAt": "1489870190",
+        "librarySectionID": "1",
+        "originallyAvailableAt": "2016-11-23",
+        "primaryExtraKey": "/library/metadata/48501",
+        "rating": "9.5",
+        "ratingImage": "rottentomatoes://image.rating.certified",
+        "ratingKey": "48500",
+        "sessionKey": "2",
+        "studio": "Walt Disney Pictures",
+        "summary": "In Ancient Polynesia, when a terrible curse incurred by Maui reaches an impetuous Chieftain's daughter's island, she answers the Ocean's call to seek out the demigod to set things right.",
+        "tagline": "The ocean is calling.",
+        "thumb": "/library/metadata/48500/thumb/1487307055",
+        "title": "Moana",
+        "type": "movie",
+        "updatedAt": "1487307055",
+        "viewCount": "3",
+        "viewOffset": "195194",
+        "year": "2016",
+        "Media": [
+          {
+            "aspectRatio": "2.35",
+            "audioChannels": "6",
+            "audioCodec": "dca",
+            "audioProfile": "dts",
+            "bitrate": "7298",
+            "container": "mkv",
+            "duration": "6432811",
+            "height": "808",
+            "id": "132092",
+            "videoCodec": "h264",
+            "videoFrameRate": "24p",
+            "videoProfile": "high",
+            "videoResolution": "1080",
+            "width": "1920",
+            "Part": [
+              {
+                "audioProfile": "dts",
+                "container": "mkv",
+                "deepAnalysisVersion": "2",
+                "duration": "6432811",
+                "file": "/mnt/PLEX-MEDIA/Movies/Moana (2016)/Moana.mkv",
+                "id": "132868",
+                "indexes": "sd",
+                "key": "/library/parts/132868/1487287183/file.mkv",
+                "requiredBandwidths": "20996,16236,11592,9961,9125,8797,8797,8797",
+                "size": "5868254955",
+                "videoProfile": "high",
+                "Stream": [
+                  {
+                    "bitDepth": "8",
+                    "bitrate": "5762",
+                    "chromaSubsampling": "4:2:0",
+                    "codec": "h264",
+                    "default": "1",
+                    "frameRate": "23.976",
+                    "hasScalingMatrix": "0",
+                    "height": "808",
+                    "id": "316141",
+                    "index": "0",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "level": "41",
+                    "profile": "high",
+                    "refFrames": "5",
+                    "requiredBandwidths": "19484,14726,10082,8452,7615,7300,7300,7300",
+                    "scanType": "progressive",
+                    "streamType": "1",
+                    "width": "1920"
+                  },
+                  {
+                    "audioChannelLayout": "5.1(side)",
+                    "bitrate": "1536",
+                    "channels": "6",
+                    "codec": "dca",
+                    "default": "1",
+                    "id": "316142",
+                    "index": "1",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "profile": "dts",
+                    "requiredBandwidths": "1509,1509,1509,1509,1509,1509,1509,1509",
+                    "samplingRate": "48000",
+                    "selected": "1",
+                    "streamType": "2"
+                  },
+                  {
+                    "bitrate": "0",
+                    "codec": "srt",
+                    "id": "316143",
+                    "index": "2",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "requiredBandwidths": "1,1,1,1,1,1,1,1",
+                    "streamType": "3",
+                    "title": "English"
+                  },
+                  {
+                    "bitrate": "0",
+                    "codec": "srt",
+                    "id": "316144",
+                    "index": "3",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "requiredBandwidths": "1,1,1,1,1,1,1,1",
+                    "streamType": "3",
+                    "title": "English SDH"
+                  },
+                  {
+                    "codec": "srt",
+                    "id": "316247",
+                    "key": "/library/streams/316247",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "streamType": "3"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "Genre": [
+          {
+            "count": "160",
+            "id": "93",
+            "tag": "Adventure"
+          },
+          {
+            "count": "177",
+            "id": "95",
+            "tag": "Family"
+          },
+          {
+            "count": "196",
+            "id": "168",
+            "tag": "Fantasy"
+          },
+          {
+            "count": "503",
+            "id": "133",
+            "tag": "Comedy"
+          },
+          {
+            "count": "134",
+            "id": "94",
+            "tag": "Animation"
+          },
+          {
+            "count": "40",
+            "id": "472",
+            "tag": "Musical"
+          }
+        ],
+        "Director": [
+          {
+            "count": "6",
+            "id": "457",
+            "tag": "Ron Clements"
+          },
+          {
+            "count": "6",
+            "id": "458",
+            "tag": "John Musker"
+          }
+        ],
+        "Writer": [
+          {
+            "count": "2",
+            "id": "30653",
+            "tag": "Jared Bush"
+          }
+        ],
+        "Producer": [
+          {
+            "count": "2",
+            "id": "6048",
+            "tag": "Osnat Shurer"
+          }
+        ],
+        "Country": [
+          {
+            "count": "697",
+            "id": "50",
+            "tag": "USA"
+          }
+        ],
+        "Role": [
+          {
+            "id": "33056",
+            "role": "Moana (voice)",
+            "tag": "Auli'i Cravalho",
+            "thumb": "http://image.tmdb.org/t/p/original/uSYgcqhxETyMezXLPK9nTRAbdWx.jpg"
+          },
+          {
+            "count": "9",
+            "id": "2983",
+            "role": "Maui (voice)",
+            "tag": "Dwayne Johnson",
+            "thumb": "http://image.tmdb.org/t/p/original/akweMz59qsSoPUJYe7QpjAc2rQp.jpg"
+          },
+          {
+            "count": "2",
+            "id": "31108",
+            "role": "Gramma Tala (voice)",
+            "tag": "Rachel House",
+            "thumb": "http://image.tmdb.org/t/p/original/8UGo2lHG5wtnH55lKPDm8oJ0IOk.jpg"
+          },
+          {
+            "count": "5",
+            "id": "2170",
+            "role": "Chief Tui (voice)",
+            "tag": "Temuera Morrison",
+            "thumb": "http://image.tmdb.org/t/p/original/A1nD5J5uRwJM4hnpXd3DdmwZGjP.jpg"
+          },
+          {
+            "count": "7",
+            "id": "2284",
+            "role": "Tamatoa (voice)",
+            "tag": "Jemaine Clement",
+            "thumb": "http://image.tmdb.org/t/p/original/crxCXudFMxuPqrYqYiTYKbhImhv.jpg"
+          },
+          {
+            "count": "2",
+            "id": "5288",
+            "role": "Sina (voice)",
+            "tag": "Nicole Scherzinger",
+            "thumb": "http://image.tmdb.org/t/p/original/aWO7fZN4W7ua4MVoruG0ZeEXur9.jpg"
+          },
+          {
+            "count": "12",
+            "id": "11",
+            "role": "Heihei / Villager #3 (voice)",
+            "tag": "Alan Tudyk",
+            "thumb": "http://image.tmdb.org/t/p/original/6QuMtbD8kmhpwWhFKfNzEvHRLOu.jpg"
+          },
+          {
+            "count": "2",
+            "id": "11940",
+            "role": "Villager #1 (voice)",
+            "tag": "Troy Polamalu",
+            "thumb": "http://image.tmdb.org/t/p/original/51rD9ZZYyXNmk7xiotiVBqhBHqS.jpg"
+          },
+          {
+            "id": "33057",
+            "role": "Chief Tui (singing voice)",
+            "tag": "Chris Jackson",
+            "thumb": "http://image.tmdb.org/t/p/original/iczG0WVwwifbOTY5JWvBVz9DVaj.jpg"
+          },
+          {
+            "count": "2",
+            "id": "31109",
+            "role": "Fisherman (voice)",
+            "tag": "Oscar Kightley",
+            "thumb": "http://image.tmdb.org/t/p/original/7yaqZT5e1UlxBmqQ3xpXAUP7SNL.jpg"
+          },
+          {
+            "id": "33058",
+            "role": "Toddler Moana (voice)",
+            "tag": "Louise Bush"
+          },
+          {
+            "id": "33059",
+            "role": "Villager #2 (voice)",
+            "tag": "Puanani Cravalho"
+          }
+        ],
+        "User": {
           "id": "1",
-          "thumb": "https://plex.tv/users/24371234d49de110/avatar",
-          "title": "User"
+          "thumb": "https://plex.tv/users/24371234d49ce110/avatar?c=2017-03-25+02%3A28%3A38+UTC",
+          "title": "scytherswings"
         },
-        {
-          "_elementType": "Player",
-          "machineIdentifier": "052ex7tagdbr19k1",
-          "platform": "Chrome",
-          "product": "Plex Web",
+        "Player": {
+          "address": "172.16.8.100",
+          "device": "PC",
+          "machineIdentifier": "5c6f8f62-b235-43bd-a84b-fcac5a512903",
+          "model": "MacOSX",
+          "platform": "Plex Home Theater",
+          "platformVersion": "",
+          "product": "Plex Home Theater",
+          "profile": "Plex Home Theater",
           "state": "playing",
-          "title": "Plex Web (Chrome)"
+          "title": "fagbookair.scynet.info",
+          "vendor": "",
+          "version": "1.4.1.469-47a90f01"
         },
-        {
-          "_elementType": "TranscodeSession",
-          "key": "1oof90lu6pzoxbt8",
-          "throttled": false,
-          "progress": 0.60000002384185791,
-          "speed": 5.5999999046325684,
-          "duration": 3897000,
-          "remaining": 757,
-          "context": "streaming",
-          "videoDecision": "transcode",
-          "audioDecision": "transcode",
-          "protocol": "http",
-          "container": "mkv",
-          "videoCodec": "h264",
-          "audioCodec": "aac",
-          "audioChannels": 2,
-          "width": 1280,
-          "height": 720
+        "Session": {
+          "id": "5c6f8f62-b235-43bd-a84b-fcac5a512903",
+          "bandwidth": 15326,
+          "location": "lan"
         }
-      ]
-    },
-    {
-      "_elementType": "Video",
-      "addedAt": "1417588046",
-      "art": "/library/metadata/479/art/1419363037",
-      "chapterSource": "media",
-      "contentRating": "R",
-      "duration": "7153070",
-      "guid": "com.plexapp.agents.imdb://tt0115685?lang=en",
-      "key": "/library/metadata/479",
-      "librarySectionID": "1",
-      "originallyAvailableAt": "1996-03-08",
-      "primaryExtraKey": "/library/metadata/4889",
-      "rating": "6.8",
-      "ratingKey": "479",
-      "sessionKey": "862",
-      "studio": "Metro-Goldwyn-Mayer",
-      "summary": "A gay cabaret owner and his drag queen companion agree to put up a false straight front so that their son can introduce them to his fiancé's right-wing moralistic parents.",
-      "tagline": "Come as you are.",
-      "thumb": "/library/metadata/479/thumb/1419363037",
-      "title": "The Birdcage",
-      "titleSort": "Birdcage",
-      "type": "movie",
-      "updatedAt": "1419363037",
-      "viewOffset": "1581091",
-      "year": "1996",
-      "_children": [
-        {
-          "_elementType": "Media",
-          "aspectRatio": "1.85",
-          "audioChannels": "6",
-          "audioCodec": "ac3",
-          "bitrate": "3145",
-          "container": "mkv",
-          "duration": "7153070",
-          "height": "688",
-          "id": "479",
-          "videoCodec": "h264",
-          "videoFrameRate": "24p",
-          "videoResolution": "720",
-          "width": "1280",
-          "_children": [
-            {
-              "_elementType": "Part",
-              "container": "mkv",
-              "duration": "7153070",
-              "file": "/mnt/PLEX-MEDIA/Movies/The.Birdcage.1996.720p.BRRip.x264.AC3-MAJESTiC/The.Birdcage.1996.720p.BRRip.x264.AC3-MAJESTiC.mkv",
-              "id": "480",
-              "indexes": "sd",
-              "key": "/library/parts/480/file.mkv",
-              "size": "2811859511",
-              "_children": [
-                {
-                  "_elementType": "Stream",
-                  "bitDepth": "8",
-                  "bitrate": "2500",
-                  "cabac": "1",
-                  "chromaSubsampling": "4:2:0",
-                  "codec": "h264",
-                  "codecID": "V_MPEG4/ISO/AVC",
-                  "colorSpace": "yuv",
-                  "duration": "7153070",
-                  "frameRate": "23.976",
-                  "frameRateMode": "cfr",
-                  "hasScalingMatrix": "0",
-                  "height": "688",
-                  "id": "98890",
-                  "index": "0",
-                  "language": "English",
-                  "languageCode": "eng",
-                  "level": "40",
-                  "profile": "high",
-                  "refFrames": "8",
-                  "scanType": "progressive",
-                  "streamType": "1",
-                  "width": "1280"
-                },
-                {
-                  "_elementType": "Stream",
-                  "audioChannelLayout": "5.1(side)",
-                  "bitDepth": "16",
-                  "bitrate": "640",
-                  "bitrateMode": "cbr",
-                  "channels": "6",
-                  "codec": "ac3",
-                  "codecID": "A_AC3",
-                  "dialogNorm": "-31",
-                  "duration": "7153062",
-                  "id": "98891",
-                  "index": "1",
-                  "language": "English",
-                  "languageCode": "eng",
-                  "samplingRate": "48000",
-                  "selected": "1",
-                  "streamType": "2"
-                },
-                {
-                  "_elementType": "Stream",
-                  "codec": "srt",
-                  "codecID": "S_TEXT/UTF8",
-                  "format": "srt",
-                  "id": "98892",
-                  "index": "2",
-                  "language": "English",
-                  "languageCode": "eng",
-                  "streamType": "3"
-                },
-                {
-                  "_elementType": "Stream",
-                  "codec": "srt",
-                  "codecID": "S_TEXT/UTF8",
-                  "format": "srt",
-                  "id": "98893",
-                  "index": "3",
-                  "language": "English",
-                  "languageCode": "eng",
-                  "streamType": "3"
-                }
-              ]
-            }
-          ]
+      },
+      {
+        "addedAt": "1488854095",
+        "art": "/library/metadata/49153/art/1488854138",
+        "audienceRating": "9.5",
+        "audienceRatingImage": "rottentomatoes://image.rating.upright",
+        "chapterSource": "media",
+        "contentRating": "Not Rated",
+        "duration": "3911960",
+        "guid": "com.plexapp.agents.imdb://tt0368667?lang=en",
+        "key": "/library/metadata/49153",
+        "lastViewedAt": "1488858032",
+        "librarySectionID": "1",
+        "originallyAvailableAt": "2003-11-10",
+        "rating": "8.6",
+        "ratingImage": "rottentomatoes://image.rating.ripe",
+        "ratingKey": "49153",
+        "sessionKey": "1",
+        "studio": "Daft Life Ltd. Co.",
+        "summary": "A sci-fi anime House-musical movie collaboration between Daft Punk--and their music--and designer Leiji Matsumoto. During the recording of their DISCOVERY album and using the themes of sci-fi celebrity, decadence and space travel, Daft Punk--with help from Cedric Hervet--wrote the story and inspired seasoned Japanese animators to symbiotically create this stunning space musical.",
+        "tagline": "The animated House musical.",
+        "thumb": "/library/metadata/49153/thumb/1488854138",
+        "title": "Interstella 5555: The 5tory of the 5ecret 5tar 5ystem",
+        "type": "movie",
+        "updatedAt": "1488854138",
+        "viewCount": "1",
+        "viewOffset": "1573",
+        "year": "2003",
+        "Media": [
+          {
+            "aspectRatio": "1.33",
+            "audioChannels": "6",
+            "audioCodec": "ac3",
+            "bitrate": "2744",
+            "container": "mkv",
+            "duration": "3911960",
+            "height": "568",
+            "id": "133997",
+            "videoCodec": "h264",
+            "videoFrameRate": "PAL",
+            "videoProfile": "high",
+            "videoResolution": "480",
+            "width": "700",
+            "Part": [
+              {
+                "container": "mkv",
+                "deepAnalysisVersion": "2",
+                "duration": "3911960",
+                "file": "/mnt/PLEX-MEDIA/Movies/Interstella 5555 The 5tory of the 5ecret 5tar 5ystem (2003)/Interstella 5555 The 5tory of the 5ecret 5tar 5ystem.mkv",
+                "id": "134773",
+                "indexes": "sd",
+                "key": "/library/parts/134773/1488853296/file.mkv",
+                "requiredBandwidths": "4488,3589,2965,2752,2747,2747,2747,2747",
+                "size": "1342042565",
+                "videoProfile": "high",
+                "Stream": [
+                  {
+                    "anamorphic": "1",
+                    "bitDepth": "8",
+                    "bitrate": "2296",
+                    "chromaSubsampling": "4:2:0",
+                    "codec": "h264",
+                    "colorRange": "tv",
+                    "colorSpace": "smpte170m",
+                    "default": "1",
+                    "frameRate": "25.000",
+                    "hasScalingMatrix": "0",
+                    "height": "568",
+                    "id": "320138",
+                    "index": "0",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "level": "40",
+                    "pixelAspectRatio": "227:213",
+                    "profile": "high",
+                    "refFrames": "16",
+                    "requiredBandwidths": "4040,3141,2517,2303,2299,2299,2299,2299",
+                    "scanType": "progressive",
+                    "streamType": "1",
+                    "width": "700"
+                  },
+                  {
+                    "audioChannelLayout": "5.1(side)",
+                    "bitrate": "448",
+                    "channels": "6",
+                    "codec": "ac3",
+                    "default": "1",
+                    "id": "320139",
+                    "index": "1",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "requiredBandwidths": "448,448,448,448,448,448,448,448",
+                    "samplingRate": "48000",
+                    "selected": "1",
+                    "streamType": "2"
+                  },
+                  {
+                    "codec": "srt",
+                    "id": "320140",
+                    "key": "/library/streams/320140",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "streamType": "3"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "Genre": [
+          {
+            "count": "51",
+            "id": "27310",
+            "tag": "Sci-Fi"
+          },
+          {
+            "count": "134",
+            "id": "94",
+            "tag": "Animation"
+          },
+          {
+            "count": "26",
+            "id": "248",
+            "tag": "Music"
+          },
+          {
+            "count": "129",
+            "id": "194",
+            "tag": "Action"
+          },
+          {
+            "count": "160",
+            "id": "93",
+            "tag": "Adventure"
+          }
+        ],
+        "Director": [
+          {
+            "id": "33687",
+            "tag": "Kazuhisa Takenôchi"
+          }
+        ],
+        "Writer": [
+          {
+            "id": "33688",
+            "tag": "Thomas Bangalter"
+          },
+          {
+            "id": "33689",
+            "tag": "Guy-Manuel de Homem-Christo"
+          },
+          {
+            "id": "33690",
+            "tag": "Cédric Hervet"
+          }
+        ],
+        "Producer": [
+          {
+            "id": "33692",
+            "tag": "Thomas Bangalter"
+          },
+          {
+            "id": "33693",
+            "tag": "Guy-Manuel de Homem-Christo"
+          }
+        ],
+        "Country": [
+          {
+            "count": "14",
+            "id": "1304",
+            "tag": "Japan"
+          }
+        ],
+        "Role": [
+          {
+            "id": "33691",
+            "role": "Octave",
+            "tag": "Romanthony"
+          }
+        ],
+        "User": {
+          "title": ""
         },
-        {
-          "_elementType": "Genre",
-          "count": "477",
-          "id": "133",
-          "tag": "Comedy"
-        },
-        {
-          "_elementType": "Writer",
-          "id": "1265",
-          "tag": "Elaine May"
-        },
-        {
-          "_elementType": "Director",
-          "id": "1264",
-          "tag": "Mike Nichols"
-        },
-        {
-          "_elementType": "Producer",
-          "id": "1275",
-          "tag": "Mike Nichols"
-        },
-        {
-          "_elementType": "Country",
-          "count": "629",
-          "id": "50",
-          "tag": "USA"
-        },
-        {
-          "_elementType": "Role",
-          "count": "41",
-          "id": "264",
-          "role": "Armand Goldman",
-          "tag": "Robin Williams"
-        },
-        {
-          "_elementType": "Role",
-          "count": "2",
-          "id": "1266",
-          "role": "Sen. Kevin Keeley",
-          "tag": "Gene Hackman"
-        },
-        {
-          "_elementType": "Role",
-          "count": "5",
-          "id": "1267",
-          "role": "Albert Goldman",
-          "tag": "Nathan Lane"
-        },
-        {
-          "_elementType": "Role",
-          "count": "3",
-          "id": "1268",
-          "role": "Louise Keeley",
-          "tag": "Dianne Wiest"
-        },
-        {
-          "_elementType": "Role",
-          "id": "1269",
-          "role": "National Enquirer Photographer",
-          "tag": "Grant Heslov",
-          "thumb": "http://image.tmdb.org/t/p/original/mV9DTcqcNDcv12VykvjnEH6T4xs.jpg"
-        },
-        {
-          "_elementType": "Role",
-          "count": "9",
-          "id": "1270",
-          "role": "Agador Spartacus",
-          "tag": "Hank Azaria"
-        },
-        {
-          "_elementType": "Role",
-          "id": "1271",
-          "role": "Val Goldman",
-          "tag": "Dan Futterman",
-          "thumb": "http://image.tmdb.org/t/p/original/lohvETRKnXTTsvjYCFvmPSylqJH.jpg"
-        },
-        {
-          "_elementType": "Role",
-          "id": "1272",
-          "role": "Barbara Keeley",
-          "tag": "Calista Flockhart",
-          "thumb": "http://image.tmdb.org/t/p/original/8QHgAF3p4GsGdh7bbt9b6Ni30Ap.jpg"
-        },
-        {
-          "_elementType": "Role",
-          "count": "3",
-          "id": "1273",
-          "role": "Katherine Archer",
-          "tag": "Christine Baranski"
-        },
-        {
-          "_elementType": "Role",
-          "id": "1274",
-          "role": "Harry Radman",
-          "tag": "Tom McGowan",
-          "thumb": "http://image.tmdb.org/t/p/original/40M1HdJmCfhGykN0Wl23BB59duY.jpg"
-        },
-        {
-          "_elementType": "User",
-          "id": "6114698",
-          "title": "User"
-        },
-        {
-          "_elementType": "Player",
-          "machineIdentifier": "529c55db-214a-408f-8fcb-781e34c88d01",
+        "Player": {
+          "address": "172.16.1.103",
+          "device": "Linux",
+          "machineIdentifier": "ogt3k25ekygka9z11swuvunmi",
+          "model": "",
           "platform": "Chrome",
+          "platformVersion": "55.0",
           "product": "Plex Web",
-          "state": "playing",
-          "title": "Plex Web (Chrome)"
+          "profile": "Web",
+          "state": "paused",
+          "title": "Plex Web (Chrome)",
+          "vendor": "",
+          "version": "2.12.5"
         },
-        {
-          "_elementType": "TranscodeSession",
-          "key": "8kxizz1cadxkp599xvbwqaod",
+        "Session": {
+          "id": "cofeqkm1maq21xw2qiplxflx",
+          "bandwidth": 5628,
+          "location": "lan"
+        },
+        "TranscodeSession": {
+          "key": "gu6zwwoqbtgvkdtawtledbo6",
           "throttled": true,
-          "progress": 28.700000762939453,
+          "complete": false,
+          "progress": 15.100000381469727,
           "speed": 0,
-          "duration": 7153000,
-          "remaining": 76376,
+          "duration": 3911960,
           "context": "streaming",
           "videoDecision": "copy",
           "audioDecision": "transcode",
@@ -412,11 +517,9 @@
           "container": "mkv",
           "videoCodec": "h264",
           "audioCodec": "aac",
-          "audioChannels": 2,
-          "width": 1280,
-          "height": 688
+          "audioChannels": 6
         }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }

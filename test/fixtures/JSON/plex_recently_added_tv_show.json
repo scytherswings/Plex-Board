@@ -1,6 +1,6 @@
 {
   "MediaContainer": {
-    "size": 50,
+    "size": 1,
     "allowSync": false,
     "identifier": "com.plexapp.plugins.library",
     "mediaTagPrefix": "/system/bundle/media/flags/",
@@ -9,7 +9,7 @@
     "Metadata": [
       {
         "allowSync": true,
-        "librarySectionID": 2,
+        "librarySectionID": 1,
         "librarySectionTitle": "TV Shows",
         "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
         "ratingKey": "48181",

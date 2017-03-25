@@ -1,72 +1,226 @@
 {
-  "_elementType": "MediaContainer",
-  "_children": [
-    {
-      "_elementType": "Video",
-      "art": "/library/metadata/22074/art/1427351324",
-      "duration": "8078080",
-      "sessionKey": "1",
-      "summary": "Last months of World War.",
-      "thumb": "/library/metadata/22074/thumb/1427351324",
-      "title": "Fury",
-      "type": "movie",
-      "viewOffset": "8067000",
-      "year": "2014",
-      "_children": [
-        {
-          "_elementType": "Media",
-          "_children": [
-            {
-              "_elementType": "Part",
-              "_children": [
-                {
-                  "_elementType": "Stream",
-                  "width": "1920"
-                },
-                {
-                  "_elementType": "Stream",
-                  "streamType": "2"
-                },
-                {
-                  "_elementType": "Stream",
-                  "title": "English-Forced"
-                },
-                {
-                  "_elementType": "Stream",
-                  "streamType": "3"
-                }
-              ]
-            }
-          ]
+  "MediaContainer": {
+    "size": 1,
+    "Video": [
+      {
+        "addedAt": "1488854095",
+        "art": "/library/metadata/49153/art/1488854138",
+        "audienceRating": "9.5",
+        "audienceRatingImage": "rottentomatoes://image.rating.upright",
+        "chapterSource": "media",
+        "contentRating": "Not Rated",
+        "duration": "3911960",
+        "guid": "com.plexapp.agents.imdb://tt0368667?lang=en",
+        "key": "/library/metadata/49153",
+        "lastViewedAt": "1488858032",
+        "librarySectionID": "1",
+        "originallyAvailableAt": "2003-11-10",
+        "rating": "8.6",
+        "ratingImage": "rottentomatoes://image.rating.ripe",
+        "ratingKey": "49153",
+        "sessionKey": "1864",
+        "studio": "Daft Life Ltd. Co.",
+        "summary": "A sci-fi anime House-musical movie collaboration between Daft Punk--and their music--and designer Leiji Matsumoto. During the recording of their DISCOVERY album and using the themes of sci-fi celebrity, decadence and space travel, Daft Punk--with help from Cedric Hervet--wrote the story and inspired seasoned Japanese animators to symbiotically create this stunning space musical.",
+        "tagline": "The animated House musical.",
+        "thumb": "/library/metadata/49153/thumb/1488854138",
+        "title": "Interstella 5555: The 5tory of the 5ecret 5tar 5ystem",
+        "type": "movie",
+        "updatedAt": "1488854138",
+        "viewCount": "1",
+        "viewOffset": "806700",
+        "year": "2003",
+        "Media": [
+          {
+            "aspectRatio": "1.33",
+            "audioChannels": "6",
+            "audioCodec": "ac3",
+            "bitrate": "2744",
+            "container": "mkv",
+            "duration": "3911960",
+            "height": "568",
+            "id": "133997",
+            "videoCodec": "h264",
+            "videoFrameRate": "PAL",
+            "videoProfile": "high",
+            "videoResolution": "480",
+            "width": "700",
+            "Part": [
+              {
+                "container": "mkv",
+                "deepAnalysisVersion": "2",
+                "duration": "3911960",
+                "file": "/mnt/PLEX-MEDIA/Movies/Interstella 5555 The 5tory of the 5ecret 5tar 5ystem (2003)/Interstella 5555 The 5tory of the 5ecret 5tar 5ystem.mkv",
+                "id": "134773",
+                "indexes": "sd",
+                "key": "/library/parts/134773/1488853296/file.mkv",
+                "requiredBandwidths": "4488,3589,2965,2752,2747,2747,2747,2747",
+                "size": "1342042565",
+                "videoProfile": "high",
+                "Stream": [
+                  {
+                    "anamorphic": "1",
+                    "bitDepth": "8",
+                    "bitrate": "2296",
+                    "chromaSubsampling": "4:2:0",
+                    "codec": "h264",
+                    "colorRange": "tv",
+                    "colorSpace": "smpte170m",
+                    "default": "1",
+                    "frameRate": "25.000",
+                    "hasScalingMatrix": "0",
+                    "height": "568",
+                    "id": "320138",
+                    "index": "0",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "level": "40",
+                    "pixelAspectRatio": "227:213",
+                    "profile": "high",
+                    "refFrames": "16",
+                    "requiredBandwidths": "4040,3141,2517,2303,2299,2299,2299,2299",
+                    "scanType": "progressive",
+                    "streamType": "1",
+                    "width": "700"
+                  },
+                  {
+                    "audioChannelLayout": "5.1(side)",
+                    "bitrate": "448",
+                    "channels": "6",
+                    "codec": "ac3",
+                    "default": "1",
+                    "id": "320139",
+                    "index": "1",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "requiredBandwidths": "448,448,448,448,448,448,448,448",
+                    "samplingRate": "48000",
+                    "selected": "1",
+                    "streamType": "2"
+                  },
+                  {
+                    "codec": "srt",
+                    "id": "320140",
+                    "key": "/library/streams/320140",
+                    "language": "English",
+                    "languageCode": "eng",
+                    "streamType": "3"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "Genre": [
+          {
+            "count": "51",
+            "id": "27310",
+            "tag": "Sci-Fi"
+          },
+          {
+            "count": "134",
+            "id": "94",
+            "tag": "Animation"
+          },
+          {
+            "count": "26",
+            "id": "248",
+            "tag": "Music"
+          },
+          {
+            "count": "129",
+            "id": "194",
+            "tag": "Action"
+          },
+          {
+            "count": "160",
+            "id": "93",
+            "tag": "Adventure"
+          }
+        ],
+        "Director": [
+          {
+            "id": "33687",
+            "tag": "Kazuhisa Takenôchi"
+          }
+        ],
+        "Writer": [
+          {
+            "id": "33688",
+            "tag": "Thomas Bangalter"
+          },
+          {
+            "id": "33689",
+            "tag": "Guy-Manuel de Homem-Christo"
+          },
+          {
+            "id": "33690",
+            "tag": "Cédric Hervet"
+          }
+        ],
+        "Producer": [
+          {
+            "id": "33692",
+            "tag": "Thomas Bangalter"
+          },
+          {
+            "id": "33693",
+            "tag": "Guy-Manuel de Homem-Christo"
+          }
+        ],
+        "Country": [
+          {
+            "count": "14",
+            "id": "1304",
+            "tag": "Japan"
+          }
+        ],
+        "Role": [
+          {
+            "id": "33691",
+            "role": "Octave",
+            "tag": "Romanthony"
+          }
+        ],
+        "User": {
+          "title": ""
         },
-        {
-          "_elementType": "Genre",
-          "count": "18",
-          "id": "10679",
-          "tag": "War film"
-        },
-        {
-          "_elementType": "User",
-          "id": "4125650",
-          "title": "Generic_User"
-        },
-        {
-          "_elementType": "Player",
-          "machineIdentifier": "yact8hd58j2h",
-          "platform": "Xbox One",
-          "product": "Plex for Xbox One",
+        "Player": {
+          "address": "172.16.1.103",
+          "device": "Linux",
+          "machineIdentifier": "ogt3k25ekygka9z11swuvunmi",
+          "model": "",
+          "platform": "Chrome",
+          "platformVersion": "55.0",
+          "product": "Plex Web",
+          "profile": "Web",
           "state": "playing",
-          "title": "Xbox-SystemOS"
+          "title": "Plex Web (Chrome)",
+          "vendor": "",
+          "version": "2.12.5"
         },
-        {
-          "_elementType": "TranscodeSession",
-          "key": "xcejyc6r53ye",
-          "progress": 59.900001525878906,
-          "speed": 0,
-          "duration": 8078000,
-          "remaining": 41825
+        "Session": {
+          "id": "cofeqkm1maq21xw2qiplxflx",
+          "bandwidth": 5628,
+          "location": "lan"
+        },
+        "TranscodeSession": {
+          "key": "gu6zwwoqbtgvkdtawtledbo6",
+          "throttled": false,
+          "complete": false,
+          "progress": 1.2999999523162842,
+          "speed": 12.600000381469727,
+          "duration": 3911960,
+          "remaining": 260,
+          "context": "streaming",
+          "videoDecision": "copy",
+          "audioDecision": "transcode",
+          "protocol": "http",
+          "container": "mkv",
+          "videoCodec": "h264",
+          "audioCodec": "aac",
+          "audioChannels": 6
         }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }
