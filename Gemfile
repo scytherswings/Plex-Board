@@ -26,7 +26,7 @@ gem 'geocoder', '~> 1.3', '>= 1.3.4'
 gem 'tzinfo', '~> 1.2.2'
 
 group :development, :test do
-  gem 'spring', '~> 1.4.0'
+  gem 'spring', '~> 2.0.1'
   gem 'parallel_tests', '~> 2.3.1'
 end
 
