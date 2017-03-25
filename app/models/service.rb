@@ -44,10 +44,11 @@ class Service < ActiveRecord::Base
   end
 
   def ping
-    Rails.cache.fetch("service_#{id}/online", expires_in: 10.seconds) do
+   ping_status = Rails.cache.fetch("service_#{id}/online", expires_in: 10.seconds) do
       check_online_status
       self.online_status
-    end
+   end
+    !ping_status.nil?
   end
 
   def online_status_string
@@ -60,6 +61,7 @@ class Service < ActiveRecord::Base
 
   def ping_for_status_change
     before_ping = self.online_status
+
     if before_ping != ping
       logger.info("Detected status change from #{is_online(before_ping)} to #{online_status_string}")
       self.online_status

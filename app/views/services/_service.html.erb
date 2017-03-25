@@ -6,13 +6,13 @@
            <td>
              <% if service.online_status %>
                <%= link_to service.url, class: "h2_index_link", :target => "_blank" do %>
-                 <button class="btn btn-xs btn-success" style="width:62px">
-                   <span class="glyphicon glyphicon-ok" style="color:white;"></span> Online</button>
+                 <button class="btn btn-xs btn-success" style="width:62px"  data-no-turbolinks>
+                   <span class="glyphicon glyphicon-ok" style="color:white;"  data-no-turbolinks></span> Online</button>
                <% end %>
              <% else %>
                <%= link_to service.url, class: "h2_index_link", :target => "_blank"  do %>
-                 <button class="btn btn-xs btn-warning" style="width:62px">
-                   <span class="glyphicon glyphicon-remove" style="color:white;"></span> Offline</button>
+                 <button class="btn btn-xs btn-warning" style="width:62px"  data-no-turbolinks>
+                   <span class="glyphicon glyphicon-remove" style="color:white;"  data-no-turbolinks></span> Offline</button>
                <% end %>
              <% end %>
              <div style="padding:1px"></div>

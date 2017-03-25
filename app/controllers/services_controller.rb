@@ -54,14 +54,14 @@ class ServicesController < ApplicationController
             all_active_sessions.each do |active_session|
               events << {data: active_session, event: 'plex_now_playing'}
             end
-          else
+          elsif i % 5 == 0
             events << {data: [], event: 'plex_now_playing'}
           end
         end
 
         @services.try(:each) do |service|
-          if i % 10 == 0
-            logger.debug('Looped 10 times, sending all service statuses.')
+          if i % 5 == 0
+            logger.debug('Looped 5 times, sending all service statuses.')
             service.ping
             events << {data: {id: service.id, html: render_to_string(partial: 'service', formats: [:html], locals: {service: service})}.to_json, event: 'online_status'}
           else
