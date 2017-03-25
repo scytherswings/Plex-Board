@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.7.0] : 2017-3-25
+### Changed
+- All online statuses are now held in cache. This makes SQLite3 much more happy.
+- SSE has been overhauled to be less chatty. All updates are sent up to the page over SSE.
+
 ## [v0.6.1] : 2017-3-25
 ### Changed
 - Updated almost all of the gems used by this project.
