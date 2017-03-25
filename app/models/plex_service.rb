@@ -47,6 +47,8 @@ class PlexService < ActiveRecord::Base
       get_plex_sessions
       get_plex_recently_added
     end
+  rescue => ex
+    logger.error("An exception was encountered trying to get new information from plex! #{ex}")
   end
 
   def plex_api(method: :get, path: '', headers: {})
