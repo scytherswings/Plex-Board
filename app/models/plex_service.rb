@@ -90,7 +90,7 @@ class PlexService < ActiveRecord::Base
     incoming_plex_sessions = sess['_children']
 
     #if plex has nothing, then fucking nuke that shit
-    if incoming_plex_sessions.empty?
+    if incoming_plex_sessions.blank?
       logger.debug('incoming_plex_sessions was empty... Deleting all sessions')
       plex_sessions.destroy_all
       return nil
@@ -187,7 +187,12 @@ class PlexService < ActiveRecord::Base
       return nil
     end
 
-    incoming_pras = response['_children']
+    incoming_pras = response['MediaContainer']['Metadata']
+
+    if incoming_pras.blank?
+      logger.error("The response from plex did not have any information under the _children key. Can't add new recently added.")
+      return nil
+    end
 
     stale_pras = plex_recently_addeds.map {|known_pra| known_pra.uuid} -
         incoming_pras.map {|new_pra| new_pra['librarySectionUUID']}
