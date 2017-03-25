@@ -6,7 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - All online statuses are now held in cache. This makes SQLite3 much more happy.
 - SSE has been overhauled to be less chatty. All updates are sent up to the page over SSE.
-
+- The app should run faster now that the controller isn't blocked on checking 
+  each service's status.
+  
 ## [v0.6.1] : 2017-3-25
 ### Changed
 - Updated almost all of the gems used by this project.
