@@ -76,7 +76,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  #This should allow assets to be resolved to the localhost's FQDN
-  config.action_controller.asset_host = Socket.gethostbyname(Socket.gethostname).first
 end

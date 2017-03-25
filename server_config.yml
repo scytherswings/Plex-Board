@@ -1,0 +1,2 @@
+# You will probably want to configure this to whatever you expect to hit Plex-Board as. e.g. http://plexdashboard.whatever.com/
+asset_host: http://0.0.0.0:3000
