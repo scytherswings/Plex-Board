@@ -64,6 +64,7 @@ class Service < ActiveRecord::Base
   private
 
   def check_online_status
+    times ||= 2
     ping_destination = connect_method
     begin
       Timeout.timeout(@timeout) do
@@ -79,5 +80,10 @@ class Service < ActiveRecord::Base
       self.update(online_status: false)
       return false
     end
+  rescue SQLite3::BusyException
+    logger.warn "Database was busy trying to save online status. Trying: #{times} more time(s)."
+    unless times -= 1 < 0
+    retry
   end
+end
 end

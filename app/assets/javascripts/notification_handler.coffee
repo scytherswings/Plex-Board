@@ -5,11 +5,12 @@ console.log("please")
 source.addEventListener 'online_status', (e) ->
   service = $.parseJSON(e.data)
   console.log(service)
+  $('#service_' + service.id).replaceWith(service.html)
 
-  $.get service.self_uri, (data) ->
-    $('#service_' + service.id).replaceWith(data)
-    console.log(data)
-    return
+#  $.get service.self_uri, (data) ->
+#    $('#service_' + service.id).replaceWith(data)
+#    console.log(data)
+#    return
 
 ############# Plex Now Playing ################
 

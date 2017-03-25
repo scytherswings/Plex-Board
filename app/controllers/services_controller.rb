@@ -7,9 +7,9 @@ class ServicesController < ApplicationController
   # GET /services.json
   def index
     tries ||= 3
-    @services = Service.all.each { |s| s.ping }
-    @plex_services = PlexService.all.each { |ps| ps.update_plex_data }
-    @weathers = Weather.all.each { |w| w.get_weather }
+    @services = Service.all
+    @plex_services = PlexService.all
+    @weathers = Weather.all
   rescue ActiveRecord::StatementInvalid => e
     logger.error "There was an error interacting with the database. The error was: #{e}"
     sleep(0.25)
@@ -28,22 +28,27 @@ class ServicesController < ApplicationController
         events = Array.new
         @plex_services = PlexService.all
         @services = Service.all
-        @weathers = Weather.all
+        # @weathers = Weather.all
 
         if @plex_services.empty? && @services.empty?
           logger.debug 'There were no PlexServices or Generic Services, sleeping for 10s.'
           sleep(10)
         end
 
-        @services.try(:each) do |service|
-          service.ping
-          events << {data: service, event: 'online_status'}
+        @plex_services.try(:each) do |plex_service|
+          plex_service.update_plex_data
+          events << {data: plex_service, event: 'plex_data'}
         end
 
-        @weathers.try(:each) do |weather|
-          weather.get_weather
-          events << {data: weather, event: 'weather'}
+        @services.try(:each) do |service|
+          service.ping
+          events << {data: {id: service.id, html: render_to_string(partial: 'service', formats: [:html], locals: {service: service})}.to_json, event: 'online_status'}
         end
+
+        # @weathers.try(:each) do |weather|
+        #   weather.get_weather
+        #   events << {data: weather, event: 'weather'}
+        # end
 
 
         events.each do |e|

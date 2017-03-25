@@ -24,9 +24,9 @@
                 <% next %>
               <% end %>
               <% if j == 0 %>
-                <%= render partial: 'now_playing', locals: {plex_session: plex_session, active: 'active'} %>
+                <%= render partial: 'plex_services/now_playing', locals: {plex_session: plex_session, active: 'active'} %>
               <% else %>
-                <%= render partial: 'now_playing', locals: {plex_session: plex_session, active: ''} %>
+                <%= render partial: 'plex_services/now_playing', locals: {plex_session: plex_session, active: ''} %>
               <% end %>
             <% end %>
             <% if plex_service.plex_sessions.count < 3 %>
@@ -35,9 +35,9 @@
                   <% break %>
                 <% end %>
                 <% if plex_service.plex_sessions.count <= 0 && k == 0 %>
-                  <%= render partial: 'recently_added', locals: {plex_recently_added: plex_recently_added, active: 'active'} %>
+                  <%= render partial: 'plex_services/recently_added', locals: {plex_recently_added: plex_recently_added, active: 'active'} %>
                 <% else %>
-                  <%= render partial: 'recently_added', locals: {plex_recently_added: plex_recently_added, active: ''} %>
+                  <%= render partial: 'plex_services/recently_added', locals: {plex_recently_added: plex_recently_added, active: ''} %>
                 <% end %>
               <% end %>
             <% end %>
