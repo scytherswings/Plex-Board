@@ -12,9 +12,4 @@ class InfoControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get status" do
-    get :status
-    assert_response :success
-  end
-
 end

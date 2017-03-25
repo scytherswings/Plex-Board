@@ -1,37 +1,37 @@
 {
-  "_elementType": "MediaContainer",
-  "allowSync": "0",
-  "identifier": "com.plexapp.plugins.library",
-  "mediaTagPrefix": "/system/bundle/media/flags/",
-  "mediaTagVersion": "1446845086",
-  "mixedParents": "1",
-  "_children": [
-    {
-      "_elementType": "Directory",
-      "allowSync": "1",
-      "librarySectionID": "2",
-      "librarySectionTitle": "TV Shows",
-      "librarySectionUUID": "b54dc19b-7a20-485b-adca-a4e26cb340bd",
-      "ratingKey": 38553,
-      "key": "/library/metadata/38553/children",
-      "parentRatingKey": 38552,
-      "type": "season",
-      "title": "Season 1",
-      "parentKey": "/library/metadata/38552",
-      "parentTitle": "True Detective",
-      "parentSummary": "An anthology series in which police investigations unearth the personal and professional secrets of those involved, both within and outside the law.",
-      "summary": "",
-      "index": 1,
-      "parentIndex": 1,
-      "thumb": "/library/metadata/38553/thumb/1451162138",
-      "art": "/library/metadata/38552/art/1451162138",
-      "parentThumb": "/library/metadata/38552/thumb/1451162138",
-      "parentTheme": "/library/metadata/38552/theme/1451162138",
-      "leafCount": 8,
-      "viewedLeafCount": 0,
-      "addedAt": 1451162091,
-      "updatedAt": 1451162138,
-      "_children": []
-    }
-  ]
+  "MediaContainer": {
+    "size": 1,
+    "allowSync": false,
+    "identifier": "com.plexapp.plugins.library",
+    "mediaTagPrefix": "/system/bundle/media/flags/",
+    "mediaTagVersion": 1481837967,
+    "mixedParents": true,
+    "Metadata": [
+      {
+        "allowSync": true,
+        "librarySectionID": 1,
+        "librarySectionTitle": "TV Shows",
+        "librarySectionUUID": "b58dc19b-7a20-475b-adca-a4e26cb340bd",
+        "ratingKey": "48181",
+        "key": "/library/metadata/48181/children",
+        "parentRatingKey": "40506",
+        "type": "season",
+        "title": "Season 2",
+        "parentKey": "/library/metadata/40506",
+        "parentTitle": "The Expanse",
+        "parentSummary": "Two hundred years in the future, in a fully colonized solar system, police detective Josephus Miller is given the assignment to find a missing young woman, Julie Mao. Joining his task is James Holden, former first officer of an ice freighter who is involved in an incident caused by the tense relationship between Earth, Mars and the Belt. Far from their struggles in space, United Nations executive Chrisjen Avasarala works to prevent war between Earth and Mars. Soon the three find out that the missing woman is connected to a vast conspiracy that threatens all humanity.",
+        "summary": "",
+        "index": 2,
+        "parentIndex": 1,
+        "thumb": "/library/metadata/48181/thumb/1490253646",
+        "art": "/library/metadata/40506/art/1490253646",
+        "parentThumb": "/library/metadata/40506/thumb/1490253646",
+        "parentTheme": "/library/metadata/40506/theme/1490253646",
+        "leafCount": 8,
+        "viewedLeafCount": 0,
+        "addedAt": 1490253614,
+        "updatedAt": 1490253646
+      }
+    ]
+  }
 }

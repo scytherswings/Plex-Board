@@ -1,0 +1,13 @@
+<% provide(:title, 'New Weather') %>
+
+<%= render 'layouts/servicepanel' %>
+<%= render 'layouts/rightbar' %>
+
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-sm-pull-0 col-md-pull-2 col-lg-pull-2">
+  <h2>New Weather</h2>
+  <div class="well">
+    <%= render 'shared/error_messages' %>
+    <%= render 'weatherform' %>
+  </div>
+</div>
+

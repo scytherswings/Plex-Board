@@ -1,99 +1,112 @@
 {
-  "_elementType": "MediaContainer",
-  "allowSync": "0",
-  "identifier": "com.plexapp.plugins.library",
-  "mediaTagPrefix": "/system/bundle/media/flags/",
-  "mediaTagVersion": "1446845086",
-  "mixedParents": "1",
-  "_children": [
-    {
-      "_elementType": "Video",
-      "allowSync": "1",
-      "librarySectionID": "1",
-      "librarySectionTitle": "Movies",
-      "librarySectionUUID": "d370c316-f79b-4510-b0cc-fad49bef2ae7",
-      "ratingKey": 39680,
-      "key": "/library/metadata/39680",
-      "studio": "United Artists",
-      "type": "movie",
-      "title": "Rocky II",
-      "contentRating": "PG",
-      "summary": "After Rocky goes the distance with champ Apollo Creed, both try to put the fight behind them and move on. Rocky settles down with Adrian but can't put his life together outside the ring, while Creed seeks a rematch to restore his reputation. Soon enough, the \"Master of Disaster\" and the \"Italian Stallion\" are set on a collision course for a climactic battle that is brutal and unforgettable.",
-      "rating": "7.3",
-      "audienceRating": "8.1",
-      "year": 1979,
-      "tagline": "Once he fought for a dream. Now he's fighting for love!",
-      "thumb": "/library/metadata/39680/thumb/1450858923",
-      "art": "/library/metadata/39680/art/1450858923",
-      "duration": 7150984,
-      "originallyAvailableAt": "1979-06-15",
-      "addedAt": 1450858867,
-      "updatedAt": 1450858923,
-      "audienceRatingImage": "rottentomatoes://image.rating.upright",
-      "chapterSource": "mixed",
-      "primaryExtraKey": "/library/metadata/39681",
-      "ratingImage": "rottentomatoes://image.rating.ripe",
-      "_children": [
-        {
-          "_elementType": "Media",
-          "videoResolution": "1080",
-          "id": 108255,
-          "duration": 7150984,
-          "bitrate": 17552,
-          "width": 1920,
-          "height": 1040,
-          "aspectRatio": "1.85",
-          "audioChannels": 6,
-          "audioCodec": "dca",
-          "videoCodec": "h264",
-          "container": "mkv",
-          "videoFrameRate": "24p",
-          "_children": [
-            {
-              "_elementType": "Part",
-              "id": "108481",
-              "key": "/library/parts/108481/file.mkv",
-              "duration": 7150984,
-              "file": "/mnt/Movies/Rocky II (1979)/Rocky II.mkv",
-              "size": 15689396303,
-              "container": "mkv",
-              "indexes": "sd"
-            }
-          ]
-        },
-        {
-          "_elementType": "Genre",
-          "tag": "Sport"
-        },
-        {
-          "_elementType": "Genre",
-          "tag": "Drama"
-        },
-        {
-          "_elementType": "Writer",
-          "tag": "Sylvester Stallone"
-        },
-        {
-          "_elementType": "Director",
-          "tag": "Sylvester Stallone"
-        },
-        {
-          "_elementType": "Country",
-          "tag": "USA"
-        },
-        {
-          "_elementType": "Role",
-          "tag": "Sylvester Stallone"
-        },
-        {
-          "_elementType": "Role",
-          "tag": "Talia Shire"
-        },
-        {
-          "_elementType": "Role",
-          "tag": "Burt Young"
-        }
-      ]
-    }
-  ]
+  "MediaContainer": {
+    "size": 50,
+    "allowSync": false,
+    "identifier": "com.plexapp.plugins.library",
+    "mediaTagPrefix": "/system/bundle/media/flags/",
+    "mediaTagVersion": 1481837967,
+    "mixedParents": true,
+    "Metadata": [
+      {
+        "allowSync": true,
+        "librarySectionID": 1,
+        "librarySectionTitle": "Movies",
+        "librarySectionUUID": "d370c316-f79b-4810-b0cc-fad49bef2af7",
+        "ratingKey": "49724",
+        "key": "/library/metadata/49724",
+        "studio": "Fox 2000 Pictures",
+        "type": "movie",
+        "title": "Hidden Figures",
+        "contentRating": "PG",
+        "summary": "The incredible untold story of Katherine G. Johnson, Dorothy Vaughan and Mary Jackson - brilliant African-American women working at NASA, who served as the brains behind one of the greatest operations in history: the launch of astronaut John Glenn into orbit, a stunning achievement that restored the nation's confidence, turned around the Space Race, and galvanized the world. The visionary trio crossed all gender and race lines to inspire generations to dream big.",
+        "rating": 9.3,
+        "audienceRating": 9.4,
+        "year": 2017,
+        "tagline": "Meet the women you don't know, behind the mission you do.",
+        "thumb": "/library/metadata/49724/thumb/1490327440",
+        "art": "/library/metadata/49724/art/1490327440",
+        "duration": 7603062,
+        "originallyAvailableAt": "2017-01-06",
+        "addedAt": 1490327405,
+        "updatedAt": 1490327440,
+        "audienceRatingImage": "rottentomatoes://image.rating.upright",
+        "chapterSource": "media",
+        "primaryExtraKey": "/library/metadata/49725",
+        "ratingImage": "rottentomatoes://image.rating.certified",
+        "Media": [
+          {
+            "videoResolution": "1080",
+            "id": 135653,
+            "duration": 7603062,
+            "bitrate": 11111,
+            "width": 1920,
+            "height": 808,
+            "aspectRatio": 2.35,
+            "audioChannels": 6,
+            "audioCodec": "dca",
+            "videoCodec": "h264",
+            "container": "mkv",
+            "videoFrameRate": "24p",
+            "audioProfile": "dts",
+            "videoProfile": "high",
+            "Part": [
+              {
+                "id": 136430,
+                "key": "/library/parts/136430/1490335125/file.mkv",
+                "duration": 7603062,
+                "file": "/mnt/PLEX-MEDIA/Movies/Hidden Figures (2016)/Hidden Figures.mkv",
+                "size": 10559697658,
+                "audioProfile": "dts",
+                "container": "mkv",
+                "deepAnalysisVersion": "2",
+                "indexes": "sd",
+                "requiredBandwidths": "42252,29243,22270,16875,12600,12600,12600,12600",
+                "videoProfile": "high"
+              }
+            ]
+          }
+        ],
+        "Genre": [
+          {
+            "tag": "Biography"
+          },
+          {
+            "tag": "History"
+          },
+          {
+            "tag": "Drama"
+          }
+        ],
+        "Director": [
+          {
+            "tag": "Theodore Melfi"
+          }
+        ],
+        "Writer": [
+          {
+            "tag": "Allison Schroeder"
+          },
+          {
+            "tag": "Theodore Melfi"
+          }
+        ],
+        "Country": [
+          {
+            "tag": "USA"
+          }
+        ],
+        "Role": [
+          {
+            "tag": "Taraji P. Henson"
+          },
+          {
+            "tag": "Octavia Spencer"
+          },
+          {
+            "tag": "Janelle Monae"
+          }
+        ]
+      }
+    ]
+  }
 }

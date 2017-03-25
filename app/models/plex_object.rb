@@ -1,6 +1,6 @@
 class PlexObject < ActiveRecord::Base
 
-  belongs_to :plex_object_flavor, polymorphic: :true
+  belongs_to :plex_object_flavor, polymorphic: :true, validate: :true
   before_destroy :delete_thumbnail
   before_create :init
   after_save :get_img
@@ -12,6 +12,7 @@ class PlexObject < ActiveRecord::Base
 
   @@images_dir = 'public/images'
   DEFAULT_IMAGE_PATH = 'test/fixtures/images'
+  #TODO Configure placeholder image
   DEFAULT_IMAGE = 'placeholder.png'
 
   def self.set(options)
@@ -64,7 +65,7 @@ class PlexObject < ActiveRecord::Base
     #I'll be honest. I don't know why I needed to add this..
     #but the ".jpeg" name image problem seems to be fixed for now sooo....
     if self.id.blank?
-      logger.error("PlexObject id: #{self.id} was blank when getting image")
+      logger.error("PlexObject id: #{self.id} was blank when getting image.")
       return nil
     end
     if self.plex_object_flavor.plex_service.token.blank?
@@ -79,7 +80,7 @@ class PlexObject < ActiveRecord::Base
         logger.debug("Image #{self.image} found!")
         return self.image
       elsif self.image != DEFAULT_IMAGE
-        logger.debug("Image #{self.image} size was not > 100, replacing with placeholder")
+        logger.debug("Image #{self.image} size was not > 100, replacing with placeholder.")
         self.delete_thumbnail
         self.update!(image: DEFAULT_IMAGE)
         return self.image

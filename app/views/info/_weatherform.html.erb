@@ -1,0 +1,28 @@
+<%= simple_form_for @weather do |f| %>
+  <div class="row" id="default_info_div">
+    <div class="col-xs-6 form-group">
+      <%= f.input :api_key, label: 'API Key', placeholder: 'Forecast.io API key', required: false %>
+    </div>
+  </div>
+  <div class="row" id="address_options_div">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 form-group">
+      <%= f.input :address, placeholder: '1600 Amphitheatre Pkwy, Mountain View, CA 94043', required: false %>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2 col-sm-offset-4 col-sm-pull-4 col-lg-offset-0 col-lg-pull-0 form-group">
+      <%= f.input :latitude, label: 'Latitude', required: false %>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2 col-sm-pull-4 col-lg-pull-0 form-group">
+      <%= f.input :longitude, label: 'Longitude', required: false %>
+    </div>
+  </div>
+
+  <div class="row" id="buttons">
+    <div class="col-xs-12 form-group">
+      <% if request.original_url.include? 'edit' %>
+        <% str = "Are you sure you want to delete: #{@weather.name}?" %>
+        <%= link_to 'Delete Service', @weather, method: :delete, data: {confirm: str}, class: 'btn btn-md btn-danger' %>
+      <% end %>
+      <%= f.button :submit, class: 'btn-success pull-right' %>
+    </div>
+  </div>
+<% end %>

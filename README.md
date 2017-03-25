@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.5.5
+## Version 0.6.1
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
@@ -35,7 +35,7 @@ Here are a few screenshots of v0.4.2:
 
 ## System Requirements
 
-You should have enough space to allow logs and an image cache, so I wouldn't recommend using on a system with less that 1GB free HDD space.
+You should have enough space to allow logs and an image cache, so I wouldn't recommend using on a system with less than 1GB free HDD space.
 
 Rails can probably run on 512MB of RAM fine and CPU usage will vary. You can probably get away with a single core, but dual core may run smoother.
 
@@ -52,8 +52,8 @@ Other operating systems will probably work, but for now I'm only going to write 
 
 1. `sudo apt-get update; sudo apt-get install git bundler nodejs curl -y;`
 
-2. ```gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3;
-curl -sSL https://get.rvm.io | bash -s stable --rails```
+2.   `gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3;
+curl -sSL https://get.rvm.io | bash -s stable --rails`
 
 3. `source /usr/local/rvm/scripts/rvm`
 
@@ -61,14 +61,17 @@ curl -sSL https://get.rvm.io | bash -s stable --rails```
 
 4. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-5. `rvm use 2.3.0@plexdashboard --create; cd /opt/Plex-Board;` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
-Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`.
+5. `rvm use 2.3.0@plexdashboard --create` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
+Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`. If you get an error saying that the gemset already
+exists then you can omit `--create`.
 
 6. `cd /opt/Plex-Board`
 
 7. `rvm use 2.3.0@plexdashboard`
 
 8. `./serverSetup.sh`
+
+9. Check the `server_config.yml` file to see that all the settings match what you want them to.
 
 9. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.)
 You could keep it running if you start it in a screen session.

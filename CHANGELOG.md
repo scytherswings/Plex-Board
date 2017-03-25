@@ -2,6 +2,27 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.6.1] : 2017-3-25
+### Changed
+- Updated almost all of the gems used by this project.
+- Plex changed their API and it broke this app. This should be fixed now.
+- Changed maximum plex connection timeout to 1 second per attempt so we don't waste time.
+
+## [v0.5.7] : 2016-7-8
+### Changed
+- Fixed `serverSetup.sh` thanks to @VuokkoVuorinnen's PR.
+- Built a basic weather view, it's not pretty yet but it works.
+- Layout of the sidebars/main content. It should collapse in a better fashion now.
+
+### Removed
+- HTML 5 shim for IE. We don't support IE (or rather IE doesn't support modern and widely accepted standards) so this is pointless. 
+- Info/Status page. It had no use and I don't have a plan for it.
+
+## [v0.5.6] : 2016-5-7
+### Added
+- Weather class and beginnings of tests
+- Geolocation gem
+
 ## [v0.5.5] : 2016-4-27
 ### Added
 - Added some logic to recreate deleted images folder while the server is running.

@@ -6,22 +6,26 @@ class PlexServicesController < ApplicationController
   def index
     @services = Service.all
     @plex_services = PlexService.all
+    @weathers = Weather.all
     # redirect_to root_path
   end
 
   def edit
     @services = Service.all
     @plex_services = PlexService.all
+    @weathers = Weather.all
   end
 
   def show
     @services = Service.all
     @plex_services = PlexService.all
+    @weathers = Weather.all
   end
 
   def all_plex_services
     @services = Service.all
     @plex_services = PlexService.all
+    @weathers = Weather.all
   end
 
 
@@ -33,6 +37,7 @@ class PlexServicesController < ApplicationController
     @plex_services = PlexService.all
     @plex_service = PlexService.new
     @service = @plex_service.build_service
+    @weathers = Weather.all
   end
 
   def create

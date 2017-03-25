@@ -21,15 +21,14 @@ echo "Removing old databases if they exist"
 rm db/*.sqlite3
 echo
 echo "Creating and setting up new database for production"
-rake db:create RAILS_ENV=production
-rake db:schema:load RAILS_ENV=production
-rake db:migrate RAILS_ENV=production
-rake assets:precompile RAILS_ENV=production
+bundle exec rake db:create RAILS_ENV=production
+bundle exec rake db:schema:load RAILS_ENV=production
+bundle exec rake db:migrate RAILS_ENV=production
 echo
 echo "Compiling assets"
-bundle exec rake assets:precompile
+bundle exec rake assets:precompile RAILS_ENV=production
 echo
 echo "Creating images directory"
-mkdir public/images
+mkdir -p public/images
 echo
 echo "Finished. Run ./runServer.sh to start the server! It runs on port 3000 by default."

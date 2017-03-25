@@ -10,8 +10,10 @@ class ServicesController < ApplicationController
     @services = Service.all
     @plex_services = PlexService.all
     @plex_services.each { |ps| ps.update_plex_data }
+    @weathers = Weather.all
   rescue ActiveRecord::StatementInvalid => e
     logger.error "There was an error interacting with the database. The error was: #{e}"
+    sleep(0.25)
     retry unless (tries -= 1).zero?
   end
 
@@ -32,7 +34,7 @@ class ServicesController < ApplicationController
         @services = Service.all
 
         if @plex_services.empty? && @services.empty?
-          logger.info 'There were no PlexServices or Generic Services, sleeping for 60s.'
+          logger.debug 'There were no PlexServices or Generic Services, sleeping for 60s.'
           sleep(60)
         end
 
@@ -59,8 +61,8 @@ class ServicesController < ApplicationController
             events << {data: data, event: 'plex_now_playing'}
           end
           # plex_service.get_plex_recently_added
-          plex_service.plex_recently_addeds.try(:each_with_index) do |pra, x|
-            if x > 4
+          plex_service.plex_recently_addeds.try(:each_with_index) do |pra, i|
+            if i > 4
               break
             end
             logger.debug("Plex Recently Added media_title: #{pra.plex_object.media_title}, #{pra.plex_service.id}")
@@ -81,6 +83,7 @@ class ServicesController < ApplicationController
           if service.last_seen.nil?
             service.ping
           end
+          # TODO Add configuration parameter to control how often we check up on other services
           if !first_loop && !service.last_seen.nil? && service.last_seen > 10.seconds.ago #the sign is > because time always increases and we're using integers for time
             logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
             next
@@ -109,11 +112,11 @@ class ServicesController < ApplicationController
         first_loop = false #this allows us to show services and stuff as online immediately
       end
     rescue IOError
-      logger.info 'Stream closed: IO Error'
+      logger.warn 'Stream closed: IO Error'
     rescue ClientDisconnected
-      logger.info 'Stream closed: Client Disconnect'
-        # rescue StandardError => e
-        #   logger.error "An error occurred during the loop: #{e.message}"
+          logger.warn 'Stream closed: Client Disconnect'
+      # rescue StandardError => e
+      #   logger.error "An error occurred during the loop: #{e.message}"
     ensure
       sse.close
     end
@@ -124,26 +127,36 @@ class ServicesController < ApplicationController
   def show
     @services = Service.all
     # @service = Service.find(params[:id])
+    @weathers = Weather.all
   end
 
   def all_services
     @services = Service.all
+    @weathers = Weather.all
   end
 
   # GET /services/new
   def new
+    <<<<<<< HEAD
     @services = Service.all
     @service = Service.new
+    =======
+        @services = Service.all
+    @service = Service.new
+    @weathers = Weather.all
+    >>>>>>> master
     # @plex = Plex.new
   end
 
   def choose_service_type
     @services = Service.all
+    @weathers = Weather.all
   end
 
   # GET /services/1/edit
   def edit
     @services = Service.all
+    @weathers = Weather.all
   end
 
   # POST /services
