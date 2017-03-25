@@ -62,8 +62,8 @@ class PlexServicesController < ApplicationController
     end
   end
 
-  # DELETE /services/1
-  # DELETE /services/1.json
+# DELETE /services/1
+# DELETE /services/1.json
   def destroy
     @plex_service.destroy
     respond_to do |format|
@@ -74,13 +74,13 @@ class PlexServicesController < ApplicationController
 
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+# Use callbacks to share common setup or constraints between actions.
   def set_plex_service
     @plex_service = PlexService.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  # Going off of this site as a guide: http://astockwell.com/blog/2014/03/polymorphic-associations-in-rails-4-devise/
+# Never trust parameters from the scary internet, only allow the white list through.
+# Going off of this site as a guide: http://astockwell.com/blog/2014/03/polymorphic-associations-in-rails-4-devise/
   def plex_service_params
     params.require(:plex_service).permit(:username, :password, service_attributes: [:id, :name, :ip, :dns_name, :port, :url])
   end

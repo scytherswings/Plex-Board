@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-    include ActionController::Live
+  include ActionController::Live
 
   before_action :set_service, only: [:show, :edit, :update, :destroy]
 
@@ -9,15 +9,15 @@ class ServicesController < ApplicationController
     tries ||= 3
     @services = Service.all
     @plex_services = PlexService.all
-    @plex_services.each {|ps| ps.update_plex_data}
+    @plex_services.each { |ps| ps.update_plex_data }
   rescue ActiveRecord::StatementInvalid => e
     logger.error "There was an error interacting with the database. The error was: #{e}"
     retry unless (tries -= 1).zero?
   end
 
 
-# How to do SSE properly:
-# https://github.com/rails/rails/blob/6061c540ac7880233a6e32de85cec72c20ed8778/actionpack/lib/action_controller/metal/live.rb#L23
+  # How to do SSE properly:
+  # https://github.com/rails/rails/blob/6061c540ac7880233a6e32de85cec72c20ed8778/actionpack/lib/action_controller/metal/live.rb#L23
 
   def notifications
     response.headers['Content-Type'] = 'text/event-stream'
@@ -112,8 +112,8 @@ class ServicesController < ApplicationController
       logger.info 'Stream closed: IO Error'
     rescue ClientDisconnected
       logger.info 'Stream closed: Client Disconnect'
-    # rescue StandardError => e
-    #   logger.error "An error occurred during the loop: #{e.message}"
+        # rescue StandardError => e
+        #   logger.error "An error occurred during the loop: #{e.message}"
     ensure
       sse.close
     end
@@ -132,8 +132,8 @@ class ServicesController < ApplicationController
 
   # GET /services/new
   def new
-     @services = Service.all
-     @service = Service.new
+    @services = Service.all
+    @service = Service.new
     # @plex = Plex.new
   end
 
@@ -188,13 +188,13 @@ class ServicesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_service
-      @service = Service.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_service
+    @service = Service.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def service_params
-      params.require(:service).permit(:name, :ip, :dns_name, :port, :url)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def service_params
+    params.require(:service).permit(:name, :ip, :dns_name, :port, :url)
+  end
 end
