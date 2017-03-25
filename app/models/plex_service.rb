@@ -195,12 +195,12 @@ class PlexService < ActiveRecord::Base
 
     incoming_pras = response['MediaContainer']
 
-    if incoming_pras.blank? || incoming_pras['Metadata'].blank?
-      logger.error("The response from plex did not have any information under the Metadata key. Can't add new recently added.")
-      return nil
-    end
+    incoming_pras = incoming_pras['Metadata'] || []
 
-    incoming_pras = incoming_pras['Metadata']
+
+    if incoming_pras.blank?
+      logger.debug('It looks like there are no recentlyAdded objects. Stale entries will be removed.')
+    end
 
     stale_pras = plex_recently_addeds.map { |known_pra| known_pra.uuid } -
         incoming_pras.map { |new_pra| new_pra['librarySectionUUID'] }
