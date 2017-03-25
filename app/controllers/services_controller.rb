@@ -23,8 +23,10 @@ class ServicesController < ApplicationController
   def notifications
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 2000)
+    i = 0
     begin
       loop do
+        i+= 1
         events = Array.new
         @plex_services = PlexService.all
         @services = Service.all
@@ -58,8 +60,14 @@ class ServicesController < ApplicationController
         end
 
         @services.try(:each) do |service|
-          unless service.ping_for_status_change.nil?
+          if i % 10 == 0
+            logger.debug('Looped 10 times, sending all service statuses.')
+            service.ping
             events << {data: {id: service.id, html: render_to_string(partial: 'service', formats: [:html], locals: {service: service})}.to_json, event: 'online_status'}
+          else
+            unless service.ping_for_status_change.nil?
+              events << {data: {id: service.id, html: render_to_string(partial: 'service', formats: [:html], locals: {service: service})}.to_json, event: 'online_status'}
+            end
           end
         end
 
