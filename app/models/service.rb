@@ -47,6 +47,22 @@ class Service < ActiveRecord::Base
     end
   end
 
+  def is_online(boolean)
+    boolean ? 'online' : 'offline'
+  end
+
+  def ping_for_status_change
+    before_ping = online_status
+    after_ping = self.ping
+
+    if before_ping != after_ping
+      logger.info("Detected status change from #{self.is_online(before_ping)} to #{self.is_online(after_ping)}")
+      after_ping
+    else
+      nil
+    end
+  end
+
   def connect_method
     if !self.dns_name.blank?
       self.dns_name
@@ -83,7 +99,7 @@ class Service < ActiveRecord::Base
   rescue SQLite3::BusyException
     logger.warn "Database was busy trying to save online status. Trying: #{times} more time(s)."
     unless times -= 1 < 0
-    retry
+      retry
+    end
   end
-end
 end

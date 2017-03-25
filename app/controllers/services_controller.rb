@@ -41,8 +41,9 @@ class ServicesController < ApplicationController
         end
 
         @services.try(:each) do |service|
-          service.ping
-          events << {data: {id: service.id, html: render_to_string(partial: 'service', formats: [:html], locals: {service: service})}.to_json, event: 'online_status'}
+          unless service.ping_for_status_change.nil?
+            events << {data: {id: service.id, html: render_to_string(partial: 'service', formats: [:html], locals: {service: service})}.to_json, event: 'online_status'}
+          end
         end
 
         # @weathers.try(:each) do |weather|
