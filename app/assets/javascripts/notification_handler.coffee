@@ -16,7 +16,7 @@ source.addEventListener 'online_status', (e) ->
 
 source.addEventListener 'plex_now_playing', (e) ->
   plex_session = $.parseJSON(e.data)
-  console.log plex_session
+#  console.log plex_session
   #  console.log "Plex - Now Playing - session #{plex_session.session_id}"
   #.length tests to make sure that the id actually has elements
 
@@ -73,8 +73,8 @@ source.addEventListener 'plex_now_playing', (e) ->
 #    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
 #    console.log "PlexSession " + stale_sessions[k].id + " visible is " + $("#plex_session_" + stale_sessions[k].id).is(":visible")
 #    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
-    console.log "PlexSession " + stale_sessions[k].id + " has active class? " + $("##{stale_sessions[k].id}").hasClass("active")
-    console.log "PlexSession " + stale_sessions[k].id + " has active class? " + $("##{stale_sessions[k].id}").hasClass("next")
+#    console.log "PlexSession " + stale_sessions[k].id + " has active class? " + $("##{stale_sessions[k].id}").hasClass("active")
+#    console.log "PlexSession " + stale_sessions[k].id + " has active class? " + $("##{stale_sessions[k].id}").hasClass("next")
     #    console.log "PlexSession " + stale_sessions[k].id + " has item class? " + $("#plex_session_#{stale_sessions[k].id}").hasClass("item")
     if !$("##{stale_sessions[k].id}").hasClass("active") && !$("##{stale_sessions[k].id}").hasClass("next")
 #      console.log "Stale element found, removing.."
