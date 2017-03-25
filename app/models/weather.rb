@@ -67,7 +67,4 @@ class Weather < ActiveRecord::Base
     geo_search = Geocoder.search("#{self.latitude}, #{self.longitude}").first
     update!(city: geo_search.city, state: geo_search.state)
   end
-
-
-
 end

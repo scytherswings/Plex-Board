@@ -55,10 +55,7 @@ class ServicesController < ApplicationController
           else
             events << {data: [], event: 'plex_now_playing'}
           end
-
-
         end
-
 
         @services.try(:each) do |service|
           unless service.ping_for_status_change.nil?
@@ -70,7 +67,6 @@ class ServicesController < ApplicationController
         #   weather.get_weather
         #   events << {data: weather, event: 'weather'}
         # end
-
 
         events.each do |e|
           sse.write(e[:data], event: e[:event])
@@ -152,8 +148,9 @@ class ServicesController < ApplicationController
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
   def update
+    retries ||= 0
     respond_to do |format|
-      if @service.update!(service_params)
+      if @service.update(service_params)
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
         format.json { render :show, status: :ok, location: @service }
       else
@@ -161,7 +158,11 @@ class ServicesController < ApplicationController
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
     end
+  rescue ActiveRecord::StatementInvalid
+    logger.warn "Database was probably busy trying to save online status. Trying: #{(retries - 3).abs} more time(s)."
+    retry if (retries += 1) < 3
   end
+
 
   # DELETE /services/1
   # DELETE /services/1.json

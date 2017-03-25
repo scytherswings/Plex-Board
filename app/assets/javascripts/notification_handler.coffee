@@ -3,7 +3,7 @@ source = new EventSource('/services/notifications')
 
 source.addEventListener 'online_status', (e) ->
   service = $.parseJSON(e.data)
-  console.log(service)
+#  console.log(service)
   $('#service_' + service.id).replaceWith(service.html)
 
 #  $.get service.self_uri, (data) ->

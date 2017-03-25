@@ -143,13 +143,13 @@ class ActiveSupport::TestCase
     #     to_return(status: 200, body: File.open(Rails.root.join 'test/fixtures/JSON/', 'sign_in.json').read, headers: AUTH_HEADERS)
 
     # services.each { |name, value| instance_variable_set(name, value) }
-    @generic_service_one = services(:generic_service_one)
-    @generic_service_two = services(:generic_service_two)
-    @plex_1 = services(:plex_1)
-    @plex_2 = services(:plex_2)
-    @plex_3 = services(:plex_3)
-    @plex_4 = services(:plex_4)
-    @plex_5 = services(:plex_5)
+    @generic_service_one = services(:generic_service_one).online!
+    @generic_service_two = services(:generic_service_two).online!
+    @plex_1 = services(:plex_1).online!
+    @plex_2 = services(:plex_2).online!
+    @plex_3 = services(:plex_3).online!
+    @plex_4 = services(:plex_4).online!
+    @plex_5 = services(:plex_5).online!
     @plex_service_one = plex_services(:plex_service_one)
     @plex_service_with_no_token = plex_services(:plex_service_with_no_token)
     @plex_service_with_one_session = plex_services(:plex_service_with_one_session)

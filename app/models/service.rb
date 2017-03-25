@@ -4,13 +4,8 @@ class Service < ActiveRecord::Base
   has_one :server_load
   # before_destroy :destroy_associated
   after_initialize :init
-  after_create :ping
-  after_validation do
-    if Rails.cache.delete("service_#{self.id}/online")
-      logger.debug('Successfully deleted cache!')
-      ping
-    end
-  end
+  # after_create :ping
+  after_validation :clear_ping_cache!
 
   attr_accessor :timeout
   strip_attributes only: [:ip, :url, :dns_name], collapse_spaces: true
@@ -41,10 +36,22 @@ class Service < ActiveRecord::Base
     end
   end
 
-  def ping
-    Rails.cache.fetch("service_#{self.id}/online", expires_in: 10.seconds) do
-      check_online_status
+  def clear_ping_cache!
+    if Rails.cache.delete("service_#{id}/online")
+      logger.debug('Successfully deleted cache!')
     end
+    self
+  end
+
+  def ping
+    Rails.cache.fetch("service_#{id}/online", expires_in: 10.seconds) do
+      check_online_status
+      self.online_status
+    end
+  end
+
+  def online_status_string
+    is_online(online_status)
   end
 
   def is_online(boolean)
@@ -52,12 +59,10 @@ class Service < ActiveRecord::Base
   end
 
   def ping_for_status_change
-    before_ping = online_status
-    after_ping = self.ping
-
-    if before_ping != after_ping
-      logger.info("Detected status change from #{self.is_online(before_ping)} to #{self.is_online(after_ping)}")
-      after_ping
+    before_ping = self.online_status
+    if before_ping != ping
+      logger.info("Detected status change from #{is_online(before_ping)} to #{online_status_string}")
+      self.online_status
     else
       nil
     end
@@ -73,33 +78,48 @@ class Service < ActiveRecord::Base
 
   def as_json(options)
     json = super(only: [:id])
-    json[:self_uri] = Rails.application.routes.url_helpers.service_online_status_path(self.id)
+    json[:self_uri] = Rails.application.routes.url_helpers.service_online_status_path(id)
     json
+  end
+
+
+  def online!
+    self.online_status = true
+    self
+  end
+
+  def offline!
+    self.online_status = false
+    self
+  end
+
+  def online_status
+    Rails.cache.read("service/#{id}/online_status")
+  end
+
+  def online_status=(boolean_status)
+    Rails.cache.write("service/#{id}/online_status", boolean_status)
   end
 
   private
 
   def check_online_status
-    times ||= 2
+    # retries ||= 0
     ping_destination = connect_method
     begin
       Timeout.timeout(@timeout) do
         s = TCPSocket.new(ping_destination, self.port)
         s.close
-        self.update(online_status: true, last_seen: Time.now)
-        return true
+        self.online!
+        self.update(last_seen: Time.now)
       end
     rescue Errno::ECONNREFUSED
-      self.update(online_status: true, last_seen: Time.now)
-      return true
+      self.online!
     rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH, SocketError
-      self.update(online_status: false)
-      return false
+      self.offline!
     end
-  rescue SQLite3::BusyException
-    logger.warn "Database was busy trying to save online status. Trying: #{times} more time(s)."
-    unless times -= 1 < 0
-      retry
-    end
+    # rescue ActiveRecord::StatementInvalid
+    #   logger.warn "Database was probably busy trying to save online status. Trying: #{(retries - 3).abs} more time(s)."
+    #   retry if (retries += 1) < 3
   end
 end

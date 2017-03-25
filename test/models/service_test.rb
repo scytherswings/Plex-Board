@@ -126,13 +126,13 @@ class ServiceTest < ActiveSupport::TestCase
   # https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
   # Port 9 is discard protocol, so since we can make a handshake with it we know that our online_status checking works.
   test 'ping_for_status_change should be true when service goes online' do
-    service = Service.new(dns_name: '',  ip: '127.0.0.1', port: 9, online_status: false)
-    assert_equal(true,service.ping_for_status_change, '127.0.0.1:9 should be going from offline to online.')
+    service = Service.new(dns_name: '',  ip: '127.0.0.1', port: 9).offline!
+    assert(service.ping_for_status_change, '127.0.0.1:9 should be going from offline to online')
   end
 
   test 'ping_for_status_change should be nil when service online_status does not change' do
-    service = Service.new(dns_name: '',  ip: '127.0.0.1', port: 9, online_status: true)
-    assert_nil(service.ping_for_status_change, '127.0.0.1:9 should be online and be detected as online.')
+    service = Service.new(dns_name: '',  ip: '127.0.0.1', port: 9).online!
+    assert_nil(service.ping_for_status_change, '127.0.0.1:9 should be online and be detected as online')
   end
 
   # test 'api key must be >= 32 char' do
