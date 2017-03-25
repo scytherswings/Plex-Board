@@ -91,7 +91,7 @@ class PlexService < ActiveRecord::Base
     incoming_plex_sessions = sess['_children']
 
     #if plex has nothing, then fucking nuke that shit
-    if incoming_plex_sessions.empty?
+    if incoming_plex_sessions.blank?
       logger.debug('incoming_plex_sessions was empty... Deleting all sessions')
       plex_sessions.destroy_all
       return nil
