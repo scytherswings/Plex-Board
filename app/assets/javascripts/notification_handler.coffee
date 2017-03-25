@@ -55,7 +55,7 @@ source.addEventListener 'plex_now_playing', (e) ->
 #    console.log "Active session is: plex_session_" + plex_session.active_sessions[i]
       for j in [0...stale_sessions.length]
 #      console.log "j = " + j
-        console.log "Matching active session against: " + stale_sessions[j].id
+#        console.log "Matching active session against: " + stale_sessions[j].id
         if stale_sessions[j].id == ("plex_session_" + plex_session.active_sessions[i])
 #        console.log "Match!"
 #at position i, remove one element from the array
