@@ -22,5 +22,4 @@ class PlexSession < ActiveRecord::Base
     json[:update_at] = updated_at
     json
   end
-
 end

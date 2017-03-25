@@ -37,8 +37,28 @@ class ServicesController < ApplicationController
 
         @plex_services.try(:each) do |plex_service|
           plex_service.update_plex_data
-          events << {data: plex_service, event: 'plex_data'}
+          all_active_sessions = []
+          plex_service.plex_sessions.try(:each) do |plex_session|
+            all_active_sessions << {session_id: plex_session.id,
+                                    html: render_to_string(partial: 'plex_services/now_playing',
+                                                           formats: [:html],
+                                                           locals: {plex_session: plex_session,
+                                                                    active: ''}),
+                                    progress: plex_session.get_percent_done,
+                                    active_sessions: PlexSession.all.ids}
+
+          end
+          if all_active_sessions.length > 0
+            all_active_sessions.each do |active_session|
+              events << {data: active_session, event: 'plex_now_playing'}
+            end
+          else
+            events << {data: [], event: 'plex_now_playing'}
+          end
+
+
         end
+
 
         @services.try(:each) do |service|
           unless service.ping_for_status_change.nil?
@@ -163,4 +183,5 @@ class ServicesController < ApplicationController
   def service_params
     params.require(:service).permit(:name, :ip, :dns_name, :port, :url)
   end
+
 end
