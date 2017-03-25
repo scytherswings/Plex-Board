@@ -114,9 +114,9 @@ class ServicesController < ApplicationController
     rescue IOError
       logger.warn 'Stream closed: IO Error'
     rescue ClientDisconnected
-          logger.warn 'Stream closed: Client Disconnect'
-      # rescue StandardError => e
-      #   logger.error "An error occurred during the loop: #{e.message}"
+      logger.warn 'Stream closed: Client Disconnect'
+        # rescue StandardError => e
+        #   logger.error "An error occurred during the loop: #{e.message}"
     ensure
       sse.close
     end
@@ -137,14 +137,9 @@ class ServicesController < ApplicationController
 
   # GET /services/new
   def new
-    <<<<<<< HEAD
     @services = Service.all
     @service = Service.new
-    =======
-        @services = Service.all
-    @service = Service.new
     @weathers = Weather.all
-    >>>>>>> master
     # @plex = Plex.new
   end
 
