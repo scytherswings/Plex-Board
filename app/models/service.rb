@@ -1,37 +1,37 @@
 class Service < ActiveRecord::Base
-    belongs_to :service_flavor, polymorphic: :true
-    has_one :server_load
-    # before_destroy :destroy_associated
-    after_initialize :init
+  belongs_to :service_flavor, polymorphic: :true
+  has_one :server_load
+  # before_destroy :destroy_associated
+  after_initialize :init
 
-    attr_accessor :timeout
-    strip_attributes only: [:ip, :url, :dns_name], collapse_spaces: true
+  attr_accessor :timeout
+  strip_attributes only: [:ip, :url, :dns_name], collapse_spaces: true
 
-    validates_associated :service_flavor
-    validates :name, presence: true, uniqueness: true, allow_blank: false
-    validates :url, presence: true, uniqueness: true, allow_blank: false
-    validates_inclusion_of :port, in: 1..65535
-    validates :ip, length: { minimum: 7, maximum: 45 },
-        format: { with: Resolv::IPv4::Regex },
-        uniqueness: { scope: :port }, allow_blank: true
-    validates :dns_name, length: { minimum: 2, maximum: 127 },
-        uniqueness: { scope: :port }, allow_blank: true
-    validates :ip, presence: true, if: (:ip_and_dns_name_dont_exist)
-    validates :dns_name, presence: true, if: (:ip_and_dns_name_dont_exist)
+  validates_associated :service_flavor
+  validates :name, presence: true, uniqueness: true, allow_blank: false
+  validates :url, presence: true, uniqueness: true, allow_blank: false
+  validates_inclusion_of :port, in: 1..65535
+  validates :ip, length: {minimum: 7, maximum: 45},
+            format: {with: Resolv::IPv4::Regex},
+            uniqueness: {scope: :port}, allow_blank: true
+  validates :dns_name, length: {minimum: 2, maximum: 127},
+            uniqueness: {scope: :port}, allow_blank: true
+  validates :ip, presence: true, if: (:ip_and_dns_name_dont_exist)
+  validates :dns_name, presence: true, if: (:ip_and_dns_name_dont_exist)
 
-    def init
-      @timeout ||= 5
-      self.online_status ||= false
+  def init
+    @timeout ||= 5
+    self.online_status ||= false
+  end
+
+  def ip_and_dns_name_dont_exist
+    if (ip.blank? || ip.to_s.empty?) && (dns_name.blank? || dns_name.to_s.empty?)
+      self.errors.add(:base, 'IP Address or DNS Name must exist')
+      true
+    else
+      false
     end
-
-    def ip_and_dns_name_dont_exist
-        if (ip.blank? || ip.to_s.empty?) && (dns_name.blank? || dns_name.to_s.empty?)
-            self.errors.add(:base, 'IP Address or DNS Name must exist')
-            true
-        else
-            false
-        end
-    end
+  end
 
   def ping
     ping_destination = connect_method
