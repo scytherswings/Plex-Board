@@ -61,7 +61,6 @@ class Service < ActiveRecord::Base
 
   def ping_for_status_change
     before_ping = self.online_status
-
     if before_ping != ping
       logger.info("Detected status change from #{is_online(before_ping)} to #{online_status_string}")
       self.online_status
