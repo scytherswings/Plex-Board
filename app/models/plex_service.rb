@@ -87,7 +87,7 @@ class PlexService < ActiveRecord::Base
     end
     #chop off the stupid children tag thing
     #so the shit is in a single element array. this is terribly messy... yuck
-    incoming_plex_sessions = sess['_children']
+    incoming_plex_sessions = sess['MediaContainer']['Video']
 
     #if plex has nothing, then fucking nuke that shit
     if incoming_plex_sessions.blank?
