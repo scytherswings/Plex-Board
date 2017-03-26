@@ -127,7 +127,7 @@ class ServiceTest < ActiveSupport::TestCase
   # Port 9 is discard protocol, so since we can make a handshake with it we know that our online_status checking works.
   test 'ping_for_status_change should be true when service goes online' do
     service = Service.new(dns_name: '',  ip: '127.0.0.1', port: 6379).offline!
-    assert(service.ping_for_status_change, '127.0.0.1:9 should be going from offline to online')
+    assert(service.ping_for_status_change, '127.0.0.1:6379 should be going from offline to online')
   end
 
   test 'ping_for_status_change should be nil when service online_status does not change' do

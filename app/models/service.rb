@@ -109,23 +109,19 @@ class Service < ActiveRecord::Base
   private
 
   def check_online_status
-    # retries ||= 0
     ping_destination = connect_method
     begin
       Timeout.timeout(@timeout) do
-        s = TCPSocket.new(ping_destination, self.port)
+        s = TCPSocket.new(ping_destination, port)
         s.close
         online!
         update(last_seen: Time.now)
       end
-        # TODO: Use connection refused to indicate that the server itself is still responding.
+        #TODO: Use connection refused to indicate that the server itself is still responding.
     rescue Errno::ECONNREFUSED
       offline!
     rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH, SocketError
       offline!
     end
-    # rescue ActiveRecord::StatementInvalid
-    #   logger.warn "Database was probably busy trying to save online status. Trying: #{(retries - 3).abs} more time(s)."
-    #   retry if (retries += 1) < 3
   end
 end
