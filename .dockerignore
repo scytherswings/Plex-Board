@@ -1,0 +1,9 @@
+.git
+.dockerignore
+config/secrets.yml
+coverage
+.bundle
+tmp
+public/images
+log/*
+db/*.sqlite3
