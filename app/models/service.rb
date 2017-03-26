@@ -13,14 +13,18 @@ class Service < ActiveRecord::Base
   validates_associated :service_flavor
   validates :name, presence: true, uniqueness: true, allow_blank: false
   validates :url, presence: true, uniqueness: true, allow_blank: false
-  validates_inclusion_of :port, in: 1..65535
-  validates :ip, length: {minimum: 7, maximum: 45},
+  validates_inclusion_of :port, in: 1..65_535
+  validates :ip,
+            length: {minimum: 7, maximum: 45},
             format: {with: Resolv::IPv4::Regex},
-            uniqueness: {scope: :port}, allow_blank: true
-  validates :dns_name, length: {minimum: 2, maximum: 127},
-            uniqueness: {scope: :port}, allow_blank: true
-  validates :ip, presence: true, if: (:ip_and_dns_name_dont_exist)
-  validates :dns_name, presence: true, if: (:ip_and_dns_name_dont_exist)
+            uniqueness: {scope: :port},
+            allow_blank: true
+  validates :dns_name,
+            length: {minimum: 2, maximum: 127},
+            uniqueness: {scope: :port},
+            allow_blank: true
+  validates :ip, presence: true, if: :ip_and_dns_name_dont_exist
+  validates :dns_name, presence: true, if: :ip_and_dns_name_dont_exist
 
   def init
     @timeout ||= 5
@@ -29,7 +33,7 @@ class Service < ActiveRecord::Base
 
   def ip_and_dns_name_dont_exist
     if (ip.blank? || ip.to_s.empty?) && (dns_name.blank? || dns_name.to_s.empty?)
-      self.errors.add(:base, 'IP Address or DNS Name must exist')
+      errors.add(:base, 'IP Address or DNS Name must exist')
       true
     else
       false
@@ -44,25 +48,25 @@ class Service < ActiveRecord::Base
   end
 
   def ping
-   ping_status = Rails.cache.fetch("service_#{id}/online", expires_in: 10.seconds) do
+    ping_status = Rails.cache.fetch("service_#{id}/online", expires_in: 10.seconds) do
       check_online_status
       self.online_status
-   end
+    end
     !ping_status.nil?
   end
 
   def online_status_string
-    is_online(online_status)
+    online?(online_status)
   end
 
-  def is_online(boolean)
+  def online?(boolean)
     boolean ? 'online' : 'offline'
   end
 
   def ping_for_status_change
     before_ping = self.online_status
     if before_ping != ping
-      logger.info("Detected status change from #{is_online(before_ping)} to #{online_status_string}")
+      logger.info("Detected status change from #{online?(before_ping)} to #{online_status_string}")
       self.online_status
     else
       nil
@@ -70,10 +74,10 @@ class Service < ActiveRecord::Base
   end
 
   def connect_method
-    if !self.dns_name.blank?
-      self.dns_name
+    if !dns_name.blank?
+      dns_name
     else
-      self.ip
+      ip
     end
   end
 
@@ -111,13 +115,14 @@ class Service < ActiveRecord::Base
       Timeout.timeout(@timeout) do
         s = TCPSocket.new(ping_destination, self.port)
         s.close
-        self.online!
-        self.update(last_seen: Time.now)
+        online!
+        update(last_seen: Time.now)
       end
+        # TODO: Use connection refused to indicate that the server itself is still responding.
     rescue Errno::ECONNREFUSED
-      self.online!
+      offline!
     rescue Timeout::Error, Errno::ENETUNREACH, Errno::EHOSTUNREACH, SocketError
-      self.offline!
+      offline!
     end
     # rescue ActiveRecord::StatementInvalid
     #   logger.warn "Database was probably busy trying to save online status. Trying: #{(retries - 3).abs} more time(s)."
