@@ -4,7 +4,13 @@ FROM ruby:2.3.3-slim
 ENV RAILS_ROOT /var/www/plexdashboard
 ENV RAILS_ENV production
 # Install essential Linux packages
-RUN apt-get update -qq && apt-get install -y bundler nodejs curl libsqlite3-dev;
+RUN apt-get update -qq && apt-get install -y \
+    bundler \
+    nodejs \
+    curl \
+    libsqlite3-dev \
+  && rm -rf /var/lib/apt/lists/*
+
 
 # Create application home. App server will need the pids dir so just create everything in one shot
 RUN mkdir -p $RAILS_ROOT/tmp/pids
@@ -23,15 +29,15 @@ COPY Gemfile.lock Gemfile.lock
 RUN gem install bundler
 
 # Finish establishing our Ruby enviornment
-RUN bundle install
+RUN bundle install --binstubs --without development test
 
 # Copy the Rails application into place
 COPY . .
 
-CMD [ "serverSetup.sh" ]
+CMD [ "dockerSetup.sh" ]
 
 EXPOSE 3000
 
 # Define the script we want run once the container boots
 # Use the "exec" form of CMD so our script shuts down gracefully on SIGTERM (i.e. `docker stop`)
-CMD [ "bundle exec puma -e production -p 3000" ]
+CMD [ "bundle exec rails server -e production -p 3000 -b 0.0.0.0" ]
