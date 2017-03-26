@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.7.1] : 2017-3-2
+### Changed
+- Increased database threadpool so puma doesn't run out 
+http://stackoverflow.com/questions/12045495/activerecordconnectiontimeouterror-happening-sporadically
+
 ## [v0.7.0] : 2017-3-25
 ### Changed
 - All online statuses are now held in cache. This makes SQLite3 much more happy.
