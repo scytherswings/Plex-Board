@@ -4,7 +4,7 @@ sudo: false
 services:
   - redis
 rvm:
-  - 2.3.0
+  - 2.3.1
 cache: bundler
 script:
   - /bin/bash travisSetup.sh

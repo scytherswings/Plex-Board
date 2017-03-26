@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.7.1
+## Version 0.7.2
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
@@ -10,10 +10,7 @@ What is Plex-Board? Put simply, it is a dynamic dashboard for checking the statu
 
 This is essentially a revamp of a cool project ([Network-Status-Page](https://github.com/scytherswings/Network-Status-Page)) I forked a little while ago.
 
-Pronounced "Plex Dashboard" like that ghetto name [La-a][] (La Dash A)... sorry...
-
-[La-a]: http://www.urbandictionary.com/define.php?term=la-a
-
+Pronounced "Plex Dashboard" like that ghetto name [La-a](http://www.urbandictionary.com/define.php?term=la-a) (La Dash A)... sorry...
 
 Just for clarification, yes this is _another_ Plex dashboard, but this project is _different_ and I'll tell you why.
 
@@ -22,7 +19,7 @@ Plex-Board is meant to help the users **and** administrators of a Plex server ge
 There's a large list of features I plan to support in the future and I take all requests into consideration. If there is something you'd like to see, feel free to chat about it on Gitter, or create a feature request ticket.
 
 
-Here are a few screenshots of v0.4.2:
+Here are a few screenshots of v0.4.2 (the last major UI update):
 ![Now-Playing](http://i.imgur.com/WjyXjMv.png)
 
 ![Recently Added](http://i.imgur.com/C0ZEvvW.png)

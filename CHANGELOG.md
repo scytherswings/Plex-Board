@@ -2,7 +2,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [v0.7.1] : 2017-3-2
+
+## [v0.7.2] : 2017-3-26
+### Changed
+- Fixed broken service online status check. It was showing services as online that
+  rejected the connection attempt. A test covers this properly now at the cost of a
+  dependency on `redis` (for ease of install in Travis-CI). If you're going to run the tests
+  locally then you'll need to install redis/something running on `6379`, or disable that test.
+- Upgrade to Ruby 2.3.1
+    - If you're running ruby 2.3.0 you can upgrade your ruby by doing
+    `rvm upgrade 2.3.0 2.3.1`
+
+## [v0.7.1] : 2017-3-26
 ### Changed
 - Increased database threadpool so puma doesn't run out 
 http://stackoverflow.com/questions/12045495/activerecordconnectiontimeouterror-happening-sporadically
