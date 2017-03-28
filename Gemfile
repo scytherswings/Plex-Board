@@ -25,6 +25,7 @@ gem 'forecast_io', '~> 2.0'
 gem 'geocoder', '~> 1.4.3'
 gem 'tzinfo', '~> 1.2.2'
 gem 'lograge'
+gem 'browserlog', git: 'https://github.com/scytherswings/browserlog'
 
 group :development, :test do
   gem 'spring', '~> 2.0.1'

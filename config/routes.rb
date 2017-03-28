@@ -1,3 +1,4 @@
+require 'browserlog'
 Rails.application.routes.draw do
 
   root 'services#index'
@@ -10,7 +11,7 @@ Rails.application.routes.draw do
   get 'recently_added' => 'plex_services#recently_added'
 
   resources :services do
-    collection { get :notifications}
+    collection { get :notifications }
     get :online_status
   end
 
@@ -18,4 +19,8 @@ Rails.application.routes.draw do
     get :now_playing
   end
   resources :weather
+
+
+  mount Browserlog::Engine => '/logs'
+
 end

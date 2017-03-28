@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/scytherswings/browserlog
+  revision: 872518a9d24513518c950a0aa4657066d7c80be5
+  specs:
+    browserlog (0.0.3)
+      jquery-rails (>= 3)
+      rails (>= 3.2.18)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -223,9 +231,9 @@ GEM
     tins (1.13.2)
     turbolinks (2.5.3)
       coffee-rails
-    tzinfo (1.2.2)
+    tzinfo (1.2.3)
       thread_safe (~> 0.1)
-    uglifier (3.1.9)
+    uglifier (3.1.10)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -247,6 +255,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails (~> 6.7.7.1)
   bootstrap-sass (~> 3.3.7)
+  browserlog!
   capybara (~> 2.13.0)
   capybara-screenshot
   coffee-rails (~> 4.2.1)

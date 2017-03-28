@@ -87,7 +87,6 @@ class Service < ActiveRecord::Base
     json
   end
 
-
   def online!
     self.online_status = true
     self
