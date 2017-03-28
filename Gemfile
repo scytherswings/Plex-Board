@@ -24,6 +24,7 @@ gem 'rake', '~> 12.0.0'
 gem 'forecast_io', '~> 2.0'
 gem 'geocoder', '~> 1.4.3'
 gem 'tzinfo', '~> 1.2.2'
+gem 'lograge'
 
 group :development, :test do
   gem 'spring', '~> 2.0.1'
