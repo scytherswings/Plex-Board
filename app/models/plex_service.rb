@@ -44,8 +44,11 @@ class PlexService < ActiveRecord::Base
 
   def update_plex_data
     unless token.nil?
-      get_plex_sessions
-      get_plex_recently_added
+      Rails.cache.fetch("plex_service_#{self.id}/update_plex_data", expires_in: 10.seconds) do
+        get_plex_sessions
+        get_plex_recently_added
+        self
+      end
     end
   rescue => ex
     @api_error = true
@@ -125,7 +128,7 @@ class PlexService < ActiveRecord::Base
     new_view_offsets = Hash.new
 
     incoming_plex_sessions.each do |new_session|
-      new_view_offsets.merge!(Integer(new_session["sessionKey"]) => new_session["viewOffset"])
+      new_view_offsets.merge!(new_session["sessionKey"] => new_session["viewOffset"])
     end
 
     logger.debug("new_view_offsets #{new_view_offsets}")
@@ -159,7 +162,7 @@ class PlexService < ActiveRecord::Base
       temp_thumb = new_session["thumb"]
     end
     #create a new sesion object with the shit we found in the json blob
-    plex_sessions.create!(plex_user_name: new_session_name, total_duration: new_session["duration"],
+    new_session = plex_sessions.create!(plex_user_name: new_session_name, total_duration: new_session["duration"],
                           progress: new_session["viewOffset"], session_key: new_session["sessionKey"],
                           plex_object_attributes: {description: new_session["summary"],
                                                    media_title: new_session["title"],

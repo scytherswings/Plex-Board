@@ -9,7 +9,6 @@ class ServicesController < ApplicationController
     tries ||= 3
     @services = Service.all
     @plex_services = PlexService.all
-    @plex_services.each { |ps| ps.update_plex_data }
     @weathers = Weather.all
   rescue ActiveRecord::StatementInvalid => e
     logger.error "There was an error interacting with the database. The error was: #{e}"
@@ -24,92 +23,63 @@ class ServicesController < ApplicationController
   def notifications
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 2000)
+    i = 0
     begin
-      # logger.debug(SSE.instance_methods)
-      first_loop = true
-      while true
-        is_data_ready = false
+      loop do
+        i+= 1
         events = Array.new
         @plex_services = PlexService.all
         @services = Service.all
+        # @weathers = Weather.all
 
         if @plex_services.empty? && @services.empty?
-          logger.debug 'There were no PlexServices or Generic Services, sleeping for 60s.'
-          sleep(60)
+          logger.debug 'There were no PlexServices or Generic Services, sleeping for 10s.'
+          sleep(10)
         end
 
-        @plex_services.each do |plex_service|
+        @plex_services.try(:each) do |plex_service|
           plex_service.update_plex_data
+          all_active_sessions = []
           plex_service.plex_sessions.try(:each) do |plex_session|
-            logger.debug("Plex session media_title: #{plex_session.plex_object.media_title}, #{plex_session.plex_service.id}")
-            data = {
-                session_id: plex_session.id,
-                progress: plex_session.get_percent_done,
-                media_title: plex_session.plex_object.media_title,
-                description: plex_session.plex_object.get_description,
-                image: plex_session.plex_object.get_img,
-                active_sessions: PlexSession.all.ids
-            }
-            is_data_ready = true
-            events << {data: data, event: 'plex_now_playing'}
+            all_active_sessions << {session_id: plex_session.id,
+                                    html: render_to_string(partial: 'plex_services/now_playing',
+                                                           formats: [:html],
+                                                           locals: {plex_session: plex_session,
+                                                                    active: ''}),
+                                    progress: plex_session.get_percent_done,
+                                    active_sessions: PlexSession.all.ids}
+
           end
-          if plex_service.plex_sessions.count < 1
-            data = {
-                active_sessions: 0
-            }
-            is_data_ready = true
-            events << {data: data, event: 'plex_now_playing'}
-          end
-          # plex_service.get_plex_recently_added
-          plex_service.plex_recently_addeds.try(:each_with_index) do |pra, i|
-            if i > 4
-              break
+          if all_active_sessions.length > 0
+            all_active_sessions.each do |active_session|
+              events << {data: active_session, event: 'plex_now_playing'}
             end
-            logger.debug("Plex Recently Added media_title: #{pra.plex_object.media_title}, #{pra.plex_service.id}")
-            data = {
-                id: pra.id,
-                media_title: pra.plex_object.media_title,
-                description: pra.plex_object.get_description,
-                added_date: pra.get_added_date,
-                image: pra.plex_object.get_img,
-                active_pras: PlexRecentlyAdded.all.ids
-            }
-            is_data_ready = true
-            events << {data: data, event: 'plex_recently_added'}
+          elsif i % 5 == 0
+            events << {data: [], event: 'plex_now_playing'}
           end
         end
 
-        @services.each do |service|
-          if service.last_seen.nil?
+        @services.try(:each) do |service|
+          if i % 5 == 0
+            logger.debug('Looped 5 times, sending all service statuses.')
             service.ping
+            events << {data: {id: service.id, html: render_to_string(partial: 'service', formats: [:html], locals: {service: service})}.to_json, event: 'online_status'}
+          else
+            unless service.ping_for_status_change.nil?
+              events << {data: {id: service.id, html: render_to_string(partial: 'service', formats: [:html], locals: {service: service})}.to_json, event: 'online_status'}
+            end
           end
-          # TODO Add configuration parameter to control how often we check up on other services
-          if !first_loop && !service.last_seen.nil? && service.last_seen > 10.seconds.ago #the sign is > because time always increases and we're using integers for time
-            logger.debug("Service #{service.name} was checked < 10 seconds ago, skipping.")
-            next
-          end
-          is_data_ready = true
-          service.ping
-          data = {
-              service_id: service.id,
-              name: service.name,
-              online_status: service.online_status,
-              last_seen: service.last_seen,
-              url: service.url
-          }
-          events << {data: data, event: 'online_status'}
-          # sse.write(data.to_json,  event: 'online_status')
         end
-        sleep(4)
-        if is_data_ready
-          events.each do |event|
-            sse.write(event[:data], event: event[:event])
-          end
-        else
-          # sse.write('keepalive', event: 'keepalive')
-          sleep(2)
+
+        # @weathers.try(:each) do |weather|
+        #   weather.get_weather
+        #   events << {data: weather, event: 'weather'}
+        # end
+
+        events.each do |e|
+          sse.write(e[:data], event: e[:event])
         end
-        first_loop = false #this allows us to show services and stuff as online immediately
+        sleep 2
       end
     rescue IOError
       logger.warn 'Stream closed: IO Error'
@@ -121,6 +91,18 @@ class ServicesController < ApplicationController
       sse.close
     end
   end
+
+  # GET /services/:id/online_status
+  # GET /services/:id/online_status.json
+  def online_status
+    @service = Service.find(params[:service_id])
+
+    respond_to do |format|
+      format.html { render @service }
+      format.json { render @service }
+    end
+  end
+
 
   # GET /services/1
   # GET /services/1.json
@@ -174,6 +156,7 @@ class ServicesController < ApplicationController
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
   def update
+    retries ||= 0
     respond_to do |format|
       if @service.update(service_params)
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
@@ -183,7 +166,11 @@ class ServicesController < ApplicationController
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
     end
+  rescue ActiveRecord::StatementInvalid
+    logger.warn "Database was probably busy trying to save online status. Trying: #{(retries - 3).abs} more time(s)."
+    retry if (retries += 1) < 3
   end
+
 
   # DELETE /services/1
   # DELETE /services/1.json
@@ -205,4 +192,5 @@ class ServicesController < ApplicationController
   def service_params
     params.require(:service).permit(:name, :ip, :dns_name, :port, :url)
   end
+
 end

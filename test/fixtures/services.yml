@@ -4,7 +4,6 @@ generic_service_one:
   dns_name: localhost1
   port: 80
   url: http://localhost1
-  online_status: true
 
 generic_service_two:
   name: Test Service Two
@@ -12,7 +11,6 @@ generic_service_two:
   dns_name: localhost2
   port: 80
   url: http://localhost2
-  online_status: true
 
 plex_1:
   name: plex_service_one
@@ -21,7 +19,6 @@ plex_1:
   port: 32400
   url: http://127.0.0.3
   service_flavor: plex_service_one (PlexService)
-  online_status: true
 
 plex_2:
   name: plex_service_no_token
@@ -30,7 +27,6 @@ plex_2:
   port: 32400
   url: http://127.0.0.4
   service_flavor: plex_service_with_no_token (PlexService)
-  online_status: true
 
 plex_3:
   name: plex_service_with_one_session
@@ -39,7 +35,6 @@ plex_3:
   port: 32400
   url: http://127.0.0.5
   service_flavor: plex_service_with_one_session (PlexService)
-  online_status: true
 
 plex_4:
   name: plex_service_with_two_sessions
@@ -48,7 +43,6 @@ plex_4:
   port: 32400
   url: http://127.0.0.6
   service_flavor: plex_service_with_two_sessions (PlexService)
-  online_status: true
 
 plex_5:
   name: plex_service_with_one_recently_added
@@ -57,4 +51,3 @@ plex_5:
   port: 32400
   url: http://127.0.0.7
   service_flavor: plex_service_with_one_recently_added (PlexService)
-  online_status: true

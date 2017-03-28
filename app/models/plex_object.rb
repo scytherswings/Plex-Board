@@ -1,6 +1,6 @@
 class PlexObject < ActiveRecord::Base
 
-  belongs_to :plex_object_flavor, polymorphic: :true, validate: :true
+  belongs_to :plex_object_flavor, polymorphic: :true, validate: :true, dependent: :destroy
   before_destroy :delete_thumbnail
   before_create :init
   after_save :get_img
@@ -30,6 +30,16 @@ class PlexObject < ActiveRecord::Base
     self.image ||= DEFAULT_IMAGE
     create_default_image_directory
   end
+
+  def as_json(options)
+    json = super(only: [:id, :media_title, :description])
+    json[:plex_thumb_url] = thumb_url
+    json[:image_uri] = ActionView::Helpers::AssetUrlHelper.image_url(image)
+    json[:created_at] = created_at
+    json[:update_at] = updated_at
+    json
+  end
+
 
   def create_default_image_directory
     unless File.directory?(@@images_dir)
@@ -61,18 +71,17 @@ class PlexObject < ActiveRecord::Base
   end
 
   def get_img
-    connection_string = 'https://' + self.plex_object_flavor.plex_service.service.connect_method + ':' + self.plex_object_flavor.plex_service.service.port.to_s
-    #I'll be honest. I don't know why I needed to add this..
-    #but the ".jpeg" name image problem seems to be fixed for now sooo....
     if self.id.blank?
-      logger.error("PlexObject id: #{self.id} was blank when getting image.")
-      return nil
+      logger.error("PlexObject id: #{self.id} was blank when getting image")
+      return DEFAULT_IMAGE
     end
     if self.plex_object_flavor.plex_service.token.blank?
       logger.error("PlexObject id: #{self.id} plex token was blank. Can't fetch image.")
-      return self.image
+      return DEFAULT_IMAGE
     end
 
+    #I'll be honest. I don't know why I needed to add this..
+    #but the ".jpeg" name image problem seems to be fixed for now sooo....
     imagefile = "#{@@images_dir}/#{self.id}.jpeg"
     #Check if the file exists, if it does return the name of the image
     if File.file?(imagefile)
@@ -86,25 +95,32 @@ class PlexObject < ActiveRecord::Base
         return self.image
       end
     end
-
     logger.debug('Image was not found or was invalid, fetching...')
+    fetch_image
+  end
 
+  def fetch_image
+    connection_string = 'https://' + self.plex_object_flavor.plex_service.service.connect_method + ':' + self.plex_object_flavor.plex_service.service.port.to_s
     headers = {
         'X-Plex-Token': self.plex_object_flavor.plex_service.token,
         'Accept': 'image/jpeg'
     }
     if self.thumb_url.nil?
       logger.error("thumb_url was nil for plex_object id: #{self.id}. Can't fetch thumbnail")
-      return nil
+      return DEFAULT_IMAGE
     end
 
+    imagefile = "#{@@images_dir}/#{self.id}.jpeg"
+
+    #TODO: Add control for timeouts
     begin
       tries ||= 1
       File.open(imagefile, 'wb') do |f|
         f.write(RestClient::Request.execute(method: :get, url: "#{connection_string}#{self.thumb_url}",
-                                            headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE))
+                                            headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
+                                            timeout: 2, open_timeout: 2))
       end
-    rescue Errno::ENOENT
+    rescue Errno::ENOENT, RestClient::NotFound, RestClient::Exceptions::Timeout, RestClient::Exceptions::OpenTimeout
       if (tries -= 1) >= 0
         create_default_image_directory
         retry
@@ -113,14 +129,14 @@ class PlexObject < ActiveRecord::Base
       logger.error "There was a problem opening the image file: #{imagefile} for write-binary mode. Returning placeholder.png"
       return DEFAULT_IMAGE
     end
-      self.update!(image: "#{self.id}.jpeg")
-      logger.debug("Plex Object ID: #{self.id} updated to image #{self.image}")
-      self.image
+    self.update!(image: "#{self.id}.jpeg")
+    logger.debug("Plex Object ID: #{self.id} updated to image #{self.image}")
+    self.image
   end
 
   #TODO Add this to configuration
   def get_description
     # limit the length of the description to 200 characters, if over 200, add ellipsis
-    self.description[0..200].gsub(/\s\w+\s*$/,'...')
+    self.description[0..200].gsub(/\s\w+\s*$/, '...')
   end
 end

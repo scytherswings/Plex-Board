@@ -1,8 +1,7 @@
 require 'test_helper'
 
 Fabricator(:service) do
-  transient :s_name, :s_url, :s_dns_name, :s_ip, :s_port, :s_online_status
-  online_status { |attrs| attrs[:s_online_status] ? attrs[:s_online_status] : true }
+  transient :s_name, :s_url, :s_dns_name, :s_ip, :s_port
   name { |attrs| attrs[:s_name] ? attrs[:s_name] : Faker::App.name + rand(10000).to_s }
   url { |attrs| attrs[:s_url] ? attrs[:s_url] : Faker::Internet.url }
   dns_name { |attrs| attrs[:s_dns_name] ? attrs[:s_dns_name] : Faker::Internet.domain_name + rand(10000).to_s }

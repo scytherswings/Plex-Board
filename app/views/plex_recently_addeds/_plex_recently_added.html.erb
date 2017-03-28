@@ -1,0 +1,14 @@
+<div id="@plex_recently_added_<%= @plex_recently_added.id %>" class="item <%= @active %>">
+  <div style="overflow: auto; height: 90%;">
+    <h2>Recently Added</h2>
+    <div class="thumbnail">
+      <%= image_tag @plex_recently_added.plex_object.get_img %>
+      <h3><%= @plex_recently_added.plex_object.media_title %></h3>
+      <p><%= @plex_recently_added.plex_object.get_description %></p>
+      <p>Added to <%= link_to @plex_recently_added.plex_service.service.name,
+                              {controller: @plex_recently_added.plex_service.service.service_flavor_type.tableize,
+                               action: 'show', id: @plex_recently_added.plex_service.service.service_flavor_id},
+                              class: 'h2_index_link'%> on <%= @plex_recently_added.get_added_date %></p>
+    </div>
+  </div>
+</div>

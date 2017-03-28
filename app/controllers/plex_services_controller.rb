@@ -1,6 +1,4 @@
 class PlexServicesController < ApplicationController
-
-
   before_action :set_plex_service, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -28,9 +26,50 @@ class PlexServicesController < ApplicationController
     @weathers = Weather.all
   end
 
+  # GET /now_playings/1
+  # GET /now_playings/1.json
+  def now_playing
+    if params[:id].nil? && params[:plex_service_id]
+      @plex_sessions = PlexService.find(params[:plex_service_id]).plex_sessions
+      @active = ''
+      respond_to do |format|
+        format.html { render partial: 'plex_services/plex_session', collection: @plex_sessions }
+        format.json { render json:  @plex_sessions }
+      end
+    else
+      @plex_session = PlexSession.find(params[:id])
+      @active = ''
 
-# need to use build_service!!!!! This article sparked my thoughts to use build
-# http://stackoverflow.com/questions/26458417/rails-polymorphic-posts-associations-and-form-for-in-views
+      if params[:active] && params[:active].casecmp('true').zero?
+        @active = 'active'
+      end
+
+      respond_to do |format|
+        format.html { render @plex_session }
+        format.json { render @plex_session }
+      end
+    end
+  end
+
+  # GET /recently_addeds/1
+  # GET /recently_addeds/1.json
+  def recently_added
+    @plex_recently_added = PlexRecentlyAdded.find(params[:id])
+    @active = ''
+
+    if params[:active] && params[:active].casecmp('true').zero?
+      @active = 'active'
+    end
+
+    respond_to do |format|
+      format.html { render @plex_recently_added }
+      format.json { render @plex_recently_added }
+    end
+  end
+
+
+  # need to use build_service!!!!! This article sparked my thoughts to use build
+  # http://stackoverflow.com/questions/26458417/rails-polymorphic-posts-associations-and-form-for-in-views
 
   def new
     @services = Service.all
