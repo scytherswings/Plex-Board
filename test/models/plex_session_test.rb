@@ -27,6 +27,20 @@ class PlexSessionTest < ActiveSupport::TestCase
     assert_not duplicate_session.valid?, 'Duplicate session should not be valid'
   end
 
+  # test 'session will correctly identify stream type' do
+  #     @plex.plex_sessions.destroy_all
+  #     assert_equal 0, @plex_service_with_two_sessions.plex_sessions.count
+  #     @plex_service_with_two_sessions.service.reload
+  #     assert_equal('Transcode' ,@plex_service_with_two_sessions.session,'sum ting wong')
+  #     assert_difference('@plex_service_with_two_sessions.plex_sessions.count', +2) do
+  #       assert_not_nil @plex_service_with_two_sessions.get_plex_sessions, 'Getting plex sessions returned nil'
+  #       assert_requested(:get, 'https://plex6:32400/status/sessions')
+  #     end
+  #   @plex_service_with_two_sessions.plex_sessions.destroy_all
+  #   assert_equal('Transcode' ,.stream_type,'sum ting wong')
+  #   assert_equal('Stream', @plex_service_w2sess_session_2.stream_type, 'fuku')
+  # end
+
   #Tests for Plex integration
 
 

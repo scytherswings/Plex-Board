@@ -2,6 +2,7 @@ plex_service_w1sess_session_1:
   progress: 1
   total_duration: 100
   session_key: 1
+  stream_type: Transcode
   plex_user_name: Generic_User
   plex_service: plex_service_with_one_session
 
@@ -9,6 +10,7 @@ plex_service_w2sess_session_1:
   progress: 1
   total_duration: 100
   session_key: 1
+  stream_type: Transcode
   plex_user_name: Generic_User
   plex_service: plex_service_with_two_sessions
 
@@ -16,6 +18,7 @@ plex_service_w2sess_session_2:
   progress: 1
   total_duration: 100
   session_key: 2
+  stream_type: Stream
   plex_user_name: Generic_User
   plex_service: plex_service_with_two_sessions
 

@@ -162,15 +162,29 @@ class PlexService < ActiveRecord::Base
       temp_thumb = new_session["thumb"]
     end
     #create a new sesion object with the shit we found in the json blob
-    new_session = plex_sessions.create!(plex_user_name: new_session_name, total_duration: new_session["duration"],
-                          progress: new_session["viewOffset"], session_key: new_session["sessionKey"],
+    plex_sessions.create!(plex_user_name: new_session_name,
+                          total_duration: new_session["duration"],
+                          progress: new_session["viewOffset"],
+                          session_key: new_session["sessionKey"],
+                          stream_type: determine_stream_type(new_session.dig('TranscodeSession','videoDecision')),
                           plex_object_attributes: {description: new_session["summary"],
                                                    media_title: new_session["title"],
                                                    thumb_url: temp_thumb})
   end
 
+  def determine_stream_type(videoDecision)
+    case videoDecision
+      when 'copy'
+        'Stream'
+      when 'transcode'
+        'Transcode'
+      else
+        logger.warn { "Got PlexSession with videoDecision that has no known state. Data: '#{videoDecision}'" }
+    end
+  end
+
   def update_plex_session(existing_session, updated_session_viewOffset)
-    logger.debug("Updating PlexSession ID: #{existing_session.id} for PlexService: #{service.name}")
+    logger.debug { "Updating PlexSession ID: #{existing_session.id} for PlexService: #{service.name}" }
     existing_session.update!(progress: updated_session_viewOffset)
   end
 
