@@ -27,19 +27,20 @@ class PlexSessionTest < ActiveSupport::TestCase
     assert_not duplicate_session.valid?, 'Duplicate session should not be valid'
   end
 
-  # test 'session will correctly identify stream type' do
-  #     @plex.plex_sessions.destroy_all
-  #     assert_equal 0, @plex_service_with_two_sessions.plex_sessions.count
-  #     @plex_service_with_two_sessions.service.reload
-  #     assert_equal('Transcode' ,@plex_service_with_two_sessions.session,'sum ting wong')
-  #     assert_difference('@plex_service_with_two_sessions.plex_sessions.count', +2) do
-  #       assert_not_nil @plex_service_with_two_sessions.get_plex_sessions, 'Getting plex sessions returned nil'
-  #       assert_requested(:get, 'https://plex6:32400/status/sessions')
-  #     end
-  #   @plex_service_with_two_sessions.plex_sessions.destroy_all
-  #   assert_equal('Transcode' ,.stream_type,'sum ting wong')
-  #   assert_equal('Stream', @plex_service_w2sess_session_2.stream_type, 'fuku')
-  # end
+  test 'session will correctly identify stream_type Stream' do
+     assert_equal('Stream',PlexSession.determine_stream_type('copy'), 'copy videoDecision was not correctly translated to Stream')
+     assert_equal('Stream',PlexSession.determine_stream_type('COPY'), 'COPY videoDecision was not correctly translated to Stream')
+  end
+
+  test 'session will correctly identify stream_type Transcode' do
+    assert_equal('Transcode',PlexSession.determine_stream_type('transcode'), 'transcode videoDecision was not correctly translated to Transcode')
+    assert_equal('Transcode',PlexSession.determine_stream_type('TRANSCODE'), 'TRANSCODE videoDecision was not correctly translated to Transcode')
+  end
+
+  test 'session will correctly ignore stream_type nil or empty' do
+    PlexSession.determine_stream_type('')
+    PlexSession.determine_stream_type(nil)
+  end
 
   #Tests for Plex integration
 

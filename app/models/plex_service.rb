@@ -166,21 +166,10 @@ class PlexService < ActiveRecord::Base
                           total_duration: new_session["duration"],
                           progress: new_session["viewOffset"],
                           session_key: new_session["sessionKey"],
-                          stream_type: determine_stream_type(new_session.dig('TranscodeSession','videoDecision')),
+                          stream_type: PlexSession.determine_stream_type(new_session.dig('TranscodeSession','videoDecision')),
                           plex_object_attributes: {description: new_session["summary"],
                                                    media_title: new_session["title"],
                                                    thumb_url: temp_thumb})
-  end
-
-  def determine_stream_type(videoDecision)
-    case videoDecision
-      when 'copy'
-        'Stream'
-      when 'transcode'
-        'Transcode'
-      else
-        logger.warn { "Got PlexSession with videoDecision that has no known state. Data: '#{videoDecision}'" }
-    end
   end
 
   def update_plex_session(existing_session, updated_session_viewOffset)

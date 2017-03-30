@@ -21,4 +21,15 @@ class PlexSession < ActiveRecord::Base
     json[:update_at] = updated_at
     json
   end
+
+  def self.determine_stream_type(videoDecision)
+    case videoDecision.try(:downcase)
+      when 'copy'
+        'Stream'
+      when 'transcode'
+        'Transcode'
+      else
+        logger.warn { "Got PlexSession with videoDecision that has no known state. Data: '#{videoDecision}'" }
+    end
+  end
 end
