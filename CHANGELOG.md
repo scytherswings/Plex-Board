@@ -9,6 +9,7 @@ I wanted to put this behind a version bump in case anything breaks. Tests still 
 UI tests currently)
 - Removed the `rm db/*.sqlite3` from the `serverSetup.sh` script because it would nuke a user's DB if they
 run it after setting everything up which would suck.
+- Only running tests on Ruby 2.3.3
 
 ## [v0.7.2] : 2017-3-26
 ### Changed
