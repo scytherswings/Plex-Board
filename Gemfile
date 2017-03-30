@@ -23,7 +23,7 @@ gem 'parallel', '~> 1.11.1'
 gem 'rake', '~> 12.0.0'
 gem 'forecast_io', '~> 2.0'
 gem 'geocoder', '~> 1.4.3'
-gem 'tzinfo', '~> 1.2.2'
+gem 'tzinfo', '~> 1.2.3'
 gem 'lograge', '~> 0.4.1'
 gem 'browserlog', git: 'https://github.com/scytherswings/browserlog'
 

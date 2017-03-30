@@ -7,11 +7,10 @@ Rails.application.routes.draw do
   get 'about' => 'info#about'
   get 'configuration' => 'info#configuration'
   get 'plex_services/all_plex_services'
-
+  get 'notifications' => 'notifications#notifications'
   get 'recently_added' => 'plex_services#recently_added'
 
   resources :services do
-    collection { get :notifications }
     get :online_status
   end
 

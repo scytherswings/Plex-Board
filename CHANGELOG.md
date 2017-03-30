@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.8.0] : 2017-3-29
+### Changed
+- Moved endpoint for SSE stream from `services/notifications` to a new controller at `/notifications`
+I wanted to put this behind a version bump in case anything breaks. Tests still pass (though there are no
+UI tests currently)
+- Removed the `rm db/*.sqlite3` from the `serverSetup.sh` script because it would nuke a user's DB if they
+run it after setting everything up which would suck.
 
 ## [v0.7.2] : 2017-3-26
 ### Changed
