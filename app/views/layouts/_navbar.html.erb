@@ -1,4 +1,3 @@
-
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -11,17 +10,22 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href=<%= root_path %>>Plex-Board</a>
-      
+
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-      <!--<li>-->
-          <!--<a href=<%#= configuration_path %>>Config</a>-->
-      <!--</li>-->
-       <li>
+        <!--<li>-->
+        <!--<a href=<%#= configuration_path %>>Config</a>-->
+        <!--</li>-->
+        <% @plex_services.try(:each) do |plex_service| %>
+          <li>
+            <%= link_to plex_service.service.name, plex_service, class: 'h2_index_link' %>
+          </li>
+        <% end %>
+        <li>
           <a href=<%= about_path %>>About</a>
-      </li>
+        </li>
       </ul>
     </div>
     <!-- /.navbar-collapse -->
