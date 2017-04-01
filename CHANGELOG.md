@@ -2,14 +2,25 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.9.0] : 2017-4-1
+### Added
+- Plex transcodes/streams counter in navbar.
+    - Not live updated yet.
+### Changed
+- Rearranged some controllers to reduce duplicated code
+- Created helper method to generate a link for a plex service's streams/transcodes
+    - Currently goes to the service itself.
+- Commented out some unused dependencies sine there are no UI tests currently.
+
 ## [v0.8.0] : 2017-3-29
 ### Changed
 - Moved endpoint for SSE stream from `services/notifications` to a new controller at `/notifications`
 I wanted to put this behind a version bump in case anything breaks. Tests still pass (though there are no
 UI tests currently)
+- Only running tests on Ruby 2.3.3
+### Removed
 - Removed the `rm db/*.sqlite3` from the `serverSetup.sh` script because it would nuke a user's DB if they
 run it after setting everything up which would suck.
-- Only running tests on Ruby 2.3.3
 
 ## [v0.7.2] : 2017-3-26
 ### Changed
