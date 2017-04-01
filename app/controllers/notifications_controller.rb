@@ -1,5 +1,9 @@
 class NotificationsController < ApplicationController
   include ActionController::Live
+
+  # How to do SSE properly:
+  # https://github.com/rails/rails/blob/6061c540ac7880233a6e32de85cec72c20ed8778/actionpack/lib/action_controller/metal/live.rb#L23
+
   def notifications
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 2000)

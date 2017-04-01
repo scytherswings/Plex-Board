@@ -19,9 +19,11 @@
         <!--<a href=<%#= configuration_path %>>Config</a>-->
         <!--</li>-->
         <% @plex_services.try(:each) do |plex_service| %>
-          <li>
-            <%= link_to plex_service.service.name, plex_service, class: 'h2_index_link' %>
-          </li>
+          <% if (link = generate_stream_link(plex_service)) %>
+            <li>
+              <%= link %>
+            </li>
+          <% end %>
         <% end %>
         <li>
           <a href=<%= about_path %>>About</a>

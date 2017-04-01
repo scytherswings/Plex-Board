@@ -1,23 +1,17 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_filter :set_sidebar_values, except: [:online_status, :create, :update, :destroy]
+
+  def set_sidebar_values
+    @services = Service.all
+    @plex_services = PlexService.all
+    # @weathers = Weather.all
+  end
 
   # GET /services
   # GET /services.json
   def index
-    tries ||= 3
-    @services = Service.all
-    @plex_services = PlexService.all
-    @weathers = Weather.all
-  rescue ActiveRecord::StatementInvalid => e
-    logger.error "There was an error interacting with the database. The error was: #{e}"
-    sleep(0.25)
-    retry unless (tries -= 1).zero?
   end
-
-
-  # How to do SSE properly:
-  # https://github.com/rails/rails/blob/6061c540ac7880233a6e32de85cec72c20ed8778/actionpack/lib/action_controller/metal/live.rb#L23
-
 
   # GET /services/:id/online_status
   # GET /services/:id/online_status.json
@@ -34,39 +28,26 @@ class ServicesController < ApplicationController
   # GET /services/1
   # GET /services/1.json
   def show
-    @services = Service.all
-    # @service = Service.find(params[:id])
-    @weathers = Weather.all
   end
 
   def all_services
-    @services = Service.all
-    @weathers = Weather.all
   end
 
   # GET /services/new
   def new
-    @services = Service.all
     @service = Service.new
-    @weathers = Weather.all
-    # @plex = Plex.new
   end
 
   def choose_service_type
-    @services = Service.all
-    @weathers = Weather.all
   end
 
   # GET /services/1/edit
   def edit
-    @services = Service.all
-    @weathers = Weather.all
   end
 
   # POST /services
   # POST /services.json
   def create
-    @services = Service.all
     @service = Service.new(service_params)
 
     respond_to do |format|
@@ -83,7 +64,6 @@ class ServicesController < ApplicationController
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
   def update
-    retries ||= 0
     respond_to do |format|
       if @service.update(service_params)
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
@@ -93,9 +73,6 @@ class ServicesController < ApplicationController
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
     end
-  rescue ActiveRecord::StatementInvalid
-    logger.warn "Database was probably busy trying to save online status. Trying: #{(retries - 3).abs} more time(s)."
-    retry if (retries += 1) < 3
   end
 
 
