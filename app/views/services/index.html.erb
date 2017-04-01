@@ -20,25 +20,23 @@
           <div class="carousel-inner" id="carousel-inner">
             <% plex_service.plex_sessions.try(:each_with_index) do |plex_session, j| %>
               <% if plex_session.plex_object.nil? %>
-                <% logger.error "PlexSession: #{plex_session.id} was missing a PlexObject. Not adding to carousel." %>
+                <% logger.error { "PlexSession: #{plex_session.id} was missing a PlexObject. Not adding to carousel." } %>
                 <% next %>
               <% end %>
-              <% if j == 0 %>
-                <%= render partial: 'plex_services/now_playing', locals: {plex_session: plex_session, active: 'active'} %>
-              <% else %>
-                <%= render partial: 'plex_services/now_playing', locals: {plex_session: plex_session, active: ''} %>
-              <% end %>
+              <%= render partial: 'plex_services/now_playing', locals: {plex_session: plex_session, active: j == 0 ? 'active' : ''} %>
             <% end %>
             <% if plex_service.plex_sessions.count < 3 %>
               <% plex_service.plex_recently_addeds.try(:each_with_index) do |plex_recently_added, k| %>
+                <% if plex_recently_added.plex_object.nil? %>
+                  <% logger.error { "PlexRecentlyAdded: #{plex_recently_added.id} was missing a PlexObject. Not adding to carousel." } %>
+                  <% next %>
+                <% end %>
                 <% if k > 4 %>
                   <% break %>
                 <% end %>
-                <% if plex_service.plex_sessions.count <= 0 && k == 0 %>
-                  <%= render partial: 'plex_services/recently_added', locals: {plex_recently_added: plex_recently_added, active: 'active'} %>
-                <% else %>
-                  <%= render partial: 'plex_services/recently_added', locals: {plex_recently_added: plex_recently_added, active: ''} %>
-                <% end %>
+                <%= render partial: 'plex_services/recently_added',
+                           locals: {plex_recently_added: plex_recently_added,
+                                    active: plex_service.plex_sessions.count <= 0 && k == 0 ? 'active' : ''} %>
               <% end %>
             <% end %>
           </div>

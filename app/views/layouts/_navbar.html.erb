@@ -18,13 +18,34 @@
         <!--<li>-->
         <!--<a href=<%#= configuration_path %>>Config</a>-->
         <!--</li>-->
-        <% @plex_services.try(:each) do |plex_service| %>
-          <% if (link = generate_stream_link(plex_service)) %>
-            <li>
-              <%= link %>
-            </li>
-          <% end %>
-        <% end %>
+        <li>
+          <div id="carousel-example-vertical" class="carousel vertical slide">
+            <div class="carousel-inner" role="listbox">
+              <% @plex_services.try(:each) do |plex_service| %>
+                <% if generate_stream_link(plex_service) %>
+                  <div class="item active">
+                    <%= render partial: 'plex_services/now_playing_navbar', locals: {plex_service: plex_service, html_class: 'h2_index_link'} %>
+                  </div>
+                <% end %>
+              <% end %>
+              <div class="item active">
+                <a rel="nofollow" rel="noreferrer" class="ticker-headline h2_index_link" href="#">Article Headline 5</a>
+              </div>
+            </div>
+
+            <!--&lt;!&ndash; Controls &ndash;&gt;-->
+            <!--<a rel="nofollow" rel="noreferrer" class="up carousel-control" href="#carousel-example-vertical" role="button" data-slide="prev">-->
+            <!--<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>-->
+            <!--<span class="sr-only">Previous</span>-->
+            <!--</a>-->
+            <!--<a rel="nofollow" rel="noreferrer" class="down carousel-control" href="#carousel-example-vertical" role="button" data-slide="next">-->
+            <!--<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>-->
+            <!--<span class="sr-only">Next</span>-->
+            <!--</a>-->
+          </div>
+        </li>
+
+
         <li>
           <a href=<%= about_path %>>About</a>
         </li>

@@ -13,7 +13,9 @@ module PlexServiceHelper
       if transcodes
         base_string += "Transcodes: #{transcodes} "
       end
-      link_to base_string.strip, plex_service, class: 'h2_index_link'
+      base_string.strip
+    else
+      false
     end
   end
 end

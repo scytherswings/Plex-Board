@@ -15,7 +15,7 @@ source.addEventListener 'online_status', (e) ->
 
 source.addEventListener 'plex_now_playing', (e) ->
   plex_session = $.parseJSON(e.data)
-  #  console.log plex_session
+#  console.log plex_session
   #  console.log "Plex - Now Playing - session #{plex_session.session_id}"
   #.length tests to make sure that the id actually has elements
 

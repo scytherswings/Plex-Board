@@ -1,6 +1,5 @@
 class NotificationsController < ApplicationController
   include ActionController::Live
-
   # How to do SSE properly:
   # https://github.com/rails/rails/blob/6061c540ac7880233a6e32de85cec72c20ed8778/actionpack/lib/action_controller/metal/live.rb#L23
 
@@ -31,6 +30,9 @@ class NotificationsController < ApplicationController
                                                            locals: {plex_session: plex_session,
                                                                     active: ''}),
                                     progress: plex_session.get_percent_done,
+                                    active_streams: render_to_string(partial: 'plex_services/now_playing_navbar',
+                                                                     formats: [:html],
+                                                                     locals: {plex_service: plex_service}),
                                     active_sessions: PlexSession.all.ids}
 
           end
