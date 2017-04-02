@@ -19,9 +19,9 @@
         <!--<a href=<%#= configuration_path %>>Config</a>-->
         <!--</li>-->
         <% @plex_services.try(:each) do |plex_service| %>
-          <% if (link = generate_stream_link(plex_service)) %>
+          <% if generate_stream_link(plex_service) %>
             <li>
-              <%= link %>
+              <%= render partial: 'plex_services/now_playing_navbar', locals: {plex_service: plex_service, html_class: 'h2_index_link'} %>
             </li>
           <% end %>
         <% end %>

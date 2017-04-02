@@ -59,7 +59,8 @@ class PlexService < ActiveRecord::Base
     logger.info("Making Plex API call to: #{get_connection_string}#{path}")
 
     unless service.online_status
-      logger.warn('Service: ' + service.name + ' is offline, cant grab plex data')
+      logger.warn("Service: #{ service.name} is offline, can't grab plex data. Clearing PlexSessions")
+      plex_sessions.destroy_all
       return nil
     end
 
@@ -188,14 +189,14 @@ class PlexService < ActiveRecord::Base
                 'X-Plex-Token': token}
 
     unless service.online_status
-      logger.warn('Service: ' + service.name + ' is offline, cant grab plex data')
+      logger.warn("Service: #{service.name} is offline, can't grab plex data.")
       return nil
     end
 
     response = plex_api(method: :get, path: path, headers: defaults)
 
     if response.nil?
-      logger.debug("Plex doesn't have any recently added")
+      logger.debug("PlexService: #{service.name} doesn't have any recently added.")
       return nil
     end
 

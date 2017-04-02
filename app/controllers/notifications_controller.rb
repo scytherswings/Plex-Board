@@ -1,6 +1,5 @@
 class NotificationsController < ApplicationController
   include ActionController::Live
-
   # How to do SSE properly:
   # https://github.com/rails/rails/blob/6061c540ac7880233a6e32de85cec72c20ed8778/actionpack/lib/action_controller/metal/live.rb#L23
 
@@ -17,7 +16,7 @@ class NotificationsController < ApplicationController
         # @weathers = Weather.all
 
         if @plex_services.empty? && @services.empty?
-          logger.debug 'There were no PlexServices or Generic Services, sleeping for 10s.'
+          logger.info 'There were no PlexServices or Generic Services, sleeping for 10s.'
           sleep(10)
         end
 
@@ -25,12 +24,20 @@ class NotificationsController < ApplicationController
           plex_service.update_plex_data
           all_active_sessions = []
           plex_service.plex_sessions.try(:each) do |plex_session|
+            if plex_session.plex_object.nil?
+              logger.error { "PlexSession: #{plex_session.id} had a nil plex_object. Destroying."}
+              plex_session.destroy!
+              next
+            end
             all_active_sessions << {session_id: plex_session.id,
                                     html: render_to_string(partial: 'plex_services/now_playing',
                                                            formats: [:html],
                                                            locals: {plex_session: plex_session,
                                                                     active: ''}),
                                     progress: plex_session.get_percent_done,
+                                    active_streams: render_to_string(partial: 'plex_services/now_playing_navbar',
+                                                                     formats: [:html],
+                                                                     locals: {plex_service: plex_service}),
                                     active_sessions: PlexSession.all.ids}
 
           end

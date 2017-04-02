@@ -1,0 +1,2 @@
+<% html_class ||= nil %>
+<%= link_to generate_stream_link(plex_service), plex_service, class: html_class ? html_class : 'h2_index_link', id: "streams_for_plex_service_#{plex_service.id}" %>
