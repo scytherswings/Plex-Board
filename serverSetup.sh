@@ -17,7 +17,7 @@ echo -e "test:\n  secret_key_base:" $BOGUS "\n" >> $SECRETS
 echo -e "production:\n  secret_key_base:" $SECRET >> $SECRETS
 echo -e "RAILS_ENV=production"
 echo
-echo "Creating and setting up new database for production"
+echo "Creating and setting up the database for production"
 bundle exec rake db:create RAILS_ENV=production
 bundle exec rake db:migrate RAILS_ENV=production
 echo
