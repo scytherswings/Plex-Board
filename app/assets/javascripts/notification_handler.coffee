@@ -14,43 +14,54 @@ source.addEventListener 'online_status', (e) ->
 ############# Plex Now Playing ################
 
 source.addEventListener 'plex_now_playing', (e) ->
-  plex_session = $.parseJSON(e.data)
-  #  console.log plex_session
+  plex_now_playing_data = $.parseJSON(e.data)
+  #  console.log plex_now_playing_data
   #  console.log "Plex - Now Playing - session #{plex_session.session_id}"
-  #.length tests to make sure that the id actually has elements
+  #  console.log $('[id^="streams_for_plex_service_"]').length && plex_now_playing_data.active_streams_html && plex_now_playing_data.active_streams_html.length
+
+  if $('[id^="streams_for_plex_service_"]').length && plex_now_playing_data.active_streams_html && plex_now_playing_data.active_streams_html.length
+    console.log "Updating Active Streams"
+    $('#streams_for_plex_service_' + plex_now_playing_data.plex_service_id).replaceWith(plex_now_playing_data.active_streams_html)
+    $('#streams_for_plex_service_' + plex_now_playing_data.plex_service_id).show()
+  else if $('[id^="streams_for_plex_service_"]').length
+    console.log "Hiding active stream"
+    $('[id^="streams_for_plex_service_"]').hide()
+  else
+    console.log "Adding new active stream"
+    $('#navbar_links').prepend('<li>' + plex_now_playing_data.active_streams_html + '</li>')
 
   updated_progressbar = """
-                       <div id="plex_progressbar_#{plex_session.session_id}"
+                       <div id="plex_progressbar_#{plex_now_playing_data.session_id}"
                        class="progress-bar progress-bar-warning"
                        role="progressbar"
-                       aria-valuenow="#{plex_session.progress}"
+                       aria-valuenow="#{plex_now_playing_data.progress}"
                        aria-valuemin="0" aria-valuemax="100"
-                       style="width: #{plex_session.progress}%"></div>
+                       style="width: #{plex_now_playing_data.progress}%"></div>
                       """
-  if $('#plex_session_' + plex_session.session_id).length
+  if $('#plex_session_' + plex_now_playing_data.session_id).length
 #    console.log "Updating progress bar"
-    $('#plex_progressbar_' + plex_session.session_id).replaceWith(updated_progressbar)
+    $('#plex_progressbar_' + plex_now_playing_data.session_id).replaceWith(updated_progressbar)
   else
 #    console.log "Didn't find the element \"session #{plex_session.session_id}\""
 #    console.log "Adding new session element.."
     if $("[id^=plex_recently_added_]")
-      $("[id^=plex_recently_added_]").last().after(plex_session.html)
+      $("[id^=plex_recently_added_]").last().after(plex_now_playing_data.html)
     else if $("[id^=plex_session_]")
-      $("[id^=plex_session_]").last().after(plex_session.html)
+      $("[id^=plex_session_]").last().after(plex_now_playing_data.html)
     else
-      $("[id^=carousel-inner]").append(plex_session.html)
+      $("[id^=carousel-inner]").append(plex_now_playing_data.html)
 
   #Find all the existing elements on the page and compare them to the active ids we got in the SSE
 
   #set every plex_session as stale so we can remove the sessions that aren't found in the active sessions from the server
   stale_sessions = $.find("[id^=plex_session_]")
   #iterate over known sessions
-  if plex_session.active_sessions
-    for i in [0...plex_session.active_sessions.length]
+  if plex_now_playing_data.active_sessions
+    for i in [0...plex_now_playing_data.active_sessions.length]
 #console.log "Active session is: plex_session_" + plex_session.active_sessions[i]
       for j in [0...stale_sessions.length]
 #console.log "Matching active session against: " + stale_sessions[j].id
-        if stale_sessions[j].id == ("plex_session_" + plex_session.active_sessions[i])
+        if stale_sessions[j].id == ("plex_session_" + plex_now_playing_data.active_sessions[i])
 #at position i, remove one element from the array
           stale_sessions.splice(j, 1)
           #console.log "Updated stale sessions length should be one less: " + stale_sessions.length

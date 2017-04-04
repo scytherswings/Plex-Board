@@ -25,7 +25,7 @@ class NotificationsController < ApplicationController
           all_active_sessions = []
           plex_service.plex_sessions.try(:each) do |plex_session|
             if plex_session.plex_object.nil?
-              logger.error { "PlexSession: #{plex_session.id} had a nil plex_object. Destroying."}
+              logger.error { "PlexSession: #{plex_session.id} had a nil plex_object. Destroying." }
               plex_session.destroy!
               next
             end
@@ -35,23 +35,24 @@ class NotificationsController < ApplicationController
                                                            locals: {plex_session: plex_session,
                                                                     active: ''}),
                                     progress: plex_session.get_percent_done,
-                                    active_streams: render_to_string(partial: 'plex_services/now_playing_navbar',
-                                                                     formats: [:html],
-                                                                     locals: {plex_service: plex_service}),
+                                    plex_service_id: plex_service.id,
+                                    active_streams_html: render_to_string(partial: 'plex_services/now_playing_navbar',
+                                                                          formats: [:html],
+                                                                          locals: {plex_service: plex_service}),
                                     active_sessions: PlexSession.all.ids}
 
           end
-          if all_active_sessions.length > 0
+          if !all_active_sessions.empty?
             all_active_sessions.each do |active_session|
               events << {data: active_session, event: 'plex_now_playing'}
             end
-          elsif i % 5 == 0
+          elsif (i % 5).zero?
             events << {data: [], event: 'plex_now_playing'}
           end
         end
 
         @services.try(:each) do |service|
-          if i % 5 == 0
+          if (i % 5).zero?
             logger.debug('Looped 5 times, sending all service statuses.')
             service.ping
             events << {data: {id: service.id, html: render_to_string(partial: 'services/service', formats: [:html], locals: {service: service})}.to_json, event: 'online_status'}
@@ -77,7 +78,7 @@ class NotificationsController < ApplicationController
     rescue ClientDisconnected
       logger.warn 'Stream closed: Client Disconnect'
         # rescue StandardError => e
-        #   logger.error "An error occurred during the loop: #{e.message}"
+        # logger.error "An error occurred during the loop: #{e.message}"
     ensure
       sse.close
     end
