@@ -234,7 +234,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.7)
   browserlog!
   coffee-rails (~> 4.2.1)
-  coveralls
+  coveralls (~> 0.8.20)
   execjs (~> 2.7.0)
   fabrication (~> 2.16.1)
   faker (~> 1.7.3)
