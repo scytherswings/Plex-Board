@@ -3,5 +3,6 @@
 # In the above example the relative_root would be set to: '/plex-board'
 # Please note that the format above does matter, prefix with the '/' and don't use a trailing slash.
 relative_root:
+# You shouldn't need to include any url paths in the web_host and asset_host fields.
 web_host: http://0.0.0.0:3000
 asset_host: http://0.0.0.0:3000

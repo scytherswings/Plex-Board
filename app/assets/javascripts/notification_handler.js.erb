@@ -1,7 +1,7 @@
 <% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
 
 var source;
-source = new EventSource("<%= url_for(root_url + 'notifications') %>");
+source = new EventSource("<%= notifications_url %>");
 source.addEventListener('online_status', function (e) {
     var service;
     service = $.parseJSON(e.data);

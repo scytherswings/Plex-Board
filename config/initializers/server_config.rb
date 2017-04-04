@@ -23,6 +23,7 @@ if config_file.exist?
 
   unless relative_root.blank?
     Rails.logger.info("Setting relative_root to: #{relative_root}")
+    Rails.application.config.action_controller.relative_url_root = relative_root
     Rails.application.config.relative_url_root = relative_root
   end
 end
