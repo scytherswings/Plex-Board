@@ -97,12 +97,25 @@ class Service < ActiveRecord::Base
     self
   end
 
+  def last_seen_now!
+    self.last_seen = Time.now
+    self
+  end
+
   def online_status
     Rails.cache.read("service/#{id}/online_status")
   end
 
   def online_status=(boolean_status)
     Rails.cache.write("service/#{id}/online_status", boolean_status)
+  end
+
+  def last_seen
+    Rails.cache.read("service/#{id}/last_seen")
+  end
+
+  def last_seen=(timestamp)
+    Rails.cache.write("service/#{id}/last_seen", timestamp)
   end
 
   private
@@ -114,7 +127,7 @@ class Service < ActiveRecord::Base
         s = TCPSocket.new(ping_destination, port)
         s.close
         online!
-        update(last_seen: Time.now)
+        last_seen_now!
       end
         #TODO: Use connection refused to indicate that the server itself is still responding.
     rescue Errno::ECONNREFUSED

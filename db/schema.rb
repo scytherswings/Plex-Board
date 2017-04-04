@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329020117) do
+ActiveRecord::Schema.define(version: 20170404205426) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.string   "image"
@@ -71,7 +71,6 @@ ActiveRecord::Schema.define(version: 20170329020117) do
     t.string   "ip"
     t.string   "url"
     t.integer  "port"
-    t.datetime "last_seen"
     t.integer  "service_flavor_id"
     t.string   "service_flavor_type"
     t.datetime "created_at",          null: false
