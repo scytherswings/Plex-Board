@@ -3,9 +3,6 @@
 echo "Installing Gems. This can take a bit of time..."
 bundle install --without development test
 echo
-echo "Updating Gems.."
-bundle update
-echo
 SECRETS="config/secrets.yml"
 SECRET="$(rake secret)"
 BOGUS="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
