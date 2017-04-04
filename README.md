@@ -76,6 +76,10 @@ You could keep it running if you start it in a screen session.
 
 Remember, this is for _testing._
 
+## Updating Instructions
+
+1. `./update.sh` Will run `git pull` and `serverSetup.sh` for you.
+
 
 ### Feedback
 If you run into any bugs, please, make a ticket or ask in the Gitter chat room. 
