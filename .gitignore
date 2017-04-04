@@ -19,6 +19,7 @@
 
 #Ignore public/images
 /public/images/*
+/public/assets
 #Ignore Spring files.
 /spring/*.pid
 /.idea/
