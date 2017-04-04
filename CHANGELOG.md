@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [v0.9.0] : 2017-4-1
 ### Added
 - Plex transcodes/streams counter in navbar.
-    - Not live updated yet.
+    - Transcodes are counted separately from streams, I can change this if it's confusing.
 ### Changed
 - Rearranged some controllers to reduce duplicated code
 - Created helper method to generate a link for a plex service's streams/transcodes
