@@ -6,6 +6,7 @@ services:
 rvm:
   - 2.3.3
 cache: bundler
+
 script:
   - /bin/bash travisSetup.sh
   - bundle exec rake

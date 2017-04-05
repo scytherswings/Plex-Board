@@ -69,12 +69,18 @@ exists then you can omit `--create`.
 
 8. `./serverSetup.sh`
 
-9. Check the `server_config.yml` file to see that all the settings match what you want them to.
+9. Copy the `example.server_config.yml` to `server_config.yml` 
+
+10. Check the `server_config.yml` file to see that all the settings match what you want them to.
 
 9. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.)
 You could keep it running if you start it in a screen session.
 
 Remember, this is for _testing._
+
+## Updating Instructions
+
+1. `./update.sh` Will run `git pull` and `serverSetup.sh` for you.
 
 
 ### Feedback

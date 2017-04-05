@@ -215,6 +215,8 @@ GEM
       coffee-rails
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2017.2)
+      tzinfo (>= 1.0.0)
     uglifier (3.1.13)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
@@ -234,7 +236,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.7)
   browserlog!
   coffee-rails (~> 4.2.1)
-  coveralls
+  coveralls (~> 0.8.20)
   execjs (~> 2.7.0)
   fabrication (~> 2.16.1)
   faker (~> 1.7.3)
@@ -265,6 +267,7 @@ DEPENDENCIES
   strip_attributes (~> 1.8.0)
   turbolinks (~> 2.5.3)
   tzinfo (~> 1.2.3)
+  tzinfo-data
   uglifier (~> 3.1.9)
   vcr (~> 3.0.3)
   webmock (~> 2.3.2)

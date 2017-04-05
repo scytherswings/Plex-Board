@@ -24,6 +24,7 @@ gem 'rake', '~> 12.0.0'
 gem 'forecast_io', '~> 2.0'
 gem 'geocoder', '~> 1.4.3'
 gem 'tzinfo', '~> 1.2.3'
+gem 'tzinfo-data'
 gem 'lograge', '~> 0.4.1'
 gem 'browserlog', git: 'https://github.com/scytherswings/browserlog'
 
@@ -38,7 +39,7 @@ end
 
 group :test do
   gem 'simplecov', '~> 0.14.1'
-  gem 'coveralls', require: false
+  gem 'coveralls', '~> 0.8.20'
   gem 'minitest-reporters', '~> 1.1.14'
   gem 'mini_backtrace', '~> 0.1.3'
   gem 'webmock', '~> 2.3.2'

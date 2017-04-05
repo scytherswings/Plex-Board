@@ -1,4 +1,5 @@
 #!/bin/bash
+mv example.server_config.yml server_config.yml
 SECRETS="config/secrets.yml"
 SECRET="$(bundle exec rake secret)"
 BOGUS="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
