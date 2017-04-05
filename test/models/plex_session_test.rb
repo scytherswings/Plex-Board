@@ -28,25 +28,27 @@ class PlexSessionTest < ActiveSupport::TestCase
   end
 
   test 'session will correctly identify stream_type Stream' do
-     assert_equal('Stream',PlexSession.determine_stream_type('copy'), 'copy videoDecision was not correctly translated to Stream')
-     assert_equal('Stream',PlexSession.determine_stream_type('COPY'), 'COPY videoDecision was not correctly translated to Stream')
+    assert_equal('Stream', PlexSession.determine_stream_type('copy'),
+                 'copy videoDecision was not correctly translated to Stream')
+    assert_equal('Stream', PlexSession.determine_stream_type('COPY'),
+                 'COPY videoDecision was not correctly translated to Stream')
   end
 
   test 'session will correctly identify stream_type Transcode' do
-    assert_equal('Transcode',PlexSession.determine_stream_type('transcode'), 'transcode videoDecision was not correctly translated to Transcode')
-    assert_equal('Transcode',PlexSession.determine_stream_type('TRANSCODE'), 'TRANSCODE videoDecision was not correctly translated to Transcode')
+    assert_equal('Transcode', PlexSession.determine_stream_type('transcode'),
+                 'transcode videoDecision was not correctly translated to Transcode')
+    assert_equal('Transcode', PlexSession.determine_stream_type('TRANSCODE'),
+                 'TRANSCODE videoDecision was not correctly translated to Transcode')
   end
 
-  test 'session will correctly ignore stream_type nil or empty' do
-    PlexSession.determine_stream_type('')
-    PlexSession.determine_stream_type(nil)
+  test 'session will correctly default stream_type nil or empty to Stream' do
+    assert_equal('Stream', PlexSession.determine_stream_type(''),
+                 'empty string videoDecision was not correctly translated to Stream')
+    assert_equal('Stream', PlexSession.determine_stream_type(nil),
+                 'nil videoDecision was not correctly translated to Stream')
   end
 
   #Tests for Plex integration
-
-
-
-
 
 
 end
