@@ -50,31 +50,30 @@ Other operating systems will probably work, but for now I'm only going to write 
 
 1. `sudo apt-get update; sudo apt-get install git bundler nodejs curl -y;`
 
-2.   `gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3;
-curl -sSL https://get.rvm.io | bash -s stable --rails`
+2.   `gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3; 
+curl -sSL https://get.rvm.io | bash -s stable`
 
 3. `source /usr/local/rvm/scripts/rvm`
 
-3. `cd /opt` Now at this point, you might have to give your user write permissions to this directory. If that is the case run `sudo chmod 755 /opt -R`
+4. `cd /opt` Now at this point, you might have to give your user write permissions to this directory. If that is the case run `sudo chmod 755 /opt -R`
 
-4. `git clone https://github.com/scytherswings/Plex-Board.git`
+5. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-5. `rvm use 2.3.0@plexdashboard --create` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
+6. `rvm install 2.3.3; rvm use 2.3.3@plexdashboard --create` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
 Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`. If you get an error saying that the gemset already
 exists then you can omit `--create`.
 
-6. `cd /opt/Plex-Board`
+7. `cd /opt/Plex-Board`
 
-7. `rvm use 2.3.0@plexdashboard`
+8. `rvm use 2.3.3@plexdashboard`
 
-8. `./serverSetup.sh`
+9. `./serverSetup.sh`
 
-9. Copy the `example.server_config.yml` to `server_config.yml` 
+11. Check the newly created `server_config.yml` file to see that all the settings match what you want them to.
+If you're not running behind a reverse proxy then you shouldn't need to touch this file at all.
 
-10. Check the `server_config.yml` file to see that all the settings match what you want them to.
-
-9. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.)
-You could keep it running if you start it in a screen session.
+12. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.)
+You could keep it running if you start it in a screen session or make it into a service (instructions will come with 1.0.0).
 
 Remember, this is for _testing._
 
