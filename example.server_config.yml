@@ -3,7 +3,7 @@
 # In the above example the relative_root would be set to: '/plex-board'
 # Please note that the format above does matter, prefix with the '/' and don't use a trailing slash.
 # You shouldn't need to include any url paths in the web_host and asset_host fields.
-
+# 0.0.0.0 might not work on windows, you can change this to 127.0.0.1 or whatever IP address you want Plex-Board to listen on
 
 relative_root:
 web_host: http://0.0.0.0:3000
