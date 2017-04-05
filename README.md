@@ -59,7 +59,7 @@ curl -sSL https://get.rvm.io | bash -s stable`
 
 5. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-6. `3. `rvm install 2.3.3; rvm use 2.3.3@plexdashboard --create` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
+6. `rvm install 2.3.3; rvm use 2.3.3@plexdashboard --create` If you get a message saying something like: `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` 
 Then you'll have to run `/bin/bash --login` or reboot with `sudo reboot`. If you get an error saying that the gemset already
 exists then you can omit `--create`.
 
