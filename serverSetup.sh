@@ -7,7 +7,7 @@ SECRETS="config/secrets.yml"
 SECRET="$(rake secret)"
 BOGUS="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 echo
-echo "Removing old secrets.yml file if it exists"
+echo "Removing old secrets.yml file if it exists. Creating a fresh one with new secrets"
 rm $SECRETS
 echo -e "development:\n  secret_key_base:" $BOGUS "\n" >> $SECRETS
 echo -e "test:\n  secret_key_base:" $BOGUS "\n" >> $SECRETS
