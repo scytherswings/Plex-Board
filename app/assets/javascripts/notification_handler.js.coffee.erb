@@ -27,7 +27,7 @@ source.addEventListener 'plex_now_playing', (e) ->
   else if $('[id^="streams_for_plex_service_"]').length
     console.log "Hiding active stream"
     $('[id^="streams_for_plex_service_"]').hide()
-  else if plex_now_playing_data.active_streams_html.length
+  else if plex_now_playing_data.active_streams_html && plex_now_playing_data.active_streams_html.length
     console.log "Adding new active stream"
     $('#navbar_links').prepend('<li>' + plex_now_playing_data.active_streams_html + '</li>')
   else
