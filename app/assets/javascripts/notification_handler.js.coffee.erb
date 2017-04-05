@@ -31,7 +31,7 @@ source.addEventListener 'plex_now_playing', (e) ->
     console.log "Adding new active stream"
     $('#navbar_links').prepend('<li>' + plex_now_playing_data.active_streams_html + '</li>')
   else
-    console.log "Got new stream but the html was empty. Not adding"
+    console.log "Got new stream but the html was empty. Not adding."
 
   updated_progressbar = """
                        <div id="plex_progressbar_#{plex_now_playing_data.session_id}"
