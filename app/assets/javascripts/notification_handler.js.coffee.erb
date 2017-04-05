@@ -1,4 +1,5 @@
 "<% require 'yaml' %>"
+# Yes, this will blow up if server_config.yml doesn't exist. Sucks to suck. RTFM
 source = new EventSource("<%= (YAML.load_file('server_config.yml')['relative_root'] || '') + '/notifications' %>")
 
 ########### Service Online Status ############

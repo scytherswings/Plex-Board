@@ -2,7 +2,14 @@
 
 require ::File.expand_path('../config/environment', __FILE__)
 # run Rails.application
-relative_root = YAML.load_file('server_config.yml')['relative_root']
+config_file = 'server_config.yml'
+if !File.exist?(config_file)
+  error_string = "Plex-Board was started without a #{config_file}. You should not run without it, things could get weird."
+  puts error_string
+  Rails.logger.error { "Plex-Board was started without a #{config_file}. You should not run without it, things could get weird." }
+else
+  relative_root = YAML.load_file(config_file)['relative_root']
+end
 relative_root ||= '/'
 map relative_root do
   run Rails.application
