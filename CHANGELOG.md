@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.9.1] : 2017-4-5
+### Fixed
+- [Issue #69 Plex Recently Added was not updating as expected](https://github.com/scytherswings/Plex-Board/issues/69)
+
 ## [v0.9.0] : 2017-4-1
 ### Added
 - Plex transcodes/streams counter in navbar.
