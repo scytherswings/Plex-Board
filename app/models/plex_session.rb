@@ -29,7 +29,8 @@ class PlexSession < ActiveRecord::Base
       when 'transcode'
         'Transcode'
       else
-        logger.warn { "Got PlexSession with videoDecision that has no known state. Data: '#{videoDecision}'" }
+        logger.warn { "Got PlexSession with videoDecision that has no known state. Data: '#{videoDecision}'. Defaulting to 'Stream'" }
+        'Stream'
     end
   end
 end
