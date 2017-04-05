@@ -1,5 +1,6 @@
-'<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>'
-source = new EventSource("<%= notifications_url %>")
+"<% require 'yaml' %>"
+source = new EventSource("<%= (YAML.load_file('server_config.yml')['relative_root'] || '') + '/notifications' %>")
+
 ########### Service Online Status ############
 
 source.addEventListener 'online_status', (e) ->
