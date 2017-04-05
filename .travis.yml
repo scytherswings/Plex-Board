@@ -9,7 +9,7 @@ cache: bundler
 
 
 before_install:
-  # Skip build if the commit message contains [skip travis] or [travis skip]
+  # Skip build if the commit message contains [skip travis] or [travis skip] etc.
   - >
       echo "$TRAVIS_COMMIT_MESSAGE"
       | grep -E  '\[(skip travis|travis skip|NO\-CI|NO\-TRAVIS)\]'
