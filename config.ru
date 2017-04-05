@@ -6,7 +6,7 @@ config_file = 'server_config.yml'
 if !File.exist?(config_file)
   error_string = "Plex-Board was started without a #{config_file}. You should not run without it, things could get weird."
   puts error_string
-  Rails.logger.error { "Plex-Board was started without a #{config_file}. You should not run without it, things could get weird." }
+  Rails.logger.error error_string
 else
   relative_root = YAML.load_file(config_file)['relative_root']
 end
