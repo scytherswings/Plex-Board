@@ -69,9 +69,8 @@ exists then you can omit `--create`.
 
 9. `./serverSetup.sh`
 
-10. Copy the `example.server_config.yml` to `server_config.yml` 
-
-11. Check the `server_config.yml` file to see that all the settings match what you want them to.
+11. Check the newly created `server_config.yml` file to see that all the settings match what you want them to.
+If you're not running behind a reverse proxy then you shouldn't need to touch this file at all.
 
 12. `./runServer.sh` Note that the server will stop running if you kill this process (like if you exit out of an SSH session etc.)
 You could keep it running if you start it in a screen session or make it into a service (instructions will come with 1.0.0).
