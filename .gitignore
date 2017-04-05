@@ -16,6 +16,7 @@
 !/log/.keep
 /tmp
 /config/secrets.yml
+server_config.yml
 
 #Ignore public/images
 /public/images/*
