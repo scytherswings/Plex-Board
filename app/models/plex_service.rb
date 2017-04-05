@@ -210,7 +210,7 @@ class PlexService < ActiveRecord::Base
     end
 
     stale_pras = plex_recently_addeds.map { |known_pra| known_pra.uuid } -
-        incoming_pras.map { |new_pra| new_pra['librarySectionUUID'] }
+        incoming_pras.map { |new_pra| new_pra['ratingKey'] }
 
     # logger.debug("stale_pras #{stale_pras}")
 
@@ -218,11 +218,11 @@ class PlexService < ActiveRecord::Base
       PlexRecentlyAdded.find_by(uuid: stale_pra).destroy
     end
 
-    new_pras = incoming_pras.map { |new_pra| new_pra['librarySectionUUID'] } -
+    new_pras = incoming_pras.map { |new_pra| new_pra['ratingKey'] } -
         plex_recently_addeds.map { |known_pra| known_pra.uuid }
 
     # logger.debug("new_pras #{new_pras}")
-    pras_to_add = incoming_pras.select { |matched| new_pras.include?(matched['librarySectionUUID']) }
+    pras_to_add = incoming_pras.select { |matched| new_pras.include?(matched['ratingKey']) }
 
     # logger.debug("pras_to_add #{pras_to_add}")
     pras_to_add.each { |new_pra| add_plex_recently_added(new_pra) }
@@ -235,7 +235,7 @@ class PlexService < ActiveRecord::Base
     temp_thumb = new_pra.has_key?('parentThumb') ? new_pra['parentThumb'] : new_pra['thumb']
     summary = new_pra.has_key?('parentSummary') ? new_pra['parentSummary'] : new_pra['summary']
     time = Time.at(new_pra['addedAt']).to_datetime
-    plex_recently_addeds.create!(uuid: new_pra['librarySectionUUID'], added_date: time,
+    plex_recently_addeds.create!(uuid: new_pra['ratingKey'], added_date: time,
                                  plex_object_attributes: {description: summary,
                                                           media_title: media_title,
                                                           thumb_url: temp_thumb})
