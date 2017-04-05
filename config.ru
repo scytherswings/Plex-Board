@@ -4,7 +4,7 @@ require ::File.expand_path('../config/environment', __FILE__)
 # run Rails.application
 config_file = 'server_config.yml'
 if !File.exist?(config_file)
-  error_string = "Plex-Board was started without a #{config_file}. You should not run without it, things could get weird."
+  error_string = "Plex-Board was started without a #{config_file}. You should not run without it. RTFM."
   puts error_string
   Rails.logger.error error_string
 else
