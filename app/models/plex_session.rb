@@ -4,8 +4,7 @@ class PlexSession < ActiveRecord::Base
   has_one :plex_object, as: :plex_object_flavor, dependent: :destroy
   accepts_nested_attributes_for :plex_object
 
-  validates_presence_of :plex_user_name
-  validates_presence_of :session_key
+  validates_presence_of :plex_user_name, :session_key
   validates :session_key, uniqueness: {scope: :plex_service}
 
   def get_percent_done
@@ -21,5 +20,17 @@ class PlexSession < ActiveRecord::Base
     json[:created_at] = created_at
     json[:update_at] = updated_at
     json
+  end
+
+  def self.determine_stream_type(videoDecision)
+    case videoDecision.try(:downcase)
+      when 'copy'
+        'Stream'
+      when 'transcode'
+        'Transcode'
+      else
+        logger.warn { "Got PlexSession with videoDecision that has no known state. Data: '#{videoDecision}'. Defaulting to 'Stream'" }
+        'Stream'
+    end
   end
 end

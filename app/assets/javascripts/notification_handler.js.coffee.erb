@@ -1,9 +1,12 @@
-source = new EventSource('/services/notifications')
+"<% require 'yaml' %>"
+# Yes, this will blow up if server_config.yml doesn't exist. Sucks to suck. RTFM
+source = new EventSource("<%= (YAML.load_file('server_config.yml')['relative_root'] || '') + '/notifications' %>")
+
 ########### Service Online Status ############
 
 source.addEventListener 'online_status', (e) ->
   service = $.parseJSON(e.data)
-#  console.log(service)
+  #  console.log(service)
   $('#service_' + service.id).replaceWith(service.html)
 
 #  $.get service.self_uri, (data) ->
@@ -14,78 +17,71 @@ source.addEventListener 'online_status', (e) ->
 ############# Plex Now Playing ################
 
 source.addEventListener 'plex_now_playing', (e) ->
-  plex_session = $.parseJSON(e.data)
-#  console.log plex_session
+  plex_now_playing_data = $.parseJSON(e.data)
+  #  console.log plex_now_playing_data
   #  console.log "Plex - Now Playing - session #{plex_session.session_id}"
-  #.length tests to make sure that the id actually has elements
+  #  console.log $('[id^="streams_for_plex_service_"]').length && plex_now_playing_data.active_streams_html && plex_now_playing_data.active_streams_html.length
+
+  if $('[id^="streams_for_plex_service_"]').length && plex_now_playing_data.active_streams_html && plex_now_playing_data.active_streams_html.length
+    console.log "Updating Active Streams"
+    $('#streams_for_plex_service_' + plex_now_playing_data.plex_service_id).replaceWith(plex_now_playing_data.active_streams_html)
+    $('#streams_for_plex_service_' + plex_now_playing_data.plex_service_id).show()
+  else if $('[id^="streams_for_plex_service_"]').length
+    console.log "Hiding active stream"
+    $('[id^="streams_for_plex_service_"]').hide()
+  else if plex_now_playing_data.active_streams_html && plex_now_playing_data.active_streams_html.length
+    console.log "Adding new active stream"
+    $('#navbar_links').prepend('<li>' + plex_now_playing_data.active_streams_html + '</li>')
 
   updated_progressbar = """
-                       <div id="plex_progressbar_#{plex_session.session_id}"
+                       <div id="plex_progressbar_#{plex_now_playing_data.session_id}"
                        class="progress-bar progress-bar-warning"
                        role="progressbar"
-                       aria-valuenow="#{plex_session.progress}"
+                       aria-valuenow="#{plex_now_playing_data.progress}"
                        aria-valuemin="0" aria-valuemax="100"
-                       style="width: #{plex_session.progress}%"></div>
+                       style="width: #{plex_now_playing_data.progress}%"></div>
                       """
-  if $('#plex_session_' + plex_session.session_id).length
-#    console.log "PlexSession " + plex_session.session_id + " has active class? " + $("#plex_session_#{plex_session.session_id}").hasClass("active")
-#    console.log "PlexSession " + plex_session.session_id + " has item class? " + $("#plex_session_#{plex_session.session_id}").hasClass("item")
+  if $('#plex_session_' + plex_now_playing_data.session_id).length
 #    console.log "Updating progress bar"
-#    console.log "Will replace with #{updated_progressbar}"
-    $('#plex_progressbar_' + plex_session.session_id).replaceWith(updated_progressbar)
+    $('#plex_progressbar_' + plex_now_playing_data.session_id).replaceWith(updated_progressbar)
   else
 #    console.log "Didn't find the element \"session #{plex_session.session_id}\""
-
 #    console.log "Adding new session element.."
     if $("[id^=plex_recently_added_]")
-      $("[id^=plex_recently_added_]").last().after(plex_session.html)
+      $("[id^=plex_recently_added_]").last().after(plex_now_playing_data.html)
     else if $("[id^=plex_session_]")
-      $("[id^=plex_session_]").last().after(plex_session.html)
+      $("[id^=plex_session_]").last().after(plex_now_playing_data.html)
     else
-      $("[id^=carousel-inner]").append(plex_session.html)
+      $("[id^=carousel-inner]").append(plex_now_playing_data.html)
 
   #Find all the existing elements on the page and compare them to the active ids we got in the SSE
 
   #set every plex_session as stale so we can remove the sessions that aren't found in the active sessions from the server
   stale_sessions = $.find("[id^=plex_session_]")
   #iterate over known sessions
-  if plex_session.active_sessions
-    for i in [0...plex_session.active_sessions.length]
-#    console.log "i = " + i
-#    console.log "Active session is: plex_session_" + plex_session.active_sessions[i]
+  if plex_now_playing_data.active_sessions
+    for i in [0...plex_now_playing_data.active_sessions.length]
+#console.log "Active session is: plex_session_" + plex_session.active_sessions[i]
       for j in [0...stale_sessions.length]
-#      console.log "j = " + j
-#        console.log "Matching active session against: " + stale_sessions[j].id
-        if stale_sessions[j].id == ("plex_session_" + plex_session.active_sessions[i])
-#        console.log "Match!"
+#console.log "Matching active session against: " + stale_sessions[j].id
+        if stale_sessions[j].id == ("plex_session_" + plex_now_playing_data.active_sessions[i])
 #at position i, remove one element from the array
           stale_sessions.splice(j, 1)
-          #        console.log "Updated stale sessions length should be one less: " + stale_sessions.length
+          #console.log "Updated stale sessions length should be one less: " + stale_sessions.length
           break
-  #        console.log "Known session: " + stale_sessions[j].id + " did not match active session: plex_session_" + plex_session.active_sessions[j]
-  #      console.log "Moving to next active session"
-  #    console.log "PlexSession " + plex_session.session_id + " has active class? " + $("#plex_session_#{plex_session.session_id}").hasClass("active")
-  #    console.log "PlexSession " + plex_session.session_id + " has item class? " + $("#plex_session_#{plex_session.session_id}").hasClass("item")
   for k in [0...stale_sessions.length]
 #find the elements by id and remove them from the page
-#    console.log "PlexSession " + stale_sessions[k].id + " visible is " + $("#plex_session_" + stale_sessions[k].id).is(":visible")
-#    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
-#    console.log "PlexSession " + stale_sessions[k].id + " visible is " + $("#plex_session_" + stale_sessions[k].id).is(":visible")
-#    if !$("#plex_session_#{stale_sessions[k].id}").is(":visible")
-#    console.log "PlexSession " + stale_sessions[k].id + " has active class? " + $("##{stale_sessions[k].id}").hasClass("active")
-#    console.log "PlexSession " + stale_sessions[k].id + " has active class? " + $("##{stale_sessions[k].id}").hasClass("next")
-    #    console.log "PlexSession " + stale_sessions[k].id + " has item class? " + $("#plex_session_#{stale_sessions[k].id}").hasClass("item")
     if !$("##{stale_sessions[k].id}").hasClass("active") && !$("##{stale_sessions[k].id}").hasClass("next")
-#      console.log "Stale element found, removing.."
+#console.log "Stale element found, removing.."
       console.log "Removing element " + stale_sessions[k].id
       $("#" + stale_sessions[k].id).remove()
 
 source.addEventListener 'plex_recently_added', (e) ->
   pra = $.parseJSON(e.data)
   if $('div[id^=plex_session_]').length < 3
-#    console.log "There were less than 3 plex_sessions, adding plex recently added"
+#console.log "There were less than 3 plex_sessions, adding plex recently added"
     if $('#plex_recently_added_' + pra.id).length
-#      console.log "The PRA element was found. Not adding it again."
+#console.log "The PRA element was found. Not adding it again."
     else
       console.log "ID of new pra: #{pra.id}"
       new_pra = """

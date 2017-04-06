@@ -2,7 +2,41 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [v0.7.1] : 2017-3-2
+## [v0.9.1] : 2017-4-5
+### Fixed
+- [Issue #69 Plex Recently Added was not updating as expected](https://github.com/scytherswings/Plex-Board/issues/69)
+
+## [v0.9.0] : 2017-4-1
+### Added
+- Plex transcodes/streams counter in navbar.
+    - Transcodes are counted separately from streams, I can change this if it's confusing.
+### Changed
+- Rearranged some controllers to reduce duplicated code
+- Created helper method to generate a link for a plex service's streams/transcodes
+    - Currently goes to the service itself.
+- Commented out some unused dependencies sine there are no UI tests currently.
+
+## [v0.8.0] : 2017-3-29
+### Changed
+- Moved endpoint for SSE stream from `services/notifications` to a new controller at `/notifications`
+I wanted to put this behind a version bump in case anything breaks. Tests still pass (though there are no
+UI tests currently)
+- Only running tests on Ruby 2.3.3
+### Removed
+- Removed the `rm db/*.sqlite3` from the `serverSetup.sh` script because it would nuke a user's DB if they
+run it after setting everything up which would suck.
+
+## [v0.7.2] : 2017-3-26
+### Changed
+- Fixed broken service online status check. It was showing services as online that
+  rejected the connection attempt. A test covers this properly now at the cost of a
+  dependency on `redis` (for ease of install in Travis-CI). If you're going to run the tests
+  locally then you'll need to install redis/something running on `6379`, or disable that test.
+- Upgrade to Ruby `2.3.3`
+    - If you're running ruby `2.3.0` you can upgrade your ruby by doing
+    `rvm upgrade 2.3.0 2.3.3`
+
+## [v0.7.1] : 2017-3-26
 ### Changed
 - Increased database threadpool so puma doesn't run out 
 http://stackoverflow.com/questions/12045495/activerecordconnectiontimeouterror-happening-sporadically

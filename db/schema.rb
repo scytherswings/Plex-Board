@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170325204752) do
+ActiveRecord::Schema.define(version: 20170404205426) do
 
   create_table "plex_objects", force: :cascade do |t|
     t.string   "image"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170325204752) do
     t.datetime "updated_at",      null: false
     t.string   "session_key"
     t.integer  "plex_service_id"
+    t.string   "stream_type"
   end
 
   add_index "plex_sessions", ["plex_service_id"], name: "index_plex_sessions_on_plex_service_id"
@@ -70,7 +71,6 @@ ActiveRecord::Schema.define(version: 20170325204752) do
     t.string   "ip"
     t.string   "url"
     t.integer  "port"
-    t.datetime "last_seen"
     t.integer  "service_flavor_id"
     t.string   "service_flavor_type"
     t.datetime "created_at",          null: false

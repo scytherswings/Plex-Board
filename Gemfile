@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.8'
 gem 'sqlite3', '~> 1.3.13'
 gem 'sass-rails', '~> 5.0.6'
 gem 'uglifier', '~> 3.1.9'
@@ -23,7 +23,10 @@ gem 'parallel', '~> 1.11.1'
 gem 'rake', '~> 12.0.0'
 gem 'forecast_io', '~> 2.0'
 gem 'geocoder', '~> 1.4.3'
-gem 'tzinfo', '~> 1.2.2'
+gem 'tzinfo', '~> 1.2.3'
+gem 'tzinfo-data'
+gem 'lograge', '~> 0.4.1'
+gem 'browserlog', git: 'https://github.com/scytherswings/browserlog'
 
 group :development, :test do
   gem 'spring', '~> 2.0.1'
@@ -36,14 +39,14 @@ end
 
 group :test do
   gem 'simplecov', '~> 0.14.1'
-  gem 'coveralls', require: false
+  gem 'coveralls', '~> 0.8.20'
   gem 'minitest-reporters', '~> 1.1.14'
   gem 'mini_backtrace', '~> 0.1.3'
   gem 'webmock', '~> 2.3.2'
-  gem 'capybara', '~> 2.13.0'
-  gem 'poltergeist', '~> 1.14.0'
-  gem 'phantomjs', require: 'phantomjs/poltergeist'
-  gem 'capybara-screenshot'
+  # gem 'capybara', '~> 2.13.0'
+  # gem 'poltergeist', '~> 1.14.0'
+  # gem 'phantomjs', require: 'phantomjs/poltergeist'
+  # gem 'capybara-screenshot'
   gem 'vcr', '~> 3.0.3'
   gem 'minitest-vcr', '~> 1.4.0'
   gem 'faker', '~> 1.7.3'

@@ -1,29 +1,23 @@
 class PlexServicesController < ApplicationController
   before_action :set_plex_service, only: [:show, :edit, :update, :destroy]
+  before_filter :set_sidebar_values, except: [:now_playing, :recently_added, :create, :update, :destroy]
 
-  def index
+  def set_sidebar_values
     @services = Service.all
     @plex_services = PlexService.all
-    @weathers = Weather.all
-    # redirect_to root_path
+    # @weathers = Weather.all
+  end
+
+  def index
   end
 
   def edit
-    @services = Service.all
-    @plex_services = PlexService.all
-    @weathers = Weather.all
   end
 
   def show
-    @services = Service.all
-    @plex_services = PlexService.all
-    @weathers = Weather.all
   end
 
   def all_plex_services
-    @services = Service.all
-    @plex_services = PlexService.all
-    @weathers = Weather.all
   end
 
   # GET /now_playings/1
@@ -34,7 +28,7 @@ class PlexServicesController < ApplicationController
       @active = ''
       respond_to do |format|
         format.html { render partial: 'plex_services/plex_session', collection: @plex_sessions }
-        format.json { render json:  @plex_sessions }
+        format.json { render json: @plex_sessions }
       end
     else
       @plex_session = PlexSession.find(params[:id])
@@ -72,11 +66,8 @@ class PlexServicesController < ApplicationController
   # http://stackoverflow.com/questions/26458417/rails-polymorphic-posts-associations-and-form-for-in-views
 
   def new
-    @services = Service.all
-    @plex_services = PlexService.all
     @plex_service = PlexService.new
     @service = @plex_service.build_service
-    @weathers = Weather.all
   end
 
   def create

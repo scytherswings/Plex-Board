@@ -59,7 +59,8 @@ class PlexService < ActiveRecord::Base
     logger.info("Making Plex API call to: #{get_connection_string}#{path}")
 
     unless service.online_status
-      logger.warn('Service: ' + service.name + ' is offline, cant grab plex data')
+      logger.warn("Service: #{ service.name} is offline, can't grab plex data. Clearing PlexSessions")
+      plex_sessions.destroy_all
       return nil
     end
 
@@ -99,8 +100,8 @@ class PlexService < ActiveRecord::Base
 
     #if plex has nothing, then fucking nuke that shit
     if incoming_plex_sessions.blank? || incoming_plex_sessions['size'] < 1 || incoming_plex_sessions['Video'].blank?
-      logger.debug('incoming_plex_sessions was empty... Deleting all sessions')
-      plex_sessions.destroy_all
+      logger.info('incoming_plex_sessions was empty... Deleting all sessions.')
+      plex_sessions.destroy_all #TODO: This needs a test
       return nil
     end
 
@@ -162,15 +163,18 @@ class PlexService < ActiveRecord::Base
       temp_thumb = new_session["thumb"]
     end
     #create a new sesion object with the shit we found in the json blob
-    new_session = plex_sessions.create!(plex_user_name: new_session_name, total_duration: new_session["duration"],
-                          progress: new_session["viewOffset"], session_key: new_session["sessionKey"],
+    plex_sessions.create!(plex_user_name: new_session_name,
+                          total_duration: new_session["duration"],
+                          progress: new_session["viewOffset"],
+                          session_key: new_session["sessionKey"],
+                          stream_type: PlexSession.determine_stream_type(new_session.dig('TranscodeSession','videoDecision')),
                           plex_object_attributes: {description: new_session["summary"],
                                                    media_title: new_session["title"],
                                                    thumb_url: temp_thumb})
   end
 
   def update_plex_session(existing_session, updated_session_viewOffset)
-    logger.debug("Updating PlexSession ID: #{existing_session.id} for PlexService: #{service.name}")
+    logger.debug { "Updating PlexSession ID: #{existing_session.id} for PlexService: #{service.name}" }
     existing_session.update!(progress: updated_session_viewOffset)
   end
 
@@ -185,14 +189,14 @@ class PlexService < ActiveRecord::Base
                 'X-Plex-Token': token}
 
     unless service.online_status
-      logger.warn('Service: ' + service.name + ' is offline, cant grab plex data')
+      logger.warn("Service: #{service.name} is offline, can't grab plex data.")
       return nil
     end
 
     response = plex_api(method: :get, path: path, headers: defaults)
 
     if response.nil?
-      logger.debug("Plex doesn't have any recently added")
+      logger.debug("PlexService: #{service.name} doesn't have any recently added.")
       return nil
     end
 
@@ -206,7 +210,7 @@ class PlexService < ActiveRecord::Base
     end
 
     stale_pras = plex_recently_addeds.map { |known_pra| known_pra.uuid } -
-        incoming_pras.map { |new_pra| new_pra['librarySectionUUID'] }
+        incoming_pras.map { |new_pra| new_pra['ratingKey'] }
 
     # logger.debug("stale_pras #{stale_pras}")
 
@@ -214,11 +218,11 @@ class PlexService < ActiveRecord::Base
       PlexRecentlyAdded.find_by(uuid: stale_pra).destroy
     end
 
-    new_pras = incoming_pras.map { |new_pra| new_pra['librarySectionUUID'] } -
+    new_pras = incoming_pras.map { |new_pra| new_pra['ratingKey'] } -
         plex_recently_addeds.map { |known_pra| known_pra.uuid }
 
     # logger.debug("new_pras #{new_pras}")
-    pras_to_add = incoming_pras.select { |matched| new_pras.include?(matched['librarySectionUUID']) }
+    pras_to_add = incoming_pras.select { |matched| new_pras.include?(matched['ratingKey']) }
 
     # logger.debug("pras_to_add #{pras_to_add}")
     pras_to_add.each { |new_pra| add_plex_recently_added(new_pra) }
@@ -231,7 +235,7 @@ class PlexService < ActiveRecord::Base
     temp_thumb = new_pra.has_key?('parentThumb') ? new_pra['parentThumb'] : new_pra['thumb']
     summary = new_pra.has_key?('parentSummary') ? new_pra['parentSummary'] : new_pra['summary']
     time = Time.at(new_pra['addedAt']).to_datetime
-    plex_recently_addeds.create!(uuid: new_pra['librarySectionUUID'], added_date: time,
+    plex_recently_addeds.create!(uuid: new_pra['ratingKey'], added_date: time,
                                  plex_object_attributes: {description: summary,
                                                           media_title: media_title,
                                                           thumb_url: temp_thumb})

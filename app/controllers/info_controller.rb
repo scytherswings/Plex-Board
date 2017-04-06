@@ -1,13 +1,15 @@
 class InfoController < ApplicationController
-  def configuration
+  before_filter :set_sidebar_values
+
+  def set_sidebar_values
     @services = Service.all
     @plex_services = PlexService.all
-    @weathers = Weather.all
+    # @weathers = Weather.all
+  end
+
+  def configuration
   end
 
   def about
-    @services = Service.all
-    @plex_services = PlexService.all
-    @weathers = Weather.all
   end
 end

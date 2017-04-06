@@ -6,9 +6,9 @@ require 'rails/test_help'
 require 'minitest/reporters'
 require 'webmock/minitest'
 require 'strip_attributes/matchers'
-require 'capybara/rails'
-require 'capybara/poltergeist'
-require 'capybara-screenshot/minitest'
+# require 'capybara/rails'
+# require 'capybara/poltergeist'
+# require 'capybara-screenshot/minitest'
 require 'yaml'
 require 'fabrication'
 require 'faker'
@@ -16,7 +16,7 @@ require 'vcr'
 require 'minitest-vcr'
 require 'parallel_tests/test/runtime_logger' if ENV['RECORD_RUNTIME']
 Minitest::Reporters.use!
-Capybara.javascript_driver = :poltergeist
+# Capybara.javascript_driver = :poltergeist
 
 # Allow existing stubs to work with VCR and shit
 # https://github.com/vcr/vcr/issues/146
@@ -134,7 +134,7 @@ class ActiveSupport::TestCase
         to_return(status: 200, body: "{\"results\": [],\"status\": \"ZERO_RESULTS\"}", headers: {})
 
     WebMock.stub_request(:get, 'https://api.darksky.net/forecast/0ca1d9fc73742b2dca0dc2643d89994d/42.306642,-83.71466199999999?units=us').
-        with(:headers => {'Accept': '*/*', 'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent': 'Faraday v0.11.0'}).
+        with(:headers => {'Accept': '*/*', 'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent': USER_AGENT }).
         to_return(:status => 200, body: json_file('forecast.json'), :headers => {})
 
 
@@ -175,9 +175,9 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Capybara::Screenshot::MiniTestPlugin
-  Capybara::Screenshot.webkit_options = {width: 1920, height: 1080}
+  # include Capybara::DSL
+  # include Capybara::Screenshot::MiniTestPlugin
+  # Capybara::Screenshot.webkit_options = {width: 1920, height: 1080}
 
   PlexObject.set(images_dir: 'test/test_images')
 
