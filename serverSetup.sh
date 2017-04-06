@@ -1,13 +1,13 @@
 #!/bin/bash
+echo "Installing Gems. This can take a bit of time..."
+gem install bundler rake --no-ri --no-rdoc
+bundle install --without development test
 
 SERVER_CONFIG_FILE="server_config.yml"
 SECRETS="config/secrets.yml"
 SECRET="$(rake secret)"
 BOGUS="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-echo "Installing Gems. This can take a bit of time..."
-gem install bundler rake --no-ri --no-rdoc
-bundle install --without development test
 echo
 echo "Destroying tmp folder to clear caches etc."
 rm -rf tmp
