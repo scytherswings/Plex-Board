@@ -8,3 +8,7 @@
 relative_root:
 web_host: http://0.0.0.0:3000
 asset_host: http://0.0.0.0:3000
+
+
+# Windows users will need to change both the web_host and asset_host from 0.0.0.0 to a valid IP address on the host.
+# If you're just testing it locally then http://127.0.0.1:3000 should work for both values.
