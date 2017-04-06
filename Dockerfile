@@ -9,6 +9,7 @@ RUN apt-get update -qq && apt-get install -y \
     nodejs \
     curl \
     libsqlite3-dev \
+    git \
   && rm -rf /var/lib/apt/lists/*
 
 
@@ -34,10 +35,10 @@ RUN bundle install --binstubs --without development test
 # Copy the Rails application into place
 COPY . .
 
-CMD [ "dockerSetup.sh" ]
+RUN /var/www/plexdashboard/serverSetup.sh >> /tmp/bullshit.txt
 
 EXPOSE 3000
 
 # Define the script we want run once the container boots
 # Use the "exec" form of CMD so our script shuts down gracefully on SIGTERM (i.e. `docker stop`)
-CMD [ "bundle exec rails server -e production -p 3000 -b 0.0.0.0" ]
+CMD ["/var/www/plexdashboard/runServer.sh"]

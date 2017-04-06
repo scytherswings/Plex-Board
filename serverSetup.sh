@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 SERVER_CONFIG_FILE="server_config.yml"
 SECRETS="config/secrets.yml"
 SECRET="$(rake secret)"

@@ -40,5 +40,7 @@ module Workspace
     config.action_dispatch.default_headers = {
         'X-Frame-Options' => 'ALLOWALL'
     }
+
+    config.cache_store = :memory_store
   end
 end
