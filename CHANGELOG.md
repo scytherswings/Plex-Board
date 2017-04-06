@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.10.0] : 2017-4-6
+### Added
+- `Dockerfile`!!!
+  - This is great because it helps me test that the setup scripts work correctly.
+
 ## [v0.9.1] : 2017-4-5
 ### Fixed
 - [Issue #69 Plex Recently Added was not updating as expected](https://github.com/scytherswings/Plex-Board/issues/69)

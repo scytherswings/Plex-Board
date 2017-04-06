@@ -7,3 +7,4 @@ tmp
 public/images
 log/*
 db/*.sqlite3
+server_config.yml
