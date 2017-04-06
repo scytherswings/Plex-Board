@@ -21,7 +21,7 @@ echo -e "RAILS_ENV=production"
 echo
 
 if [ ! -f ${SERVER_CONFIG_FILE} ]; then
- if cp example.server_config.yml ${SERVER_CONFIG_FILE} 2>&1; then
+ if cp example.windows.server_config.yml ${SERVER_CONFIG_FILE} 2>&1; then
     echo "Created server_config.yml since it didn't exist"
  fi
 else
@@ -38,4 +38,4 @@ echo
 echo "Creating images directory"
 mkdir -p public/images
 echo
-echo "Finished. Run ./runServer.sh to start the server! It runs on port 3000 by default."
+echo "Finished. Run \"bundle exec rails server -e production\" to start the server! It runs on port 3000 by default."
