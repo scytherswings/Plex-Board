@@ -6,7 +6,7 @@ SECRET="$(rake secret)"
 BOGUS="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 echo "Installing Gems. This can take a bit of time..."
-gem install rake
+gem install bundler rake --no-ri --no-rdoc
 bundle install --without development test
 echo
 echo "Destroying tmp folder to clear caches etc."
