@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.8'
 gem 'sqlite3', '~> 1.3.13'
 gem 'sass-rails', '~> 5.0.6'
 gem 'uglifier', '~> 3.1.9'
