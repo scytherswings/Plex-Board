@@ -7,7 +7,8 @@
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B6MNRRPVZ34TN)
 
-What is Plex-Board? Put simply, it is a dynamic dashboard for checking the status of multiple services related to Plex Media Server (Plex, Couchpotato, Sickrage, Deluge, Sabnzbd+, etc.).
+What is Plex-Board? Put simply, it is a dynamic dashboard for checking the status of multiple services related 
+to Plex Media Server (Plex, Couchpotato, Sickrage, Deluge, Sabnzbd+, etc.).
 
 This is essentially a revamp of a cool project ([Network-Status-Page](https://github.com/scytherswings/Network-Status-Page)) I forked a little while ago.
 
@@ -15,9 +16,14 @@ Pronounced "Plex Dashboard" like that ghetto name [La-a](http://www.urbandiction
 
 Just for clarification, yes this is _another_ Plex dashboard, but this project is _different_ and I'll tell you why.
 
-PlexWatchWeb and the newer (and very cool) PlexPy projects are oriented more towards statistics etc.
-Plex-Board is meant to help the users **and** administrators of a Plex server get a quick overview on the status of the various services related to and including Plex itself.
-There's a large list of features I plan to support in the future and I take all requests into consideration. If there is something you'd like to see, feel free to chat about it on Gitter, or create a feature request ticket.
+[PlexWatchWeb](https://github.com/ecleese/plexWatchWeb) and [PlexPy](https://github.com/JonnyWong16/plexpy) 
+are projects oriented more towards statistics etc. \
+__Plex-Board__ is meant to help the users **and** administrators of a Plex server get a quick overview on the 
+status of the various services related to, and including Plex itself.
+There's a large list of features I plan to support in the future and I take all requests into consideration. 
+If there is something you'd like to see, feel free to chat about it on 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
+, or create a feature request ticket.
 
 
 Here are a few screenshots of v0.4.2 (the last major UI update):
