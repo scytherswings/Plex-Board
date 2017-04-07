@@ -1,5 +1,5 @@
 # Base our image on an official, minimal image of our preferred Ruby
-FROM ruby:2.3.3-slim
+FROM ruby:2.3.4-slim
 
 ENV RAILS_ROOT /var/www/plexdashboard
 ENV RAILS_ENV production
@@ -41,4 +41,4 @@ EXPOSE 3000
 
 # Define the script we want run once the container boots
 # Use the "exec" form of CMD so our script shuts down gracefully on SIGTERM (i.e. `docker stop`)
-CMD ["/var/www/plexdashboard/startServer.sh"]
+CMD exec bundle exec puma -C config/docker-puma.rb config.ru

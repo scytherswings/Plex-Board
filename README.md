@@ -43,6 +43,8 @@ You should have enough space to allow logs and an image cache, so I wouldn't rec
 
 Rails can probably run on 512MB of RAM fine and CPU usage will vary. You can probably get away with a single core, but dual core may run smoother.
 
+It will run on the original Raspberry Pi which is pretty neat.
+
 
 ## Install Instructions
 ##### Development branch status:
@@ -52,9 +54,13 @@ Rails can probably run on 512MB of RAM fine and CPU usage will vary. You can pro
 ### This project is not ready for real production use yet, so don't expect stability until a 1.0.0 release.
 Then when things break you can yell at me and use this readme as an excuse
 
-#### The minimum Ruby version supported is `2.3.0`
+#### Other supported operating systems:
 
-These instructions have been tested on a fresh install of Ubuntu 14.04 using bash as of 10/16/2015.
+[Plex-Board Wiki Homepage](https://github.com/scytherswings/Plex-Board/wiki)
+
+##### Ubuntu 16.04 LTS
+
+These instructions have been tested on a fresh install of Ubuntu 16.04 using bash as of 4/7/2017.
 Other operating systems will probably work, but for now I'm only going to write instructions for Ubuntu.
 
 1. `sudo apt-get update && sudo apt-get install git bundler nodejs curl -y;`
