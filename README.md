@@ -23,8 +23,7 @@ __Plex-Board__ is meant to help the users **and** administrators of a Plex serve
 status of the various services related to, and including Plex itself.
 There's a large list of features I plan to support in the future and I take all requests into consideration. 
 If there is something you'd like to see, feel free to chat about it on 
-[Gitter](https://gitter.im/scytherswings/Plex-Board?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
-, or create a feature request ticket.
+[Gitter](https://gitter.im/scytherswings/Plex-Board?utm_source=share-link&utm_medium=link&utm_campaign=share-link), or create a feature request ticket.
 
 
 Here are a few screenshots of v0.4.2 (the last major UI update):
