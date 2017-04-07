@@ -41,4 +41,4 @@ EXPOSE 3000
 
 # Define the script we want run once the container boots
 # Use the "exec" form of CMD so our script shuts down gracefully on SIGTERM (i.e. `docker stop`)
-CMD ["/var/www/plexdashboard/runServer.sh"]
+CMD ["/var/www/plexdashboard/startServer.sh"]

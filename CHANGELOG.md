@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.11.0] : 2017-4-6
+### Changed
+- Major overhaul to the `bash` scripts.
+  - `runServer.sh` was renamed to `startServer.sh`
+  - All scripts will try to run in the directory in which they are located so they should
+  be safe to call from anywhere.
+- The server now defaults to running as a daemon! This means you don't have to leave 
+your shell open anymore!
+
+### Added
+- Operating system detection
+ - It is very basic so please file a bug if you see `setupServer.sh` incorrectly identifying your OS!
+ 
+
 ## [v0.10.0] : 2017-4-6
 ### Added
 - `Dockerfile`!!!

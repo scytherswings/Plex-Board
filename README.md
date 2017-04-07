@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.10.0
+## Version 0.11.0
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
@@ -69,44 +69,48 @@ Now at this point, you might have to give your user write permissions to this di
  If that is the case run: \
  `sudo chmod 777 /opt -R`
 
-
 5. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-6. `rvm install 2.3.3 && rvm use 2.3.3@plexdashboard --create` 
+6. `rvm install ruby-2.3.3` 
 
     If you get a message saying something like: \
-`RVM is not a function, selecting rubies with 'rvm use ...' will not work.` \
-Then you'll have to run: \
-    `/bin/bash --login` 
-    \
-     or reboot with: \
-     `sudo reboot`\
-      If you get an error saying that the gemset already
-exists then you can omit `--create`. \
+    `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` \
+    Then you'll have to run: \
+    `/bin/bash --login` \
+    or reboot with: \
+    `sudo reboot` \
     Start at the next step if you choose to reboot.
 
 7. `cd /opt/Plex-Board`
 
-8. `rvm use 2.3.3@plexdashboard`
+8. `./serverSetup.sh`
 
-9. `./serverSetup.sh`
-
-11. Check the newly created `server_config.yml` file to see that all the settings match what you want them to.
+9. Check the newly created `server_config.yml` file to see that all the settings match what you want them to.
 If you're not running behind a reverse proxy then you shouldn't need to touch this file at all.
 
-12. __Plex-Board__ should now be installed!
+10. __Plex-Board__ should now be installed!
 
 ## Running Instructions
-1. `rvm use 2.3.3@plexdashboard && bash runServer.sh` If you use RVM you'll need to make sure you use the gemset that 
+1. `./startServer.sh` \
+If you use RVM you'll need to make sure you use the gemset that 
 we set up earlier each time you run the server. 
 This way you will isolate Plex-Board dependencies from the rest of your system.
 
+    If you get an error that looks like:\
+    ...`Address family not supported by protocol - socket(2) for "::1" port 3000 (Errno::EAFNOSUPPORT)`\
+    You can either disable IPv6 for your OS or edit the `server_config.yml` to use a specific IP address on your system e.g. \
+    `http://192.168.0.102:3000` \
+    See the `server_config.yml` file for more details. 
+    
+2. `./stopServer.sh` will stop the server.
 
 ## Updating Instructions
 1. `./update.sh` Will run `git pull` and `serverSetup.sh` for you.
 
 
 ### Feedback
-If you run into any bugs, please, make a ticket or ask in the Gitter chat room. 
+If you run into any bugs, please, make a ticket or ask in the 
+ [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
+chat room. 
 I'm sure I'll miss something in my testing so feel free to let me know what I overlooked. 
 Since I work on this project in my free time, I can't always respond to chats immediately but I'll do the best I can to get back to you within the day.
