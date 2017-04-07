@@ -13,7 +13,7 @@ your shell open anymore!
 
 ### Added
 - Operating system detection
- - It is very basic so please file a bug if you see `setupServer.sh` incorrectly identifying your OS!
+  - It is very basic so please file a bug if you see `setupServer.sh` incorrectly identifying your OS!
  
 
 ## [v0.10.0] : 2017-4-6
