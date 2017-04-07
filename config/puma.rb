@@ -12,7 +12,7 @@ require 'yaml'
 #
 # The default is "development".
 #
-environment 'production'
+environment ENV['RAILS_ENV']
 
 # Daemonize the server into the background. Highly suggest that
 # this be combined with "pidfile" and "stdout_redirect".
@@ -20,7 +20,12 @@ environment 'production'
 # The default is "false".
 #
 # daemonize
-daemonize true
+if ENV['RAILS_ENV'] == 'production'
+  daemonize true
+else
+  daemonize false
+end
+
 
 # Store the pid of the server in the file at "path".
 #
@@ -36,7 +41,9 @@ state_path 'tmp/pids/puma.state'
 # "false".
 #
 # stdout_redirect '/u/apps/lolcat/log/stdout', '/u/apps/lolcat/log/stderr'
-stdout_redirect 'log/production.stdout.log', 'log/production.stderr.log', true
+if ENV['RAILS_ENV'] == 'production'
+  stdout_redirect 'log/production.stdout.log', 'log/production.stderr.log', true
+end
 
 # Disable request logging.
 #

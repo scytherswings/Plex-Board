@@ -44,7 +44,7 @@ class PlexService < ActiveRecord::Base
 
   def update_plex_data
     unless token.nil?
-      Rails.cache.fetch("plex_service_#{self.id}/update_plex_data", expires_in: 10.seconds) do
+      Rails.cache.fetch("plex_service_#{self.id}/update_plex_data", expires_in: 10.seconds, race_condition_ttl: 5.seconds) do
         get_plex_sessions
         get_plex_recently_added
         self
@@ -84,7 +84,7 @@ class PlexService < ActiveRecord::Base
   #TODO Refactor: Need a better -more readable- way to interface with the plex api
   def get_plex_sessions
     if service.nil?
-      logger.warn 'get_plex_sessions was called on a PlexService with no Service object, can\'t get sessions'
+      logger.error 'get_plex_sessions was called on a PlexService with no Service object, can\'t get sessions'
       return nil
     end
     logger.info("Getting PlexSessions for PlexService: #{service.name}")
