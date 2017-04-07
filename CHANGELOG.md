@@ -4,7 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [v0.11.1] : 2017-4-6
 ### Fixed
-- Race condition on delete for stale sessions when multiple clients are connected.
+- Race condition for various actions based on the number of clients. Now things should chug along nicely
+regardless of the client number.
 
 ## [v0.11.0] : 2017-4-6
 ### Changed
