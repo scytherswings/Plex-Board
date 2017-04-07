@@ -80,6 +80,8 @@ Now at this point, you might have to give your user write permissions to this di
     or reboot with: \
     `sudo reboot` \
     Start at the next step if you choose to reboot.
+    Also, installing ruby could take a while if it has to compile from source. 
+    It should be about 1 beer long.
 
 7. `cd /opt/Plex-Board`
 

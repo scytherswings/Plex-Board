@@ -38,12 +38,16 @@ if [[ -s ${HOME_RVM} ]] ; then
   # First try to load from a user install
   source ${HOME_RVM} \
   && printf "\nRVM successfully loaded from $HOME_RVM\n" \
+  && printf "\nInstalling ruby-2.3.4 if it isn't already installed. This could take a while...\n" \
+  && rvm install ruby-2.3.4 \
   && rvm use gemset ruby-2.3.4@plexdashboard
 
 elif [[ -s ${ROOT_RVM} ]] ; then
   # Then try to load from a root install
   source ${ROOT_RVM} \
   && printf "\nRVM successfully loaded from $ROOT_RVM\n" \
+  && printf "\nInstalling ruby-2.3.4 if it isn't already installed. This could take a while...\n" \
+  && rvm install ruby-2.3.4 \
   && rvm use gemset ruby-2.3.4@plexdashboard
 
 else
