@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
 [![Coverage Status](https://coveralls.io/repos/scytherswings/Plex-Board/badge.svg?branch=dev&service=github)](https://coveralls.io/github/scytherswings/Plex-Board?branch=dev)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
+[![Gitter](https://badges.gitter.im/scytherswings/Plex-Board.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B6MNRRPVZ34TN)
 
 What is Plex-Board? Put simply, it is a dynamic dashboard for checking the status of multiple services related 
