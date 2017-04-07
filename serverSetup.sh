@@ -98,14 +98,14 @@ else
     printf "\nserver_config.yml exists, not creating."
 fi
 
-printf "\nCreating and setting up the database for production\n"
+printf "\nCreating and setting up the database for production.\n"
 bundle exec rake db:create RAILS_ENV=production
 bundle exec rake db:migrate RAILS_ENV=production
 
 printf "\nCompiling assets. This could take a while depending on CPU power...\n"
 bundle exec rake assets:clobber assets:precompile RAILS_ENV=production
 
-printf "\nCreating images directory\n"
+printf "\nCreating images directory.\n"
 mkdir -p public/images
 
 printf "\nFinished. Run ./startServer.sh to start the server!\n\n"
