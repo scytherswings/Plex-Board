@@ -28,7 +28,7 @@ source stopServer.sh
 printf "\nDestroying tmp folder to clear caches and leftover pidfiles.\n"
 rm -rf tmp
 
-printf "\nDestroying public/images to clear leftover images."
+printf "\nDestroying public/images to clear leftover images.\n"
 rm -rf public/images
 
 HOME_RVM=$HOME/.rvm/scripts/rvm
@@ -38,13 +38,13 @@ if [[ -s ${HOME_RVM} ]] ; then
   # First try to load from a user install
   source ${HOME_RVM} \
   && printf "\nRVM successfully loaded from $HOME_RVM\n" \
-  && rvm use gemset ruby-2.3.3@plexdashboard
+  && rvm use gemset ruby-2.3.4@plexdashboard
 
 elif [[ -s ${ROOT_RVM} ]] ; then
   # Then try to load from a root install
   source ${ROOT_RVM} \
   && printf "\nRVM successfully loaded from $ROOT_RVM\n" \
-  && rvm use gemset ruby-2.3.3@plexdashboard
+  && rvm use gemset ruby-2.3.4@plexdashboard
 
 else
   printf "\nWARNING: An RVM installation was not found. Did you follow the instructions correctly? Attempting to use system Ruby...\n"

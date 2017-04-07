@@ -71,7 +71,7 @@ Now at this point, you might have to give your user write permissions to this di
 
 5. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-6. `rvm install ruby-2.3.3` 
+6. `rvm install ruby-2.3.4` 
 
     If you get a message saying something like: \
     `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` \
