@@ -18,7 +18,7 @@ else
   printf "\nWARNING: An RVM installation was not found. Did you follow the instructions correctly? Attempting to use system Ruby...\n"
 fi
 
-printf "\nIf you run into any issues, check the error logs in: logs/production.stderr.log, logs/production.stdout.log, and logs/production.log\n\n"
+printf "\nIf you run into any issues, check the error logs in: log/production.stderr.log, log/production.stdout.log, and log/production.log\n\n"
 
 mkdir -p tmp/pids && touch tmp/pids/puma.pid && exec bundle exec puma -C config/puma.rb config.ru
 
