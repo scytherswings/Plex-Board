@@ -119,7 +119,7 @@ class PlexService < ActiveRecord::Base
     logger.debug("stale_sessions #{stale_sessions}")
 
     stale_sessions.each do |stale_session|
-      PlexSession.find_by(session_key: stale_session).destroy
+      PlexSession.find_by(session_key: stale_session).try(:destroy)
     end
 
     sessions_to_update = incoming_plex_sessions.map { |new_session| new_session["sessionKey"] } &

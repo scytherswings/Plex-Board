@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.11.1] : 2017-4-6
+### Fixed
+- Race condition on delete for stale sessions when multiple clients are connected.
+
 ## [v0.11.0] : 2017-4-6
 ### Changed
 - Major overhaul to the `bash` scripts.
