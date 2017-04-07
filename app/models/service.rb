@@ -48,7 +48,7 @@ class Service < ActiveRecord::Base
   end
 
   def ping
-    Rails.cache.fetch("service_#{id}/online", expires_in: 10.seconds) do
+    Rails.cache.fetch("service_#{id}/online", expires_in: 10.seconds, race_condition_ttl: 5.seconds) do
       check_online_status
       self.online_status
     end
