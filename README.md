@@ -12,17 +12,18 @@ to Plex Media Server (Plex, Couchpotato, Sickrage, Deluge, Sabnzbd+, etc.).
 
 This is essentially a revamp of a cool project ([Network-Status-Page](https://github.com/scytherswings/Network-Status-Page)) I forked a little while ago.
 
-Pronounced "Plex Dashboard" like that ghetto name [La-a](http://www.urbandictionary.com/define.php?term=la-a) (La Dash A)... sorry...
+Pronounced "Plex *dash* board" like that ghetto name [La-a](http://www.urbandictionary.com/define.php?term=la-a) (La *dash* A)... sorry...
 
 Just for clarification, yes this is _another_ Plex dashboard, but this project is _different_ and I'll tell you why.
 
 [PlexWatchWeb](https://github.com/ecleese/plexWatchWeb) and [PlexPy](https://github.com/JonnyWong16/plexpy) 
-are projects oriented more towards statistics etc. \
+are projects oriented more towards statistics etc.
+
 __Plex-Board__ is meant to help the users **and** administrators of a Plex server get a quick overview on the 
 status of the various services related to, and including Plex itself.
 There's a large list of features I plan to support in the future and I take all requests into consideration. 
 If there is something you'd like to see, feel free to chat about it on 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
+[Gitter](https://gitter.im/scytherswings/Plex-Board?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 , or create a feature request ticket.
 
 
@@ -118,7 +119,7 @@ This way you will isolate Plex-Board dependencies from the rest of your system.
 
 ### Feedback
 If you run into any bugs, please, make a ticket or ask in the 
- [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
+[Gitter](https://gitter.im/scytherswings/Plex-Board?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 chat room. 
 I'm sure I'll miss something in my testing so feel free to let me know what I overlooked. 
 Since I work on this project in my free time, I can't always respond to chats immediately but I'll do the best I can to get back to you within the day.
