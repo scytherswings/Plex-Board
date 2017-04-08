@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Race condition for various actions based on the number of clients. Now things should chug along nicely
 regardless of the client number.
+### Changed
+- Notifications controller uses caching heavily now
+  - Multiple clients will all update simultaneously now.
 
 ## [v0.11.0] : 2017-4-6
 ### Changed

@@ -59,8 +59,10 @@ class PlexService < ActiveRecord::Base
     logger.info("Making Plex API call to: #{get_connection_string}#{path}")
 
     unless service.online_status
-      logger.warn("Service: #{ service.name} is offline, can't grab plex data. Clearing PlexSessions")
-      plex_sessions.destroy_all
+      logger.info("Plex Service: #{service.name} is offline, can't grab plex data. Clearing PlexSessions.")
+      if plex_sessions.count > 0
+        plex_sessions.destroy_all
+      end
       return nil
     end
 
@@ -100,8 +102,10 @@ class PlexService < ActiveRecord::Base
 
     #if plex has nothing, then fucking nuke that shit
     if incoming_plex_sessions.blank? || incoming_plex_sessions['size'] < 1 || incoming_plex_sessions['Video'].blank?
-      logger.info('incoming_plex_sessions was empty... Deleting all sessions.')
-      plex_sessions.destroy_all #TODO: This needs a test
+      if plex_sessions.count > 0
+        logger.info('incoming_plex_sessions was empty... Deleting all sessions.')
+        plex_sessions.destroy_all #TODO: This needs a test
+      end
       return nil
     end
 
@@ -167,7 +171,7 @@ class PlexService < ActiveRecord::Base
                           total_duration: new_session["duration"],
                           progress: new_session["viewOffset"],
                           session_key: new_session["sessionKey"],
-                          stream_type: PlexSession.determine_stream_type(new_session.dig('TranscodeSession','videoDecision')),
+                          stream_type: PlexSession.determine_stream_type(new_session.dig('TranscodeSession', 'videoDecision')),
                           plex_object_attributes: {description: new_session["summary"],
                                                    media_title: new_session["title"],
                                                    thumb_url: temp_thumb})
