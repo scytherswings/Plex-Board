@@ -61,7 +61,6 @@ Then when things break you can yell at me and use this readme as an excuse
 ##### Ubuntu 16.04 LTS
 
 These instructions have been tested on a fresh install of Ubuntu 16.04 using bash as of 4/7/2017.
-Other operating systems will probably work, but for now I'm only going to write instructions for Ubuntu.
 
 1. `sudo apt-get update && sudo apt-get install git bundler nodejs curl -y;`
 
