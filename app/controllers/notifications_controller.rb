@@ -18,6 +18,14 @@ class NotificationsController < ApplicationController
           sleep(10)
         end
 
+        service_statuses = Rails.cache.fetch("Services/online_status", expires_in: 3.seconds, race_condition_ttl: 2.seconds) do
+          get_services_info(@services)
+        end
+
+        unless service_statuses.nil?
+          events.concat(service_statuses)
+        end
+
         plex_info = Rails.cache.fetch("PlexServices/events", expires_in: 5.seconds, race_condition_ttl: 3.seconds) do
           get_plex_info(@plex_services)
         end
@@ -26,13 +34,6 @@ class NotificationsController < ApplicationController
           events.concat(plex_info)
         end
 
-        service_statuses = Rails.cache.fetch("Services/online_status", expires_in: 5.seconds, race_condition_ttl: 3.seconds) do
-          get_services_info(@services)
-        end
-
-        unless service_statuses.nil?
-          events.concat(service_statuses)
-        end
 
         # @weathers.try(:each) do |weather|
         #   weather.get_weather
@@ -58,7 +59,6 @@ class NotificationsController < ApplicationController
   private
 
   def get_services_info(services)
-    logger.info("getting server status for realz")
     data = []
     services.try(:each) do |service|
       service.ping
@@ -69,7 +69,6 @@ class NotificationsController < ApplicationController
 
 
   def get_plex_info(plex_services)
-    logger.info("getting plex info for realz")
     data = []
     plex_services.try(:each) do |plex_service|
       plex_service.update_plex_data
