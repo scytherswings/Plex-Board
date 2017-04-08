@@ -112,7 +112,6 @@ class PlexObject < ActiveRecord::Base
 
     imagefile = "#{@@images_dir}/#{self.id}.jpeg"
 
-    #TODO: Add control for timeouts
     begin
       tries ||= 1
       File.open(imagefile, 'wb') do |f|
@@ -120,13 +119,13 @@ class PlexObject < ActiveRecord::Base
                                             headers: headers, verify_ssl: OpenSSL::SSL::VERIFY_NONE,
                                             timeout: 2, open_timeout: 2))
       end
-    rescue Errno::ENOENT, RestClient::NotFound, RestClient::Exceptions::Timeout, RestClient::Exceptions::OpenTimeout
+    rescue => e
       if (tries -= 1) >= 0
+        logger.warn {"An error occurred trying to fetch an image for plex_object: #{id}. Will retry #{tries} more time(s). Error: #{e}"}
         create_default_image_directory
         retry
       end
-
-      logger.error "There was a problem opening the image file: #{imagefile} for write-binary mode. Returning placeholder.png"
+      logger.error "There was a problem fetching or writing the image file: #{imagefile}. Returning placeholder.png. Error: #{e}"
       return DEFAULT_IMAGE
     end
     self.update!(image: "#{self.id}.jpeg")
