@@ -27,7 +27,7 @@ class Service < ActiveRecord::Base
   validates :dns_name, presence: true, if: :ip_and_dns_name_dont_exist
 
   def init
-    @timeout ||= 5
+    @timeout ||= 3
     self.online_status ||= false
   end
 
