@@ -12,7 +12,7 @@ require 'yaml'
 #
 # The default is "development".
 #
-environment ENV['RAILS_ENV']
+environment ENV['RAILS_ENV'] || 'development'
 
 # Daemonize the server into the background. Highly suggest that
 # this be combined with "pidfile" and "stdout_redirect".
@@ -20,7 +20,7 @@ environment ENV['RAILS_ENV']
 # The default is "false".
 #
 # daemonize
-if ENV['RAILS_ENV'] == 'production'
+if ! Gem.win_platform? && ENV['RAILS_ENV'] == 'production'
   daemonize true
 else
   daemonize false
@@ -56,7 +56,7 @@ end
 #
 # The default is "0, 16".
 #
-threads 0, 16
+threads 0, 32
 
 # Bind the server to "url". "tcp://", "unix://" and "ssl://" are the only
 # accepted protocols.
