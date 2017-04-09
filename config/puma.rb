@@ -14,27 +14,25 @@ require 'yaml'
 #
 environment ENV['RAILS_ENV'] || 'development'
 
-# Daemonize the server into the background. Highly suggest that
-# this be combined with "pidfile" and "stdout_redirect".
-#
-# The default is "false".
-#
-# daemonize
-if ! Gem.win_platform? && ENV['RAILS_ENV'] == 'production'
+
+if !Gem.win_platform? && ENV['RAILS_ENV'] == 'production'
+  # Daemonize the server into the background. Highly suggest that
+  # this be combined with "pidfile" and "stdout_redirect".
+  #
+  # The default is "false".
+  #
+  # daemonize
   daemonize true
+  # Store the pid of the server in the file at "path".
+  #
+  pidfile 'tmp/pids/puma.pid'
+  # Use "path" as the file to store the server info state. This is
+  # used by "pumactl" to query and control the server.
+  #
+  state_path 'tmp/pids/puma.state'
 else
   daemonize false
 end
-
-
-# Store the pid of the server in the file at "path".
-#
-pidfile 'tmp/pids/puma.pid'
-
-# Use "path" as the file to store the server info state. This is
-# used by "pumactl" to query and control the server.
-#
-state_path 'tmp/pids/puma.state'
 
 # Redirect STDOUT and STDERR to files specified. The 3rd parameter
 # ("append") specifies whether the output is appended, the default is
