@@ -82,20 +82,17 @@ if Gem.win_platform? || !YAML.load_file('server_config.yml')['use_reverse_proxy'
   port = YAML.load_file('server_config.yml')['port']
 
   puts "Using host: #{web_host} for puma."
-  web_host_binding = "http://#{web_host}:#{port}"
+  web_host_binding = "tcp://#{web_host}:#{port}"
   puts "Binding puma to: #{web_host_binding}"
   bind web_host_binding
 else
-  app_dir = File.expand_path("../..", __FILE__)
-  shared_dir = "#{app_dir}/shared"
-
   daemonize false
 # Set up socket location
-  bind "unix://#{shared_dir}/tmp/sockets/puma.sock"
+  bind "unix://#{Dir.pwd}/tmp/sockets/puma.sock"
 
 # Set master PID and state locations
-  pidfile "#{shared_dir}/tmp/pids/puma.pid"
-  state_path "#{shared_dir}/tmp/pids/puma.state"
+  pidfile "#{Dir.pwd}/tmp/pids/puma.pid"
+  state_path "#{Dir.pwd}/tmp/pids/puma.state"
   activate_control_app
 end
 

@@ -8,6 +8,7 @@
 use_reverse_proxy: false
 relative_root:
 web_host: 0.0.0.0
+#On unix systems this port will be ignored when use_reverse_proxy is set to true. This is because puma will run on a unix socket instead.
 port: 3000
 
 # Windows users will need to change both the web_host and asset_host from 0.0.0.0 to a valid IP address on the host.

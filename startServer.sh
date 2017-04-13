@@ -20,5 +20,5 @@ fi
 
 printf "\nIf you run into any issues, check the error logs in: log/production.stderr.log, log/production.stdout.log, and log/production.log\n\n"
 
-mkdir -p tmp/pids && touch tmp/pids/puma.pid && exec bundle exec puma -e production -C config/puma.rb config.ru
+mkdir -p tmp/pids && mkdir -p tmp/sockets && touch tmp/pids/puma.pid && touch tmp/sockets/puma.socket && exec bundle exec puma -e production -C config/puma.rb config.ru
 
