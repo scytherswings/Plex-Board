@@ -23,8 +23,10 @@ esac
 printf "\nThe current operating system was detected as: ${OS}."
 
 cd "$(dirname "$0")"
-printf "\nStopping server if it's running.\n"
-source stopServer.sh
+if [[ "$OS" != "Windows" ]]; then
+  printf "\nStopping server if it's running.\n"
+  source stopServer.sh
+fi
 
 printf "\nDestroying tmp folder to clear caches and leftover pidfiles.\n"
 rm -rf tmp
