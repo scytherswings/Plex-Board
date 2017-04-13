@@ -2,6 +2,33 @@
 
 cd "$(dirname "$0")"
 
+
+case "$(uname -s)" in
+
+   Darwin)
+     OS="Mac OSX"
+     ;;
+
+   Linux)
+     OS="Linux"
+     ;;
+
+   CYGWIN*|MINGW32*|MSYS*)
+     OS="Windows"
+     ;;
+
+   *)
+     OS="Unknown"
+     ;;
+esac
+
+if [[ "$OS" == "Windows" ]]; then
+    printf "\nNot creating pid files etc. since we're on Windows. Starting puma.\n"
+    bundle exec puma -e production -C config/puma.rb config.ru
+    exit 0
+fi
+
+
 HOME_RVM=$HOME/.rvm/scripts/rvm
 ROOT_RVM="/usr/local/rvm/scripts/rvm"
 # Load RVM into a shell session *as a function*
