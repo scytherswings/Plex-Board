@@ -52,7 +52,11 @@ elif [[ -s ${ROOT_RVM} ]] ; then
   && rvm use gemset ruby-2.3.4@plexdashboard
 
 else
-  printf "\nWARNING: An RVM installation was not found. Did you follow the instructions correctly? Attempting to use system Ruby...\n"
+  if [[ "$OS" == "Windows" ]]; then
+    printf "\nUsing system Ruby because we're on Windows...\n"
+   else
+    printf "\nWARNING: A RVM installation was not found. Did you follow the instructions correctly? Attempting to use system Ruby...\n"
+  fi
 fi
 
 RUBY_VERSION="$(ruby -v)"
@@ -85,7 +89,10 @@ SECRET="$(rake secret)"
 BOGUS="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 printf "\nRemoving old secrets.yml file if it exists. Creating a fresh one with new secrets.\n"
-rm ${SECRETS}
+if [ -f ${SECRETS} ] ; then
+    rm ${SECRETS}
+fi
+
 echo -e "development:\n  secret_key_base:" ${BOGUS} "\n" >> ${SECRETS}
 echo -e "test:\n  secret_key_base:" ${BOGUS} "\n" >> ${SECRETS}
 echo -e "production:\n  secret_key_base:" ${SECRET} >> ${SECRETS}
@@ -94,6 +101,7 @@ if [ ! -f ${SERVER_CONFIG_FILE} ]; then
   if [[ "$OS" == "Windows" ]]; then
     printf "\nSince windows is being used we'll use 127.0.0.1:3000 as the default host."
     printf "\nYou'll need to configure server_config.yml in order to accept traffic from external hosts.\n"
+    EXAMPLE_CONFIG_FILE=${EXAMPLE_WINDOWS_CONFIG_FILE}
   fi
 
   if cp ${EXAMPLE_CONFIG_FILE} ${SERVER_CONFIG_FILE} 2>&1; then
