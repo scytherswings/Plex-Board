@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.12.0] : 2017-4-13
+### Changed
+- The `server_config.yml` file has changed formats. You will need to delete the one you have
+  in order to consume this update.
+  - The new format makes more sense and has better descriptions with examples.
+- Overhauled the overhauled scripts again. They now provide better support for windows.
+
 ## [v0.11.0] : 2017-4-6
 ### Changed
 - Major overhaul to the `bash` scripts.
