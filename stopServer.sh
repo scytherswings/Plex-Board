@@ -1,5 +1,29 @@
 #!/usr/bin/env bash
 
+case "$(uname -s)" in
+
+   Darwin)
+     OS="Mac OSX"
+     ;;
+
+   Linux)
+     OS="Linux"
+     ;;
+
+   CYGWIN*|MINGW32*|MSYS*)
+     OS="Windows"
+     ;;
+
+   *)
+     OS="Unknown"
+     ;;
+esac
+
+if [[ "$OS" == "Windows" ]]; then
+    printf "\nNo puma daemon to kill since we're on Windows.\n"
+    exit 0
+fi
+
 cd "$(dirname "$0")"
 PIDFILE="tmp/pids/puma.pid"
 STATEFILE="tmp/pids/puma.state"
