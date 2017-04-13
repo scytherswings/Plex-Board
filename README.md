@@ -47,18 +47,12 @@ It will run on the original Raspberry Pi which is pretty neat.
 
 
 ## Install Instructions
-##### Development branch status:
-
-[![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=dev)](https://travis-ci.org/scytherswings/Plex-Board)
-
-### This project is not ready for real production use yet, so don't expect stability until a 1.0.0 release.
-Then when things break you can yell at me and use this readme as an excuse
 
 #### Other supported operating systems:
 
 [Plex-Board Wiki Homepage](https://github.com/scytherswings/Plex-Board/wiki)
 
-##### Ubuntu 16.04 LTS
+### Ubuntu 16.04 LTS
 
 These instructions have been tested on a fresh install of Ubuntu 16.04 using bash as of 4/7/2017.
 
@@ -85,8 +79,7 @@ Now at this point, you might have to give your user write permissions to this di
     or reboot with: \
     `sudo reboot` \
     Start at the next step if you choose to reboot.
-    Also, installing ruby could take a while if it has to compile from source. 
-    It should be about 1 beer long.
+    Also, installing ruby could take a while if it has to compile from source, about 1 beer.
 
 7. `cd /opt/Plex-Board`
 
@@ -99,9 +92,8 @@ If you're not running behind a reverse proxy then you shouldn't need to touch th
 
 ## Running Instructions
 1. `./startServer.sh` \
-If you use RVM you'll need to make sure you use the gemset that 
-we set up earlier each time you run the server. 
-This way you will isolate Plex-Board dependencies from the rest of your system.
+If you use RVM you'll need to make sure you use the gemset (`rvm use ruby-2.3.4@plexdashboard`)that 
+we set up earlier each time you run the server.
 
     If you get an error that looks like:\
     ...`Address family not supported by protocol - socket(2) for "::1" port 3000 (Errno::EAFNOSUPPORT)`\
@@ -114,6 +106,8 @@ This way you will isolate Plex-Board dependencies from the rest of your system.
 ## Updating Instructions
 1. `./update.sh` Will run `git pull` and `serverSetup.sh` for you.
 
+### This project is not ready for real production use yet, so don't expect stability until a 1.0.0 release.
+Then when things break you can yell at me and use this readme as an excuse
 
 ### Feedback
 If you run into any bugs, please, make a ticket or ask in the 
