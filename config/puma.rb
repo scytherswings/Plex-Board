@@ -75,12 +75,29 @@ threads 0, 32
 # keystore: path_to_keystore,
 # keystore_pass: password
 
+#If on windows, or if we are not using a reverse proxy.
+if Gem.win_platform? || !YAML.load_file('server_config.yml')['use_reverse_proxy']
 # Yes, this will blow up if server_config.yml doesn't exist. Sucks to suck. RTFM
-web_host = YAML.load_file('server_config.yml')['web_host']
-puts "Using host: #{web_host} for puma."
-web_host_binding = web_host.gsub(/^https?/, 'tcp')
-puts "Binding puma to: #{web_host_binding}"
-bind web_host_binding
+  web_host = YAML.load_file('server_config.yml')['web_host']
+  port = YAML.load_file('server_config.yml')['port']
+
+  puts "Using host: #{web_host} for puma."
+  web_host_binding = "http://#{web_host}:#{port}"
+  puts "Binding puma to: #{web_host_binding}"
+  bind web_host_binding
+else
+  app_dir = File.expand_path("../..", __FILE__)
+  shared_dir = "#{app_dir}/shared"
+
+  daemonize false
+# Set up socket location
+  bind "unix://#{shared_dir}/tmp/sockets/puma.sock"
+
+# Set master PID and state locations
+  pidfile "#{shared_dir}/tmp/pids/puma.pid"
+  state_path "#{shared_dir}/tmp/pids/puma.state"
+  activate_control_app
+end
 
 
 # Code to run before doing a restart. This code should

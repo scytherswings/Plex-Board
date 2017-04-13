@@ -5,10 +5,10 @@
 # You shouldn't need to include any url paths in the web_host and asset_host fields.
 # 0.0.0.0 might not work on windows, you can change this to 127.0.0.1 or whatever IP address you want Plex-Board to listen on
 
+use_reverse_proxy: false
 relative_root:
-web_host: http://127.0.0.1:3000
-asset_host: http://127.0.0.1:3000
-
+web_host: 0.0.0.0
+port: 3000
 
 # Windows users will need to change both the web_host and asset_host from 0.0.0.0 to a valid IP address on the host.
 # If you're just testing it locally then http://127.0.0.1:3000 should work for both values.
