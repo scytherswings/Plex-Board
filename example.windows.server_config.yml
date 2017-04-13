@@ -26,9 +26,9 @@ use_reverse_proxy: false
 
 # relative_root should be set to the path that the app is under. So "/plexdashboard" (omit the trailing "/") would
 # mount the app under (using 127.0.0.1 as an example web_host) http://127.0.0.1/plexdashboard
-# If you change relative_root you will need to regenerate your assets by running serverSetup.sh
+
+# !!!!!!!!!!!! If you change relative_root you will need to regenerate your assets by running serverSetup.sh !!!!!!!!!!!!
+
 # Example: /plexdashboard
 # Default:
 relative_root:
-
-
