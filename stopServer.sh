@@ -21,7 +21,6 @@ esac
 
 if [[ "$OS" == "Windows" ]]; then
     printf "\nNo puma daemon to kill since we're on Windows.\n"
-    exit 0
 else
   cd "$(dirname "$0")"
   PIDFILE="tmp/pids/puma.pid"
