@@ -1,7 +1,6 @@
 #!/usr/bin/env puma
 
 require 'yaml'
-rackup 'config.ru'
 threads 0, 32
 
 if ENV['DOCKER']
