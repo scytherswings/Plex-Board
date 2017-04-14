@@ -1,20 +1,20 @@
 # Base our image on an official, minimal image of our preferred Ruby
 FROM ruby:2.3.4-slim
 
-ENV RAILS_ROOT /opt/plexdashboard
+ENV RAILS_ROOT /app
 ENV RAILS_ENV production
+ENV DOCKER true
+ENV LOG_TO_STDOUT true
+
+RUN mkdir -p /app
 # Install essential Linux packages
-RUN apt-get update -qq && apt-get install -y \
-    bundler \
-    nodejs \
-    curl \
-    libsqlite3-dev \
-    git \
-  && rm -rf /var/lib/apt/lists/*
-
-
-# Create application home. App server will need the pids dir so just create everything in one shot
-RUN mkdir -p $RAILS_ROOT/tmp/pids
+RUN apt-get update -qq \
+    && apt-get install -y \
+      bundler \
+      nodejs \
+      libsqlite3-dev \
+      git \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set our working directory inside the image
 WORKDIR $RAILS_ROOT
@@ -27,24 +27,20 @@ COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 
 # Prevent bundler warnings; ensure that the bundler version executed is >= that which created Gemfile.lock
-RUN gem install bundler
+RUN gem install bundler rake
 
 # Finish establishing our Ruby enviornment
-RUN bundle install --binstubs --without development test
+RUN bundle install --jobs=5 --without development test
 
 # Copy the Rails application into place
 COPY . .
 
-RUN /opt/plexdashboard/serverSetup.sh >> /tmp/bullshit.txt
+RUN $RAILS_ROOT/serverSetup.sh
 
 EXPOSE 3000
 
 # Define the script we want run once the container boots
 # Use the "exec" form of CMD so our script shuts down gracefully on SIGTERM (i.e. `docker stop`)
-CMD mkdir -p tmp/pids \
-    && mkdir -p tmp/sockets \
-    && touch tmp/pids/puma.pid \
-    && touch tmp/sockets/puma.socket \
-    && exec bundle exec puma -e production -C config/docker-puma.rb config.ru
+CMD exec bundle exec puma -e production -C $RAILS_ROOT/config/puma.rb $RAILS_ROOT/config.ru
 
-VOLUME /opt/plexdashboard/db/
+VOLUME $RAILS_ROOT/db/

@@ -27,7 +27,7 @@ else
   PIDFILE="tmp/pids/puma.pid"
   STATEFILE="tmp/pids/puma.state"
 
-  if [ -e ${PIDFILE} ]
+  if [ -s ${PIDFILE} ]
   then
     PUMA_PID="$(cat ${PIDFILE})"
 

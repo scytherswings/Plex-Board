@@ -1,3 +1,4 @@
+require 'yaml'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -72,6 +73,9 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
+  if ENV['LOG_TO_STDOUT'] || ENV['NO_DAEMONIZE']
+    config.logger = Logger.new(STDOUT)
+  end
   config.log_formatter = ::Logger::Formatter.new
 
   # Do not dump schema after migrations.

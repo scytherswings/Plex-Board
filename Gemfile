@@ -15,7 +15,6 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'sprockets-rails', '~> 3.2.0'
 gem 'simple_form', '~> 3.4.0'
 gem 'strip_attributes', '~> 1.8.0'
-gem 'puma', '~> 3.8.2'
 gem 'rest-client', '~> 2.0.1'
 gem 'json', '~> 1.8.6'
 gem 'sass', '~> 3.4.23'
@@ -56,5 +55,5 @@ group :test do
 end
 
 group :production do
-
+  gem 'puma', '~> 3.8.2'
 end

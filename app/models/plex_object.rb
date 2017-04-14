@@ -11,7 +11,7 @@ class PlexObject < ActiveRecord::Base
   validates_presence_of :thumb_url
 
   @@images_dir = 'public/images'
-  DEFAULT_IMAGE_PATH = 'test/fixtures/images'
+  DEFAULT_IMAGE_PATH = 'public/'
   #TODO Configure placeholder image
   DEFAULT_IMAGE = 'placeholder.png'
 
