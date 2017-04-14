@@ -10,7 +10,6 @@
           class="progress-bar progress-bar-warning" role="progressbar"
           aria-valuenow="<%= plex_session.get_percent_done %>" aria-valuemin="0"
           aria-valuemax="100" style="width: <%= plex_session.get_percent_done %>%">
-          <% logger.debug(plex_session.get_percent_done) %>
         </div>
       </div>
       <h3><%= plex_session.plex_object.media_title %></h3>
