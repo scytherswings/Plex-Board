@@ -1,7 +1,7 @@
 # Base our image on an official, minimal image of our preferred Ruby
 FROM ruby:2.3.4-slim
 
-ENV RAILS_ROOT /var/www/plexdashboard
+ENV RAILS_ROOT /opt/plexdashboard
 ENV RAILS_ENV production
 # Install essential Linux packages
 RUN apt-get update -qq && apt-get install -y \
@@ -35,7 +35,7 @@ RUN bundle install --binstubs --without development test
 # Copy the Rails application into place
 COPY . .
 
-RUN /var/www/plexdashboard/serverSetup.sh >> /tmp/bullshit.txt
+RUN /opt/plexdashboard/serverSetup.sh >> /tmp/bullshit.txt
 
 EXPOSE 3000
 
@@ -46,3 +46,5 @@ CMD mkdir -p tmp/pids \
     && touch tmp/pids/puma.pid \
     && touch tmp/sockets/puma.socket \
     && exec bundle exec puma -e production -C config/docker-puma.rb config.ru
+
+VOLUME /opt/plexdashboard/db/
