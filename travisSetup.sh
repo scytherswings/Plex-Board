@@ -12,3 +12,5 @@ bundle exec rake db:create
 bundle exec rake db:migrate
 mkdir -p public/images
 mkdir -p test/test_images
+mkdir -p log/
+touch log/test.log
