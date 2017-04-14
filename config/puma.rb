@@ -36,7 +36,7 @@ else
     bind web_host_binding
   end
 
-  if ENV['NO_DAEMONIZE'] || ENV['RAILS_ENV'] != 'production'
+  if ENV['NO_DAEMONIZE'] || ENV['RAILS_ENV'] == 'development' || ENV['RAILS_ENV'] == 'test'
     puts 'Detected NO_DAEMONIZE. Not daemonizing.'
     daemonize false
   else
