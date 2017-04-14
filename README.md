@@ -108,6 +108,10 @@ we set up earlier each time you run the server.
 1. Stop the service. On \*nix you can use `./stopServer.sh`
 1. `./update.sh` Will run `git pull` and `serverSetup.sh` for you.
 
+
+## Debugging
+1. Read the [CHANGELOG.md](CHANGELOG.md) for any extra information 
+
 ### This project is not ready for real production use yet, so don't expect stability until a 1.0.0 release.
 Then when things break you can yell at me and use this readme as an excuse
 

@@ -8,6 +8,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   in order to consume this update.
   - The new format makes more sense and has better descriptions with examples.
 - Overhauled the overhauled scripts again. They now provide better support for windows.
+  - Added `set -e` to all of the scripts so they will stop if any errors occur.
+    - If you have any issues getting updates then you'll probably need to do a simple `git pull` and then
+    `./update.sh` should work normally. (The script can't update itself while it is running)
 
 ## [v0.11.0] : 2017-4-6
 ### Changed
