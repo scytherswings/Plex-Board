@@ -113,6 +113,7 @@ This way you will isolate Plex-Board dependencies from the rest of your system.
 2. `./stopServer.sh` will stop the server.
 
 ## Updating Instructions
+1. Stop the service. On \*nix you can use `./stopServer.sh`
 1. `./update.sh` Will run `git pull` and `serverSetup.sh` for you.
 
 
