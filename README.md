@@ -105,6 +105,7 @@ we set up earlier each time you run the server.
 2. `./stopServer.sh` will stop the server.
 
 ## Updating Instructions
+1. Stop the service. On \*nix you can use `./stopServer.sh`
 1. `./update.sh` Will run `git pull` and `serverSetup.sh` for you.
 
 ### This project is not ready for real production use yet, so don't expect stability until a 1.0.0 release.
