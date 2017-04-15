@@ -48,9 +48,10 @@ It will run on the original Raspberry Pi B+ which is pretty neat.
 
 ## Installation Instructions
 
-#### Other supported operating systems:
+#### Other supported systems:
 
-[Plex-Board Wiki Homepage](https://github.com/scytherswings/Plex-Board/wiki)
+* [Plex-Board Wiki Homepage](https://github.com/scytherswings/Plex-Board/wiki)
+* [Docker!!!](https://github.com/scytherswings/Plex-Board/wiki/Plex-Board-Docker-Installation-Guide)
 
 ### Ubuntu 16.04 LTS
 
@@ -65,7 +66,7 @@ These instructions have been tested on a fresh install of Ubuntu 16.04 LTS using
 3. `source /usr/local/rvm/scripts/rvm`
 
 4. `cd /opt` \
-Now at this point, you might have to give your user write permissions to this directory.
+You might have to give your user write permissions to this directory.
  If that is the case run: \
  `sudo chmod 777 /opt -R`
 
@@ -92,28 +93,31 @@ If you're not running behind a reverse proxy then you shouldn't need to touch th
 10. __Plex-Board__ should now be installed!
 
 ## Running Instructions
-1. `./startServer.sh` \
-If you use RVM you'll need to make sure you use the gemset (`rvm use ruby-2.3.4@plexdashboard`)that 
-we set up earlier each time you run the server.
 
+1. `./startServer.sh` \
     If you get an error that looks like:\
     ...`Address family not supported by protocol - socket(2) for "::1" port 3000 (Errno::EAFNOSUPPORT)`\
     You can either disable IPv6 for your OS or edit the `server_config.yml` to use a specific IP address on your system e.g. \
-    `http://192.168.0.102:3000` \
+    `192.168.0.102` \
     See the `server_config.yml` file for more details. 
     
 2. `./stopServer.sh` will stop the server.
 
+
+Auto-start instructions coming soon.
+
 ## Updating Instructions
-1. Stop the service. On \*nix you can use `./stopServer.sh`
+
 1. `./update.sh` Will run `git pull` and `serverSetup.sh` for you.
 
 
-## Debugging
-1. Read the [CHANGELOG.md](CHANGELOG.md) for any extra information 
+## If you have issues
+1. Read the [CHANGELOG.md](CHANGELOG.md) to make sure you haven't missed any important changes! \
+   I try to keep breaking changes to a minimum but sometimes it just isn't possible.
+   Any time this happens the changelog will detail what the change is and how to fix it.
 
 ### This project is not ready for real production use yet, so don't expect stability until a 1.0.0 release.
-Then when things break you can yell at me and use this readme as an excuse
+Then when things break you can yell at me and use this readme as an excuse.
 
 ### Feedback
 If you run into any bugs, please, make a ticket or ask in the 
