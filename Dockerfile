@@ -6,17 +6,16 @@ ENV RAILS_ENV production
 ENV DOCKER true
 ENV LOG_TO_STDOUT true
 
-RUN mkdir -p /app
 # Install essential Linux packages
 RUN apt-get update -qq \
     && apt-get install -y \
       bundler \
       nodejs \
       libsqlite3-dev \
-      git \
     && rm -rf /var/lib/apt/lists/*
 
 # Set our working directory inside the image
+RUN mkdir $RAILS_ROOT
 WORKDIR $RAILS_ROOT
 
 # Use the Gemfiles as Docker cache markers. Always bundle before copying app src.
@@ -27,10 +26,9 @@ COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 
 # Prevent bundler warnings; ensure that the bundler version executed is >= that which created Gemfile.lock
-RUN gem install bundler rake
-
-# Finish establishing our Ruby enviornment
-RUN bundle install --jobs=5 --without development test
+RUN gem install bundler rake \
+    && bundle install --jobs=5 --without development test \
+    && bundle clean --force
 
 # Copy the Rails application into place
 COPY . .

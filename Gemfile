@@ -25,7 +25,7 @@ gem 'geocoder', '~> 1.4.3'
 gem 'tzinfo', '~> 1.2.3'
 gem 'tzinfo-data'
 gem 'lograge', '~> 0.4.1'
-gem 'browserlog', git: 'https://github.com/scytherswings/browserlog'
+# gem 'browserlog', git: 'https://github.com/scytherswings/browserlog'
 
 group :development, :test do
   gem 'spring', '~> 2.0.1'

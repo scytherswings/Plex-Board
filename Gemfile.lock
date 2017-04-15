@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/scytherswings/browserlog
-  revision: 7b4eabc2649b1514a096f55f37f918814444a671
-  specs:
-    browserlog (0.0.3)
-      jquery-rails (>= 3)
-      rails (>= 3.2.18)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -233,7 +225,6 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails (~> 6.7.7.1)
   bootstrap-sass (~> 3.3.7)
-  browserlog!
   coffee-rails (~> 4.2.1)
   coveralls (~> 0.8.20)
   execjs (~> 2.7.0)
