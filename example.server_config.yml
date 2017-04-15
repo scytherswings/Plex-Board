@@ -1,14 +1,34 @@
-# You will probably want to configure these values to whatever you expect to hit Plex-Board as. e.g. http://plexdashboard.whatever.com/
-# If you're running behind a reverse-proxy, e.g. http://bob.com/plex-board/, then the relative_root field should be configured.
-# In the above example the relative_root would be set to: '/plex-board'
-# Please note that the format above does matter, prefix with the '/' and don't use a trailing slash.
-# You shouldn't need to include any url paths in the web_host and asset_host fields.
-# 0.0.0.0 might not work on windows, you can change this to 127.0.0.1 or whatever IP address you want Plex-Board to listen on
+# The settings in this file will change how the Rails app behaves. Most users shouldn't have to change these settings.
 
+
+# This should be set to whatever IP address your host will respond to requests from.
+# Most *nix users can leave this at 0.0.0.0, but if you have issues then you'll need to bind to a specific interface.
+# run: ifconfig to find out what IP addresses your system has configured.
+# Also 0.0.0.0 may be invalid on some systems like Windows and some Raspberry Pi distros (or when IPv6 is enabled sometimes)
+# so if you have issues then set it to something else
+# Example: 192.168.0.10
+# Default: 0.0.0.0
+web_host: 0.0.0.0
+
+
+# This is the port that Rails will bind to. If you want to run the app on default http port 80 then you'll probably need
+# to run it as root.
+# Example: 80
+# Default: 3000
+port: 3000
+
+
+# Most users won't run the app behind a reverse proxy, if you don't know that that is then leave this alone.
+# Example: true
+# Default: false
+use_reverse_proxy: false
+
+
+# relative_root should be set to the path that the app is under. So "/plexdashboard" (omit the trailing "/") would
+# mount the app under (using 127.0.0.1 as an example web_host) http://127.0.0.1/plexdashboard
+
+# !!!!!!!!!!!! If you change relative_root you will need to regenerate your assets by running serverSetup.sh !!!!!!!!!!!!
+
+# Example: /plexdashboard
+# Default:
 relative_root:
-web_host: http://0.0.0.0:3000
-asset_host: http://0.0.0.0:3000
-
-
-# Windows users will need to change both the web_host and asset_host from 0.0.0.0 to a valid IP address on the host.
-# If you're just testing it locally then http://127.0.0.1:3000 should work for both values.

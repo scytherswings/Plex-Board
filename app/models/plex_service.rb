@@ -44,7 +44,7 @@ class PlexService < ActiveRecord::Base
 
   def update_plex_data
     unless token.nil?
-      Rails.cache.fetch("plex_service_#{self.id}/update_plex_data", expires_in: 10.seconds) do
+      Rails.cache.fetch("plex_service_#{self.id}/update_plex_data", expires_in: 10.seconds, race_condition_ttl: 5.seconds) do
         get_plex_sessions
         get_plex_recently_added
         self
@@ -59,8 +59,10 @@ class PlexService < ActiveRecord::Base
     logger.info("Making Plex API call to: #{get_connection_string}#{path}")
 
     unless service.online_status
-      logger.warn("Service: #{ service.name} is offline, can't grab plex data. Clearing PlexSessions")
-      plex_sessions.destroy_all
+      logger.info("Plex Service: #{service.name} is offline, can't grab plex data. Clearing PlexSessions.")
+      if plex_sessions.count > 0
+        plex_sessions.destroy_all
+      end
       return nil
     end
 
@@ -84,7 +86,7 @@ class PlexService < ActiveRecord::Base
   #TODO Refactor: Need a better -more readable- way to interface with the plex api
   def get_plex_sessions
     if service.nil?
-      logger.warn 'get_plex_sessions was called on a PlexService with no Service object, can\'t get sessions'
+      logger.error 'get_plex_sessions was called on a PlexService with no Service object, can\'t get sessions'
       return nil
     end
     logger.info("Getting PlexSessions for PlexService: #{service.name}")
@@ -100,8 +102,10 @@ class PlexService < ActiveRecord::Base
 
     #if plex has nothing, then fucking nuke that shit
     if incoming_plex_sessions.blank? || incoming_plex_sessions['size'] < 1 || incoming_plex_sessions['Video'].blank?
-      logger.info('incoming_plex_sessions was empty... Deleting all sessions.')
-      plex_sessions.destroy_all #TODO: This needs a test
+      if plex_sessions.count > 0
+        logger.info('incoming_plex_sessions was empty... Deleting all sessions.')
+        plex_sessions.destroy_all #TODO: This needs a test
+      end
       return nil
     end
 
@@ -119,7 +123,7 @@ class PlexService < ActiveRecord::Base
     logger.debug("stale_sessions #{stale_sessions}")
 
     stale_sessions.each do |stale_session|
-      PlexSession.find_by(session_key: stale_session).destroy
+      PlexSession.find_by(session_key: stale_session).try(:destroy)
     end
 
     sessions_to_update = incoming_plex_sessions.map { |new_session| new_session["sessionKey"] } &
@@ -167,7 +171,7 @@ class PlexService < ActiveRecord::Base
                           total_duration: new_session["duration"],
                           progress: new_session["viewOffset"],
                           session_key: new_session["sessionKey"],
-                          stream_type: PlexSession.determine_stream_type(new_session.dig('TranscodeSession','videoDecision')),
+                          stream_type: PlexSession.determine_stream_type(new_session.dig('TranscodeSession', 'videoDecision')),
                           plex_object_attributes: {description: new_session["summary"],
                                                    media_title: new_session["title"],
                                                    thumb_url: temp_thumb})

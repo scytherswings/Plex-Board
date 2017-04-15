@@ -1,18 +1,42 @@
 #!/usr/bin/env bash
+set -e
 
-cd "$(dirname "$0")"
-PIDFILE="tmp/pids/puma.pid"
-STATEFILE="tmp/pids/puma.state"
+case "$(uname -s)" in
 
-if [ -e ${PIDFILE} ]
-then
-  PUMA_PID="$(cat ${PIDFILE})"
+   Darwin)
+     OS="Mac OSX"
+     ;;
 
-  printf "Attempting to kill puma with PID: $PUMA_PID" \
-  && kill -9 ${PUMA_PID} \
-  && printf "\nServer stopped.\n" \
-  && rm ${PIDFILE} \
-  && rm ${STATEFILE}
+   Linux)
+     OS="Linux"
+     ;;
+
+   CYGWIN*|MINGW32*|MSYS*)
+     OS="Windows"
+     ;;
+
+   *)
+     OS="Unknown"
+     ;;
+esac
+
+if [[ "$OS" == "Windows" ]]; then
+    printf "\nNo puma daemon to kill since we're on Windows.\n"
 else
-  printf "It seems Puma isn't running right now. Nothing to kill.\n"
+  cd "$(dirname "$0")"
+  PIDFILE="tmp/pids/puma.pid"
+  STATEFILE="tmp/pids/puma.state"
+
+  if [ -s ${PIDFILE} ]
+  then
+    PUMA_PID="$(cat ${PIDFILE})"
+
+    printf "Attempting to kill puma with PID: $PUMA_PID" \
+    && kill -9 ${PUMA_PID} \
+    && printf "\nServer stopped.\n" \
+    && rm ${PIDFILE} \
+    && rm ${STATEFILE}
+  else
+    printf "It seems Puma isn't running right now. Nothing to kill.\n"
+  fi
 fi

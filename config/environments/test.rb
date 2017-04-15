@@ -38,9 +38,8 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
 
   # if ENV['LOG_TO_FILE'] == 'true'
-  # config.logger = Logger.new(Rails.root.join('log','test.log'))
-
-  #   config.log_level = :DEBUG
+  config.logger = Logger.new(Rails.root.join('log','test.log'))
+  config.log_level = :DEBUG
   # else
   #   config.logger = Logger.new(STDOUT)
   #   config.log_level = :DEBUG

@@ -1,10 +1,12 @@
 .git
 .dockerignore
 config/secrets.yml
-coverage
-.bundle
-tmp
-public/images
+coverage/
+.bundle/
+tmp/
+public/images/
+public/assets/
+test/
 log/*
 db/*.sqlite3
 server_config.yml

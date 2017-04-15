@@ -27,7 +27,7 @@ class Service < ActiveRecord::Base
   validates :dns_name, presence: true, if: :ip_and_dns_name_dont_exist
 
   def init
-    @timeout ||= 5
+    @timeout ||= 3
     self.online_status ||= false
   end
 
@@ -48,7 +48,7 @@ class Service < ActiveRecord::Base
   end
 
   def ping
-    Rails.cache.fetch("service_#{id}/online", expires_in: 10.seconds) do
+    Rails.cache.fetch("service_#{id}/online", expires_in: 10.seconds, race_condition_ttl: 7.seconds) do
       check_online_status
       self.online_status
     end

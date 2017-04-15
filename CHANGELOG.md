@@ -2,10 +2,31 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.12.0] : 2017-4-15
+### Changed
+- __!!!IMPORTANT!!!__ \
+  The `server_config.yml` file has changed formats. You will need to delete the one you have
+  in order to consume this update!
+  - The new format makes more sense and has better descriptions along with examples.
+- [update.sh](update.sh) was changed so you'll need to do a `git pull` before you run it. \
+   This is because `update.sh` cannot manipulate itself while it is running. I will figure out something more 
+   graceful in the future.
+   - If you have issues you might need to do a `git reset --hard` to get your local changes back to an update-able state.
+- Overhauled the overhauled scripts again. They now provide better support for windows.
+  - Added `set -e` to all of the scripts so they will stop if any errors occur.
+
+### Added
+- Docker support is here!
+  - You can find the container [here](https://hub.docker.com/r/scytherswings/plex-board/).
+  - Docker is the preferred deployment strategy on Windows systems as it resolves all of the 
+  cross-platform issues.
+  - See the install guide [here](https://github.com/scytherswings/Plex-Board/wiki/Plex-Board-Docker-Installation-Guide).
+  
+
 ## [v0.11.0] : 2017-4-6
 ### Changed
 - Major overhaul to the `bash` scripts.
-  - `runServer.sh` was renamed to `startServer.sh`
+  - `runServer.sh` was renamed to [startServer.sh](startServer.sh)
   - All scripts will try to run in the directory in which they are located so they should
   be safe to call from anywhere.
 - The server now defaults to running as a daemon! This means you don't have to leave 

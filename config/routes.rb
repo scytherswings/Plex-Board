@@ -1,4 +1,4 @@
-require 'browserlog'
+# require 'browserlog'
 Rails.application.routes.draw do
 
   root 'services#index'
@@ -20,6 +20,6 @@ Rails.application.routes.draw do
   resources :weather
 
 
-  mount Browserlog::Engine => '/logs'
+  # mount Browserlog::Engine => '/logs'
 
 end
