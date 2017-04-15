@@ -6,7 +6,7 @@
 # run: ifconfig to find out what IP addresses your system has configured.
 # Also 0.0.0.0 may be invalid on some systems like Windows and some Raspberry Pi distros (or when IPv6 is enabled sometimes)
 # so if you have issues then set it to something else
-# Example: 192.168.0.1
+# Example: 192.168.0.10
 # Default: 0.0.0.0
 web_host: 0.0.0.0
 
