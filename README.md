@@ -3,7 +3,7 @@
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
-[![Coverage Status](https://coveralls.io/repos/scytherswings/Plex-Board/badge.svg?branch=master&service=github)](https://coveralls.io/github/scytherswings/Plex-Board?branch=dev)
+[![Coverage Status](https://coveralls.io/repos/scytherswings/Plex-Board/badge.svg?branch=master&service=github)](https://coveralls.io/github/scytherswings/Plex-Board?branch=master)
 [![Gitter](https://badges.gitter.im/scytherswings/Plex-Board.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B6MNRRPVZ34TN)
 
