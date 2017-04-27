@@ -1,5 +1,5 @@
 class InfoController < ApplicationController
-  before_filter :set_sidebar_values
+  before_action :set_sidebar_values
 
   def set_sidebar_values
     @services = Service.all

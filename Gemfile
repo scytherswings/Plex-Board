@@ -37,6 +37,7 @@ group :development do
 end
 
 group :test do
+  gem 'rails-controller-testing', '~> 1.0.1'
   gem 'simplecov', '~> 0.14.1'
   gem 'coveralls', '~> 0.8.20'
   gem 'minitest-reporters', '~> 1.1.14'
