@@ -6,7 +6,6 @@ class PlexSession < ActiveRecord::Base
 
   validates_presence_of :plex_user_name, :session_key, :progress, :total_duration
   validates :session_key, uniqueness: {scope: :plex_service}, allow_blank: false
-
   def get_percent_done
     ((self.progress.to_f / self.total_duration.to_f) * 100).to_i
   end
