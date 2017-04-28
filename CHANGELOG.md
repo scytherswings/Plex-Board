@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.12.1] : 2017-4-27
+### Changed
+- Added validations to plex_sessions which make sure that when we try to do math
+there will actually be numbers to do the math on.
+
 ## [v0.12.0] : 2017-4-15
 ### Changed
 - __!!!IMPORTANT!!!__ \

@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.12.0
+## Version 0.12.1
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
