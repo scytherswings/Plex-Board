@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Added validations to plex_sessions which make sure that when we try to do math
 there will actually be numbers to do the math on.
+  - If you have any issues try running `rake db:migrate:redo` from the root folder
+  of the application.
 
 ## [v0.12.0] : 2017-4-15
 ### Changed
