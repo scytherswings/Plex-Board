@@ -26,7 +26,7 @@
               <%= render partial: 'plex_services/now_playing', locals: {plex_session: plex_session, active: j == 0 ? 'active' : ''} %>
             <% end %>
             <% if plex_service.plex_sessions.count < 3 %>
-              <% plex_service.plex_recently_addeds.order('created_at desc').try(:each_with_index) do |plex_recently_added, k| %>
+              <% plex_service.plex_recently_addeds.order('created_at asc').try(:each_with_index) do |plex_recently_added, k| %>
                 <% if plex_recently_added.plex_object.nil? %>
                   <% logger.error { "PlexRecentlyAdded: #{plex_recently_added.id} was missing a PlexObject. Not adding to carousel." } %>
                   <% next %>

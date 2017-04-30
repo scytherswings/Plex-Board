@@ -117,8 +117,8 @@ class PlexService < ActiveRecord::Base
     # http://stackoverflow.com/questions/24295763/find-intersection-of-arrays-of-hashes-by-hash-value
     # http://stackoverflow.com/questions/8639857/rails-3-how-to-get-the-difference-between-two-arrays
 
-    stale_sessions = plex_sessions.map { |known_session| known_session.session_key } -
-        incoming_plex_sessions.map { |new_session| new_session["sessionKey"] }
+    stale_sessions = plex_sessions.map {|known_session| known_session.session_key} -
+        incoming_plex_sessions.map {|new_session| new_session["sessionKey"]}
 
     logger.debug("stale_sessions #{stale_sessions}")
 
@@ -126,8 +126,8 @@ class PlexService < ActiveRecord::Base
       PlexSession.find_by(session_key: stale_session).try(:destroy)
     end
 
-    sessions_to_update = incoming_plex_sessions.map { |new_session| new_session["sessionKey"] } &
-        plex_sessions.map { |known_session| known_session.session_key }
+    sessions_to_update = incoming_plex_sessions.map {|new_session| new_session["sessionKey"]} &
+        plex_sessions.map {|known_session| known_session.session_key}
     logger.debug("sessions_to_update #{sessions_to_update}")
 
     new_view_offsets = Hash.new
@@ -143,14 +143,16 @@ class PlexService < ActiveRecord::Base
                           new_view_offsets[known_session_key])
     end
 
-    new_sessions = incoming_plex_sessions.map { |new_session| new_session["sessionKey"] } -
-        plex_sessions.map { |known_session| known_session.session_key }
+    new_sessions = incoming_plex_sessions.map {|new_session| new_session["sessionKey"]} -
+        plex_sessions.map {|known_session| known_session.session_key}
 
     logger.debug("new_sessions #{new_sessions}")
-    sessions_to_add = incoming_plex_sessions.select { |matched| new_sessions.include?(matched["sessionKey"]) }
+    sessions_to_add = incoming_plex_sessions.select {|matched| new_sessions.include?(matched["sessionKey"])}
 
     logger.debug("sessions_to_add #{sessions_to_add}")
-    sessions_to_add.each { |new_session| add_plex_session(new_session) }
+    PlexSession.transaction do
+      sessions_to_add.each {|new_session| add_plex_session(new_session)}
+    end
   end
 
 
@@ -178,7 +180,7 @@ class PlexService < ActiveRecord::Base
   end
 
   def update_plex_session(existing_session, updated_session_viewOffset)
-    logger.debug { "Updating PlexSession ID: #{existing_session.id} for PlexService: #{service.name}" }
+    logger.debug {"Updating PlexSession ID: #{existing_session.id} for PlexService: #{service.name}"}
     existing_session.update!(progress: updated_session_viewOffset)
   end
 
@@ -213,8 +215,8 @@ class PlexService < ActiveRecord::Base
       logger.debug('It looks like there are no recentlyAdded objects. Stale entries will be removed.')
     end
 
-    stale_pras = plex_recently_addeds.map { |known_pra| known_pra.uuid } -
-        incoming_pras.map { |new_pra| new_pra['ratingKey'] }
+    stale_pras = plex_recently_addeds.map {|known_pra| known_pra.uuid} -
+        incoming_pras.map {|new_pra| new_pra['ratingKey']}
 
     # logger.debug("stale_pras #{stale_pras}")
 
@@ -222,14 +224,16 @@ class PlexService < ActiveRecord::Base
       PlexRecentlyAdded.find_by(uuid: stale_pra).destroy
     end
 
-    new_pras = incoming_pras.map { |new_pra| new_pra['ratingKey'] } -
-        plex_recently_addeds.map { |known_pra| known_pra.uuid }
+    new_pras = incoming_pras.map {|new_pra| new_pra['ratingKey']} -
+        plex_recently_addeds.map {|known_pra| known_pra.uuid}
 
     # logger.debug("new_pras #{new_pras}")
-    pras_to_add = incoming_pras.select { |matched| new_pras.include?(matched['ratingKey']) }
+    pras_to_add = incoming_pras.select {|matched| new_pras.include?(matched['ratingKey'])}
 
     # logger.debug("pras_to_add #{pras_to_add}")
-    pras_to_add.each { |new_pra| add_plex_recently_added(new_pra) }
+    PlexRecentlyAdded.transaction do
+      pras_to_add.each {|new_pra| add_plex_recently_added(new_pra)}
+    end
   end
 
   def add_plex_recently_added(new_pra)

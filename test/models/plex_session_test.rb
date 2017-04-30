@@ -32,7 +32,6 @@ class PlexSessionTest < ActiveSupport::TestCase
     assert_not @plex_service_w1sess_session_1.valid?, 'plex_user_name should not be valid with whitespace string'
   end
 
-
   test 'session should be unique' do
     duplicate_session = @plex_service_w1sess_session_1.dup
     @plex_service_w1sess_session_1.save
