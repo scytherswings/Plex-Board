@@ -243,7 +243,8 @@ class PlexService < ActiveRecord::Base
     temp_thumb = new_pra.has_key?('parentThumb') ? new_pra['parentThumb'] : new_pra['thumb']
     summary = new_pra.has_key?('parentSummary') ? new_pra['parentSummary'] : new_pra['summary']
     time = Time.at(new_pra['addedAt']).to_datetime
-    plex_recently_addeds.create!(uuid: new_pra['ratingKey'], added_date: time,
+    plex_recently_addeds.create!(uuid: new_pra['ratingKey'],
+                                 added_date: time,
                                  plex_object_attributes: {description: summary,
                                                           media_title: media_title,
                                                           thumb_url: temp_thumb})

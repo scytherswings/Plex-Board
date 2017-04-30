@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 there will actually be numbers to do the math on.
   - If you have any issues try running `rake db:migrate:redo` from the root folder
   of the application.
+- Fixed the ordering of Plex Recently Added
 
 ## [v0.12.0] : 2017-4-15
 ### Changed
