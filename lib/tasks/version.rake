@@ -1,7 +1,7 @@
 desc 'update the version numbers of the readme file'
 task :bump_version, [:version_number] => :environment do |_, args|
   VERSION_REGEX = /\d+\.\d+\.\d+/
-  files=%w(lib/version.rb)
+  files=%w(config/initializers/version.rb)
   version_number = args[:version_number]
   puts "New version number is: #{version_number}"
   if VERSION_REGEX.match(version_number)
