@@ -1,6 +1,6 @@
 class PlexObject < ActiveRecord::Base
 
-  belongs_to :plex_object_flavor, polymorphic: :true, validate: :true, dependent: :destroy
+  belongs_to :plex_object_flavor, polymorphic: :true, validate: :true, dependent: :destroy, optional: true
   before_destroy :delete_thumbnail
   before_create :init
   after_save :get_img

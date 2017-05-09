@@ -6,9 +6,6 @@ require 'rails/test_help'
 require 'minitest/reporters'
 require 'webmock/minitest'
 require 'strip_attributes/matchers'
-# require 'capybara/rails'
-# require 'capybara/poltergeist'
-# require 'capybara-screenshot/minitest'
 require 'yaml'
 require 'fabrication'
 require 'faker'
@@ -16,7 +13,6 @@ require 'vcr'
 require 'minitest-vcr'
 require 'parallel_tests/test/runtime_logger' if ENV['RECORD_RUNTIME']
 Minitest::Reporters.use!
-# Capybara.javascript_driver = :poltergeist
 
 # Allow existing stubs to work with VCR and shit
 # https://github.com/vcr/vcr/issues/146
@@ -175,9 +171,6 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
-  # include Capybara::DSL
-  # include Capybara::Screenshot::MiniTestPlugin
-  # Capybara::Screenshot.webkit_options = {width: 1920, height: 1080}
 
   PlexObject.set(images_dir: 'test/test_images')
 
