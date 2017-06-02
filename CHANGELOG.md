@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.13.0] : 2017-5-6
+### Changed
+- Updated to rails 5!
+  - This is a breaking change for many users. You will need to run:
+      
+      put upgrade commands here. Don't forget or you'll look stupid.
+
 ## [v0.12.1] : 2017-4-27
 ### Changed
 - Added validations to plex_sessions which make sure that when we try to do math
