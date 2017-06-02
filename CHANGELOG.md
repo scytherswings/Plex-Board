@@ -5,9 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [v0.13.0] : 2017-5-6
 ### Changed
 - Updated to rails 5!
-  - This is a breaking change for many users. You will need to run:
-      
-      put upgrade commands here. Don't forget or you'll look stupid.
+  - This shouldn't be a breaking change for anyone. Just run `update.sh` and everything should be fine.
+    If everything is not fine then please open a new issue on GitHub! 
 
 ## [v0.12.1] : 2017-4-27
 ### Changed
