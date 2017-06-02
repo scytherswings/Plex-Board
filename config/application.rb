@@ -20,6 +20,8 @@ module Workspace
         'X-Frame-Options' => 'ALLOWALL'
     }
 
+    config.assets.unknown_asset_fallback = true
+
     config.cache_store = :memory_store
 
     # Settings in config/environments/* take precedence over those specified here.
