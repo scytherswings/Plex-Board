@@ -124,7 +124,7 @@ GEM
     mini_portile2 (2.1.0)
     minispec-metadata (2.0.0)
       minitest
-    minitest (5.10.1)
+    minitest (5.10.2)
     minitest-reporters (1.1.14)
       ansi
       builder
@@ -138,7 +138,7 @@ GEM
     multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (2.0.0)
-    nokogiri (1.7.1)
+    nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
     parallel (1.11.2)
     parallel_tests (2.14.1)
