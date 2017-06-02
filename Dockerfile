@@ -10,6 +10,7 @@ ENV LOG_TO_STDOUT true
 RUN apt-get update -qq \
     && apt-get install -y \
       bundler \
+      git \
       nodejs \
       libsqlite3-dev \
     && rm -rf /var/lib/apt/lists/*

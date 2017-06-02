@@ -1,4 +1,4 @@
-class CreatePlexSessions < ActiveRecord::Migration
+class CreatePlexSessions < ActiveRecord::Migration[4.2]
   def change
     create_table :plex_sessions do |t|
       t.integer :progress

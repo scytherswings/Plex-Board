@@ -1,4 +1,4 @@
-class CreateWeathers < ActiveRecord::Migration
+class CreateWeathers < ActiveRecord::Migration[4.2]
   def change
     create_table :weathers do |t|
       t.string :api_key

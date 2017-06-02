@@ -1,4 +1,4 @@
-class CreatePlexServices < ActiveRecord::Migration
+class CreatePlexServices < ActiveRecord::Migration[4.2]
   def change
     create_table :plex_services do |t|
       t.string :username
