@@ -2,7 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [v0.13.0] : 2017-5-6
+## [v0.13.1] : 2017-6-1
+### Changed
+- Fixed database migrations so docker will be happy.
+
+## [v0.13.0] : 2017-6-1
 ### Changed
 - Updated to rails 5!
   - This shouldn't be a breaking change for anyone. Just run `update.sh` and everything should be fine.
