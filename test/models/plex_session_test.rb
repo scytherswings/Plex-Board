@@ -8,6 +8,18 @@ class PlexSessionTest < ActiveSupport::TestCase
     assert @plex_service_w2sess_session_2.valid?, 'Session_three was invalid'
   end
 
+  test  'plex_session should have progress' do
+    plex_session = @plex_service_w1sess_session_1
+    plex_session.progress = nil
+    assert_not plex_session.valid?
+  end
+
+  test  'plex_session should have total_duration' do
+    plex_session = @plex_service_w1sess_session_1
+    plex_session.total_duration = nil
+    assert_not plex_session.valid?
+  end
+
   test 'plex_user_name should be present' do
     @plex_service_w1sess_session_1.plex_user_name = nil
     assert_not @plex_service_w1sess_session_1.valid?, 'plex_user_name should not be nil'
@@ -19,7 +31,6 @@ class PlexSessionTest < ActiveSupport::TestCase
     @plex_service_w1sess_session_1.plex_user_name = '     '
     assert_not @plex_service_w1sess_session_1.valid?, 'plex_user_name should not be valid with whitespace string'
   end
-
 
   test 'session should be unique' do
     duplicate_session = @plex_service_w1sess_session_1.dup

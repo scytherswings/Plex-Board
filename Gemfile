@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
-gem 'rails', '4.2.8'
+gem 'rails', '5.0.2'
 gem 'rake', '~> 12.0.0'
 gem 'sqlite3', '~> 1.3.13'
 gem 'sass-rails', '~> 5.0.6'
 gem 'uglifier', '~> 3.1.9'
 gem 'coffee-rails', '~> 4.2.1'
 gem 'jquery-rails', '~> 4.3.1'
-gem 'turbolinks', '~> 2.5.3'
+gem 'turbolinks', '~> 5.0.0'
 gem 'autoprefixer-rails', '~> 6.7.7.1'
 gem 'jquery-turbolinks', '~> 2.1.0'
 gem 'jbuilder', '~> 2.6.3'
@@ -37,6 +37,7 @@ group :development do
 end
 
 group :test do
+  gem 'rails-controller-testing', '~> 1.0.1'
   gem 'simplecov', '~> 0.14.1'
   gem 'coveralls', '~> 0.8.20'
   gem 'minitest-reporters', '~> 1.1.14'

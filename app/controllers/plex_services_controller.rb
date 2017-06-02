@@ -1,6 +1,6 @@
 class PlexServicesController < ApplicationController
   before_action :set_plex_service, only: [:show, :edit, :update, :destroy]
-  before_filter :set_sidebar_values, except: [:now_playing, :recently_added, :create, :update, :destroy]
+  before_action :set_sidebar_values, except: [:now_playing, :recently_added, :create, :update, :destroy]
 
   def set_sidebar_values
     @services = Service.all

@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.12.0
+## Version 0.13.0
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
@@ -115,6 +115,10 @@ Auto-start instructions coming soon.
 1. Read the [CHANGELOG.md](CHANGELOG.md) to make sure you haven't missed any important changes! \
    I try to keep breaking changes to a minimum but sometimes it just isn't possible.
    Any time this happens the changelog will detail what the change is and how to fix it.
+
+2. Create an [issue](https://github.com/scytherswings/Plex-Board/issues/new) if you are having trouble figuring it out. \
+   Or you can ping me on [Gitter](https://gitter.im/scytherswings/Plex-Board?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+   and I'll help you out!
 
 ### This project is not ready for real production use yet, so don't expect stability until a 1.0.0 release.
 Then when things break you can yell at me and use this readme as an excuse.

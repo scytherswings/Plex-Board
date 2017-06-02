@@ -11,8 +11,10 @@ class Service < ActiveRecord::Base
   strip_attributes only: [:ip, :url, :dns_name], collapse_spaces: true
 
   validates_associated :service_flavor
-  validates :name, presence: true, uniqueness: true, allow_blank: false
-  validates :url, presence: true, uniqueness: true, allow_blank: false
+  validates_presence_of :name
+  validates_uniqueness_of :name
+  validates_presence_of :url
+  validates_uniqueness_of :url
   validates_inclusion_of :port, in: 1..65_535
   validates :ip,
             length: {minimum: 7, maximum: 45},

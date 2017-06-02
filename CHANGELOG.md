@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.13.0] : 2017-5-6
+### Changed
+- Updated to rails 5!
+  - This shouldn't be a breaking change for anyone. Just run `update.sh` and everything should be fine.
+    If everything is not fine then please open a new issue on GitHub! 
+
+## [v0.12.1] : 2017-4-27
+### Changed
+- Added validations to plex_sessions which make sure that when we try to do math
+there will actually be numbers to do the math on.
+  - If you have any issues try running `rake db:migrate:redo` from the root folder
+  of the application.
+- Fixed the ordering of Plex Recently Added
+
 ## [v0.12.0] : 2017-4-15
 ### Changed
 - __!!!IMPORTANT!!!__ \

@@ -1,6 +1,6 @@
 Rails.application.configure do
 
-  unless ENV['RAILS_ENV'] == 'test'
+  unless Rails.env == 'test'
     ActiveRecord::Base.logger.level = Logger::INFO
   end
 

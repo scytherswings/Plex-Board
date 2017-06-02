@@ -25,7 +25,7 @@ class NotificationsController < ApplicationController
           all_active_sessions = []
           plex_service.plex_sessions.try(:each) do |plex_session|
             if plex_session.plex_object.nil?
-              logger.error { "PlexSession: #{plex_session.id} had a nil plex_object. Destroying." }
+              logger.error {"PlexSession: #{plex_session.id} had a nil plex_object. Destroying."}
               plex_session.destroy!
               next
             end
@@ -48,6 +48,16 @@ class NotificationsController < ApplicationController
             end
           elsif (i % 5).zero?
             events << {data: [], event: 'plex_now_playing'}
+          end
+          if (i % 10).zero?
+            plex_service.plex_recently_addeds.order('added_date DESC').first(5).each do |pra|
+              data = {id: pra.id,
+                      html: render_to_string(partial: 'plex_services/recently_added',
+                                             formats: [:html],
+                                             locals: {plex_recently_added: pra,
+                                                      active: ''})}
+              events << {data: data, event: 'plex_recently_added'}
+            end
           end
         end
 
