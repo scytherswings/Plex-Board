@@ -72,16 +72,7 @@ if ! [[ ${INSTALLED_RUBY_VERSION} =~ 2\.[3-4]\.[0-9]+ ]];  then
   exit 1
 fi
 
-#This straight-up doesn't work right.
-
-#BUNDLER_INSTALLED="$(gem list bundler -i)"
-#echo ${BUNDLER_INSTALLED}
-#if [[ "${BUNDLER_INSTALLED}" = false ]]; then
-#  printf "Bundler was not installed. Installing...\n"
-  gem install bundler rake --no-ri --no-rdoc
-#  printf "After installing bundler you will need to refresh your PATH variables. Close and reopen your shell, re-login, or reboot."
-#  exit 1
-#fi
+gem install bundler rake --no-ri --no-rdoc
 
 printf "\nInstalling Gems. This could take a while depending on how powerful your CPU is...\n"
 bundle install --without development test
