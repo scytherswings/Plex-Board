@@ -36,22 +36,25 @@ rm -rf public/images
 
 HOME_RVM=$HOME/.rvm/scripts/rvm
 ROOT_RVM="/usr/local/rvm/scripts/rvm"
+
+RUBY_VERSION="2.4.1"
+
 # Load RVM into a shell session *as a function*
 if [[ -s ${HOME_RVM} ]] ; then
   # First try to load from a user install
   source ${HOME_RVM} \
   && printf "\nRVM successfully loaded from $HOME_RVM\n" \
-  && printf "\nInstalling ruby-2.4.1 if it isn't already installed. This could take a while...\n" \
-  && rvm install ruby-2.4.1 \
-  && rvm use gemset ruby-2.4.1@plexdashboard
+  && printf "\nInstalling ruby-$RUBY_VERSION if it isn't already installed. This could take a while...\n" \
+  && rvm install ruby-${RUBY_VERSION} \
+  && rvm use gemset ruby-${RUBY_VERSION}@plexdashboard
 
 elif [[ -s ${ROOT_RVM} ]] ; then
   # Then try to load from a root install
   source ${ROOT_RVM} \
   && printf "\nRVM successfully loaded from $ROOT_RVM\n" \
-  && printf "\nInstalling ruby-2.4.1 if it isn't already installed. This could take a while...\n" \
-  && rvm install ruby-2.4.1 \
-  && rvm use gemset ruby-2.4.1@plexdashboard
+  && printf "\nInstalling ruby-$RUBY_VERSION if it isn't already installed. This could take a while...\n" \
+  && rvm install ruby-${RUBY_VERSION} \
+  && rvm use gemset ruby-${RUBY_VERSION}@plexdashboard
 
 else
   if [[ "$OS" == "Windows" ]]; then
@@ -61,11 +64,11 @@ else
   fi
 fi
 
-RUBY_VERSION="$(ruby -v)"
+INSTALLED_RUBY_VERSION="$(ruby -v)"
 
-if ! [[ ${RUBY_VERSION} =~ 2\.4\.[0-9]+ ]];  then
+if ! [[ ${INSTALLED_RUBY_VERSION} =~ 2\.[3-4]\.[0-9]+ ]];  then
   printf "\nERROR: The required version of ruby was not installed. This application will not work with any ruby < 2.3.x"
-  printf "\nFound: ${RUBY_VERSION}\n"
+  printf "\nFound: ${INSTALLED_RUBY_VERSION}\n"
   exit 1
 fi
 
