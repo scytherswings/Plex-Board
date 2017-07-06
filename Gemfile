@@ -13,7 +13,7 @@ gem 'jbuilder', '~> 2.6.3'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'sprockets-rails', '~> 3.2.0'
-gem 'simple_form', git: 'https://github.com/elsurudo/simple_form', branch: 'rails-5.1.0'
+gem 'simple_form', '~> 3.5.0'
 gem 'strip_attributes', '~> 1.8.0'
 gem 'rest-client', '~> 2.0.1'
 gem 'json', '~> 1.8.6'
@@ -41,14 +41,11 @@ group :test do
   gem 'simplecov', '~> 0.14.1'
   gem 'coveralls', '~> 0.8.20'
   gem 'minitest-reporters', '~> 1.1.14'
-  gem 'mini_backtrace', '~> 0.1.3'
   gem 'webmock', '~> 2.3.2'
   gem 'vcr', '~> 3.0.3'
   gem 'minitest-vcr', '~> 1.4.0'
   gem 'faker', '~> 1.7.3'
   gem 'fabrication', '~> 2.16.1'
-  # gem 'guard', '~> 2.13.0'
-  # gem 'guard-minitest', '~> 2.4.4'
 end
 
 group :production do
