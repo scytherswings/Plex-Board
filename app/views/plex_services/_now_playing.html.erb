@@ -3,7 +3,7 @@
     <h2>Now Playing</h2>
     <div class="thumbnail">
 
-      <%= image_tag plex_session.plex_object.get_img %>
+      <%= image_tag plex_session.plex_object.get_img, skip_pipeline: true %>
 
       <div class="progress now-playing-progress-bar" style="height: 5px">
         <div id="plex_progressbar_<%= plex_session.id %>"
