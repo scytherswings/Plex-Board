@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.13.2] : 2017-7-6
+### Changed
+- Bumped versions of some dependencies
+
 ## [v0.13.1] : 2017-6-1
 ### Changed
 - Fixed database migrations so docker will be happy.

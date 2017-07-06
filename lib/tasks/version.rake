@@ -1,4 +1,4 @@
-desc 'update the version numbers of the readme file'
+desc 'update the version numbers of the readme file. Use like this: rails "bump_version[0.13.2]" Yes the quotes do matter'
 task :bump_version, [:version_number] => :environment do |_, args|
   VERSION_REGEX = /\d+\.\d+\.\d+/
   files=%w(config/initializers/version.rb)
