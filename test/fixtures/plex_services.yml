@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: plex_services
+#
+#  id         :integer          not null, primary key
+#  token      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 plex_service_one:
   token: k3qRS5pJuWFz8U9tJp1d
 

@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: services
+#
+#  id                  :integer          not null, primary key
+#  name                :string           not null
+#  dns_name            :string
+#  ip                  :string
+#  url                 :string           not null
+#  port                :integer          not null
+#  service_flavor_id   :integer
+#  service_flavor_type :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+
 require 'resolv'
 class Service < ActiveRecord::Base
   belongs_to :service_flavor, polymorphic: :true, optional: true

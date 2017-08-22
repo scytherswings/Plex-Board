@@ -33,6 +33,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'annotate', require: false
   # gem 'web-console', '~> 2.0'
 end
 

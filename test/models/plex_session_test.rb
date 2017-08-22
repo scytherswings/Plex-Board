@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: plex_sessions
+#
+#  id              :integer          not null, primary key
+#  progress        :integer          not null
+#  total_duration  :integer          not null
+#  plex_user_name  :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  session_key     :string           not null
+#  plex_service_id :integer
+#  stream_type     :string           not null
+#
+
 require 'test_helper'
 
 class PlexSessionTest < ActiveSupport::TestCase

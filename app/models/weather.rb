@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: weathers
+#
+#  id         :integer          not null, primary key
+#  api_key    :string
+#  latitude   :float
+#  longitude  :float
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  address    :string
+#  units      :text
+#  city       :string
+#  state      :string
+#
+
 class Weather < ActiveRecord::Base
   require 'geocoder'
   require 'forecast_io'

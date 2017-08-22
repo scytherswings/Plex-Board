@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: plex_objects
+#
+#  id                      :integer          not null, primary key
+#  image                   :string
+#  thumb_url               :string           not null
+#  description             :text
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  plex_object_flavor_id   :integer
+#  plex_object_flavor_type :string
+#  media_title             :string           not null
+#
+
 plex_object_session_1:
   image: placeholder.png
   media_title: Movie1

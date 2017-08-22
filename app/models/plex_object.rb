@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: plex_objects
+#
+#  id                      :integer          not null, primary key
+#  image                   :string
+#  thumb_url               :string           not null
+#  description             :text
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  plex_object_flavor_id   :integer
+#  plex_object_flavor_type :string
+#  media_title             :string           not null
+#
+
 class PlexObject < ActiveRecord::Base
 
   belongs_to :plex_object_flavor, polymorphic: :true, validate: :true, dependent: :destroy, optional: true

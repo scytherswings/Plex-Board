@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: plex_recently_addeds
+#
+#  id              :integer          not null, primary key
+#  added_date      :datetime         not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  plex_service_id :integer
+#  uuid            :string           not null
+#
+
 require 'test_helper'
 
 class PlexRecentlyAddedTest < ActiveSupport::TestCase
