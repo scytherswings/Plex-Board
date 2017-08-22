@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.13.3] : 2017-8-21
+### Changed
+- Bumped versions of some dependencies again
+- Other backend changes for developer happiness.
+
 ## [v0.13.2] : 2017-7-6
 ### Changed
 - Bumped versions of some dependencies

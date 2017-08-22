@@ -69,10 +69,10 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.6.1)
     execjs (2.7.0)
-    fabrication (2.16.1)
+    fabrication (2.16.3)
     faker (1.7.3)
       i18n (~> 0.5)
-    faraday (0.12.1)
+    faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
     forecast_io (2.0.1)
       faraday
@@ -81,11 +81,11 @@ GEM
     geocoder (1.4.4)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
-    hashdiff (0.3.4)
-    hashie (3.5.5)
+    hashdiff (0.3.5)
+    hashie (3.5.6)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (0.8.4)
+    i18n (0.8.6)
     jbuilder (2.6.4)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2)
@@ -112,8 +112,8 @@ GEM
     mini_portile2 (2.2.0)
     minispec-metadata (2.0.0)
       minitest
-    minitest (5.10.2)
-    minitest-reporters (1.1.14)
+    minitest (5.10.3)
+    minitest-reporters (1.1.15)
       ansi
       builder
       minitest (>= 5.0)
@@ -129,7 +129,7 @@ GEM
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
     parallel (1.11.2)
-    parallel_tests (2.14.1)
+    parallel_tests (2.14.3)
       parallel
     public_suffix (2.0.5)
     puma (3.8.2)
@@ -171,7 +171,7 @@ GEM
       netrc (~> 0.8)
     ruby-progressbar (1.8.1)
     safe_yaml (1.0.4)
-    sass (3.4.24)
+    sass (3.4.25)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -188,7 +188,7 @@ GEM
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.1)
+    simplecov-html (0.10.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     sprockets (3.7.1)
@@ -205,7 +205,7 @@ GEM
       tins (~> 1.0)
     thor (0.19.4)
     thread_safe (0.3.6)
-    tilt (2.0.7)
+    tilt (2.0.8)
     tins (1.15.0)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
@@ -272,4 +272,4 @@ DEPENDENCIES
   webmock (~> 2.3.2)
 
 BUNDLED WITH
-   1.15.0
+   1.15.4
