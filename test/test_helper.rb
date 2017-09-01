@@ -1,5 +1,4 @@
 require 'coveralls'
-Coveralls.wear!('rails')
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -12,6 +11,17 @@ require 'faker'
 require 'vcr'
 require 'minitest-vcr'
 require 'parallel_tests/test/runtime_logger' if ENV['RECORD_RUNTIME']
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+                                                                   SimpleCov::Formatter::HTMLFormatter,
+                                                                   Coveralls::SimpleCov::Formatter
+                                                               ])
+SimpleCov.start 'rails' do
+  add_group 'Models', %w[app/models app/validators]
+  add_group 'Services & Workers', %w[app/workers app/services]
+  add_group 'Controllers', %w[app/controllers]
+end
+
 Minitest::Reporters.use!
 
 # Allow existing stubs to work with VCR and shit
