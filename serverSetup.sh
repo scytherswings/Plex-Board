@@ -41,6 +41,11 @@ UBUNTU_RVM="/usr/share/rvm/bin/rvm"
 RUBY_VERSION="2.4.1"
 
 # Load RVM into a shell session *as a function*
+
+# Make RVM STFU about path order because IDGAF
+# https://github.com/rvm/rvm/issues/2337
+echo rvm_silence_path_mismatch_check_flag=1 >> ~/.rvmrc
+
 if [[ -s ${HOME_RVM} ]] ; then
   # First try to load from a user install
   source ${HOME_RVM} \
