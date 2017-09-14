@@ -41,11 +41,6 @@ UBUNTU_RVM="/usr/share/rvm/bin/rvm"
 RUBY_VERSION="2.4.1"
 
 # Load RVM into a shell session *as a function*
-
-# Make RVM STFU about path order because IDGAF
-# https://github.com/rvm/rvm/issues/2337
-echo rvm_silence_path_mismatch_check_flag=1 >> ~/.rvmrc
-
 if [[ -s ${HOME_RVM} ]] ; then
   # First try to load from a user install
   source ${HOME_RVM} \
@@ -55,9 +50,8 @@ if [[ -s ${HOME_RVM} ]] ; then
   && rvm use gemset ruby-${RUBY_VERSION}@plexdashboard
 
 elif [[ -s ${UBUNTU_RVM} ]] ; then
-  # Second try to load from an Ubuntu install
-  source ${UBUNTU_RVM} \
-  && printf "\nRVM successfully loaded from $UBUNTU_RVM\n" \
+  # Second try to use RVM in an Ubuntu install
+  printf "\nRVM should already be loaded from $UBUNTU_RVM\n" \
   && printf "\nInstalling ruby-$RUBY_VERSION if it isn't already installed. This could take a while...\n" \
   && rvm install ruby-${RUBY_VERSION} \
   && rvm use gemset ruby-${RUBY_VERSION}@plexdashboard
