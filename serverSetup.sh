@@ -36,6 +36,7 @@ rm -rf public/images
 
 HOME_RVM=$HOME/.rvm/scripts/rvm
 ROOT_RVM="/usr/local/rvm/scripts/rvm"
+UBUNTU_RVM="/usr/share/rvm"
 
 RUBY_VERSION="2.4.1"
 
@@ -52,6 +53,13 @@ elif [[ -s ${ROOT_RVM} ]] ; then
   # Then try to load from a root install
   source ${ROOT_RVM} \
   && printf "\nRVM successfully loaded from $ROOT_RVM\n" \
+  && printf "\nInstalling ruby-$RUBY_VERSION if it isn't already installed. This could take a while...\n" \
+  && rvm install ruby-${RUBY_VERSION} \
+  && rvm use gemset ruby-${RUBY_VERSION}@plexdashboard
+
+elif [[ -s ${UBUNTU_RVM} ]] ; then
+  source ${UBUNTU_RVM} \
+  && printf "\nRVM successfully loaded from $UBUNTU_RVM\n" \
   && printf "\nInstalling ruby-$RUBY_VERSION if it isn't already installed. This could take a while...\n" \
   && rvm install ruby-${RUBY_VERSION} \
   && rvm use gemset ruby-${RUBY_VERSION}@plexdashboard

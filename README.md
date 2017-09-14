@@ -78,9 +78,16 @@ have to run which only check your group on login.
 
     If you get a message saying something like: \
     `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` \
+    or \
+    `No command 'rvm' found, but there are 26 similar ones` \
     Then you'll have to run: \
     `/bin/bash --login` \
-    Installing ruby could take a while since it has to compile from source, go get some coffee.
+    and then try again. This is because rvm needs am interactive login shell 
+    instead of the non-interactve shell that gnome normally provides. 
+    
+    See [https://github.com/rvm/ubuntu_rvm](https://github.com/rvm/ubuntu_rvm) for more details.
+    
+    Also, installing ruby could take a while since it has to compile from source, you might want to get some coffee.
 
 7. `cd /opt/Plex-Board`
 
