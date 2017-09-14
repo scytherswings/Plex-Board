@@ -1,5 +1,5 @@
 # Base our image on an official, minimal image of our preferred Ruby
-FROM ruby:2.3.4-slim
+FROM ruby:2.4.1-slim
 
 ENV RAILS_ROOT /app
 ENV RAILS_ENV production
@@ -42,3 +42,7 @@ EXPOSE 3000
 CMD exec bundle exec puma -e production -C $RAILS_ROOT/config/puma.rb $RAILS_ROOT/config.ru
 
 VOLUME $RAILS_ROOT/db/
+
+
+# Notes to remind me how to build this thing when I forget
+# docker build -t plex-board .
