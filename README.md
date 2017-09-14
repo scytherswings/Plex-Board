@@ -1,5 +1,5 @@
 # Plex-Board
-## Version 0.13.3
+## Version 0.14.0
 
 
 [![Build Status](https://travis-ci.org/scytherswings/Plex-Board.svg?branch=master)](https://travis-ci.org/scytherswings/Plex-Board)
@@ -55,8 +55,7 @@ It will run on the original Raspberry Pi B+ which is pretty neat.
 
 ### Ubuntu 16.04 LTS
 
-These instructions have been tested on a fresh install of Ubuntu 16.04 LTS using `bash` as of 4/7/2017 on 
-[v0.11.0](https://github.com/scytherswings/Plex-Board/releases/tag/v0.11.0).
+These instructions have been tested on a fresh install of Ubuntu 16.04 LTS using `bash` as of 9/13/2017.
 
 1. `sudo apt-get update && sudo apt-get install git bundler nodejs curl -y;`
 
@@ -72,7 +71,7 @@ You might have to give your user write permissions to this directory.
 
 5. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-6. `rvm install ruby-2.3.4` 
+6. `rvm install ruby-2.4.1` 
 
     If you get a message saying something like: \
     `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` \
