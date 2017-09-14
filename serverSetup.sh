@@ -49,7 +49,6 @@ if [[ -s ${HOME_RVM} ]] ; then
   && rvm install ruby-${RUBY_VERSION} \
   && rvm use gemset ruby-${RUBY_VERSION}@plexdashboard
 
-
 elif [[ -s ${UBUNTU_RVM} ]] ; then
   # Second try to load from an Ubuntu install
   source ${UBUNTU_RVM} \
