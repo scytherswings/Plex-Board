@@ -75,7 +75,7 @@ fi
 INSTALLED_RUBY_VERSION="$(ruby -v)"
 
 if ! [[ ${INSTALLED_RUBY_VERSION} =~ 2\.[3-4]\.[0-9]+ ]];  then
-  printf "\nERROR: The required version of ruby was not installed. This application will not work with any ruby < 2.3.x"
+  printf "\nERROR: The required version of Ruby was not installed. This application will not work with any Ruby < 2.3.x"
   printf "\nFound: ${INSTALLED_RUBY_VERSION}\n"
   exit 1
 fi
