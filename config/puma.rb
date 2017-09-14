@@ -40,6 +40,7 @@ else
     daemonize false
   else
     puts 'Redirecting log output! If you run into any issues, check the error logs in: log/production.stderr.log, log/production.stdout.log, and log/production.log'
+    puts 'If you need to stop the service run ./stopServer.sh'
     stdout_redirect 'log/production.stdout.log', 'log/production.stderr.log', true
     pidfile "#{Dir.pwd}/tmp/pids/puma.pid"
     state_path "#{Dir.pwd}/tmp/pids/puma.state"

@@ -36,7 +36,7 @@ rm -rf public/images
 
 HOME_RVM=$HOME/.rvm/scripts/rvm
 ROOT_RVM="/usr/local/rvm/scripts/rvm"
-UBUNTU_RVM="/usr/share/rvm"
+UBUNTU_RVM="/usr/share/rvm/bin/rvm"
 
 RUBY_VERSION="2.4.1"
 
