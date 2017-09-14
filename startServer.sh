@@ -28,16 +28,24 @@ if [[ "$OS" == "Windows" ]]; then
 else
   HOME_RVM=$HOME/.rvm/scripts/rvm
   ROOT_RVM="/usr/local/rvm/scripts/rvm"
+  UBUNTU_RVM="/usr/share/rvm/bin/rvm"
+
   # Load RVM into a shell session *as a function*
   if [[ -s ${HOME_RVM} ]] ; then
     # First try to load from a user install
     source ${HOME_RVM} \
     && printf "\nRVM successfully loaded from $HOME_RVM\n"
 
+  elif [[ -s ${UBUNTU_RVM} ]] ; then
+    # Second try to load from an Ubuntu install
+    source ${UBUNTU_RVM} \
+    && printf "\nRVM successfully loaded from $UBUNTU_RVM\n"
+
   elif [[ -s ${ROOT_RVM} ]] ; then
     # Then try to load from a root install
     source ${ROOT_RVM} \
     && printf "\nRVM successfully loaded from $ROOT_RVM\n"
+
   else
     printf "\nWARNING: An RVM installation was not found. Did you follow the instructions correctly? Attempting to use system Ruby...\n"
   fi
