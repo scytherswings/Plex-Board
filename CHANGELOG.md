@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Unused gems were removed which should make the project work better.. probably.
 
 ### Changed
-- Upgraded to Rails 2.4.1
+- Upgraded to Rails 2.4.2
 - Updated dockerfile to use ruby:2.4.1-slim base image.
 
 ## [v0.13.3] : 2017-8-21
