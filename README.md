@@ -74,7 +74,7 @@ have to run which only check your group on login.
 
 5. `git clone https://github.com/scytherswings/Plex-Board.git`
 
-6. `rvm install ruby-2.4.1` 
+6. `rvm install ruby-2.4.2` 
 
     If you get a message saying something like: \
     `RVM is not a function, selecting rubies with 'rvm use ...' will not work.` \
