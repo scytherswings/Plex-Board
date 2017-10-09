@@ -7,10 +7,11 @@
 [![Gitter](https://badges.gitter.im/scytherswings/Plex-Board.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B6MNRRPVZ34TN)
 
-## Vote on the new name
+# Vote on the new name
 
 I don't want to be stepping on the Plex trademark so I'm going to rename this project. Please vote on the name you think is best or suggest your own name. [Vote here!](https://www.surveymonkey.com/r/5B68MVZ)
 
+---
 
 What is Plex-Board? Put simply, it is a dynamic dashboard for checking the status of multiple services related 
 to Plex Media Server (Plex, Couchpotato, Sickrage, Deluge, Sabnzbd+, etc.).
