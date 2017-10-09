@@ -9,7 +9,7 @@
 
 # Vote on the new name
 
-I don't want to be stepping on the Plex trademark so I'm going to rename this project. Please vote on the name you think is best or suggest your own name. [Vote here!](https://www.surveymonkey.com/r/5B68MVZ)
+I don't want to be stepping on the Plex trademark so I'm going to rename this project. Please vote on the name you think is best or suggest your own name. [Vote here!](https://www.surveymonkey.com/r/KK9G83M)
 
 ---
 
