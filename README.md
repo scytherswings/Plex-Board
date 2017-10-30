@@ -57,7 +57,7 @@ It will run on the original Raspberry Pi B+ which is pretty neat.
 #### Other supported systems:
 
 * [Plex-Board Wiki Homepage](https://github.com/scytherswings/Plex-Board/wiki)
-* [Docker!!!](https://github.com/scytherswings/Plex-Board/wiki/Plex-Board-Docker-Installation-Guide)
+* [Docker!!!](https://github.com/scytherswings/Plex-Board/wiki/Docker-Installation-Guide)
 
 ### Ubuntu 16.04 LTS
 
