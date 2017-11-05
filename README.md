@@ -7,9 +7,9 @@
 [![Gitter](https://badges.gitter.im/scytherswings/Plex-Board.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B6MNRRPVZ34TN)
 
-# Vote on the new name
+# Vote on the new name!
 
-I don't want to be stepping on the Plex trademark so I'm going to rename this project. Please vote on the name you think is best or suggest your own name. [Vote here!](https://www.surveymonkey.com/r/KK9G83M)
+The survey results are in! I'll be changing the name of this project to `Monitorr`. Thanks to everyone who took the time to give me your feedback!
 
 ---
 
