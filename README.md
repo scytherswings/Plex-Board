@@ -1,3 +1,11 @@
+# This project has moved!
+
+In order to avoid stepping on the Plex trademark I have renamed this project to [Porthole](https://github.com/Porthole-Project/Porthole).
+I am still in the process of moving and renaming things so please bear with me through this transition. If you have any questions feel free to ask in the new 
+[Gitter chatroom](https://gitter.im/Porthole-Project/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)!
+
+---
+
 # Plex-Board
 ## Version 0.14.0
 
@@ -6,10 +14,6 @@
 [![Coverage Status](https://coveralls.io/repos/scytherswings/Plex-Board/badge.svg?branch=master&service=github)](https://coveralls.io/github/scytherswings/Plex-Board?branch=master)
 [![Gitter](https://badges.gitter.im/scytherswings/Plex-Board.svg)](https://gitter.im/scytherswings/Plex-Board?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B6MNRRPVZ34TN)
-
-# Vote on the new name!
-
-The survey results are in! I'll be changing the name of this project to `Monitorr`. Thanks to everyone who took the time to give me your feedback!
 
 ---
 
